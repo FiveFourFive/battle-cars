@@ -150,8 +150,11 @@ bool CLevel::CheckWorldCollision (CBase* pBase)
 {
 	RECT intersection;
 
-	int StartIndex = ((pBase->GetCamera ()->GetRect().top / LevelMap->GetPixelHeight()) * LevelMap->GetMapWidth ()) + (pBase->GetCamera ()->GetRect().left / LevelMap->GetPixelWidth());
-	int EndIndex = ((pBase->GetCamera ()->GetRect().bottom / LevelMap->GetPixelHeight()) * LevelMap->GetMapWidth()) + (pBase->GetCamera ()->GetRect().right / LevelMap->GetPixelWidth());
+	int StartIndex = ((((CPlayer*)pBase)->GetCamera ()->GetRect().top / LevelMap->GetPixelHeight()) * LevelMap->GetMapWidth ()) + (((CPlayer*)pBase)->GetCamera ()->GetRect().left / LevelMap->GetPixelWidth());
+	int EndIndex = ((((CPlayer*)pBase)->GetCamera ()->GetRect().bottom / LevelMap->GetPixelHeight()) * LevelMap->GetMapWidth()) + (((CPlayer*)pBase)->GetCamera ()->GetRect().right / LevelMap->GetPixelWidth());
+
+	if (StartIndex < 0)
+		StartIndex = 0;
 
 	CTile* collisionList = LevelMap->GetCollisionList();
 
