@@ -1,0 +1,17 @@
+C:\Users\Josh Fields\Desktop\Battle Cars Tile Editor\Tile Editor\Tile Editor\bin\Debug\Tile Editor.exe.config
+C:\Users\Josh Fields\Desktop\Battle Cars Tile Editor\Tile Editor\Tile Editor\bin\Debug\Tile Editor.exe
+C:\Users\Josh Fields\Desktop\Battle Cars Tile Editor\Tile Editor\Tile Editor\bin\Debug\Tile Editor.pdb
+C:\Users\Josh Fields\Desktop\Battle Cars Tile Editor\Tile Editor\Tile Editor\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Josh Fields\Desktop\Battle Cars Tile Editor\Tile Editor\Tile Editor\obj\x86\Debug\Tile_Editor.MapEditor.resources
+C:\Users\Josh Fields\Desktop\Battle Cars Tile Editor\Tile Editor\Tile Editor\obj\x86\Debug\Tile_Editor.Properties.Resources.resources
+C:\Users\Josh Fields\Desktop\Battle Cars Tile Editor\Tile Editor\Tile Editor\obj\x86\Debug\Tile_Editor.TileWindow.resources
+C:\Users\Josh Fields\Desktop\Battle Cars Tile Editor\Tile Editor\Tile Editor\obj\x86\Debug\Tile_Editor.ToolsWindow.resources
+C:\Users\Josh Fields\Desktop\Battle Cars Tile Editor\Tile Editor\Tile Editor\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Josh Fields\Desktop\Battle Cars Tile Editor\Tile Editor\Tile Editor\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Josh Fields\Desktop\Battle Cars Tile Editor\Tile Editor\Tile Editor\obj\x86\Debug\Tile Editor.exe
+C:\Users\Josh Fields\Desktop\Battle Cars Tile Editor\Tile Editor\Tile Editor\obj\x86\Debug\Tile Editor.pdb
+C:\Users\Josh Fields\Desktop\Battle Cars Tile Editor\Tile Editor\Tile Editor\obj\x86\Debug\GenerateResource-ResGen.read.1.tlog
+C:\Users\Josh Fields\Desktop\Battle Cars Tile Editor\Tile Editor\Tile Editor\obj\x86\Debug\GenerateResource-ResGen.read.7.tlog
+C:\Users\Josh Fields\Desktop\Battle Cars Tile Editor\Tile Editor\Tile Editor\obj\x86\Debug\GenerateResource-ResGen.write.1.tlog
+C:\Users\Josh Fields\Desktop\Battle Cars Tile Editor\Tile Editor\Tile Editor\obj\x86\Debug\GenerateResource-ResGen.read.4.tlog
+C:\Users\Josh Fields\Desktop\Battle Cars Tile Editor\Tile Editor\Tile Editor\obj\x86\Debug\Tile_Editor.HelpWindow.resources
