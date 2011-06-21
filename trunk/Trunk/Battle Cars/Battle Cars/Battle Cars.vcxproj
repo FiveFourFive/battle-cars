@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A7A6C2CB-C9CE-42CA-95F9-9959BBC00ACC}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>BattleCars</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\CAnimation.cpp" />
+    <ClCompile Include="Source\CBase.cpp" />
+    <ClCompile Include="Source\CBullet.cpp" />
+    <ClCompile Include="Source\CCamera.cpp" />
+    <ClCompile Include="Source\CCar.cpp" />
+    <ClCompile Include="Source\CCellAnimation.cpp" />
+    <ClCompile Include="Source\CEnemy.cpp" />
+    <ClCompile Include="Source\CEventSystem.cpp" />
+    <ClCompile Include="Source\CGame.cpp" />
+    <ClCompile Include="Source\CGamePlayState.cpp" />
+    <ClCompile Include="Source\CHowToPlayState.cpp" />
+    <ClCompile Include="Source\CLevel.cpp" />
+    <ClCompile Include="Source\CMainMenuState.cpp" />
+    <ClCompile Include="Source\CMap.cpp" />
+    <ClCompile Include="Source\CMessage.cpp" />
+    <ClCompile Include="Source\CMessageSystem.cpp" />
+    <ClCompile Include="Source\CObjectManager.cpp" />
+    <ClCompile Include="Source\COptionState.cpp" />
+    <ClCompile Include="Source\CPauseMenuState.cpp" />
+    <ClCompile Include="Source\CPlayer.cpp" />
+    <ClCompile Include="Source\CPrintFont.cpp" />
+    <ClCompile Include="Source\CSGD_Direct3D.cpp" />
+    <ClCompile Include="Source\CSGD_DirectInput.cpp" />
+    <ClCompile Include="Source\CSGD_FModManager.cpp" />
+    <ClCompile Include="Source\CSGD_TextureManager.cpp" />
+    <ClCompile Include="Source\CSpeedRamp.cpp" />
+    <ClCompile Include="Source\CStopWatch.cpp" />
+    <ClCompile Include="Source\CTile.cpp" />
+    <ClCompile Include="Source\CXboxInput.cpp" />
+    <ClCompile Include="Source\Emittor.cpp" />
+    <ClCompile Include="Source\ParticleManager.cpp" />
+    <ClCompile Include="Source\SGD_Math.cpp" />
+    <ClCompile Include="Source\tinystr.cpp" />
+    <ClCompile Include="Source\tinyxml.cpp" />
+    <ClCompile Include="Source\tinyxmlerror.cpp" />
+    <ClCompile Include="Source\tinyxmlparser.cpp" />
+    <ClCompile Include="Source\WinMain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Source\CAnimation.h" />
+    <ClInclude Include="Source\CBase.h" />
+    <ClInclude Include="Source\CBullet.h" />
+    <ClInclude Include="Source\CCamera.h" />
+    <ClInclude Include="Source\CCar.h" />
+    <ClInclude Include="Source\CCellAnimation.h" />
+    <ClInclude Include="Source\CEnemy.h" />
+    <ClInclude Include="Source\CEvent.h" />
+    <ClInclude Include="Source\CEventSystem.h" />
+    <ClInclude Include="Source\CGame.h" />
+    <ClInclude Include="Source\CGamePlayState.h" />
+    <ClInclude Include="Source\CHowToPlayState.h" />
+    <ClInclude Include="Source\CLevel.h" />
+    <ClInclude Include="Source\CMainMenuState.h" />
+    <ClInclude Include="Source\CMap.h" />
+    <ClInclude Include="Source\CMessage.h" />
+    <ClInclude Include="Source\CMessageSystem.h" />
+    <ClInclude Include="Source\CObjectFactory.h" />
+    <ClInclude Include="Source\CObjectManager.h" />
+    <ClInclude Include="Source\COptionState.h" />
+    <ClInclude Include="Source\CPauseMenuState.h" />
+    <ClInclude Include="Source\CPlayer.h" />
+    <ClInclude Include="Source\CPrintFont.h" />
+    <ClInclude Include="Source\CSGD_Direct3D.h" />
+    <ClInclude Include="Source\CSGD_DirectInput.h" />
+    <ClInclude Include="Source\CSGD_FModManager.h" />
+    <ClInclude Include="Source\CSGD_TextureManager.h" />
+    <ClInclude Include="Source\CSpeedRamp.h" />
+    <ClInclude Include="Source\CStopWatch.h" />
+    <ClInclude Include="Source\CTile.h" />
+    <ClInclude Include="Source\CXboxInput.h" />
+    <ClInclude Include="Source\Emittor.h" />
+    <ClInclude Include="Source\IBaseInterface.h" />
+    <ClInclude Include="Source\IGameState.h" />
+    <ClInclude Include="Source\IListener.h" />
+    <ClInclude Include="Source\ParticleManager.h" />
+    <ClInclude Include="Source\SGD_Math.h" />
+    <ClInclude Include="Source\SGD_Util.h" />
+    <ClInclude Include="Source\tinystr.h" />
+    <ClInclude Include="Source\tinyxml.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Amplifier Results\r000hs\r000hs.ampl" />
+    <None Include="My Amplifier Results\r001hs\r001hs.ampl" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
