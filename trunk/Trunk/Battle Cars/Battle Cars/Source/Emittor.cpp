@@ -84,8 +84,8 @@ void Emittor::Update(float fElapsedTime)
 							if( fElapsedTime > 1)
 							{
 								
-							m_vParticleList[i]->velocity.fX = (rand()% (int)maxVelocity.fX - fabs(minVelocity.fX)) * 0.01;
-							m_vParticleList[i]->velocity.fY = (rand()% (int)maxVelocity.fY - fabs(minVelocity.fY)) * 0.01;
+							m_vParticleList[i]->velocity.fX = (rand()% (int)maxVelocity.fX - fabs(minVelocity.fX)) * 0.01f;
+							m_vParticleList[i]->velocity.fY = (rand()% (int)maxVelocity.fY - fabs(minVelocity.fY)) * 0.01f;
 							}
 							else
 							{
