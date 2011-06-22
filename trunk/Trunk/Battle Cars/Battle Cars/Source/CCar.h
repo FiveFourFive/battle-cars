@@ -4,6 +4,7 @@
 #include "CBase.h"
 #include "SGD_Math.h"
 
+enum weapons { WEAPON_PISTOL, WEAPON_RPG, WEAPON_SPECIAL };
 class CCar : public CBase
 {
 
@@ -25,6 +26,7 @@ private:
 	int m_nKillCount;
 	float m_fFireDelay;
 	int m_nBulletSound;
+	int m_nSelectedWeapon;
 	tVector2D m_tDirection;
 	tVector2D m_tVelocity;
 public:
@@ -51,6 +53,7 @@ public:
 	float GetMaxSpeed(void) { return m_fMaxSpeed; }
 	int GetKillCount(void) { return m_nKillCount; }
 	float GetFireDelay(void) { return m_fFireDelay; }
+	int GetSelectedWeapon(void) { return m_nSelectedWeapon; }
 	//setters
 	void SetPowerUpBar(float pbar) { m_fPowerUpBar = pbar; }
 	void SetShieldBar(float sbar) { m_fShieldBar = sbar; }
@@ -69,6 +72,9 @@ public:
 	void SetMaxSpeed(float maxspeed) { m_fMaxSpeed = maxspeed; }
 	void SetKillCount(int killcount) { m_nKillCount = killcount; }
 	void SetFireDelay(float delay) { m_fFireDelay = delay; }
+	void IncrementWeapon(void) { m_nSelectedWeapon++; }
+	void DecrementWeapon(void) { m_nSelectedWeapon--; }
+	void SetSelectedWeapon(int wepnum) { m_nSelectedWeapon = wepnum; }
 	// plays the crash sound
 	void PlayCrash(void);
 	void PlayBullet(void);

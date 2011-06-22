@@ -26,10 +26,12 @@ CPlayer::CPlayer(void)
 	m_pES = CEventSystem::GetInstance ();
 
 	m_pES->RegisterClient ("CameraCollision", this);
+	m_pES->RegisterClient("powerup", this);
 }
 CPlayer::~CPlayer(void)
 {
 	m_pES->UnregisterClient ("CameraCollision", this);
+	m_pES->UnregisterClient("powerup",this);
 	delete m_pCamera;
 }
 
@@ -75,6 +77,12 @@ void CPlayer::Update(float fElapsedTime)
 				CGame::GetInstance()->AddState(CPauseMenuState::GetInstance());
 				CPauseMenuState::GetInstance()->SetController(m_pController1);
 				CGame::GetInstance()->ResetInputDelay();
+			}
+			if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_LEFT_SHOULDER )
+			{
+				IncrementWeapon();
+				if(GetSelectedWeapon() > 2)
+					SetSelectedWeapon(0);
 			}
 			if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_B)
 			{
@@ -141,13 +149,22 @@ void CPlayer::Update(float fElapsedTime)
 
 		if(m_pDI->KeyDown(DIK_RIGHT))
 			SetRotation(GetRotation() + (GetRotationRate() * fElapsedTime));
-
-		if(m_pDI->KeyPressed(DIK_SPACE))
+		if(m_fFireDelay >= GetFireDelay())
 		{
+		if(m_pDI->KeyDown(DIK_SPACE))
+		{
+
 			CMessageSystem* pMS = CMessageSystem::GetInstance();
+			PlayBullet();
 			pMS->SendMsg(new CCreatePlayerBulletMessage(this));
 		}
-
+		}
+		if(m_pDI->KeyPressed(DIK_LCONTROL))
+		{
+			IncrementWeapon();
+				if(GetSelectedWeapon() > 2)
+					SetSelectedWeapon(0);
+		}
 		if(m_pDI->KeyPressed(DIK_Z))
 		{
 			if(GetShieldBar() <= 0)
@@ -239,8 +256,21 @@ void CPlayer::Render(void)
 	weapon.top = 500;
 	weapon.right = weapon.left + 90;
 	weapon .bottom = weapon.top + 100;
-	pD3D->DrawRect(weapon,255,255,255);
+	switch(GetSelectedWeapon())
+	{
+	case WEAPON_PISTOL:
+		pD3D->DrawRect(weapon,255,255,255);
+		break;
+	case WEAPON_RPG:
+		pD3D->DrawRect(weapon,255,0,0);
+		break;
+	case WEAPON_SPECIAL:
+		pD3D->DrawRect(weapon,0,0,255);
+		break;
+	}
 	pD3D->DrawText("weapon",10,550,0,0,0);
+	
+	
 
 	minimap.left = 650;
 	minimap.top = 450;
