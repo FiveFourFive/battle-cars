@@ -30,6 +30,7 @@ class CXboxInput;
 class CSpeedRamp;
 class ParticleManager;
 class CEnemy;
+class PowerUp;
 
 class CGamePlayState : public IGameState
 {
@@ -61,6 +62,7 @@ private:
 	// objects
 	CPlayer* player;
 	CEnemy* dummy;
+	PowerUp* power_up;
 	CSpeedRamp* speedy;
 	// sound
 	int m_nBackgroundMusicID;
