@@ -5,6 +5,7 @@
 //	Purpose :  contains all game related code
 /////////////////////////////////////////////////////////
 
+#include <ctime>
 #include "CGame.h"
 #include "CSGD_Direct3D.h"
 #include "CSGD_TextureManager.h"
@@ -29,6 +30,8 @@ CGame::CGame()
 	m_fElapsedTime		=	0;
 	m_ScreenWidth	= 800;
 	m_ScreenHeight	= 600;
+
+	srand (unsigned int (time (NULL)));
 }
 
 CGame::~CGame()

@@ -12,21 +12,29 @@ CCar::CCar(void)
 	m_fRotationRate = 3.14f;
 	m_fSpeed = 0.0f;
 	m_fRotation = 0.0f;
+
 	m_tDirection.fX = 0.0f;
 	m_tDirection.fY = -1.0f;
+
 	m_tVelocity.fX = 0.0f;
 	m_tVelocity.fY = 0.0f;
+
 	SetPosX(350);
 	SetPosY(225);
+
 	SetWidth(52);
 	SetHeight(70);
+
 	SetVelY(0);
 	m_nKillCount = 0;
 	SetVelX(0);
+
 	std::vector<CCar*>* templist = CGamePlayState::GetInstance()->GetList();
 	templist->push_back(this);
+
 	m_nCrashID = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/crash.mp3");
 	m_nBulletSound = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/bullet1.mp3");
+
 	CSGD_FModManager::GetInstance()->SetVolume(m_nBulletSound,0.5f);
 	m_fFireDelay = 0.1f;
 }

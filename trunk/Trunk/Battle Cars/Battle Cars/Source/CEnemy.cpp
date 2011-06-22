@@ -9,7 +9,7 @@
 /////////////////////////////////////////////////
 
 #include "CEnemy.h"
-//#include "CWanderState.h"
+#include "CWanderState.h"
 
 CEnemy::CEnemy()
 {
@@ -18,7 +18,8 @@ CEnemy::CEnemy()
 
 	m_pES->RegisterClient ("CameraCollision", this);
 
-	m_AICurrentState = &m_Wander;
+	m_AICurrentState = CWanderState::GetInstance();
+
 	m_AICurrentState->SetOwner (this);
 	m_AICurrentState->Enter ();
 	m_fViewRadius = 30.0f;
@@ -32,14 +33,17 @@ CEnemy::~CEnemy()
 void CEnemy::Update(float fElapsedTime)
 {
 	//CCar::Update (fElapsedTime);
-
-	if (m_AICurrentState)
-		m_AICurrentState->Update (fElapsedTime);
+	
+	//if (m_AICurrentState)
+	//	m_AICurrentState->Update (fElapsedTime);
 }
 
 void CEnemy::Render()
 {
 	CCar::Render ();
+
+	//if (m_AICurrentState)
+		//m_AICurrentState-
 }
 
 void CEnemy::ChangeState (IAIBaseState* state)

@@ -13,12 +13,18 @@
 CPlayer::CPlayer(void)
 {
 	m_nType = OBJECT_PLAYER;
+
 	m_pController1 = CGame::GetInstance()->GetController1();
+
 	m_fCollisionDelay = 0.0f;
+
 	m_nBulletImageID = CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/bullet.png",D3DCOLOR_XRGB(255, 255, 255));
+
 	m_pCamera = new CCamera();
 	m_pCamera->AttachTo(this,400.0f,300.0f);
+
 	m_pES = CEventSystem::GetInstance ();
+
 	m_pES->RegisterClient ("CameraCollision", this);
 }
 CPlayer::~CPlayer(void)
