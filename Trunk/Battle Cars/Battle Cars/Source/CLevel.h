@@ -11,6 +11,7 @@
 #ifndef _CLEVEL_H_
 #define _CLEVEL_H_
 
+#include <Windows.h>
 class CSGD_TextureManager;
 class CSGD_Direct3D;
 class CMap;

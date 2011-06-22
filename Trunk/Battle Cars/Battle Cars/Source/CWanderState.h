@@ -11,7 +11,7 @@
 #ifndef _CWANDERSTATE_H_
 #define _CWANDERSTATE_H_
 
-#include <Windows.h>
+//#include <Windows.h>
 #include "IAIBaseState.h"
 #include "SGD_Math.h"
 class CEnemy;
@@ -27,21 +27,33 @@ private:
 
 	//RECT m_rtPredictMove;
 
-	tVector2D m_vPredictCircle;
-	float	m_fPredictRadius;
+	//tVector2D m_vPredictCircle;
+	//float	m_fPredictRadius;
 
-	int m_nThreatDistance;
+	//int m_nThreatDistance;
 
 	/*tVector2D m_vVelocity;
 	tVector2D m_vTurn;*/
 
-	CEnemy* m_Owner;
-public:
+	float m_fMainCircleRadius;
+	float m_fNewPointRadius;
+	float m_fAngle;
 
-	CWanderState();
-	~CWanderState();
+	tVector2D m_vDirectionCenter;
+	tVector2D m_vMainCenter;
+
+	CEnemy* m_Owner;
+
+	CWanderState(void){};
+	~CWanderState(void){};
+	CWanderState(const CWanderState&);
+	CWanderState& operator = (const CWanderState&);
+
+public:
+	static CWanderState* GetInstance ();
 
 	void Update (float fElapsedTime);
+	void Render ();
 	void Enter ();
 	void Exit ();
 	void SetOwner (CEnemy* owner) {m_Owner = owner;}
