@@ -39,6 +39,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Program Files\Visual Leak Detector\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files\Visual Leak Detector\lib\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -74,6 +76,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\Battle Cars Solution\Battle Cars\Battle Cars\Source\CGamerProfile.cpp" />
+    <ClCompile Include="..\..\..\..\Battle Cars Solution\Battle Cars\Battle Cars\Source\CWanderState.cpp" />
     <ClCompile Include="Source\CAnimation.cpp" />
     <ClCompile Include="Source\CBase.cpp" />
     <ClCompile Include="Source\CBullet.cpp" />
@@ -113,6 +117,9 @@
     <ClCompile Include="Source\WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\Battle Cars Solution\Battle Cars\Battle Cars\Source\CGamerProfile.h" />
+    <ClInclude Include="..\..\..\..\Battle Cars Solution\Battle Cars\Battle Cars\Source\CWanderState.h" />
+    <ClInclude Include="..\..\..\..\Battle Cars Solution\Battle Cars\Battle Cars\Source\IAIBaseState.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Source\CAnimation.h" />
     <ClInclude Include="Source\CBase.h" />

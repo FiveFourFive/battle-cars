@@ -18,15 +18,12 @@
 #include "IListener.h"
 #include "CEventSystem.h"
 #include "SGD_Math.h"
-#include "CMessageSystem.h"
-#include "CWanderState.h"
+//#include "CMessageSystem.h"
 
 class CEnemy : public CCar, public IListener
 {
 private:
 	IAIBaseState*  m_AICurrentState;
-
-	CWanderState m_Wander;
 
 	CEventSystem*	m_pES;
 
