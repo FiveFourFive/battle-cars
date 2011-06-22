@@ -21,7 +21,7 @@ CEnemy::CEnemy()
 	m_AICurrentState = CWanderState::GetInstance();
 
 	m_AICurrentState->SetOwner (this);
-	m_AICurrentState->Enter ();
+
 	m_fViewRadius = 30.0f;
 }
 
@@ -30,20 +30,28 @@ CEnemy::~CEnemy()
 
 }
 
+void CEnemy::EnterState ()
+{
+	if (m_AICurrentState)
+	{
+			m_AICurrentState->Enter ();
+	}
+}
+
 void CEnemy::Update(float fElapsedTime)
 {
-	//CCar::Update (fElapsedTime);
-	
-	//if (m_AICurrentState)
-	//	m_AICurrentState->Update (fElapsedTime);
+	if (m_AICurrentState)
+		m_AICurrentState->Update (fElapsedTime);
+
+	CCar::Update (fElapsedTime);
 }
 
 void CEnemy::Render()
 {
 	CCar::Render ();
 
-	//if (m_AICurrentState)
-		//m_AICurrentState-
+	if (m_AICurrentState)
+		m_AICurrentState->Render ();
 }
 
 void CEnemy::ChangeState (IAIBaseState* state)

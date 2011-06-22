@@ -9,6 +9,7 @@
 /////////////////////////////////////////////////
 
 #include "CWanderState.h"
+#include "CSGD_Direct3D.h"
 #include <cmath>
 #include "CLevel.h"
 #include "CEnemy.h"
@@ -31,42 +32,81 @@ CWanderState* CWanderState::GetInstance()
 
 void CWanderState::Update (float fElapsedTime)
 {
-	//set up prediction 
+	m_Owner->SetSpeed (m_Owner->GetSpeed () + 0.1f);
 
-
-	//find nearest threat
-	/*if (FindThreat())
+	if (m_Owner->GetSpeed () > 100.0f)
 	{
+		m_Owner->SetSpeed (100.0f);
+	}
 
-	}*/
-	//apply direction force if nearest threat is found
-	// decrease speed based on direction force
+	m_vMainCenter.fX = m_Owner->GetPosX() +  m_Owner->GetWidth () / 2;
+	m_vMainCenter.fY = (m_Owner->GetPosY() - m_fMainCircleRadius);
 
-	// no threat found increase speed tell max speed is reached
-	//calculate velocity
+	//m_vDirectionCenter.fX = m_vMainCenter.fX;
+	//m_vDirectionCenter.fY = (m_vMainCenter.fY - m_fMainCircleRadius);
 
 	//find new random point in the little circle;
-	//tVector2D newPoint;
+	tVector2D newPoint;
 
-	//newPoint.fX = rand() % 3 - 1;
-	//newPoint.fY = rand() % 3 - 1;
+	newPoint.fX = rand() % 20 - 10;
+	newPoint.fY = rand() % 20 - 10;
 
 	// move the direction circles center to the new point
-	//m_vDirectionCenter = m_vDirectionCenter + newPoint;
+	m_vDirectionCenter = m_vDirectionCenter + newPoint;
 
 	//m_fNewPointRadius = sqrt((m_vDirectionCenter.fX - m_vMainCenter.fX) * (m_vDirectionCenter.fX - m_vMainCenter.fX)) + ((m_vDirectionCenter.fY - m_vMainCenter.fY) + (m_vDirectionCenter.fY - m_vMainCenter.fY));
 
+	tVector2D CP;
+	CP.fX = m_vDirectionCenter.fX - m_vMainCenter.fX;
+	CP.fY = m_vDirectionCenter.fY - m_vMainCenter.fY;
+
 	//find the angle of the new direction circle
-	//m_fAngle = atan (m_vDirectionCenter.fY/ m_vDirectionCenter.fX);
+	m_fAngle = atan (CP.fY/ CP.fX);
+
+	if ((CP.fX < 0 && CP.fY > 0) || (CP.fX < 0 && CP.fY < 0))
+	{
+		m_fAngle = 3.14159265f + m_fAngle; // change to pie later
+	}
+
+	if (CP.fX > 0 && CP.fY < 0)
+	{
+		m_fAngle = 6.28318531f + m_fAngle; // change to 2pi later
+	}
 
 	//set the direction circle on the main circles radius
-	//m_vDirectionCenter.fX = m_fMainCircleRadius * sin (m_fAngle);
-	//m_vDirectionCenter.fY = m_fMainCircleRadius * cos (m_fAngle);
+	// or in better terms constrain the direction circle the the main circles radius
+	m_vDirectionCenter.fX = m_vMainCenter.fX + (m_fMainCircleRadius * cos (m_fAngle));
+	m_vDirectionCenter.fY = m_vMainCenter.fY + (m_fMainCircleRadius * sin (m_fAngle));
+
+	tVector2D tempdir = m_vDirectionCenter;
+
+	tempdir = Vector2DRotate(tempdir, m_fAngle);
+	tempdir = tempdir * m_Owner->GetSpeed();
+	m_Owner->SetDirection(tempdir);
 }
 
 void CWanderState::Render ()
 {
+	RECT tempcar;
+	tempcar.left = (LONG)(m_vMainCenter.fX);
+	tempcar.top = (LONG)(m_vMainCenter.fY);
+	tempcar.right = (LONG)(tempcar.left + 20);
+	tempcar.bottom = (LONG)(tempcar.top + 20);
 
+	CSGD_Direct3D::GetInstance ()->DrawRect(tempcar, 0,255,0);
+
+	tempcar.left = (LONG)(m_vDirectionCenter.fX );
+	tempcar.top = (LONG)(m_vDirectionCenter.fY);
+	tempcar.right = (LONG)(tempcar.left + 10);
+	tempcar.bottom = (LONG)(tempcar.top + 10);
+
+	CSGD_Direct3D::GetInstance ()->DrawRect(tempcar, 0,255,255);
+
+//	for (float i = 0; i < 6.28f;)
+	{
+
+		//CSGD_Direct3D::GetInstance ()->DrawLine((int)(m_vDirectionCenter.fX), (int)(m_vDirectionCenter.fY), (int)(m_vDirectionCenter.fX), (int)(m_vDirectionCenter.fY), 0,255,0);
+	}
 }
 
 void CWanderState::Enter ()
@@ -76,14 +116,15 @@ void CWanderState::Enter ()
 	//m_Owner->s
 	//m_nThreatDistance = 0;
 
-	/*m_fMainCircleRadius = 3;
+	m_fMainCircleRadius = 100;
 
-	m_vMainCenter.fX = m_Owner->GetPosX() / 2;
-	m_vMainCenter.fY = m_fMainCircleRadius + (m_Owner->GetHeight () / 2);
+	m_vMainCenter.fX = m_Owner->GetPosX() +  m_Owner->GetWidth () / 2;
+	m_vMainCenter.fY = (m_Owner->GetPosY() - m_fMainCircleRadius);
 
 	m_vDirectionCenter.fX = m_vMainCenter.fX;
-	m_vMainCenter.fY = (-1) * (m_fMainCircleRadius + m_vMainCenter.fY);*/
+	m_vDirectionCenter.fY = (m_vMainCenter.fY - m_fMainCircleRadius);
 }
+
 
 void CWanderState::Exit ()
 {

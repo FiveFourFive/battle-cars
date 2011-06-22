@@ -136,12 +136,14 @@ void CGamePlayState::Enter(void)
 	m_nBackgroundMusicID = m_pFM->LoadSound("resource/sounds/Superbeast.mp3",SGD_FMOD_LOOPING);
 	m_nCountDown = m_pFM->LoadSound("resource/sounds/Countdown.mp3");
 	m_nCountDownEnd = m_pFM->LoadSound("resource/sounds/Countdowntone.mp3");
-	m_pFM->SetVolume(m_nBackgroundMusicID,0.2f);
+	m_pFM->SetVolume(m_nBackgroundMusicID,0.0f);
 	m_pFM->PlaySound(m_nBackgroundMusicID);
 	CGame::GetInstance()->ResetInputDelay();
+
 	player = new CPlayer();
 	dummy = new CEnemy();
 	power_up = new PowerUp();
+
 	player->SetPosX(500);
 	player->SetPosY(500);
 	player->SetHealth(100);
@@ -154,13 +156,16 @@ void CGamePlayState::Enter(void)
 	player->SetVelX(-20);
 	player->SetType(OBJECT_PLAYER);
 
-	dummy->SetPosX(50);
-	dummy->SetPosY(50);
-	dummy->SetVelX(20);
-	dummy->SetVelY(20);
-	dummy->SetSpeed(100);
+	dummy->SetPosX(300);
+	dummy->SetPosY(300);
+	dummy->SetVelX(0);
+	dummy->SetVelY(0);
+	dummy->SetSpeed(0);
 	dummy->SetType(OBJECT_ENEMY);
 	dummy->SetKillCount(5);
+
+	dummy->EnterState ();
+
 	Level->SetSpawn (player);
 
 	m_pD3D->Clear(0, 0, 0);
@@ -264,6 +269,7 @@ void CGamePlayState::Exit(void)
 	speedy->Release();
 	m_pPM->ShutDownParticleManager();
 	m_lScores.clear();
+	power_up->Release ();
 
 	m_pES->ClearEvents ();
 	m_pES->ShutdownEventSystem ();
