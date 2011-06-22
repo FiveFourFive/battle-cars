@@ -22,6 +22,7 @@
 #include "SGD_Math.h"
 #include "CCamera.h"
 #include "CEnemy.h"
+#include "CPowerUp.h"
 
 #include "CLevel.h"
 
@@ -140,6 +141,7 @@ void CGamePlayState::Enter(void)
 	CGame::GetInstance()->ResetInputDelay();
 	player = new CPlayer();
 	dummy = new CEnemy();
+	power_up = new PowerUp();
 	player->SetPosX(500);
 	player->SetPosY(500);
 	player->SetHealth(100);
@@ -197,6 +199,7 @@ void CGamePlayState::Enter(void)
 	m_pOM->AddObject(speedy);
 	m_pOM->AddObject(player);
 	m_pOM->AddObject(dummy);
+	m_pOM->AddObject(power_up);
 	m_bCountDown = false;
 	m_fEnlarge = 0.0f;
 	m_bPlaying = false;
@@ -227,8 +230,8 @@ void CGamePlayState::Enter(void)
 
 	if( tempemittor)
 	{
-		tempemittor->SetIsDead(false);
-		tempemittor->SetIsActive(false);
+		//tempemittor->SetIsDead(false);
+		//tempemittor->SetIsActive(false);
 	}
 
 	time = 120;
