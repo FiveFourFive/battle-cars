@@ -8,7 +8,9 @@ enum PowerUp_Type{ SHIELD_POWERUP, HEALTH_POWERUP, WEAPONS_POWERUP, SPECIAL_POWE
 class PowerUp : public CBase
 {
 private:
-
+	float m_fRespawn;
+	float m_fRespawnDelay;
+	bool m_bActive;
 
 public:
 	PowerUp();

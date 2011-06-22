@@ -28,7 +28,7 @@ CCar::CCar(void)
 	SetVelY(0);
 	m_nKillCount = 0;
 	SetVelX(0);
-
+	m_nSelectedWeapon = 0;
 	std::vector<CCar*>* templist = CGamePlayState::GetInstance()->GetList();
 	templist->push_back(this);
 
@@ -36,7 +36,7 @@ CCar::CCar(void)
 	m_nBulletSound = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/bullet1.mp3");
 
 	CSGD_FModManager::GetInstance()->SetVolume(m_nBulletSound,0.5f);
-	m_fFireDelay = 0.1f;
+	m_fFireDelay = 0.2f;
 }
 
 
