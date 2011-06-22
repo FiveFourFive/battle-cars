@@ -111,7 +111,7 @@ void CCar::Render(void)
 	float dir1 = GetDirection().fX;
 	float dir2 = GetDirection().fY;
 	pD3D->DrawLine((int)(GetPosX()), (int)(GetPosY()), (int)(GetPosX() + (20 * (dir1))), (int)(GetPosY() + (20 * (dir2))), 0,255,0);
-	char buffer[32];
+	char buffer[128];
 	sprintf_s(buffer,"fX: %f	fY: %f",dir1,dir2);
 	pD3D->DrawText(buffer,(int)(GetPosX()), (int)(GetPosY()),0,0,255);
 }

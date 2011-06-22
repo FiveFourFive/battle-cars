@@ -139,7 +139,7 @@ void CLevel::Render (RECT screen)
 		TileSelection.right = TileSelection.left + LevelMap->GetPixelWidth();
 		TileSelection.bottom = TileSelection.top + LevelMap->GetPixelHeight ();
 
-		m_pTM->Draw (LevelMap->GetTileImageID (), TileXPos *  LevelMap->GetPixelWidth(), TileYPos * LevelMap->GetPixelHeight(), 1.0f, 1.0f, &TileSelection);
+		//m_pTM->Draw (LevelMap->GetTileImageID (), TileXPos *  LevelMap->GetPixelWidth(), TileYPos * LevelMap->GetPixelHeight(), 1.0f, 1.0f, &TileSelection);
 	}
 
 	CSGD_Direct3D::GetInstance ()->GetSprite()->Flush ();

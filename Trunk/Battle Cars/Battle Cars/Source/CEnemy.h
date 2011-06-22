@@ -43,6 +43,8 @@ public:
 
 	void ChangeState (IAIBaseState* state);
 
+	void EnterState ();
+
 	void AddCollisionRect (RECT collision);
 	std::vector<RECT> GetCollisionRects () { return m_CollisionRECT;}
 
