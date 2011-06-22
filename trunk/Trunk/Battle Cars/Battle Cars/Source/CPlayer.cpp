@@ -149,15 +149,16 @@ void CPlayer::Update(float fElapsedTime)
 
 		if(m_pDI->KeyDown(DIK_RIGHT))
 			SetRotation(GetRotation() + (GetRotationRate() * fElapsedTime));
-		if(m_fFireDelay >= GetFireDelay())
-		{
+		
 		if(m_pDI->KeyDown(DIK_SPACE))
 		{
-
-			CMessageSystem* pMS = CMessageSystem::GetInstance();
-			PlayBullet();
-			pMS->SendMsg(new CCreatePlayerBulletMessage(this));
-		}
+			if(m_fFireDelay >= GetFireDelay())
+			{
+				CMessageSystem* pMS = CMessageSystem::GetInstance();
+				PlayBullet();
+				pMS->SendMsg(new CCreatePlayerBulletMessage(this));
+				m_fFireDelay = 0.0f;
+			}
 		}
 		if(m_pDI->KeyPressed(DIK_LCONTROL))
 		{
