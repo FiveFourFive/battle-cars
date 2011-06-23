@@ -235,11 +235,11 @@ void CGamePlayState::Enter(void)
 
 	if( tempemittor)
 	{
-		//tempemittor->SetIsDead(false);
-		//tempemittor->SetIsActive(false);
+		tempemittor->SetIsDead(false);
+		tempemittor->SetIsActive(false);
 	}
 
-	time = 120;
+	time = 5;
 	m_fElapsedSecond = 0.0f;
 	score = 0;
 
@@ -268,6 +268,7 @@ void CGamePlayState::Exit(void)
 	dummy->Release();
 	speedy->Release();
 	m_pPM->ShutDownParticleManager();
+	m_pPM = NULL;
 	m_lScores.clear();
 	power_up->Release ();
 
@@ -424,7 +425,8 @@ void CGamePlayState::Update(float fElapsedTime)
 	{
 		CGame::GetInstance()->ChangeState(CMainMenuState::GetInstance());
 	}
-	m_pPM->UpdateEmittors(fElapsedTime);
+
+		m_pPM->UpdateEmittors(fElapsedTime);
 }
 
 void CGamePlayState::Render(void)

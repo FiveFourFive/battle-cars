@@ -38,6 +38,9 @@ void ParticleManager::UpdateEmittors(float fElapsedTime)
 {
 	vector<int> templist;
 
+	if( this == NULL)
+		return;
+
 	for( unsigned int j = 0; j < m_GameEmittors.size(); j++)
 	{
 		if( m_GameEmittors[j]->IsDead() == false)
@@ -58,6 +61,7 @@ void ParticleManager::UpdateEmittors(float fElapsedTime)
 
 	for( unsigned int i = 0; i < m_ActiveEmittors.size(); i++)
 	{
+		if( m_ActiveEmittors[i])
 		m_ActiveEmittors[i]->Update(fElapsedTime);
 	}
 }
@@ -270,8 +274,9 @@ bool ParticleManager::LoadEmittor( const char* FileName)
 	temp->InitializeEmittor();
 	temp->SetID(Count);
 
+	Count += 1;
 	m_GameEmittors.push_back(temp);	// Pushes temp onto the Game emittor.
-	Count++;
+	
 
 	return true; // If successful.
 }
@@ -293,7 +298,7 @@ void ParticleManager::AttachToBasePosition(CBase* base, Emittor* emittor, float 
 
 void ParticleManager::ShutDownParticleManager()
 {
-	for( unsigned int i = 0; i < m_GameEmittors.size(); i++)
+	for(size_t i = 0; i <m_GameEmittors.size(); i++)
 	{
 		delete m_GameEmittors[i];
 		m_GameEmittors[i] = NULL;
@@ -301,11 +306,11 @@ void ParticleManager::ShutDownParticleManager()
 	}
 	m_GameEmittors.clear();
 
-	for( unsigned int i = 0; i < m_ActiveEmittors.size(); i++)
+	/*for( unsigned int i = 0; i < m_ActiveEmittors.size(); i++)
 	{
-		if( !m_ActiveEmittors[i] != NULL)
+		if( m_ActiveEmittors[i] != NULL)
 			delete m_ActiveEmittors[i];
-	}
+	}*/
 	m_ActiveEmittors.clear();
 	
 	if( Count != 0)
