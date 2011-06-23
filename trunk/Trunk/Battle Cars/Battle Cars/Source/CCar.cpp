@@ -150,20 +150,20 @@ bool CCar::InBounds(void)
 	}
 	if(GetPosY() >= CGame::GetInstance()->GetScreenHeight() - this->GetHeight())
 	{
-		float vel = GetVelY();
+		//float vel = GetVelY();
 		if(GetVelY() >= 0)
 		{
 			SetPosY((float)CGame::GetInstance()->GetScreenHeight() - this->GetHeight());
-			tVector2D tempdir = GetDirection();
+	/*		tVector2D tempdir = GetDirection();
 			tempdir.fX = 0;
 			tempdir.fY = -1;
 			float angle = AngleBetweenVectors(GetDirection(),tempdir);
 			tempdir = Vector2DRotate(tempdir, (-1.0f *angle + 1.57f));
 			SetDirection(tempdir);
-			SetVelY(tempdir.fY * GetSpeed());
+			SetVelY(tempdir.fY * GetSpeed());*/
 		}
-		vel = GetVelY();
-		vel = GetVelY();
+		/*vel = GetVelY();
+		vel = GetVelY();*/
 		//	SetDirection(tempdir);
 		//SetVelY(GetVelY() * -100);
 		//m_fSpeed = -1 * m_fSpeed;
