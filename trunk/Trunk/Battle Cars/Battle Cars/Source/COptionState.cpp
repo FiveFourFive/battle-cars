@@ -92,6 +92,80 @@ bool COptionState::Input(void)
 				m_nSelection = 0;
 		}
 		}
+	if(m_fDelay > 0.20f)
+	{
+		
+	if(x < -16000)
+	{
+		m_fDelay = 0.0f;
+		switch(m_nSelection)
+		{
+		case WS_EFFECTS:
+			{
+				float soundA = CGame::GetInstance()->getSoundAVolume();
+				if(soundA > 0.0f)
+				{
+					CGame::GetInstance()->SetSoundAVolume(soundA -0.01f);
+					m_pFM->SetVolume(m_nSoundA,CGame::GetInstance()->getSoundAVolume());
+					m_pFM->SetVolume(m_nMenuSelect,CGame::GetInstance()->getSoundAVolume());
+					m_pFM->SetVolume(m_nMenuMove,CGame::GetInstance()->getSoundAVolume());
+					m_pFM->PlaySound(m_nSoundA);
+				}
+				break;
+			}
+		case WS_MUSIC:
+			{
+				float soundB = CGame::GetInstance()->getSoundBVolume();
+				if(soundB > 0.10f)
+				{
+					CGame::GetInstance()->SetSoundBVolume(soundB -0.10f);
+					m_pFM->SetVolume(m_nSoundB,CGame::GetInstance()->getSoundBVolume());
+				}
+				break;
+			}
+		case WS_INPUT:
+			{
+				CGame::GetInstance()->SetControllerInput(!CGame::GetInstance()->ControllerInput());
+				break;
+			}
+		}
+	}
+	if(x > 16000)
+	{
+		m_fDelay = 0.0f;
+		switch(m_nSelection)
+		{
+		case WS_EFFECTS:
+			{
+				float soundA = CGame::GetInstance()->getSoundAVolume();
+				if(soundA < 0.50f)
+				{
+					CGame::GetInstance()->SetSoundAVolume(soundA + 0.01f);
+					m_pFM->SetVolume(m_nSoundA,CGame::GetInstance()->getSoundAVolume());
+					m_pFM->SetVolume(m_nMenuSelect,CGame::GetInstance()->getSoundAVolume());
+					m_pFM->SetVolume(m_nMenuMove,CGame::GetInstance()->getSoundAVolume());
+					m_pFM->PlaySound(m_nSoundA);
+				}
+				break;
+			}
+		case WS_MUSIC:
+			{
+				float soundB = CGame::GetInstance()->getSoundBVolume();
+				if(soundB < 1.0f)
+				{
+					CGame::GetInstance()->SetSoundBVolume(soundB +0.10f);
+					m_pFM->SetVolume(m_nSoundB,CGame::GetInstance()->getSoundBVolume());
+				}
+				break;
+			}
+			case WS_INPUT:
+			{
+				CGame::GetInstance()->SetControllerInput(!CGame::GetInstance()->ControllerInput());
+				break;
+			}
+		}
+	}
+	}
 	}
 	else
 	{
@@ -150,6 +224,20 @@ bool COptionState::Input(void)
 				}
 				break;
 			}
+		case WS_INPUT:
+			{
+				bool input = CGame::GetInstance()->ControllerInput();
+				if(input)
+				{
+					CGame::GetInstance()->SetControllerInput(!input);
+				}
+				else
+				{
+					if(CGame::GetInstance()->GetController1()->Connected())
+						CGame::GetInstance()->SetControllerInput(true);
+				}
+				break;
+			}
 		}
 	}
 	if(m_pDI->KeyDown(DIK_RIGHT))
@@ -177,6 +265,20 @@ bool COptionState::Input(void)
 				{
 					CGame::GetInstance()->SetSoundBVolume(soundB +0.10f);
 					m_pFM->SetVolume(m_nSoundB,CGame::GetInstance()->getSoundBVolume());
+				}
+				break;
+			}
+			case WS_INPUT:
+			{
+				bool input = CGame::GetInstance()->ControllerInput();
+				if(input)
+				{
+					CGame::GetInstance()->SetControllerInput(!input);
+				}
+				else
+				{
+					if(CGame::GetInstance()->GetController1()->Connected())
+						CGame::GetInstance()->SetControllerInput(true);
 				}
 				break;
 			}
@@ -220,7 +322,14 @@ void COptionState::Render(void)
 	m_pPF->Print(buffer,400,250,0.5f,D3DCOLOR_XRGB(255,255,255));
 
 	m_pPF->Print("INPUT DEVICE",300,300,0.5f,D3DCOLOR_XRGB(200, 0, 0));
-
+	if(CGame::GetInstance()->ControllerInput())
+	{
+		m_pPF->Print("GAMEPAD",520,300,0.5f,D3DCOLOR_XRGB(255,255,255));
+	}
+	else
+	{
+		m_pPF->Print("KEYBOARD",520,300,0.5f,D3DCOLOR_XRGB(255,255,255));
+	}
 
 	m_pPF->Print("EXIT",300,350,0.5f,D3DCOLOR_XRGB(200, 0, 0));
 

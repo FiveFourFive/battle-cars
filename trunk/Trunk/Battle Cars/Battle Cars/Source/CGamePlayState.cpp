@@ -238,7 +238,7 @@ void CGamePlayState::Enter(void)
 		tempemittor->SetIsActive(false);
 	}
 
-	time = 5;
+	time = 120;
 	m_fElapsedSecond = 0.0f;
 	score = 0;
 
