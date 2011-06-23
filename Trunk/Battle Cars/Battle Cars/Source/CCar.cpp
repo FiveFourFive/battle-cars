@@ -117,10 +117,12 @@ void CCar::Render(void)
 }
 void CCar::PlayCrash(void)
 {
+	CSGD_FModManager::GetInstance()->SetVolume(m_nCrashID,CGame::GetInstance()->getSoundAVolume());
 	CSGD_FModManager::GetInstance()->PlaySound(m_nCrashID);
 }
 void CCar::PlayBullet(void)
 {
+	CSGD_FModManager::GetInstance()->SetVolume(m_nBulletSound,CGame::GetInstance()->getSoundAVolume());
 	CSGD_FModManager::GetInstance()->PlaySound(m_nBulletSound);
 }
 

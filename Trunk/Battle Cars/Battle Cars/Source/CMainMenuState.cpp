@@ -59,8 +59,11 @@ void CMainMenuState::Enter(void)
 	m_nBackgroundMusicID = m_pFM->LoadSound("resource/sounds/Afterlife.mp3",SGD_FMOD_LOOPING);
 	m_nMenuSelect = m_pFM->LoadSound("resource/sounds/menuselect.mp3");
 	m_nMenuMove = m_pFM->LoadSound("resource/sounds/menuchange.mp3");
-
-	m_pFM->SetVolume(m_nBackgroundMusicID,0.5f);
+	float soundavol = CGame::GetInstance()->getSoundAVolume();
+	float soundbvol = CGame::GetInstance()->getSoundBVolume();
+	//m_pFM->SetVolume(m_nBackgroundMusicID,CGame::GetInstance()->getSoundBVolume());
+	//m_pFM->SetVolume(m_nMenuSelect,CGame::GetInstance()->getSoundAVolume());
+	//m_pFM->SetVolume(m_nMenuMove,CGame::GetInstance()->getSoundAVolume());
 	m_pFM->PlaySound(m_nBackgroundMusicID);
 
 }

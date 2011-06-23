@@ -136,7 +136,6 @@ void CGamePlayState::Enter(void)
 	m_nBackgroundMusicID = m_pFM->LoadSound("resource/sounds/Superbeast.mp3",SGD_FMOD_LOOPING);
 	m_nCountDown = m_pFM->LoadSound("resource/sounds/Countdown.mp3");
 	m_nCountDownEnd = m_pFM->LoadSound("resource/sounds/Countdowntone.mp3");
-	m_pFM->SetVolume(m_nBackgroundMusicID,0.0f);
 	m_pFM->PlaySound(m_nBackgroundMusicID);
 	CGame::GetInstance()->ResetInputDelay();
 
@@ -357,6 +356,9 @@ bool CGamePlayState::Input()
 
 void CGamePlayState::Update(float fElapsedTime)
 {
+	m_pFM->SetVolume(m_nCountDownEnd,CGame::GetInstance()->getSoundAVolume());
+	m_pFM->SetVolume(m_nCountDown,CGame::GetInstance()->getSoundAVolume());
+	m_pFM->SetVolume(m_nBackgroundMusicID,CGame::GetInstance()->getSoundBVolume());
 	if(m_bPlaying)
 	{
 		m_fElapsedSecond += fElapsedTime;

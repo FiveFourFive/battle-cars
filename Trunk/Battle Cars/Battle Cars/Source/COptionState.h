@@ -29,6 +29,9 @@ private:
 	int m_nSelection;
 	int m_nMenuSelect;
 	int m_nMenuMove;
+	int m_nSoundA;
+	int m_nSoundB;
+	float m_fDelay;
 	COptionState(void);
 	~COptionState(void);
 	COptionState& operator=(const COptionState&);
