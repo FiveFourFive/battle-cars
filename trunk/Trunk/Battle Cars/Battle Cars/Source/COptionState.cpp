@@ -17,6 +17,7 @@ COptionState::COptionState(void)
 	m_pPF = NULL;
 	m_pDI = NULL;
 	m_pFM = NULL;
+
 }
 
 COptionState::~COptionState()
@@ -44,7 +45,9 @@ void COptionState::Enter(void)
 	m_nBackgroundMusicID = m_pFM->LoadSound("resource/sounds/FeelSoNumb.mp3",SGD_FMOD_LOOPING);
 	m_nMenuSelect = m_pFM->LoadSound("resource/sounds/menuselect.mp3");
 	m_nMenuMove = m_pFM->LoadSound("resource/sounds/menuchange.mp3");
-	m_pFM->SetVolume(m_nBackgroundMusicID,0.5f);
+	m_nSoundA = m_pFM->LoadSound("resource/sounds/bullet1.mp3");
+	m_nSoundB = CMainMenuState::GetInstance()->GetBackgroundMusicID();
+	
 	//m_pFM->PlaySound(m_nBackgroundMusicID);
 
 }
@@ -116,6 +119,72 @@ bool COptionState::Input(void)
 		if(m_nSelection > 3)
 			m_nSelection = 0;
 	}
+	if(m_fDelay > 0.20f)
+	{
+		
+	if(m_pDI->KeyDown(DIK_LEFT))
+	{
+		m_fDelay = 0.0f;
+		switch(m_nSelection)
+		{
+		case WS_EFFECTS:
+			{
+				float soundA = CGame::GetInstance()->getSoundAVolume();
+				if(soundA > 0.0f)
+				{
+					CGame::GetInstance()->SetSoundAVolume(soundA -0.01f);
+					m_pFM->SetVolume(m_nSoundA,CGame::GetInstance()->getSoundAVolume());
+					m_pFM->SetVolume(m_nMenuSelect,CGame::GetInstance()->getSoundAVolume());
+					m_pFM->SetVolume(m_nMenuMove,CGame::GetInstance()->getSoundAVolume());
+					m_pFM->PlaySound(m_nSoundA);
+				}
+				break;
+			}
+		case WS_MUSIC:
+			{
+				float soundB = CGame::GetInstance()->getSoundBVolume();
+				if(soundB > 0.10f)
+				{
+					CGame::GetInstance()->SetSoundBVolume(soundB -0.10f);
+					m_pFM->SetVolume(m_nSoundB,CGame::GetInstance()->getSoundBVolume());
+				}
+				break;
+			}
+		}
+	}
+	if(m_pDI->KeyDown(DIK_RIGHT))
+	{
+		m_fDelay = 0.0f;
+		switch(m_nSelection)
+		{
+		case WS_EFFECTS:
+			{
+				float soundA = CGame::GetInstance()->getSoundAVolume();
+				if(soundA < 0.50f)
+				{
+					CGame::GetInstance()->SetSoundAVolume(soundA + 0.01f);
+					m_pFM->SetVolume(m_nSoundA,CGame::GetInstance()->getSoundAVolume());
+					m_pFM->SetVolume(m_nMenuSelect,CGame::GetInstance()->getSoundAVolume());
+					m_pFM->SetVolume(m_nMenuMove,CGame::GetInstance()->getSoundAVolume());
+					m_pFM->PlaySound(m_nSoundA);
+				}
+				break;
+			}
+		case WS_MUSIC:
+			{
+				float soundB = CGame::GetInstance()->getSoundBVolume();
+				if(soundB < 1.0f)
+				{
+					CGame::GetInstance()->SetSoundBVolume(soundB +0.10f);
+					m_pFM->SetVolume(m_nSoundB,CGame::GetInstance()->getSoundBVolume());
+				}
+				break;
+			}
+		}
+	}
+	}
+
+
 	}
 	return true;
 }
@@ -123,6 +192,7 @@ bool COptionState::Input(void)
 void COptionState::Update(float fElapsedTime)
 {
 	m_pFM->Update();
+	m_fDelay += fElapsedTime;
 }
 
 void COptionState::Render(void)
@@ -137,15 +207,27 @@ void COptionState::Render(void)
 	
 	m_pPF->Print("OPTIONS",220,50,1.0f,D3DCOLOR_XRGB(200, 0, 0));
 
-	m_pPF->Print("EFFECTS",300,200,0.5f,D3DCOLOR_XRGB(200, 0, 0));
+	char buffer[32];
+	int tempvol;
+	m_pPF->Print("SFX",300,200,0.5f,D3DCOLOR_XRGB(200, 0, 0));
+	tempvol = CGame::GetInstance()->getSoundAVolume() * 100;
+	sprintf(buffer,"%i",tempvol);
+	m_pPF->Print(buffer,400,200,0.5f,D3DCOLOR_XRGB(255,255,255));
+	
 	m_pPF->Print("MUSIC",300,250,0.5f,D3DCOLOR_XRGB(200, 0, 0));	
+	tempvol = CGame::GetInstance()->getSoundBVolume() * 100;
+	sprintf(buffer,"%i",tempvol);
+	m_pPF->Print(buffer,400,250,0.5f,D3DCOLOR_XRGB(255,255,255));
+
 	m_pPF->Print("INPUT DEVICE",300,300,0.5f,D3DCOLOR_XRGB(200, 0, 0));
+
+
 	m_pPF->Print("EXIT",300,350,0.5f,D3DCOLOR_XRGB(200, 0, 0));
 
 	switch(m_nSelection)
 		{
 		case WS_EFFECTS:			
-			m_pPF->Print("EFFECTS",300,200,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print("SFX",300,200,0.5f,D3DCOLOR_XRGB(0, 255, 0));
 			break;
 		case WS_MUSIC:
 			m_pPF->Print("MUSIC",300,250,0.5f,D3DCOLOR_XRGB(0, 255, 0));	

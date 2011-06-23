@@ -85,7 +85,8 @@ void CGame::Initialize(HWND hWnd, HINSTANCE hInstance, int nScreenWidth, int nSc
 	/*m_nSoundAVolume = 0.10f;
 	m_nSoundBVolume = 0.8f;
 	m_panning = 0.0f;*/
-
+	m_nSoundAVolume = 0.5f;
+	m_nSoundBVolume = 0.5f;
 	m_stopWatch.Start();
 }
 
