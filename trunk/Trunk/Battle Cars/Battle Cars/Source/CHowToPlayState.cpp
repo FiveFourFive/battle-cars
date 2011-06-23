@@ -123,7 +123,12 @@ void CHowToPlayState::Render(void)
 	pD3D->GetSprite()->Flush();
 	pD3D->DrawRect(temp,0,0,0);
 
-	m_pPF->Print("HOW TO PLAY",220,50,1.0f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->Print("HOW TO PLAY",220,50,1.0f,D3DCOLOR_XRGB(255, 0, 0));
+	m_pPF->Print("W A S D - MOVEMENT",100,100,0.5f,D3DCOLOR_XRGB(0, 0, 255));
+	m_pPF->Print("SPACEBAR - SHOOT",100,150,0.5f,D3DCOLOR_XRGB(0, 0, 255));
+	m_pPF->Print("LEFT CONTROL - CHANGE WEAPONS",100,200,0.5f,D3DCOLOR_XRGB(0, 0, 255));
+	m_pPF->Print("P - PAUSE",100,250,0.5f,D3DCOLOR_XRGB(0, 0, 255));
+	m_pPF->Print("ENTER - CONTINUE",100,300,0.5f,D3DCOLOR_XRGB(0, 0, 255));
 
 	m_pPF->Print("PRESS ESC OR B (GAMEPAD) TO EXIT",150,500,0.5f,D3DCOLOR_XRGB(0, 255, 0));
 
