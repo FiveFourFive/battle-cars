@@ -85,6 +85,7 @@ public:
 	void ResetThumbDelay(void) { m_fThumbDelay = 0.0f; }
 	int GetScreenWidth() { return m_ScreenWidth;}
 	int GetScreenHeight(){ return m_ScreenHeight;}
+	void SetControllerInput(bool input) { m_bController = input; }
 
 	float getSoundAVolume();
 	float getSoundBVolume();
