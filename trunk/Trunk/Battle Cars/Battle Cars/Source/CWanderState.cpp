@@ -48,8 +48,8 @@ void CWanderState::Update (float fElapsedTime)
 	//find new random point in the little circle;
 	tVector2D newPoint;
 
-	newPoint.fX = rand() % 20 - 10;
-	newPoint.fY = rand() % 20 - 10;
+	newPoint.fX = (((rand()/(float)RAND_MAX)*((10)-(-10)))+(-10));
+	newPoint.fY = (((rand()/(float)RAND_MAX)*((10)-(-10)))+(-10));
 
 	// move the direction circles center to the new point
 	m_vDirectionCenter = m_vDirectionCenter + newPoint;
