@@ -14,7 +14,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////
 #include <windows.h>	//	Needed for Windows Applications.
 #include "..\resource.h"
-#include <vld.h>
+//#include <vld.h>
 #include <ctime>
 //#define _CRTDBG_MAP_ALLOC
 //#include <crtdbg.h>
@@ -34,7 +34,7 @@ const int	g_nWINDOW_HEIGHT		= 600;						//	Window Height.
 #ifdef _DEBUG
 	const BOOL	g_bIS_WINDOWED			= TRUE;						
 #else
-	const BOOL	g_bIS_WINDOWED			= FALSE;
+	const BOOL	g_bIS_WINDOWED			= TRUE;
 #endif
 
 //	Handler function that writes out a dump file
