@@ -119,7 +119,10 @@ void CLevel::Render (RECT screen)
 	if (StartIndex < 0)
 		StartIndex = 0;
 
-	for (int Index = StartIndex; Index < EndIndex; Index++)
+	int i = 0;
+	int j = 0;
+
+	for (int Index = StartIndex; Index < EndIndex; Index++, i++)
 	{
 		int TileXPos = Tiles[Index].GetIndex() % LevelMap->GetMapWidth();
 		int TileYPos = Tiles[Index].GetIndex() / LevelMap->GetMapHeight();
@@ -139,7 +142,13 @@ void CLevel::Render (RECT screen)
 		TileSelection.right = TileSelection.left + LevelMap->GetPixelWidth();
 		TileSelection.bottom = TileSelection.top + LevelMap->GetPixelHeight ();
 
-		m_pTM->Draw (LevelMap->GetTileImageID (), TileXPos *  LevelMap->GetPixelWidth(), TileYPos * LevelMap->GetPixelHeight(), 1.0f, 1.0f, &TileSelection);
+		if( i == 100)
+		{
+			i = 0;
+			j++;
+		}
+		
+		m_pTM->Draw (LevelMap->GetTileImageID (), /*TileXPos*/ i *  LevelMap->GetPixelWidth(),/*TileYPos */j * LevelMap->GetPixelHeight(), 1.0f, 1.0f, &TileSelection);
 	}
 
 	CSGD_Direct3D::GetInstance ()->GetSprite()->Flush ();
@@ -241,8 +250,8 @@ void CLevel::SetSpawn (CBase* pBase)
 	{
 		if (!spawnList[i].InUse () && spawnList[i].GetType () != -1) // && type;
 		{
-			pBase->SetPosX ((spawnList[i].GetIndex () % LevelMap->GetMapWidth()) * LevelMap->GetPixelWidth());
-			pBase->SetPosY ((spawnList[i].GetIndex () / LevelMap->GetMapHeight()) * LevelMap->GetPixelHeight());
+			pBase->SetPosX ((float)((spawnList[i].GetIndex () % LevelMap->GetMapWidth()) * LevelMap->GetPixelWidth()));
+			pBase->SetPosY ((float)((spawnList[i].GetIndex () / LevelMap->GetMapHeight()) * LevelMap->GetPixelHeight()));
 
 			spawnList->SetInUse (true);
 
@@ -253,8 +262,8 @@ void CLevel::SetSpawn (CBase* pBase)
 
 bool CLevel::CheckEnemyCollision (CBase* pBase)
 {
-	int StartIndex = ((((CEnemy*)pBase)->GetViewRadius () / LevelMap->GetPixelHeight()) * LevelMap->GetMapWidth ()) + (((CEnemy*)pBase)->GetViewRadius () / LevelMap->GetPixelWidth());
-	int EndIndex = ((((CEnemy*)pBase)->GetViewRadius () / LevelMap->GetPixelHeight()) * LevelMap->GetMapWidth()) + (((CEnemy*)pBase)->GetViewRadius () / LevelMap->GetPixelWidth());
+	int StartIndex = (int)(((((CEnemy*)pBase)->GetViewRadius () / LevelMap->GetPixelHeight()) * LevelMap->GetMapWidth ()) + (((CEnemy*)pBase)->GetViewRadius () / LevelMap->GetPixelWidth()));
+	int EndIndex = (int)(((((CEnemy*)pBase)->GetViewRadius () / LevelMap->GetPixelHeight()) * LevelMap->GetMapWidth()) + (((CEnemy*)pBase)->GetViewRadius () / LevelMap->GetPixelWidth()));
 
 	if (StartIndex < 0)
 		StartIndex = 0;

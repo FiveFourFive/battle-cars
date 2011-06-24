@@ -30,7 +30,7 @@ void CBullet::Render(void)
 	temppos.right = (LONG)(temppos.left + GetWidth());
 	temppos.bottom = (LONG)(temppos.top + GetHeight());
 	CSGD_Direct3D::GetInstance()->DrawRect(temppos,255,255,255);
-	m_pTM->Draw(GetImageID(),GetPosX(),GetPosY(),m_fScale,m_fScale);
+	m_pTM->Draw(GetImageID(),(int)GetPosX(),(int)GetPosY(),m_fScale,m_fScale);
 	//m_pTM->Draw(GetImageID(),(int)GetPosX(),(int)GetPosY(),0.5f,0.5f,NULL,GetPosX()-(GetWidth()),GetPosY()-(GetHeight()),m_fRotation);
 }
 

@@ -66,11 +66,11 @@ void ParticleManager::UpdateEmittors(float fElapsedTime)
 	}
 }
 
-void ParticleManager::RenderEmittors()
+void ParticleManager::RenderEmittors(CCamera* camera)
 {
 	for( unsigned int i = 0; i < m_ActiveEmittors.size(); i++)
 	{
-		m_ActiveEmittors[i]->Render();
+		m_ActiveEmittors[i]->Render(camera);
 	}
 }
 

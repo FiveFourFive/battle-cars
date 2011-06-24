@@ -9,13 +9,15 @@
 
 #include <Windows.h>
 
+class CCamera;
+
 class IBaseInterface
 {
 public:
 	virtual ~IBaseInterface() = 0 {};
 
 	virtual void Update(float fElapsedTime) = 0;
-	virtual void Render() = 0;
+	virtual void Render(CCamera* camera) = 0;
 
 	virtual void AddRef() = 0;
 	virtual void Release() = 0;

@@ -9,6 +9,7 @@
 /////////////////////////////////////////////////
 
 #include "CEnemy.h"
+#include "CCamera.h"
 #include "CWanderState.h"
 
 CEnemy::CEnemy()
@@ -46,9 +47,9 @@ void CEnemy::Update(float fElapsedTime)
 	CCar::Update (fElapsedTime);
 }
 
-void CEnemy::Render()
+void CEnemy::Render(CCamera* camera)
 {
-	CCar::Render ();
+	CCar::Render (camera);
 
 	if (m_AICurrentState)
 		m_AICurrentState->Render ();

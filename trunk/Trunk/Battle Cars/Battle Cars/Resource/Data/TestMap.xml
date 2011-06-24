@@ -4,5 +4,5 @@
   <CollisionLocation>CollisionInfo.xml</CollisionLocation>
   <EventLocation>EventInfo.xml</EventLocation>
   <SpawnLocation>SpawnInfo.xml</SpawnLocation>
-  <LevelInfo Width="50" Height="50" PixelWidth="32" PixelHeight="32">TestMap</LevelInfo>
+  <LevelInfo Width="100" Height="100" PixelWidth="16" PixelHeight="16">Untitled</LevelInfo>
 </Level>

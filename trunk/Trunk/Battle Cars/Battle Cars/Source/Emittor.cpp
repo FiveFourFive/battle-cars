@@ -1,6 +1,6 @@
 #include "Emittor.h"
 #include "CBase.h"
-
+#include "CCamera.h"
 #include "CSGD_TextureManager.h"
 
 namespace temp_variables
@@ -108,9 +108,14 @@ void Emittor::Update(float fElapsedTime)
 
 }
 
-void Emittor::Render()
+void Emittor::Render(CCamera* camera)
 {
 	CSGD_TextureManager* pTM = CSGD_TextureManager::GetInstance();
+	int temp_source = 0;
+	int temp_destination = 0;
+	CSGD_Direct3D::GetInstance()->GetDirect3DDevice()->GetRenderState(D3DRS_SRCBLEND,(DWORD*)&temp_source);
+	CSGD_Direct3D::GetInstance()->GetDirect3DDevice()->GetRenderState(D3DRS_DESTBLEND,(DWORD*)&temp_destination);
+
 
 	for( unsigned int i = 0; i < m_vParticleList.size(); i++)
 	{
@@ -122,10 +127,13 @@ void Emittor::Render()
 		{
 			
 			// Renders each individual particle.
-			pTM->Draw(m_nTextureID, (int)m_vParticleList[i]->position.fX, (int)m_vParticleList[i]->position.fY, m_vParticleList[i]->scaleX, m_vParticleList[i]->scaleY,
+			pTM->Draw(m_nTextureID, (int)m_vParticleList[i]->position.fX - (int)camera->GetCamX(), (int)m_vParticleList[i]->position.fY - (int)camera->GetCamY(), m_vParticleList[i]->scaleX, m_vParticleList[i]->scaleY,
 				NULL, 0, 0, m_vParticleList[i]->rotation, m_vParticleList[i]->color);
 		}
 	}
+
+	CSGD_Direct3D::GetInstance()->GetDirect3DDevice()->SetRenderState(D3DRS_SRCBLEND, temp_source);
+	CSGD_Direct3D::GetInstance()->GetDirect3DDevice()->SetRenderState(D3DRS_DESTBLEND, temp_destination);
 }
 
 void Emittor::UpdateColor(int i)

@@ -312,13 +312,13 @@ void COptionState::Render(void)
 	char buffer[32];
 	int tempvol;
 	m_pPF->Print("SFX",300,200,0.5f,D3DCOLOR_XRGB(200, 0, 0));
-	tempvol = CGame::GetInstance()->getSoundAVolume() * 100;
-	sprintf(buffer,"%i",tempvol);
+	tempvol = (int)(CGame::GetInstance()->getSoundAVolume() * 100);
+	sprintf_s(buffer,"%i",tempvol);
 	m_pPF->Print(buffer,400,200,0.5f,D3DCOLOR_XRGB(255,255,255));
 	
 	m_pPF->Print("MUSIC",300,250,0.5f,D3DCOLOR_XRGB(200, 0, 0));	
-	tempvol = CGame::GetInstance()->getSoundBVolume() * 100;
-	sprintf(buffer,"%i",tempvol);
+	tempvol = (int)(CGame::GetInstance()->getSoundBVolume() * 100);
+	sprintf_s(buffer,"%i",tempvol);
 	m_pPF->Print(buffer,400,250,0.5f,D3DCOLOR_XRGB(255,255,255));
 
 	m_pPF->Print("INPUT DEVICE",300,300,0.5f,D3DCOLOR_XRGB(200, 0, 0));
