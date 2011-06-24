@@ -6,6 +6,7 @@ using std::vector;
 
 class Emittor;
 class CBase;
+class CCamera;
 
 class ParticleManager
 {
@@ -61,7 +62,7 @@ public:
 	//
 	// Calls each emittors individual render.
 	////////////////////////////////////////////////
-	void RenderEmittors();
+	void RenderEmittors(CCamera* camera);
 
 	////////////////////////////////////////////////
 	// 

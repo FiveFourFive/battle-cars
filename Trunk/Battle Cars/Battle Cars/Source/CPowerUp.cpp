@@ -1,5 +1,5 @@
 #include "CPowerUp.h"
-
+#include "CCamera.h"
 #include "CSGD_Direct3D.h"
 #include "CEventSystem.h"
 #include "CEvent.h"
@@ -7,8 +7,8 @@ PowerUp::PowerUp()
 {
 	m_nType = SHIELD_POWERUP;
 	//SetName("Power Up");
-	SetPosX(700);
-	SetPosY(350);
+	SetPosX(1500);
+	SetPosY(1700);
 	m_fRespawn = 0.0f;
 	m_fRespawnDelay = 5.0f;
 	m_bActive = true;
@@ -28,22 +28,26 @@ void PowerUp::Update(float fElapsedTime)
 		m_bActive = true;
 }
 
-void PowerUp::Render()
+void PowerUp::Render(CCamera* camera)
 {
 	if(m_bActive)
 	{
 	CSGD_Direct3D* m_pD3D = CSGD_Direct3D::GetInstance();
 
-	m_pD3D->DrawRect(GetRect(), 128, 128, 128);
-	m_pD3D->DrawTextA("Power_Up", GetPosX(), GetPosY(), 255,255,255);
+	RECT temp_render_rect = { (int)(GetPosX() - camera->GetCamX()), (int)(GetPosY() - camera->GetCamY()), 0, 0};
+	temp_render_rect.right = temp_render_rect.left + 40;
+	temp_render_rect.bottom = temp_render_rect.top + 40;
+
+	m_pD3D->DrawRect(temp_render_rect, 128, 128, 128);
+	m_pD3D->DrawTextA("Power_Up", (int)(GetPosX() - camera->GetCamX()), (int)(GetPosY() - camera->GetCamY()), 255,255,255);
 	}
 }
 
 RECT PowerUp::GetRect()
 {
 	RECT temp;
-	temp.left = GetPosX();
-	temp.top = GetPosY();
+	temp.left = (int)GetPosX();
+	temp.top = (int)GetPosY();
 	temp.right = temp.left + 40;
 	temp.bottom = temp.top + 40;
 	return temp;

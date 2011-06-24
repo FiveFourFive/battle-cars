@@ -30,14 +30,16 @@ void CCamera::AttachTo( CBase* camera_owner, float offsetX, float offsetY)
 {
 	owner = camera_owner;
 
-	SetCamX( owner->GetPosX() - offsetX);
-	SetCamY( owner->GetPosY() - offsetY);
+	SetCamX( (owner->GetPosX() - offsetX));
+	SetCamY( (owner->GetPosY() - offsetY));
 	offX = offsetX;
 	offY = offsetY;
 }
 
 void CCamera::Update(void)
 {
-	camPosX = owner->GetPosX() - offX;
-	camPosY = owner->GetPosY() - offY;
+	if( this->camPosX < 0 )
+		this->camPosX = 0;
+	if( this->camPosY < 0 )
+		this->camPosY = 0;
 }

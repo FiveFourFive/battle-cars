@@ -4,6 +4,8 @@
 #include "CBase.h"
 #include "SGD_Math.h"
 
+class CCamera;
+
 enum weapons { WEAPON_PISTOL, WEAPON_RPG, WEAPON_SPECIAL };
 class CCar : public CBase
 {
@@ -32,7 +34,7 @@ private:
 public:
 	CCar(void);
 	void Update(float fElapsedTime);
-	void Render(void);
+	void Render(CCamera* camera);
 
 
 	//getters

@@ -12,6 +12,8 @@
 #include <string>
 enum type{OBJECT_BASE, OBJECT_BULLET, OBJECT_PLAYER, OBJECT_ENEMY, OBJECT_SPEEDRAMP, OBJECT_CAMERA};
 
+class CCamera;
+
 class CBase : public IBaseInterface
 {
 private:
@@ -74,7 +76,7 @@ public:
 	//Note: to input at top of Update if needed
 	virtual void Update(float fElapsedTime);
 
-	virtual void Render();
+	virtual void Render(CCamera* camera);
 
 	void AddRef() { m_uiRefCount++; }
 

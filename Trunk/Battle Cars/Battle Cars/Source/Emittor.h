@@ -9,6 +9,7 @@
 using std::vector;
 
 class CBase;
+class CCamera;
 
 
 #define RAND_FLOAT(min,max) (((rand()/(float)RAND_MAX)*((max)-(min)))+(min))
@@ -105,7 +106,7 @@ public:
 	//
 	// This handles all the rendering of each particle.
 	///////////////////////////////////////////////
-	void Render(void);
+	void Render(CCamera* camera);
 
 	void UpdateColor(int i);
 

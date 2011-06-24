@@ -34,7 +34,7 @@ void CBase::Update(float fElapsedTime)
 }
 
 
-void CBase::Render()
+void CBase::Render(CCamera* camera)
 {
 	//	CSGD_TextureManager::GetInstance()->Draw(GetImageID(),
 	//												(int)GetPosX(), (int)GetPosY());

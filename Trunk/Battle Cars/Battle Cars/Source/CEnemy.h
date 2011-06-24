@@ -20,6 +20,8 @@
 #include "SGD_Math.h"
 //#include "CMessageSystem.h"
 
+class CCamera;
+
 class CEnemy : public CCar, public IListener
 {
 private:
@@ -39,7 +41,7 @@ public:
 	void SetViewRadius (float radius) {m_fViewRadius = radius;}
 
 	void Update(float fElapsedTime);
-	void Render();
+	void Render(CCamera* camera);
 
 	void ChangeState (IAIBaseState* state);
 

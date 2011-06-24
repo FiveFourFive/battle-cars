@@ -7,6 +7,8 @@
 /////////////////////////////////////////////////
 
 #include "CObjectManager.h"
+#include "CPlayer.h"
+#include "CCamera.h"
 
 CObjectManager* CObjectManager::m_pInstance = NULL;
 
@@ -49,9 +51,15 @@ void CObjectManager::UpdateObjects(float fElapsedTime)
 
 void CObjectManager::RenderObjects(void)
 {
+	CCamera* temp_player_camera = NULL;
 	for(size_t i = 0; i < m_vObjectList.size(); i++)
 	{
-		m_vObjectList[i]->Render();
+		CPlayer* temp_player = (CPlayer*)m_vObjectList[i];
+		if( temp_player->GetType() == OBJECT_PLAYER)
+			temp_player_camera = temp_player->GetCamera();
+
+		if( temp_player_camera )
+			m_vObjectList[i]->Render(temp_player_camera);
 	}
 }
 

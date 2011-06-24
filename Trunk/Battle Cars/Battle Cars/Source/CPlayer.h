@@ -6,7 +6,6 @@
 #include "IListener.h"
 
 class CXboxInput;
-class CCamera;
 class CMessageSystem;
 
 class CPlayer : public CCar, public IListener
@@ -31,7 +30,7 @@ public:
 	CPlayer(void);
 	~CPlayer(void);
 	void Update(float fElapsedTime);
-	void Render(void);
+	void Render(CCamera* camera);
 
 	void SetCollisionRect (RECT collision) {m_CollisionRECT = collision;}
 	RECT GetCollisionRect () { return m_CollisionRECT;}

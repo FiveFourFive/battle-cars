@@ -13,7 +13,7 @@ public:
 	CSpeedRamp(void);
 
 	void Update(float fElapsedTime);
-	void Render(void);
+	void Render(CCamera* camera);
 
 	tVector2D GetVelDir(void) { return m_tVelDir; }
 

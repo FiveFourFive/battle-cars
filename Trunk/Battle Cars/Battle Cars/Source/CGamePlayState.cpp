@@ -143,8 +143,8 @@ void CGamePlayState::Enter(void)
 	dummy = new CEnemy();
 	power_up = new PowerUp();
 
-	player->SetPosX(500);
-	player->SetPosY(500);
+	//player->SetPosX(2000);
+	//player->SetPosY(2000);
 	player->SetHealth(100);
 	player->SetMaxHealth(100);
 	player->SetPowerUpBar(0);
@@ -155,8 +155,8 @@ void CGamePlayState::Enter(void)
 	player->SetVelX(-20);
 	player->SetType(OBJECT_PLAYER);
 
-	dummy->SetPosX(300);
-	dummy->SetPosY(300);
+	dummy->SetPosX(1500);
+	dummy->SetPosY(1800);
 	dummy->SetVelX(0);
 	dummy->SetVelY(0);
 	dummy->SetSpeed(0);
@@ -200,8 +200,8 @@ void CGamePlayState::Enter(void)
 	tempVector.fY = 1;
 	dummy->SetDirection(tempVector);
 	//dummy->SetVelX(10);
-	m_pOM->AddObject(speedy);
 	m_pOM->AddObject(player);
+	m_pOM->AddObject(speedy);
 	m_pOM->AddObject(dummy);
 	m_pOM->AddObject(power_up);
 	m_bCountDown = false;
@@ -384,6 +384,7 @@ void CGamePlayState::Update(float fElapsedTime)
 
 		m_pES->ProcessEvents ();
 		m_pMS->ProcessMessages ();
+		m_pPM->UpdateEmittors(fElapsedTime);
 
 		if(player->GetHealth() <= 0)
 		{
@@ -428,7 +429,7 @@ void CGamePlayState::Update(float fElapsedTime)
 		CGame::GetInstance()->ChangeState(CMainMenuState::GetInstance());
 	}
 
-		m_pPM->UpdateEmittors(fElapsedTime);
+		
 }
 
 void CGamePlayState::Render(void)
@@ -472,7 +473,7 @@ void CGamePlayState::Render(void)
 	sprintf_s(scorebuff, "SCORE:%i", score);
 	m_pPF->Print(scorebuff, 380, 550, 1.0, D3DCOLOR_XRGB(255,255,255));
 
-	m_pPM->RenderEmittors();
+	m_pPM->RenderEmittors(player->GetCamera());
 }
 
 bool CGamePlayState::HandleEnter(void)
