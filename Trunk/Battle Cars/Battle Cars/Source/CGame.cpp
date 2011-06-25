@@ -160,6 +160,8 @@ void CGame::Update(float fElapsedTime)
 {
 	m_fInputDelay += fElapsedTime;
 	m_fThumbDelay += fElapsedTime;
+	if(!m_pController1->Connected())
+		m_bController = false;
 	m_vGameStates.back()->Update(fElapsedTime);
 }
 

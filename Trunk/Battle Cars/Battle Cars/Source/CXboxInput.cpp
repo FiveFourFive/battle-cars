@@ -7,10 +7,11 @@
 
 
 #include "CXboxInput.h"
-
+#include "CKeyBinds.h"
 CXboxInput::CXboxInput(int PlayerNum)
 {
 	m_nPlayerNum = PlayerNum -1;
+	m_pKB = new CKeyBinds();
 	XInputEnable(true);
 }
 

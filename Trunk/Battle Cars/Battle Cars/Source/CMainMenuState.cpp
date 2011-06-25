@@ -92,10 +92,17 @@ bool CMainMenuState::Input(void)
 		{
 			return this->HandleEnter();
 		}
+
+
 		if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_START)
 		{
+			//int x = 0;
+			//x = XINPUT_GAMEPAD_START;
+			//int y = 0;
+			//y = x;
 			return this->HandleEnter();
 		}
+
 		}
 		if(CGame::GetInstance()->GetThumbDelay() >= 0.15f)
 		{
