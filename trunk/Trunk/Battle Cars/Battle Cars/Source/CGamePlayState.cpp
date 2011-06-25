@@ -234,8 +234,8 @@ void CGamePlayState::Enter(void)
 
 	if( tempemittor)
 	{
-		tempemittor->SetIsDead(false);
-		tempemittor->SetIsActive(false);
+		//tempemittor->SetIsDead(false);
+		//tempemittor->SetIsActive(false);
 	}
 
 	time = 120;
@@ -534,8 +534,8 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet->SetMaxLife(5.0f);
 			pBullet->SetHeight((int)(64*pBullet->GetScale()));
 			pBullet->SetWidth((int)(64*pBullet->GetScale()));
-			pBullet->SetPosX(pCBM->GetPlayer()->GetPosX());
-			pBullet->SetPosY(pCBM->GetPlayer()->GetPosY());
+			pBullet->SetPosX(pCBM->GetPlayer()->GetPosX() - pCBM->GetPlayer()->GetCamera()->GetCamX());
+			pBullet->SetPosY(pCBM->GetPlayer()->GetPosY() - pCBM->GetPlayer()->GetCamera()->GetCamY());
 
 			pGame->m_pOM->AddObject(pBullet);
 

@@ -11,26 +11,31 @@ class CCar : public CBase
 {
 
 private:
-	float m_fVelX;
-	float m_fVelY;
-	float m_fRotation;
-	float m_fRotationRate;
-	float m_fAccelerationRate;
-	float m_fSpeed;
-	float m_nHealth;
-	float m_nMaxHealth;
-	float m_fPowerUpBar;
-	float m_fShieldBar;
-	float m_fMaxShield;
-	float m_fMaxPowerUp;
-	float m_fMaxSpeed;
-	int m_nCrashID;
-	int m_nKillCount;
-	float m_fFireDelay;
-	int m_nBulletSound;
-	int m_nSelectedWeapon;
-	tVector2D m_tDirection;
-	tVector2D m_tVelocity;
+	float m_fVelX;					// overall velocity in the x direction
+	float m_fVelY;					// overall velocity in the y direction
+	float m_nCollisionX1;				// center of first collision circle
+	float m_nCollisionY1;				// -------------------------------
+	float m_nCollisionX2;				// center of second collision circle
+	float m_nCollisionY2;				// -------------------------------
+	float m_nCollisionRadius;			// the radius of the collision circles
+	float m_fRotation;				// the amount the car is rotated
+	float m_fRotationRate;			// the rate at which the car rotates
+	float m_fAccelerationRate;		// the rate at which the car accelerates
+	float m_fSpeed;					// the speed the car is currently moving
+	float m_nHealth;				// the current health of the car
+	float m_nMaxHealth;				// the maximum amount of health for this car
+	float m_fPowerUpBar;			// the current amount of power this car has
+	float m_fShieldBar;				// the current amount of shield this car has
+	float m_fMaxShield;				// the maximum amount of shield this car can have
+	float m_fMaxPowerUp;			// the maximum amount of power this car can ahve
+	float m_fMaxSpeed;				// the maximum speed this car can travel
+	int m_nCrashID;					// the id for the crash sound to be played when crashing
+	int m_nKillCount;				// the current amount of kills this car has
+	float m_fFireDelay;				// the delay between firing bullets
+	int m_nBulletSound;				// the id for the sound of firing a bullet
+	int m_nSelectedWeapon;			// the currently selected weapon (0-2) 
+	tVector2D m_tDirection;			// the forward direction that speed is applied to
+	tVector2D m_tVelocity;			// outside forces that effect which way the overall velocity of the car is
 public:
 	CCar(void);
 	void Update(float fElapsedTime);
@@ -77,6 +82,10 @@ public:
 	void IncrementWeapon(void) { m_nSelectedWeapon++; }
 	void DecrementWeapon(void) { m_nSelectedWeapon--; }
 	void SetSelectedWeapon(int wepnum) { m_nSelectedWeapon = wepnum; }
+	
+	void Rotate(float angle);
+	
+	
 	// plays the crash sound
 	void PlayCrash(void);
 	void PlayBullet(void);

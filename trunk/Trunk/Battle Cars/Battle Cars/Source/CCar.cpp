@@ -7,6 +7,7 @@
 #include "CGamePlayState.h"
 #include "CCamera.h"
 #include <vector>
+#include <math.h>
 CCar::CCar(void)
 {
 	m_fAccelerationRate = 100.0f;
@@ -22,7 +23,8 @@ CCar::CCar(void)
 
 	SetPosX(350);
 	SetPosY(225);
-
+	m_nCollisionX1 = 350;
+	m_nCollisionY1 = 205;
 	SetWidth(52);
 	SetHeight(70);
 
@@ -87,11 +89,14 @@ void CCar::Update(float fElapsedTime)
 	if(GetSpeed() < 0.2f && GetSpeed() > -0.2f)
 		SetSpeed(0);
 
+
 	SetVelocity(tempvel);
 	SetVelX(m_tVelocity.fX + tempdir.fX);
 	SetVelY(m_tVelocity.fY + tempdir.fY);
 	SetPosX(GetPosX() + (GetVelX() * fElapsedTime));
 	SetPosY(GetPosY() + (GetVelY() * fElapsedTime));
+	m_nCollisionX1 = m_nCollisionX1 + (GetVelX() * fElapsedTime);
+	m_nCollisionY1 = m_nCollisionY1 + (GetVelY() * fElapsedTime);
 	CBase::Update(fElapsedTime);
 	InBounds();
 }
@@ -100,6 +105,7 @@ void CCar::Render(CCamera* camera)
 {
 
 	CSGD_Direct3D* pD3D = CSGD_Direct3D::GetInstance();
+	
 	RECT tempcar;
 	tempcar.left = (LONG)(GetPosX()- camera->GetCamX());
 	tempcar.top = (LONG)(GetPosY()- camera->GetCamY());
@@ -115,6 +121,49 @@ void CCar::Render(CCamera* camera)
 	char buffer[128];
 	sprintf_s(buffer,"fX: %f	fY: %f",dir1,dir2);
 	pD3D->DrawText(buffer,(int)(GetPosX()- camera->GetCamX()), (int)(GetPosY()- camera->GetCamY()),0,0,255);
+	sprintf_s(buffer,"R: %f",GetRotation());
+	pD3D->DrawText(buffer,(int)(GetPosX()- camera->GetCamX())+10, (int)(GetPosY()- camera->GetCamY())+20,0,0,255);
+	// testing collision rotation
+	
+	//m_nCollisionX1 = GetPosX() - camera->GetCamX();
+	//m_nCollisionY1 = GetPosY() - camera->GetCamY();
+	RECT tempcircle1;
+	tempcircle1.left = m_nCollisionX1 - camera->GetCamX();
+	tempcircle1.top = m_nCollisionY1 - camera->GetCamY();
+	tempcircle1.right = tempcircle1.left + 10;
+	tempcircle1.bottom = tempcircle1.top + 10;
+
+	pD3D->DrawRect(tempcircle1,255,255,255);
+
+
+
+	// end collision testing
+
+
+}
+void CCar::Rotate(float angle)
+{
+	float newangle = angle / 180 * 3.14159;
+
+	/*float s = sin(angle);
+	float c = sin(angle);
+
+	m_nCollisionX1 -= GetPosX();
+	m_nCollisionY1 -= GetPosY();
+
+	float newx = m_nCollisionX1 * c - m_nCollisionY1 * s;
+	float newy = m_nCollisionX1 * s + m_nCollisionY1 * c;
+
+	m_nCollisionX1 = newx + GetPosX();
+	m_nCollisionY1 = newx + GetPosY();*/
+	m_nCollisionX1 = GetPosX();
+	m_nCollisionY1 = GetPosY() - 20;
+	//m_nCollisionX1 = GetPosX() + (cos(newangle)) * (m_nCollisionX1 - GetPosX()) - sin(newangle) * (m_nCollisionY1 - GetPosY());
+	//m_nCollisionY1 = GetPosY() + (sin(newangle)) * (m_nCollisionX1 - GetPosX()) + cos(newangle) * (m_nCollisionY1 - GetPosY());
+	float tempX1 = m_nCollisionX1;
+	float tempY1 = m_nCollisionY1;
+	m_nCollisionX1 = GetPosX() + (cos(angle)) * (tempX1 - GetPosX()) - sin(angle) * (tempY1 - GetPosY());
+	m_nCollisionY1 = GetPosY() + (sin(angle)) * (tempX1 - GetPosX()) + cos(angle) * (tempY1 - GetPosY());
 }
 void CCar::PlayCrash(void)
 {
