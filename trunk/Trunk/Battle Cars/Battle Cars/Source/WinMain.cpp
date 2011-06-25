@@ -34,7 +34,7 @@ const int	g_nWINDOW_HEIGHT		= 600;						//	Window Height.
 #ifdef _DEBUG
 	const BOOL	g_bIS_WINDOWED			= TRUE;						
 #else
-	const BOOL	g_bIS_WINDOWED			= TRUE;
+	const BOOL	g_bIS_WINDOWED			= FALSE;
 #endif
 
 //	Handler function that writes out a dump file

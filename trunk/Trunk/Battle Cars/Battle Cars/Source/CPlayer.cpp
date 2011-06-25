@@ -10,6 +10,7 @@
 #include "CCamera.h"
 #include "CMessage.h"
 #include "CMessageSystem.h"
+#include "CKeyBinds.h"
 CPlayer::CPlayer(void)
 {
 	m_nType = OBJECT_PLAYER;
@@ -24,7 +25,8 @@ CPlayer::CPlayer(void)
 	
 
 	m_pES = CEventSystem::GetInstance ();
-
+	CKeyBinds* tempkeys = m_pController1->GetKB();
+	tempkeys->SetShootAccept(XINPUT_GAMEPAD_Y);
 	m_pES->RegisterClient ("CameraCollision", this);
 	m_pES->RegisterClient("powerup", this);
 }
@@ -61,8 +63,17 @@ void CPlayer::Update(float fElapsedTime)
 		BYTE lTrig = xState.Gamepad.bLeftTrigger;
 		float x = xState.Gamepad.sThumbLX;
 		float y = xState.Gamepad.sThumbLY;
+		CKeyBinds* tempkeys = m_pController1->GetKB();
 		if(m_fFireDelay >= GetFireDelay())
 		{
+			if(xState.Gamepad.wButtons & tempkeys->GetShootAccept())
+			{
+				CMessageSystem* pMS = CMessageSystem::GetInstance();
+				PlayBullet();
+				pMS->SendMsg(new CCreatePlayerBulletMessage(this));
+				m_fFireDelay = 0.0f;
+				m_pController1->Vibrate(20000,20000);
+			}
 			if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_X)
 			{
 				CMessageSystem* pMS = CMessageSystem::GetInstance();
@@ -115,7 +126,8 @@ void CPlayer::Update(float fElapsedTime)
 		}
 		if(lTrig > 5)
 		{
-			SetSpeed(GetSpeed() - (GetAcceleration() * fElapsedTime));
+			if(GetSpeed() > (-0.5f * GetMaxSpeed()))
+				SetSpeed(GetSpeed() - (GetAcceleration() * fElapsedTime));
 		}
 
 		if(CGame::GetInstance()->GetInputDelay() >= 0.15f)
@@ -144,8 +156,9 @@ void CPlayer::Update(float fElapsedTime)
 			if(m_pDI->KeyDown(DIK_UP))
 				SetSpeed(GetSpeed() + (GetAcceleration() * fElapsedTime));
 
-		if(m_pDI->KeyDown(DIK_DOWN))
-			SetSpeed(GetSpeed() - (GetAcceleration() * fElapsedTime));
+		if(GetSpeed() > (-0.5f * GetMaxSpeed()))
+			if(m_pDI->KeyDown(DIK_DOWN))
+				SetSpeed(GetSpeed() - (GetAcceleration() * fElapsedTime));
 
 		if(m_pDI->KeyDown(DIK_LEFT))
 			SetRotation(GetRotation() - (GetRotationRate() * fElapsedTime));
