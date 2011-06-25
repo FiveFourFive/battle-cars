@@ -142,10 +142,24 @@ void CPlayer::Update(float fElapsedTime)
 			if(x < -16000)// && y < 15000 && y > -15000)
 			{
 				SetRotation(GetRotation() - (GetRotationRate() * fElapsedTime));
+				tVector2D tempdir = GetDirection();
+				tempdir.fX = 0;
+				tempdir.fY = -1;
+				tempdir = Vector2DRotate(tempdir, GetRotation());
+				tempdir = tempdir * GetSpeed();
+				SetDirection(tempdir);
+				Rotate(GetRotation());
 			}
 			else if(x > 16000)// && y < 15000 && y > -15000)
 			{
 				SetRotation(GetRotation() + (GetRotationRate() * fElapsedTime));
+				tVector2D tempdir = GetDirection();
+				tempdir.fX = 0;
+				tempdir.fY = -1;
+				tempdir = Vector2DRotate(tempdir, GetRotation());
+				tempdir = tempdir * GetSpeed();
+				SetDirection(tempdir);
+				Rotate(GetRotation());
 			}
 
 		}
@@ -161,10 +175,29 @@ void CPlayer::Update(float fElapsedTime)
 				SetSpeed(GetSpeed() - (GetAcceleration() * fElapsedTime));
 
 		if(m_pDI->KeyDown(DIK_LEFT))
+		{
+			
 			SetRotation(GetRotation() - (GetRotationRate() * fElapsedTime));
+			tVector2D tempdir = GetDirection();
+			tempdir.fX = 0;
+			tempdir.fY = -1;
+			tempdir = Vector2DRotate(tempdir, GetRotation());
+			tempdir = tempdir * GetSpeed();
+			SetDirection(tempdir);
+			Rotate(GetRotation());
+		}
 
 		if(m_pDI->KeyDown(DIK_RIGHT))
+		{
 			SetRotation(GetRotation() + (GetRotationRate() * fElapsedTime));
+			tVector2D tempdir = GetDirection();
+			tempdir.fX = 0;
+			tempdir.fY = -1;
+			tempdir = Vector2DRotate(tempdir, GetRotation());
+			tempdir = tempdir * GetSpeed();
+			SetDirection(tempdir);
+			Rotate(GetRotation());
+		}
 		
 		if(m_pDI->KeyDown(DIK_SPACE))
 		{
@@ -218,7 +251,7 @@ void CPlayer::Update(float fElapsedTime)
 	tempdir = Vector2DRotate(tempdir, GetRotation());
 	tempdir = tempdir * GetSpeed();
 	SetDirection(tempdir);
-	float rotate = AngleBetweenVectors(tempdir,GetVelocity());
+	//float rotate = AngleBetweenVectors(tempdir,GetVelocity());
 
 	//tVector2D tempvel = GetVelocity();
 	//float fx = tempvel.fX;
@@ -238,7 +271,7 @@ void CPlayer::Update(float fElapsedTime)
 void CPlayer::Render(CCamera* camera)
 {
 	CSGD_Direct3D* pD3D = CSGD_Direct3D::GetInstance();
-	RECT tempcar;
+	/*RECT tempcar;
 	tempcar.left = (LONG)(GetPosX() - camera->GetCamX());
 	tempcar.top = (LONG)(GetPosY() - camera->GetCamY());
 	tempcar.right = (LONG)(tempcar.left + GetWidth());
@@ -251,7 +284,7 @@ void CPlayer::Render(CCamera* camera)
 	pD3D->DrawLine((int)(GetPosX()- camera->GetCamX()), (int)(GetPosY()- camera->GetCamY()), (int)(GetPosX()- camera->GetCamX() + (20 * (dir1))), (int)(GetPosY()- camera->GetCamY() + (20 * (dir2))), 0,255,0);
 	char buffer[32];
 	sprintf_s(buffer,"fX: %f	fY: %f",dir1,dir2);
-	pD3D->DrawText(buffer,(int)(GetPosX()- camera->GetCamX()),(int)(GetPosY()- camera->GetCamY()),0,0,255);
+	pD3D->DrawText(buffer,(int)(GetPosX()- camera->GetCamX()),(int)(GetPosY()- camera->GetCamY()),0,0,255);*/
 
 
 	// HUD informations
@@ -316,6 +349,8 @@ void CPlayer::Render(CCamera* camera)
 	power.bottom = power.top + 20;
 	pD3D->DrawRect(power,0,80,255);
 	pD3D->DrawText("power",100,550,0,255,0);
+
+	CCar::Render(camera);
 }
 
 bool CPlayer::CheckCollision(IBaseInterface* pBase)

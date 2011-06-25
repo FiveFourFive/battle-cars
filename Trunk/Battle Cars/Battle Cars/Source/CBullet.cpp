@@ -5,6 +5,7 @@
 #include "CEnemy.h"
 #include "CMessage.h"
 #include "CMessageSystem.h"
+#include "CCamera.h"
 CBullet::CBullet(void)
 {
 	m_pTM = CSGD_TextureManager::GetInstance();
@@ -22,11 +23,11 @@ void CBullet::Update(float fElapsedTime)
 	}
 }
 
-void CBullet::Render(void)
+void CBullet::Render(CCamera* camera)
 {
 	RECT temppos;
-	temppos.left = (LONG)GetPosX();
-	temppos.top = (LONG)GetPosY();
+	temppos.left = (LONG)(GetPosX());
+	temppos.top = (LONG)(GetPosY());
 	temppos.right = (LONG)(temppos.left + GetWidth());
 	temppos.bottom = (LONG)(temppos.top + GetHeight());
 	CSGD_Direct3D::GetInstance()->DrawRect(temppos,255,255,255);

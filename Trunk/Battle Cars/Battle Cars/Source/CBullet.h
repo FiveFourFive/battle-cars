@@ -8,7 +8,7 @@
 class CPlayer;
 
 class CSGD_TextureManager;
-
+class CCamera;
 class CBullet : public CBase
 {
 private:
@@ -27,7 +27,7 @@ private:
 public:
 	CBullet(void);
 	void Update(float fElapsedTime);
-	void Render(void);
+	void Render(CCamera* camera);
 
 
 	float GetVelX(void)	{return m_fVelX;}
