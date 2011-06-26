@@ -25,6 +25,7 @@ private:
 public:
 	
 	CXboxInput(int PlayerNum);
+	~CXboxInput(void);
 	XINPUT_STATE ReadInputState(void);
 	XINPUT_STATE GetState(void) { return m_xState; }
 	bool Connected(void);

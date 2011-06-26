@@ -14,7 +14,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////
 #include <windows.h>	//	Needed for Windows Applications.
 #include "..\resource.h"
-//#include <vld.h>
+#include <vld.h>
 #include <ctime>
 //#define _CRTDBG_MAP_ALLOC
 //#include <crtdbg.h>
