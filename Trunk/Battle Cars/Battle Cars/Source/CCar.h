@@ -45,6 +45,9 @@ public:
 	//getters
 	tVector2D GetDirection(void) { return m_tDirection; }
 	tVector2D GetVelocity(void) { return m_tVelocity; }
+	float GetCX1(void) { return m_nCollisionX1; }
+	float GetCY1(void) { return m_nCollisionY1; }
+	float GetRadius(void) { return m_nCollisionRadius; }
 	float GetVelX(void)	{return m_fVelX;}
 	float GetVelY(void)	{return m_fVelY;}
 	float GetHealth(void) { return m_nHealth;}

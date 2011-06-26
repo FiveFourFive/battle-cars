@@ -27,7 +27,7 @@ CCar::CCar(void)
 	m_nCollisionY1 = 205;
 	SetWidth(52);
 	SetHeight(70);
-
+	m_nCollisionRadius = GetWidth()/2;
 	SetVelY(0);
 	m_nKillCount = 0;
 	SetVelX(0);

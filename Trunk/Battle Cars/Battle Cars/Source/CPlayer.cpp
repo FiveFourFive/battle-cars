@@ -11,6 +11,7 @@
 #include "CMessage.h"
 #include "CMessageSystem.h"
 #include "CKeyBinds.h"
+#include <math.h>
 CPlayer::CPlayer(void)
 {
 	m_nType = OBJECT_PLAYER;
@@ -356,9 +357,18 @@ void CPlayer::Render(CCamera* camera)
 bool CPlayer::CheckCollision(IBaseInterface* pBase)
 {
 	RECT intersection;
-	if(IntersectRect(&intersection, &GetRect(), &pBase->GetRect()))
+	
+	if(pBase->GetType() == OBJECT_ENEMY)
 	{
-		if(pBase->GetType() == OBJECT_ENEMY)
+		CCar* tempcar = (CCar*)pBase;
+		float centerx = tempcar->GetPosX();
+		float centery = tempcar->GetPosY();
+		float myx = GetCX1();
+		float myy = GetCY1();
+		
+		float distance = sqrt(((centerx - myx)*(centerx - myx)) + ((centery - myy)*(centery - myy)));
+
+		if(distance <= (GetRadius() + tempcar->GetRadius()))
 		{
 			float speed = GetSpeed();
 			if(speed >= -10 && speed < 10)
@@ -378,8 +388,39 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 				SetSpeed((GetSpeed() * -1) + (GetSpeed() * 0.2f));
 			}
 			speed = GetSpeed();
-
 			return true;
+		}
+	}
+
+
+
+	if(IntersectRect(&intersection, &GetRect(), &pBase->GetRect()))
+	{
+		if(pBase->GetType() == OBJECT_ENEMY)
+		{
+			
+			// old rectangle collision - save for reference
+			
+			//float speed = GetSpeed();
+			//if(speed >= -10 && speed < 10)
+			//{
+			//	SetSpeed(-10);
+			//	m_pController1->Vibrate(10000,10000);
+			//}
+			//else
+			//{
+			//	PlayCrash();
+			//	m_pController1->Vibrate(40000,40000);
+			//	m_fCollisionDelay = 0.0f;
+			//	CCar* tempcar = (CCar*)pBase;
+			//	//tempcar->SetDirection(GetDirection());
+			//	//tempcar->SetSpeed(GetSpeed() * 0.2f);
+			//	tempcar->SetVelocity(GetDirection());
+			//	SetSpeed((GetSpeed() * -1) + (GetSpeed() * 0.2f));
+			//}
+			//speed = GetSpeed();
+
+			//return true;
 		}
 		else if(pBase->GetType() == OBJECT_BULLET)
 		{

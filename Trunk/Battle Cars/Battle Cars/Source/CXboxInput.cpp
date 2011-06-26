@@ -14,6 +14,10 @@ CXboxInput::CXboxInput(int PlayerNum)
 	m_pKB = new CKeyBinds();
 	XInputEnable(true);
 }
+CXboxInput::~CXboxInput(void)
+{
+	delete m_pKB;
+}
 
 XINPUT_STATE CXboxInput::ReadInputState(void)
 {
