@@ -140,7 +140,7 @@ void CPlayer::Update(float fElapsedTime)
 		{
 			//CGame::GetInstance()->ResetThumbDelay();
 
-			if(x < -16000)// && y < 15000 && y > -15000)
+			if(x < -16000 || xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_LEFT)// && y < 15000 && y > -15000)
 			{
 				SetRotation(GetRotation() - (GetRotationRate() * fElapsedTime));
 				tVector2D tempdir = GetDirection();
@@ -151,7 +151,7 @@ void CPlayer::Update(float fElapsedTime)
 				SetDirection(tempdir);
 				Rotate(GetRotation());
 			}
-			else if(x > 16000)// && y < 15000 && y > -15000)
+			else if(x > 16000|| xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_RIGHT)// && y < 15000 && y > -15000)
 			{
 				SetRotation(GetRotation() + (GetRotationRate() * fElapsedTime));
 				tVector2D tempdir = GetDirection();

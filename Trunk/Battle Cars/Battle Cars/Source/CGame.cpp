@@ -129,7 +129,7 @@ bool CGame::Input()
 		XINPUT_STATE xState = m_pController1->GetState();
 		BYTE rTrig = xState.Gamepad.bRightTrigger;
 
-		if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_RIGHT)
+		if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_BACK)
 		{
 			windowed = !windowed;
 			m_pD3D->ChangeDisplayParam(m_ScreenWidth, m_ScreenHeight, windowed);
