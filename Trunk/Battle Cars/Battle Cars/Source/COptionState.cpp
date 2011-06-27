@@ -76,7 +76,7 @@ bool COptionState::Input(void)
 		if(CGame::GetInstance()->GetThumbDelay() >= 0.15f)
 		{
 			CGame::GetInstance()->ResetThumbDelay();
-		if(x < 8000 && x > -8000 && y > 16000)
+		if(x < 8000 && x > -8000 && y > 16000|| xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP)
 		{
 			
 			m_nSelection--;
@@ -84,7 +84,7 @@ bool COptionState::Input(void)
 			if(m_nSelection < 0)
 				m_nSelection = 3;
 		}
-		else if(x < 8000 && x > -8000 && y < -16000)
+		else if(x < 8000 && x > -8000 && y < -16000|| xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN)
 		{
 			m_nSelection++;
 			m_pFM->PlaySound(m_nMenuMove);

@@ -126,11 +126,11 @@ bool CGamerProfile::Input()
 			if(CGame::GetInstance()->GetThumbDelay() >= 0.15f)
 			{
 				CGame::GetInstance()->ResetThumbDelay();
-				if(x < 8000 && x > -8000 && y > 16000)
+				if(x < 8000 && x > -8000 && y > 16000|| xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN)
 				{
 					temp++;
 				}
-				else if(x < 8000 && x > -8000 && y < -16000)
+				else if(x < 8000 && x > -8000 && y < -16000|| xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP)
 				{
 					temp--;
 				}

@@ -1,8 +1,7 @@
 /////////////////////////////////////////////////////////
-//	File Name	: "CBase.h"
-//	Author Name : James Brown
-//	Purpose		: To contrain all related data &
-//				  functionality of our game objects
+//	File Name	: "CBase.cpp"
+//	Author Name : Wade Shwallon
+//	Purpose		: Contains base functionality for game objects
 /////////////////////////////////////////////////////////
 
 #ifndef _CBASE
