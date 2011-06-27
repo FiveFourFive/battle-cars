@@ -12,7 +12,7 @@
 using std::vector;
 
 #include "IBaseInterface.h"
-
+class CCamera;
 class CObjectManager
 {
 
@@ -29,7 +29,7 @@ public:
 	static CObjectManager* GetInstance(void);
 	void DeleteInstance(void);
 	void UpdateObjects(float fElapsedTime);
-	void RenderObjects(void);
+	void RenderObjects(CCamera* camera);
 	void AddObject(IBaseInterface* pObject);
 	void RemoveObject(IBaseInterface* pObject);
 	void RemoveAllObjects(void);

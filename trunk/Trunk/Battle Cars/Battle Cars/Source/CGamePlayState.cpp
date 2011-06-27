@@ -139,10 +139,11 @@ void CGamePlayState::Enter(void)
 	m_pFM->PlaySound(m_nBackgroundMusicID);
 	CGame::GetInstance()->ResetInputDelay();
 
-	player = new CPlayer();
+	player = new CPlayer(m_pController1);
 	dummy = new CEnemy();
 	power_up = new PowerUp();
-
+	dummy2 = new CCar();
+	player2 = new CPlayer(m_pController2);
 	//player->SetPosX(2000);
 	//player->SetPosY(2000);
 	player->SetHealth(100);
@@ -154,6 +155,25 @@ void CGamePlayState::Enter(void)
 	player->SetMaxShield(100);
 	player->SetVelX(-20);
 	player->SetType(OBJECT_PLAYER);
+	player->SetWidth(52);
+	player->SetHeight(70);
+	player->SetPosX(350);
+	player->SetPosY(225);
+
+	player2->SetHealth(100);
+	player2->SetMaxHealth(100);
+	player2->SetPowerUpBar(0);
+	player2->SetShieldBar(100);
+	player2->SetMaxPowerUp(100);
+	player2->SetMaxSpeed(200);
+	player2->SetMaxShield(100);
+	player2->SetVelX(-20);
+	player2->SetType(OBJECT_PLAYER);
+	player2->SetWidth(52);
+	player2->SetHeight(70);
+	player2->SetPosX(250);
+	player2->SetPosY(225);
+
 
 	dummy->SetPosX(1500);
 	dummy->SetPosY(1800);
@@ -162,6 +182,16 @@ void CGamePlayState::Enter(void)
 	dummy->SetSpeed(0);
 	dummy->SetType(OBJECT_ENEMY);
 	dummy->SetKillCount(5);
+
+	dummy2->SetPosX(450);
+	dummy2->SetPosY(325);
+	dummy2->SetHealth(100);
+	dummy2->SetVelX(0);
+	dummy2->SetVelY(0);
+	dummy2->SetSpeed(0);
+	dummy2->SetType(OBJECT_ENEMY);
+	dummy2->SetKillCount(5);
+	
 
 	dummy->EnterState ();
 
@@ -200,7 +230,9 @@ void CGamePlayState::Enter(void)
 	tempVector.fY = 1;
 	dummy->SetDirection(tempVector);
 	//dummy->SetVelX(10);
+	m_pOM->AddObject(dummy2);
 	m_pOM->AddObject(player);
+	m_pOM->AddObject(player2);
 	m_pOM->AddObject(speedy);
 	m_pOM->AddObject(dummy);
 	m_pOM->AddObject(power_up);
@@ -266,6 +298,7 @@ void CGamePlayState::Exit(void)
 	player->Release();
 	dummy->Release();
 	speedy->Release();
+	dummy2->Release();
 	m_pPM->ShutDownParticleManager();
 	m_pPM = NULL;
 	m_lScores.clear();
@@ -385,7 +418,7 @@ void CGamePlayState::Update(float fElapsedTime)
 		m_pES->ProcessEvents ();
 		m_pMS->ProcessMessages ();
 		m_pPM->UpdateEmittors(fElapsedTime);
-
+m_pMS->ProcessMessages ();
 		if(player->GetHealth() <= 0)
 		{
 			CGame::GetInstance()->ChangeState(CMainMenuState::GetInstance());
@@ -404,7 +437,7 @@ void CGamePlayState::Update(float fElapsedTime)
 			}
 		}
 
-		m_pMS->ProcessMessages ();
+		
 	}
 	else
 	{
@@ -437,7 +470,7 @@ void CGamePlayState::Render(void)
 	RECT cam = player->GetCamera()->GetRect();
 	Level->Render (player->GetCamera ()->GetRect ());
 
-	m_pOM->RenderObjects();
+	m_pOM->RenderObjects(player->GetCamera());
 	if(!m_bPlaying)
 	{
 		char buffer[32];

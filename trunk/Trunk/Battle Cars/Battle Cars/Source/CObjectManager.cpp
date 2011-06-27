@@ -49,17 +49,17 @@ void CObjectManager::UpdateObjects(float fElapsedTime)
 	}
 }
 
-void CObjectManager::RenderObjects(void)
+void CObjectManager::RenderObjects(CCamera* camera)
 {
-	CCamera* temp_player_camera = NULL;
+	//CCamera* temp_player_camera = NULL;
 	for(size_t i = 0; i < m_vObjectList.size(); i++)
 	{
-		CPlayer* temp_player = (CPlayer*)m_vObjectList[i];
+		/*CPlayer* temp_player = (CPlayer*)m_vObjectList[i];
 		if( temp_player->GetType() == OBJECT_PLAYER)
-			temp_player_camera = temp_player->GetCamera();
+			temp_player_camera = temp_player->GetCamera();*/
 
-		if( temp_player_camera )
-			m_vObjectList[i]->Render(temp_player_camera);
+		//if( temp_player_camera )
+			m_vObjectList[i]->Render(camera);
 	}
 }
 
