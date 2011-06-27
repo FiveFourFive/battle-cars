@@ -27,7 +27,7 @@ private:
 	RECT m_CollisionRECT;
 
 public:
-	CPlayer(void);
+	CPlayer(CXboxInput* pController);
 	~CPlayer(void);
 	void Update(float fElapsedTime);
 	void Render(CCamera* camera);

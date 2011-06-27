@@ -7,6 +7,7 @@
 #include "CGamePlayState.h"
 #include "CCamera.h"
 #include <vector>
+#include "CSGD_TextureManager.h"
 #include <math.h>
 CCar::CCar(void)
 {
@@ -23,11 +24,12 @@ CCar::CCar(void)
 
 	SetPosX(350);
 	SetPosY(225);
-	m_nCollisionX1 = 350;
-	m_nCollisionY1 = 205;
+
 	SetWidth(52);
 	SetHeight(70);
 	m_nCollisionRadius = GetWidth()/2;
+	m_nCollisionX1 = GetPosX();
+	m_nCollisionY1 = GetPosY() - (GetHeight()*0.5f) + (GetWidth()*0.5f);;
 	SetVelY(0);
 	m_nKillCount = 0;
 	SetVelX(0);
@@ -40,6 +42,8 @@ CCar::CCar(void)
 
 	CSGD_FModManager::GetInstance()->SetVolume(m_nBulletSound,0.5f);
 	m_fFireDelay = 0.2f;
+
+	m_nCarID = CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/cartexture.bmp",D3DCOLOR_XRGB(255, 255, 255));
 }
 
 
@@ -49,7 +53,8 @@ void CCar::Update(float fElapsedTime)
 	tVector2D tempdir = GetDirection();
 	tVector2D tempvel = GetVelocity();
 	//SetDirection(tempdir);
-	//tempdir = tempdir * GetSpeed();
+	tempdir = Vector2DNormalize(tempdir);
+	tempdir = tempdir * GetSpeed();
 
 
 	if(tempvel.fX > 0)
@@ -91,6 +96,7 @@ void CCar::Update(float fElapsedTime)
 
 
 	SetVelocity(tempvel);
+	//SetDirection(tempdir);
 	SetVelX(m_tVelocity.fX + tempdir.fX);
 	SetVelY(m_tVelocity.fY + tempdir.fY);
 	SetPosX(GetPosX() + (GetVelX() * fElapsedTime));
@@ -105,33 +111,45 @@ void CCar::Render(CCamera* camera)
 {
 
 	CSGD_Direct3D* pD3D = CSGD_Direct3D::GetInstance();
-	
+	CSGD_TextureManager* m_pTM = CSGD_TextureManager::GetInstance();
 	RECT tempcar;
 	tempcar.left = (LONG)(GetPosX()- camera->GetCamX());
 	tempcar.top = (LONG)(GetPosY()- camera->GetCamY());
 	tempcar.right = (LONG)(tempcar.left + GetWidth());
 	tempcar.bottom = (LONG)(tempcar.top + GetHeight());
-	pD3D->DrawRect(tempcar,255,0,0);
-	pD3D->DrawText("BEEP", (int)(GetPosX()- camera->GetCamX() + 10), (int)(GetPosY()- camera->GetCamY() + 35),255,255,255);
+	
+	RECT car;
+
+	car.left = 0;
+	car.top = 0;
+	car.bottom = car.top + GetHeight();
+	car.right = car.left + GetWidth();
+
+	m_pTM->Draw(m_nCarID,GetPosX()-(GetWidth()/2)- camera->GetCamX(),GetPosY()-(GetHeight()/2)- camera->GetCamY(),1.0f,1.0f,&car,GetWidth()/2,GetHeight()/2,GetRotation());
+	//pD3D->DrawRect(tempcar,255,0,0);
+	//pD3D->DrawText("BEEP", (int)(GetPosX()- camera->GetCamX() + 10), (int)(GetPosY()- camera->GetCamY() + 35),255,255,255);
 	pD3D->DrawLine((int)(GetPosX()- camera->GetCamX()), (int)(GetPosY()- camera->GetCamY()), (int)(GetPosX()- camera->GetCamX() + GetVelX()), (int)(GetPosY()- camera->GetCamY() + GetVelY()),255,255,255);
 	pD3D->DrawLine(400, 600, 400, 550,255,255,255);
 	float dir1 = GetDirection().fX;
 	float dir2 = GetDirection().fY;
-	pD3D->DrawLine((int)(GetPosX()- camera->GetCamX()), (int)(GetPosY()- camera->GetCamY()), (int)(GetPosX()- camera->GetCamX() + (20 * (dir1))), (int)(GetPosY()- camera->GetCamY() + (20 * (dir2))), 0,255,0);
+	pD3D->DrawLine((int)(GetPosX()- camera->GetCamX()), (int)(GetPosY()- camera->GetCamY()), (int)(GetPosX() + (20 * dir1)- camera->GetCamX()), (int)(GetPosY() + (20 * dir2)- camera->GetCamY()), 0,255,0);
 	char buffer[128];
 	sprintf_s(buffer,"fX: %f	fY: %f",dir1,dir2);
 	pD3D->DrawText(buffer,(int)(GetPosX()- camera->GetCamX()), (int)(GetPosY()- camera->GetCamY()),0,0,255);
 	sprintf_s(buffer,"R: %f",GetRotation());
 	pD3D->DrawText(buffer,(int)(GetPosX()- camera->GetCamX())+10, (int)(GetPosY()- camera->GetCamY())+20,0,0,255);
+
+
 	// testing collision rotation
 	
 	//m_nCollisionX1 = GetPosX() - camera->GetCamX();
 	//m_nCollisionY1 = GetPosY() - camera->GetCamY();
+	pD3D->GetSprite()->Flush();
 	RECT tempcircle1;
 	tempcircle1.left = m_nCollisionX1 - camera->GetCamX();
 	tempcircle1.top = m_nCollisionY1 - camera->GetCamY();
-	tempcircle1.right = tempcircle1.left + 10;
-	tempcircle1.bottom = tempcircle1.top + 10;
+	tempcircle1.right = tempcircle1.left + m_nCollisionRadius;
+	tempcircle1.bottom = tempcircle1.top + m_nCollisionRadius;
 
 	pD3D->DrawRect(tempcircle1,255,255,255);
 
@@ -157,7 +175,7 @@ void CCar::Rotate(float angle)
 	m_nCollisionX1 = newx + GetPosX();
 	m_nCollisionY1 = newx + GetPosY();*/
 	m_nCollisionX1 = GetPosX();
-	m_nCollisionY1 = GetPosY() - 20;
+	m_nCollisionY1 = GetPosY() - (GetHeight()*0.5f) + (GetWidth()*0.5f);
 	//m_nCollisionX1 = GetPosX() + (cos(newangle)) * (m_nCollisionX1 - GetPosX()) - sin(newangle) * (m_nCollisionY1 - GetPosY());
 	//m_nCollisionY1 = GetPosY() + (sin(newangle)) * (m_nCollisionX1 - GetPosX()) + cos(newangle) * (m_nCollisionY1 - GetPosY());
 	float tempX1 = m_nCollisionX1;

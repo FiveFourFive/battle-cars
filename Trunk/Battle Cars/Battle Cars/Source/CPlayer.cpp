@@ -12,11 +12,11 @@
 #include "CMessageSystem.h"
 #include "CKeyBinds.h"
 #include <math.h>
-CPlayer::CPlayer(void)
+CPlayer::CPlayer(CXboxInput* pController)
 {
 	m_nType = OBJECT_PLAYER;
 
-	m_pController1 = CGame::GetInstance()->GetController1();
+	m_pController1 = pController;
 
 	m_fCollisionDelay = 0.0f;
 
@@ -147,7 +147,7 @@ void CPlayer::Update(float fElapsedTime)
 				tempdir.fX = 0;
 				tempdir.fY = -1;
 				tempdir = Vector2DRotate(tempdir, GetRotation());
-				tempdir = tempdir * GetSpeed();
+				//tempdir = tempdir * GetSpeed();
 				SetDirection(tempdir);
 				Rotate(GetRotation());
 			}
@@ -158,7 +158,7 @@ void CPlayer::Update(float fElapsedTime)
 				tempdir.fX = 0;
 				tempdir.fY = -1;
 				tempdir = Vector2DRotate(tempdir, GetRotation());
-				tempdir = tempdir * GetSpeed();
+				//tempdir = tempdir * GetSpeed();
 				SetDirection(tempdir);
 				Rotate(GetRotation());
 			}
@@ -183,7 +183,7 @@ void CPlayer::Update(float fElapsedTime)
 			tempdir.fX = 0;
 			tempdir.fY = -1;
 			tempdir = Vector2DRotate(tempdir, GetRotation());
-			tempdir = tempdir * GetSpeed();
+			//tempdir = tempdir * GetSpeed();
 			SetDirection(tempdir);
 			Rotate(GetRotation());
 		}
@@ -195,7 +195,7 @@ void CPlayer::Update(float fElapsedTime)
 			tempdir.fX = 0;
 			tempdir.fY = -1;
 			tempdir = Vector2DRotate(tempdir, GetRotation());
-			tempdir = tempdir * GetSpeed();
+			//tempdir = tempdir * GetSpeed();
 			SetDirection(tempdir);
 			Rotate(GetRotation());
 		}
@@ -246,12 +246,12 @@ void CPlayer::Update(float fElapsedTime)
 	SetSpeed(GetMaxSpeed());*/
 	//else if(GetSpeed() < (GetMaxSpeed() *-1))
 	//	SetSpeed((GetMaxSpeed() *-1));
-	tVector2D tempdir = GetDirection();
-	tempdir.fX = 0;
-	tempdir.fY = -1;
-	tempdir = Vector2DRotate(tempdir, GetRotation());
-	tempdir = tempdir * GetSpeed();
-	SetDirection(tempdir);
+	//tVector2D tempdir = GetDirection();
+	//tempdir.fX = 0;
+	//tempdir.fY = -1;
+	//tempdir = Vector2DRotate(tempdir, GetRotation());
+	//tempdir = tempdir * GetSpeed();
+	//SetDirection(tempdir);
 	//float rotate = AngleBetweenVectors(tempdir,GetVelocity());
 
 	//tVector2D tempvel = GetVelocity();
@@ -272,21 +272,8 @@ void CPlayer::Update(float fElapsedTime)
 void CPlayer::Render(CCamera* camera)
 {
 	CSGD_Direct3D* pD3D = CSGD_Direct3D::GetInstance();
-	/*RECT tempcar;
-	tempcar.left = (LONG)(GetPosX() - camera->GetCamX());
-	tempcar.top = (LONG)(GetPosY() - camera->GetCamY());
-	tempcar.right = (LONG)(tempcar.left + GetWidth());
-	tempcar.bottom = (LONG)(tempcar.top + GetHeight());
-	pD3D->DrawRect(tempcar,255,0,0);
-	pD3D->DrawText("BEEP",(int)(GetPosX()- camera->GetCamX() + 10), (int)(GetPosY()- camera->GetCamY() + 35),255,255,255);
-	pD3D->DrawLine((int)(GetPosX()- camera->GetCamX()), (int)(GetPosY()- camera->GetCamY()), (int)(GetPosX()- camera->GetCamX() + GetVelX()), (int)(GetPosY()- camera->GetCamY() + GetVelY()),255,255,255);
-	float dir1 = GetDirection().fX;
-	float dir2 = GetDirection().fY;
-	pD3D->DrawLine((int)(GetPosX()- camera->GetCamX()), (int)(GetPosY()- camera->GetCamY()), (int)(GetPosX()- camera->GetCamX() + (20 * (dir1))), (int)(GetPosY()- camera->GetCamY() + (20 * (dir2))), 0,255,0);
-	char buffer[32];
-	sprintf_s(buffer,"fX: %f	fY: %f",dir1,dir2);
-	pD3D->DrawText(buffer,(int)(GetPosX()- camera->GetCamX()),(int)(GetPosY()- camera->GetCamY()),0,0,255);*/
 
+	CCar::Render(camera);
 
 	// HUD informations
 	RECT health;
@@ -351,7 +338,7 @@ void CPlayer::Render(CCamera* camera)
 	pD3D->DrawRect(power,0,80,255);
 	pD3D->DrawText("power",100,550,0,255,0);
 
-	CCar::Render(camera);
+	
 }
 
 bool CPlayer::CheckCollision(IBaseInterface* pBase)
@@ -371,6 +358,10 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 		if(distance <= (GetRadius() + tempcar->GetRadius()))
 		{
 			float speed = GetSpeed();
+		//	SetPosX(GetPosX() - GetVelX() * 0.001f);
+		//	SetPosX(GetPosY() - GetVelY() * 0.001f);
+			//SetVelX(0.0f);
+			//SetVelY(0.0f);
 			if(speed >= -10 && speed < 10)
 			{
 				SetSpeed(-10);
@@ -384,7 +375,10 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 				CCar* tempcar = (CCar*)pBase;
 				//tempcar->SetDirection(GetDirection());
 				//tempcar->SetSpeed(GetSpeed() * 0.2f);
-				tempcar->SetVelocity(GetDirection());
+				tVector2D tempvel = GetDirection();
+				//tempvel = Vector2DNormalize(tempvel);
+				tempvel = tempvel * GetSpeed() * 0.5f;
+				tempcar->SetVelocity(tempvel);
 				SetSpeed((GetSpeed() * -1) + (GetSpeed() * 0.2f));
 			}
 			speed = GetSpeed();

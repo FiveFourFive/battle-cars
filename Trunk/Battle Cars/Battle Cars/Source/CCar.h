@@ -31,6 +31,7 @@ private:
 	float m_fMaxSpeed;				// the maximum speed this car can travel
 	int m_nCrashID;					// the id for the crash sound to be played when crashing
 	int m_nKillCount;				// the current amount of kills this car has
+	int m_nCarID;					// the id for the car texture
 	float m_fFireDelay;				// the delay between firing bullets
 	int m_nBulletSound;				// the id for the sound of firing a bullet
 	int m_nSelectedWeapon;			// the currently selected weapon (0-2) 
@@ -85,7 +86,7 @@ public:
 	void IncrementWeapon(void) { m_nSelectedWeapon++; }
 	void DecrementWeapon(void) { m_nSelectedWeapon--; }
 	void SetSelectedWeapon(int wepnum) { m_nSelectedWeapon = wepnum; }
-	
+	void SetCollisionInfo(int x1, int y1, int radius) { m_nCollisionX1 = x1; m_nCollisionY1 = y1; m_nCollisionRadius = radius; }
 	void Rotate(float angle);
 	
 	

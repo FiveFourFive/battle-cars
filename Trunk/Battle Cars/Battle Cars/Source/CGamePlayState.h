@@ -64,6 +64,8 @@ private:
 	CEnemy* dummy;
 	PowerUp* power_up;
 	CSpeedRamp* speedy;
+	CCar* dummy2;
+	CPlayer* player2;
 	// sound
 	int m_nBackgroundMusicID;
 	int m_nCountDown;
