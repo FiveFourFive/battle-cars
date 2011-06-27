@@ -195,7 +195,7 @@ void CGamePlayState::Enter(void)
 
 	dummy->EnterState ();
 
-	Level->SetSpawn (player);
+	Level->SetSpawn (player2);
 
 	m_pD3D->Clear(0, 0, 0);
 	m_pD3D->DeviceBegin();
