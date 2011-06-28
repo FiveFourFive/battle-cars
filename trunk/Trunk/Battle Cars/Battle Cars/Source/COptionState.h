@@ -24,6 +24,8 @@ private:
 	CXboxInput* m_pController1;
 	CXboxInput* m_pController2;
 
+	bool m_bVertical;
+
 	int m_nBackgroundMusicID;
 	int m_nFontID;
 	int m_nSelection;
@@ -45,6 +47,8 @@ public:
 	void Update(float fElapsedTime);
 	void Render();
 	void Exit();
+
+	bool IsVertical(){ return m_bVertical;}
 
 
 };

@@ -8,7 +8,7 @@
 #include "CSGD_FModManager.h"
 #include "CSGD_DirectInput.h"
 #include "CXboxInput.h"
-enum options{WS_EFFECTS,WS_MUSIC,WS_INPUT,WS_EXIT};
+enum options{WS_EFFECTS,WS_MUSIC,WS_INPUT, WS_CAMERAVIEW ,WS_EXIT};
 
 COptionState::COptionState(void)
 {
@@ -18,6 +18,7 @@ COptionState::COptionState(void)
 	m_pDI = NULL;
 	m_pFM = NULL;
 
+	m_bVertical = true;
 }
 
 COptionState::~COptionState()
@@ -82,13 +83,13 @@ bool COptionState::Input(void)
 			m_nSelection--;
 			m_pFM->PlaySound(m_nMenuMove);
 			if(m_nSelection < 0)
-				m_nSelection = 3;
+				m_nSelection = 4;
 		}
 		else if(x < 8000 && x > -8000 && y < -16000|| xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN)
 		{
 			m_nSelection++;
 			m_pFM->PlaySound(m_nMenuMove);
-			if(m_nSelection > 3)
+			if(m_nSelection > 4)
 				m_nSelection = 0;
 		}
 		}
@@ -128,6 +129,11 @@ bool COptionState::Input(void)
 				CGame::GetInstance()->SetControllerInput(!CGame::GetInstance()->ControllerInput());
 				break;
 			}
+		case WS_CAMERAVIEW:
+			{
+				m_bVertical = !m_bVertical;
+				break;
+			}
 		}
 	}
 	if(x > 16000)
@@ -163,6 +169,11 @@ bool COptionState::Input(void)
 				CGame::GetInstance()->SetControllerInput(!CGame::GetInstance()->ControllerInput());
 				break;
 			}
+			case WS_CAMERAVIEW:
+				{
+					m_bVertical = !m_bVertical;
+					break;
+				}
 		}
 	}
 	}
@@ -183,14 +194,14 @@ bool COptionState::Input(void)
 		m_nSelection--;
 		m_pFM->PlaySound(m_nMenuMove);
 		if(m_nSelection < 0)
-			m_nSelection = 3;
+			m_nSelection = 4;
 	}
 
 	if(m_pDI->KeyPressed(DIK_DOWN))
 	{
 		m_nSelection++;
 		m_pFM->PlaySound(m_nMenuMove);
-		if(m_nSelection > 3)
+		if(m_nSelection > 4)
 			m_nSelection = 0;
 	}
 	if(m_fDelay > 0.20f)
@@ -238,6 +249,11 @@ bool COptionState::Input(void)
 				}
 				break;
 			}
+		case WS_CAMERAVIEW:
+				{
+					m_bVertical = !m_bVertical;
+					break;
+				}
 		}
 	}
 	if(m_pDI->KeyDown(DIK_RIGHT))
@@ -282,6 +298,11 @@ bool COptionState::Input(void)
 				}
 				break;
 			}
+			case WS_CAMERAVIEW:
+				{
+					m_bVertical = !m_bVertical;
+					break;
+				}
 		}
 	}
 	}
@@ -331,7 +352,17 @@ void COptionState::Render(void)
 		m_pPF->Print("KEYBOARD",520,300,0.5f,D3DCOLOR_XRGB(255,255,255));
 	}
 
-	m_pPF->Print("EXIT",300,350,0.5f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->Print("CAMERA SPLIT", 300, 350, 0.5f, D3DCOLOR_XRGB(200, 0, 0 ));
+	if( m_bVertical )
+	{
+		m_pPF->Print("VERTICAL",520,350,0.5f,D3DCOLOR_XRGB(255,255,255));
+	}
+	else
+	{
+		m_pPF->Print("HORIZONTAL",520,350,0.5f,D3DCOLOR_XRGB(255,255,255));
+	}
+
+	m_pPF->Print("EXIT",300,400,0.5f,D3DCOLOR_XRGB(200, 0, 0));
 
 	switch(m_nSelection)
 		{
@@ -344,8 +375,11 @@ void COptionState::Render(void)
 		case WS_INPUT:
 			m_pPF->Print("INPUT DEVICE",300,300,0.5f,D3DCOLOR_XRGB(0, 255, 0));	
 			break;
+		case WS_CAMERAVIEW:
+			m_pPF->Print("CAMERA SPLIT",300,350,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			break;
 		case WS_EXIT:
-			m_pPF->Print("EXIT",300,350,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print("EXIT",300,400,0.5f,D3DCOLOR_XRGB(0, 255, 0));
 			break;
 		}
 }

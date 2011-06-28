@@ -171,9 +171,8 @@ void CGamePlayState::Enter(void)
 	player2->SetType(OBJECT_PLAYER);
 	player2->SetWidth(52);
 	player2->SetHeight(70);
-	player2->SetPosX(250);
+	player2->SetPosX(500);
 	player2->SetPosY(225);
-
 
 	dummy->SetPosX(1500);
 	dummy->SetPosY(1800);
@@ -196,6 +195,7 @@ void CGamePlayState::Enter(void)
 	dummy->EnterState ();
 
 	Level->SetSpawn (player2);
+	
 
 	m_pD3D->Clear(0, 0, 0);
 	m_pD3D->DeviceBegin();
@@ -296,6 +296,7 @@ void CGamePlayState::Enter(void)
 void CGamePlayState::Exit(void)
 {
 	player->Release();
+	player2->Release();
 	dummy->Release();
 	speedy->Release();
 	dummy2->Release();
@@ -392,6 +393,26 @@ void CGamePlayState::Update(float fElapsedTime)
 	m_pFM->SetVolume(m_nCountDownEnd,CGame::GetInstance()->getSoundAVolume());
 	m_pFM->SetVolume(m_nCountDown,CGame::GetInstance()->getSoundAVolume());
 	m_pFM->SetVolume(m_nBackgroundMusicID,CGame::GetInstance()->getSoundBVolume());
+
+	if( COptionState::GetInstance()->IsVertical() )
+	{
+		player->GetCamera()->SetRenderPosX(0);
+		player->GetCamera()->SetRenderPosY(0);
+
+	
+		player2->GetCamera()->SetRenderPosX(400);
+		player2->GetCamera()->SetRenderPosY(0);
+	}
+	else
+	{
+		player->GetCamera()->SetRenderPosX(0);
+		player->GetCamera()->SetRenderPosY(0);
+
+	
+		player2->GetCamera()->SetRenderPosX(0);
+		player2->GetCamera()->SetRenderPosY(300);
+	}
+
 	if(m_bPlaying)
 	{
 		m_fElapsedSecond += fElapsedTime;
@@ -467,10 +488,18 @@ m_pMS->ProcessMessages ();
 
 void CGamePlayState::Render(void)
 {
-	RECT cam = player->GetCamera()->GetRect();
-	Level->Render (player->GetCamera ()->GetRect ());
-
+	Level->Render (player->GetCamera ());
 	m_pOM->RenderObjects(player->GetCamera());
+
+	if( CMainMenuState::GetInstance()->GetNumberOfPlayers() == 2)
+	{
+		Level->Render(player2->GetCamera());
+		m_pOM->RenderObjects(player2->GetCamera());
+	}
+
+	
+
+
 	if(!m_bPlaying)
 	{
 		char buffer[32];
@@ -506,6 +535,26 @@ void CGamePlayState::Render(void)
 	sprintf_s(scorebuff, "SCORE:%i", score);
 	m_pPF->Print(scorebuff, 380, 550, 1.0, D3DCOLOR_XRGB(255,255,255));
 
+	if( CMainMenuState::GetInstance()->GetNumberOfPlayers() == 2)
+	{
+		if( COptionState::GetInstance()->IsVertical())
+		{
+			m_pD3D->DrawLine(400, 0, 400, 600, 255,0,0);
+			player2->GetCamera()->AttachTo(player2, 200, 300);
+			player->GetCamera()->AttachTo(player, 200, 300);
+		}
+		else
+		{
+			m_pD3D->DrawLine(0, 300, 800, 300, 255,0,0);
+			player2->GetCamera()->AttachTo(player2, 400, 150);
+			player->GetCamera()->AttachTo(player, 400, 150);
+		}
+
+	}
+
+	
+	
+
 	m_pPM->RenderEmittors(player->GetCamera());
 }
 
@@ -539,7 +588,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 
 			//CBullet* pBullet = (CBullet*)pGame->m_pOF->CreateObject("CBullet");
 			CBullet* pBullet = new CBullet();
-			pBullet->SetType (2);
+			pBullet->SetType (OBJECT_BULLET);
 			pBullet->SetImageID (pCBM->GetPlayer()->GetBulletImageID());
 
 			tVector2D temp;
@@ -567,8 +616,8 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet->SetMaxLife(5.0f);
 			pBullet->SetHeight((int)(64*pBullet->GetScale()));
 			pBullet->SetWidth((int)(64*pBullet->GetScale()));
-			pBullet->SetPosX(pCBM->GetPlayer()->GetPosX() - pCBM->GetPlayer()->GetCamera()->GetCamX());
-			pBullet->SetPosY(pCBM->GetPlayer()->GetPosY() - pCBM->GetPlayer()->GetCamera()->GetCamY());
+			pBullet->SetPosX(pCBM->GetPlayer()->GetPosX());
+			pBullet->SetPosY(pCBM->GetPlayer()->GetPosY());
 
 			pGame->m_pOM->AddObject(pBullet);
 

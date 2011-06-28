@@ -3,6 +3,9 @@
 #include "CCamera.h"
 #include "CBase.h"
 #include "CGame.h"
+#include "CMainMenuState.h"
+#include "COptionState.h"
+
 CCamera::CCamera()
 {
 	SetCamX(0);
@@ -18,10 +21,30 @@ RECT CCamera::GetRect()
 {
 	RECT temp;
 
+	if( CMainMenuState::GetInstance()->GetNumberOfPlayers() == 2)
+	{
+		if( COptionState::GetInstance()->IsVertical() )
+		{
+			m_nWidth = CGame::GetInstance()->GetScreenWidth() / 2;
+			m_nHeight = CGame::GetInstance()->GetScreenHeight();
+		}
+		else
+		{
+			m_nWidth = CGame::GetInstance()->GetScreenWidth();
+			m_nHeight = CGame::GetInstance()->GetScreenHeight()/2;
+		}
+
+	}
+	else
+	{
+		m_nWidth = CGame::GetInstance()->GetScreenWidth();
+		m_nHeight = CGame::GetInstance()->GetScreenHeight();
+	}
+
 	temp.left = (int)GetCamX();
 	temp.top = (int)GetCamY();
-	temp.right = temp.left + 800;
-	temp.bottom = temp.top + 600;
+	temp.right = temp.left + m_nWidth;
+	temp.bottom = temp.top + m_nHeight;
 
 	return temp;
 }

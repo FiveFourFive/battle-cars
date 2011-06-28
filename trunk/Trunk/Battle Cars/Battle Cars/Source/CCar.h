@@ -98,6 +98,8 @@ public:
 	bool InBounds(void);
 	bool CheckCollision(IBaseInterface* pBase);
 
+	RECT GetRect();
+
 };
 
 

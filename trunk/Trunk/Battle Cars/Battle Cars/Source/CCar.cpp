@@ -109,9 +109,14 @@ void CCar::Update(float fElapsedTime)
 
 void CCar::Render(CCamera* camera)
 {
+	if( (GetRect().left - camera->GetCamX()) + 2 < 0 || (GetRect().left - camera->GetCamX()) > camera->GetRenderPosX() + camera->GetWidth() 
+		|| (GetRect().top - camera->GetCamY() + 2 < 0) || (GetRect().top - camera->GetCamY()) > camera->GetRenderPosY() + camera->GetHeight() )
+		return;
 
 	CSGD_Direct3D* pD3D = CSGD_Direct3D::GetInstance();
 	CSGD_TextureManager* m_pTM = CSGD_TextureManager::GetInstance();
+
+
 	RECT tempcar;
 	tempcar.left = (LONG)(GetPosX()- camera->GetCamX());
 	tempcar.top = (LONG)(GetPosY()- camera->GetCamY());
@@ -125,19 +130,19 @@ void CCar::Render(CCamera* camera)
 	car.bottom = car.top + GetHeight();
 	car.right = car.left + GetWidth();
 
-	m_pTM->Draw(m_nCarID,GetPosX()-(GetWidth()/2)- camera->GetCamX(),GetPosY()-(GetHeight()/2)- camera->GetCamY(),1.0f,1.0f,&car,GetWidth()/2,GetHeight()/2,GetRotation());
+	m_pTM->Draw(m_nCarID,GetPosX()-(GetWidth()/2)- camera->GetCamX() + camera->GetRenderPosX(),GetPosY()-(GetHeight()/2)- camera->GetCamY() + camera->GetRenderPosY(),1.0f,1.0f,&car,GetWidth()/2,GetHeight()/2,GetRotation());
 	//pD3D->DrawRect(tempcar,255,0,0);
 	//pD3D->DrawText("BEEP", (int)(GetPosX()- camera->GetCamX() + 10), (int)(GetPosY()- camera->GetCamY() + 35),255,255,255);
-	pD3D->DrawLine((int)(GetPosX()- camera->GetCamX()), (int)(GetPosY()- camera->GetCamY()), (int)(GetPosX()- camera->GetCamX() + GetVelX()), (int)(GetPosY()- camera->GetCamY() + GetVelY()),255,255,255);
+	pD3D->DrawLine((int)(GetPosX()- camera->GetCamX() + camera->GetRenderPosX()), (int)(GetPosY()- camera->GetCamY()+ camera->GetRenderPosY()), (int)(GetPosX()- camera->GetCamX() + camera->GetRenderPosX() + GetVelX()), (int)(GetPosY()- camera->GetCamY() + camera->GetRenderPosY() + GetVelY()),255,255,255);
 	pD3D->DrawLine(400, 600, 400, 550,255,255,255);
 	float dir1 = GetDirection().fX;
 	float dir2 = GetDirection().fY;
-	pD3D->DrawLine((int)(GetPosX()- camera->GetCamX()), (int)(GetPosY()- camera->GetCamY()), (int)(GetPosX() + (20 * dir1)- camera->GetCamX()), (int)(GetPosY() + (20 * dir2)- camera->GetCamY()), 0,255,0);
+	pD3D->DrawLine((int)(GetPosX()- camera->GetCamX()+ camera->GetRenderPosX()), (int)(GetPosY()- camera->GetCamY() + camera->GetRenderPosY()), (int)(GetPosX() + (20 * dir1)- camera->GetCamX() + camera->GetRenderPosX()), (int)(GetPosY() + (20 * dir2)- camera->GetCamY() + camera->GetRenderPosY()), 0,255,0);
 	char buffer[128];
 	sprintf_s(buffer,"fX: %f	fY: %f",dir1,dir2);
-	pD3D->DrawText(buffer,(int)(GetPosX()- camera->GetCamX()), (int)(GetPosY()- camera->GetCamY()),0,0,255);
+	pD3D->DrawText(buffer,(int)(GetPosX()- camera->GetCamX() + camera->GetRenderPosX()), (int)(GetPosY()- camera->GetCamY()+ camera->GetRenderPosY()),0,0,255);
 	sprintf_s(buffer,"R: %f",GetRotation());
-	pD3D->DrawText(buffer,(int)(GetPosX()- camera->GetCamX())+10, (int)(GetPosY()- camera->GetCamY())+20,0,0,255);
+	pD3D->DrawText(buffer,(int)(GetPosX()- camera->GetCamX()+ camera->GetRenderPosX())+10, (int)(GetPosY()- camera->GetCamY()+ camera->GetRenderPosY())+20,0,0,255);
 
 
 	// testing collision rotation
@@ -146,8 +151,8 @@ void CCar::Render(CCamera* camera)
 	//m_nCollisionY1 = GetPosY() - camera->GetCamY();
 	pD3D->GetSprite()->Flush();
 	RECT tempcircle1;
-	tempcircle1.left = m_nCollisionX1 - camera->GetCamX();
-	tempcircle1.top = m_nCollisionY1 - camera->GetCamY();
+	tempcircle1.left = m_nCollisionX1 - camera->GetCamX() + camera->GetRenderPosX();
+	tempcircle1.top = m_nCollisionY1 - camera->GetCamY() + camera->GetRenderPosY();
 	tempcircle1.right = tempcircle1.left + m_nCollisionRadius;
 	tempcircle1.bottom = tempcircle1.top + m_nCollisionRadius;
 
@@ -210,10 +215,10 @@ bool CCar::InBounds(void)
 	//	//m_fSpeed = -1 * m_fSpeed;
 	//	//SetVelX(-100);
 	//}
-	if(GetPosX() <= 0)
+	if(GetPosX() - (int)(GetWidth()*0.5f) <= 0)
 	{
 		if(GetVelX() <= 0)
-			SetPosX(0);
+			SetPosX(GetWidth()*0.5f);
 
 		//m_fSpeed = -1 * m_fSpeed;
 		//SetVelX(100);
@@ -240,12 +245,23 @@ bool CCar::InBounds(void)
 	//	//SetVelY(-100);
 	//	//SetRotation(GetRotation() + 45);
 	//}
-	if(GetPosY() <= 0)
+	if(GetPosY() - (int)(GetHeight() * 0.5f) <= 0)
 	{
 		if(GetVelY() <= 0)
-			SetPosY(0);
+			SetPosY(GetHeight() * 0.5f);
 		//m_fSpeed = -1 * m_fSpeed;
 		//SetVelY(100);
 	}
 	return true;
+}
+
+RECT CCar::GetRect()
+{
+	RECT temp_rect;
+	temp_rect.left = (int)GetPosX() - (int)(GetWidth() * 0.5f);
+	temp_rect.top = (int)GetPosY() - (int)(GetHeight() * 0.5f);
+	temp_rect.right = temp_rect.left + GetWidth();
+	temp_rect.bottom = temp_rect.top + GetHeight();
+
+	return temp_rect;
 }

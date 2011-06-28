@@ -11,6 +11,8 @@
 #include "CMessage.h"
 #include "CMessageSystem.h"
 #include "CKeyBinds.h"
+#include "CMainMenuState.h"
+#include "COptionState.h"
 #include <math.h>
 CPlayer::CPlayer(CXboxInput* pController)
 {
@@ -42,7 +44,15 @@ void CPlayer::Update(float fElapsedTime)
 {
 	CSGD_DirectInput* m_pDI = CSGD_DirectInput::GetInstance();
 	
-	m_pCamera->AttachTo(this,400.0f,300.0f);
+	if( CMainMenuState::GetInstance()->GetNumberOfPlayers() == 2)
+	{
+		if( COptionState::GetInstance()->IsVertical())
+			m_pCamera->AttachTo(this,200.0f,300.0f);
+		else
+			m_pCamera->AttachTo(this, 400.0f, 150.0f);
+	}
+	else
+		m_pCamera->AttachTo(this,400.0f,300.0f);
 	m_pCamera->Update();
 
 	static float m_fFireDelay = 0.0f;

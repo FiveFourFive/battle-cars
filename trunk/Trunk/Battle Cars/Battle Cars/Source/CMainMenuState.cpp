@@ -20,6 +20,9 @@ CMainMenuState::CMainMenuState(void)
 	m_pDI = NULL;
 	m_pController1 = NULL;
 	m_pController2 = NULL;
+
+	m_bPlayerSelection = false;
+	m_nNumberOfPlayers = 0;
 }
 CMainMenuState::~CMainMenuState(void)
 {
@@ -73,10 +76,65 @@ void CMainMenuState::Exit(void)
 	m_pFM->StopSound(m_nBackgroundMusicID);
 	m_pTM->UnloadTexture(m_nFontID);
 	delete m_pPF;
+
+	m_bPlayerSelection = false;
 }
 
 bool CMainMenuState::Input(void)
 {
+	if( m_bPlayerSelection )
+	{
+		if( m_pDI->KeyPressed(DIK_UP))
+		{
+			m_nSelection--;
+
+			if( m_nNumberOfPlayers >= 1)
+			{
+
+				if( m_nSelection < 0 )
+					m_nSelection = 2;
+			}
+			else
+			{
+					if( m_nSelection < 0 )
+					m_nSelection = 1;
+			}
+		}
+		if( m_pDI->KeyPressed(DIK_DOWN))
+		{
+			m_nSelection++;
+
+			if( m_nNumberOfPlayers >= 1)
+			{
+
+				if( m_nSelection > 2 )
+					m_nSelection = 0;
+			}
+			else
+			{
+					if( m_nSelection > 1 )
+					m_nSelection = 0;
+			}
+		}
+
+		if( m_pDI->KeyPressed(DIK_RETURN))
+		{
+			switch( m_nSelection)
+			{
+			case 0:
+				m_nNumberOfPlayers = 1;
+				break;
+			case 1:
+				m_nNumberOfPlayers = 2;
+				break;
+			case 2:
+				CGame::GetInstance()->ChangeState(CGamePlayState::GetInstance());
+				break;
+			}
+		}
+
+		return true;
+	}
 
 	if(CGame::GetInstance()->ControllerInput())
 	{
@@ -159,6 +217,40 @@ void CMainMenuState::Update(float fElapsedTime)
 
 void CMainMenuState::Render(void)
 {
+
+	if( m_bPlayerSelection )
+	{
+
+
+		m_pPF->Print("BATTLE CARS",220,50,1.0f,D3DCOLOR_XRGB(200, 0, 0));
+		m_pPF->Print("MAYHEM AND DESTRUCTION",50,100,1.0f,D3DCOLOR_XRGB(200, 0, 0));
+
+		m_pPF->Print("1 PLAYER",300,200,0.5f,D3DCOLOR_XRGB(200, 0, 0));
+		m_pPF->Print("2 PLAYER",300,250,0.5f,D3DCOLOR_XRGB(200, 0, 0));	
+		m_pPF->Print("BEGIN",300,300,0.5f,D3DCOLOR_XRGB(200, 0, 0));
+
+
+		switch(m_nSelection)
+		{
+		case 0:			
+			m_pPF->Print("1 PLAYER",300,200,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			break;
+		case 1:
+			m_pPF->Print("2 PLAYER",300,250,0.5f,D3DCOLOR_XRGB(0, 255, 0));	
+			break;
+		case 2:
+			m_pPF->Print("BEGIN",300,300,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			break;
+		}
+
+		char buffer[32];
+		sprintf_s(buffer, "NUMBER OF PLAYERS: %i", m_nNumberOfPlayers);
+		m_pPF->Print(buffer, 100, 500, 1.0f, D3DCOLOR_XRGB(0, 255, 128));
+
+		return;
+	}
+
+
 	m_pPF->Print("BATTLE CARS",220,50,1.0f,D3DCOLOR_XRGB(200, 0, 0));
 	m_pPF->Print("MAYHEM AND DESTRUCTION",50,100,1.0f,D3DCOLOR_XRGB(200, 0, 0));
 
@@ -200,8 +292,9 @@ bool CMainMenuState::HandleEnter(void)
 	m_pFM->PlaySound(m_nMenuSelect);
 		switch(m_nSelection)
 		{
-		case PLAY:			
-			CGame::GetInstance()->ChangeState(CGamePlayState::GetInstance());
+		case PLAY:	
+			m_bPlayerSelection = true;
+			//CGame::GetInstance()->ChangeState(CGamePlayState::GetInstance());
 			break;
 		case OPTIONS:
 			CGame::GetInstance()->AddState(COptionState::GetInstance());

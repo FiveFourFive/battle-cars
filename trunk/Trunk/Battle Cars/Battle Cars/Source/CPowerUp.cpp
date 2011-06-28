@@ -30,16 +30,20 @@ void PowerUp::Update(float fElapsedTime)
 
 void PowerUp::Render(CCamera* camera)
 {
+	if( (GetPosX()- camera->GetCamX()) < 0 || (GetPosX() - camera->GetCamX()) > camera->GetWidth() || GetPosY() - camera->GetCamY() < 0 ||
+		GetPosY() - camera->GetCamY() > camera->GetHeight())
+		return;
+
 	if(m_bActive)
 	{
-	CSGD_Direct3D* m_pD3D = CSGD_Direct3D::GetInstance();
+		CSGD_Direct3D* m_pD3D = CSGD_Direct3D::GetInstance();
 
-	RECT temp_render_rect = { (int)(GetPosX() - camera->GetCamX()), (int)(GetPosY() - camera->GetCamY()), 0, 0};
-	temp_render_rect.right = temp_render_rect.left + 40;
-	temp_render_rect.bottom = temp_render_rect.top + 40;
+		RECT temp_render_rect = { (int)(GetPosX() - camera->GetCamX() + (int)(camera->GetRenderPosX())), (int)(GetPosY() - camera->GetCamY() + (int)(camera->GetRenderPosY())), 0, 0};
+		temp_render_rect.right = temp_render_rect.left + 40;
+		temp_render_rect.bottom = temp_render_rect.top + 40;
 
-	m_pD3D->DrawRect(temp_render_rect, 128, 128, 128);
-	m_pD3D->DrawTextA("Power_Up", (int)(GetPosX() - camera->GetCamX()), (int)(GetPosY() - camera->GetCamY()), 255,255,255);
+		m_pD3D->DrawRect(temp_render_rect, 128, 128, 128);
+		m_pD3D->DrawTextA("Power_Up", (int)(GetPosX() - camera->GetCamX() + (int)(camera->GetRenderPosX())), (int)(GetPosY() - camera->GetCamY() + (int)(camera->GetRenderPosY())), 255,255,255);
 	}
 }
 

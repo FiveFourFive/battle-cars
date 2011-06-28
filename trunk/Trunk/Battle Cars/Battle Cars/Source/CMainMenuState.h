@@ -31,6 +31,9 @@ private:
 	int m_nMenuSelect;
 	int m_nMenuMove;
 
+	bool m_bPlayerSelection;
+	int m_nNumberOfPlayers;
+
 
 	CMainMenuState(void);
 	~CMainMenuState(void);
@@ -50,6 +53,8 @@ public:
 
 	int GetFontID(void) { return m_nFontID; }
 	int GetBackgroundMusicID(void) { return m_nBackgroundMusicID; }
+
+	int GetNumberOfPlayers() { return m_nNumberOfPlayers; }
 
 };
 
