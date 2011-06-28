@@ -146,9 +146,6 @@ void CGamePlayState::Enter(void)
 	dummy = new CEnemy();
 	power_up = new PowerUp();
 	dummy2 = new CCar();
-	player->Rotate(0.0f);
-
-	player2->Rotate(0.0f);
 
 	dummy->SetPosX(1500);
 	dummy->SetPosY(1800);
@@ -213,6 +210,11 @@ void CGamePlayState::Enter(void)
 	LoadCharacters();
 	player = characters[3];
 	player2 = characters[0];
+	player->Rotate(0);
+	player2->Rotate(0);
+	player2->SetPosX(500);
+	player2->SetPosY(400);
+	player2->SetController(m_pController2);
 	m_pOM->AddObject(player);
 	m_pOM->AddObject(player2);
 	m_bCountDown = false;
