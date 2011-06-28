@@ -18,6 +18,7 @@ private:
 	float m_nCollisionX2;				// center of second collision circle
 	float m_nCollisionY2;				// -------------------------------
 	float m_nCollisionRadius;			// the radius of the collision circles
+	bool m_bAccelerating;				// whether or not the car is accelerating
 	float m_fRotation;				// the amount the car is rotated
 	float m_fRotationRate;			// the rate at which the car rotates
 	float m_fAccelerationRate;		// the rate at which the car accelerates
@@ -86,6 +87,7 @@ public:
 	void IncrementWeapon(void) { m_nSelectedWeapon++; }
 	void DecrementWeapon(void) { m_nSelectedWeapon--; }
 	void SetSelectedWeapon(int wepnum) { m_nSelectedWeapon = wepnum; }
+	void SetAccelerating(bool accel) { m_bAccelerating = accel; }
 	void SetCollisionInfo(int x1, int y1, int radius) { m_nCollisionX1 = x1; m_nCollisionY1 = y1; m_nCollisionRadius = radius; }
 	void Rotate(float angle);
 	

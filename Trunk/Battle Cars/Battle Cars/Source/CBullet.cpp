@@ -41,10 +41,11 @@ void CBullet::Render(CCamera* camera)
 bool CBullet::CheckCollision(IBaseInterface* pBase)
 {
 	RECT intersection;
+	if(GetOwner() == pBase)
+			return false;
 	if(IntersectRect(&intersection, &GetRect(), &pBase->GetRect()))
 	{
-		if(GetOwner() == pBase)
-			return false;
+		
 
 		if(pBase->GetType() == OBJECT_PLAYER)
 		{
