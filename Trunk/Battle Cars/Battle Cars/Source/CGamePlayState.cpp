@@ -32,6 +32,7 @@
 #include "ParticleManager.h"
 #include "Emittor.h"
 #include "tinyxml.h"
+#include "CLandMine.h"
 
 void LoadCharacters();
 
@@ -649,7 +650,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet->SetWidth((int)(64*pBullet->GetScale()));
 			pBullet->SetPosX(pCBM->GetPlayer()->GetPosX());
 			pBullet->SetPosY(pCBM->GetPlayer()->GetPosY());
-			pBullet->SetDamage(5);
+			pBullet->SetDamage(4);
 			pBullet->SetBulletType(PROJECTILE_MISSILE);
 			pGame->m_pOM->AddObject(pBullet);
 
@@ -676,8 +677,8 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet->SetWidth((int)(64*pBullet->GetScale()));
 			pBullet->SetPosX(pCMS->GetPlayer()->GetPosX());
 			pBullet->SetPosY(pCMS->GetPlayer()->GetPosY());
-			pBullet->SetDamage(15);
-			pBullet->SetBulletType(PROJECTILE_MISSILE);
+			pBullet->SetDamage(8);
+			pBullet->SetBulletType(PROJECTILE_MINI_MISSILE);
 			pBullet->SetBlastRadius(50.0f);
 			//Missile 2
 			pBullet1->SetImageID (pCMS->GetPlayer()->GetMissileImageID());
@@ -689,8 +690,8 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet1->SetWidth((int)(64*pBullet->GetScale()));
 			pBullet1->SetPosX(pCMS->GetPlayer()->GetPosX());
 			pBullet1->SetPosY(pCMS->GetPlayer()->GetPosY());
-			pBullet1->SetDamage(15);
-			pBullet1->SetBulletType(PROJECTILE_MISSILE);
+			pBullet1->SetDamage(8);
+			pBullet1->SetBulletType(PROJECTILE_MINI_MISSILE);
 			pBullet1->SetBlastRadius(50.0f);
 			//Missile 3
 			pBullet2->SetImageID (pCMS->GetPlayer()->GetMissileImageID());
@@ -702,8 +703,8 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet2->SetWidth((int)(64*pBullet->GetScale()));
 			pBullet2->SetPosX(pCMS->GetPlayer()->GetPosX());
 			pBullet2->SetPosY(pCMS->GetPlayer()->GetPosY());
-			pBullet2->SetDamage(15);
-			pBullet2->SetBulletType(PROJECTILE_MISSILE);
+			pBullet2->SetDamage(8);
+			pBullet2->SetBulletType(PROJECTILE_MINI_MISSILE);
 			pBullet2->SetBlastRadius(50.0f);
 			//Missile 4
 			pBullet3->SetImageID (pCMS->GetPlayer()->GetMissileImageID());
@@ -715,8 +716,8 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet3->SetWidth((int)(64*pBullet->GetScale()));
 			pBullet3->SetPosX(pCMS->GetPlayer()->GetPosX());
 			pBullet3->SetPosY(pCMS->GetPlayer()->GetPosY());
-			pBullet3->SetDamage(15);
-			pBullet3->SetBulletType(PROJECTILE_MISSILE);
+			pBullet3->SetDamage(8);
+			pBullet3->SetBulletType(PROJECTILE_MINI_MISSILE);
 			pBullet3->SetBlastRadius(50.0f);
 			//Missile 5
 			pBullet4->SetImageID (pCMS->GetPlayer()->GetMissileImageID());
@@ -728,8 +729,8 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet4->SetWidth((int)(64*pBullet->GetScale()));
 			pBullet4->SetPosX(pCMS->GetPlayer()->GetPosX());
 			pBullet4->SetPosY(pCMS->GetPlayer()->GetPosY());
-			pBullet4->SetDamage(15);
-			pBullet4->SetBulletType(PROJECTILE_MISSILE);
+			pBullet4->SetDamage(8);
+			pBullet4->SetBulletType(PROJECTILE_MINI_MISSILE);
 			pBullet4->SetBlastRadius(50.0f);
 			//Set up launch vectors
 			tVector2D temp;
@@ -790,7 +791,33 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			CDestroyBulletMessage* pM = (CDestroyBulletMessage*)pMsg;
 			CBullet* tempbullet = pM->GetBullet();
 			CGamePlayState* pGame = CGamePlayState::GetInstance();
-			pGame->m_pOM->RemoveObject(tempbullet);
+			if(tempbullet->GetBulletType() == PROJECTILE_BULLET)
+				pGame->m_pOM->RemoveObject(tempbullet);
+			else if(tempbullet->GetBulletType() == PROJECTILE_MISSILE || tempbullet->GetBulletType() == PROJECTILE_MINI_MISSILE)
+			{
+				CLandMine* pLandMine = new CLandMine();
+				pLandMine->SetDuration(.10f);
+				pLandMine->SetScale(2.0f);
+				pLandMine->SetOwner(tempbullet->GetOwner());
+				pLandMine->SetImageID (pGame->m_pTM->LoadTexture("resource/graphics/BattleCars_MissileExplosionPlaceholder.png", D3DCOLOR_XRGB(255, 255, 255)));
+				pLandMine->SetCurLife(0.0f);
+				pLandMine->SetMaxLife(1000000.0f);
+				pLandMine->SetHeight((int)(64*pLandMine->GetScale()));
+				pLandMine->SetWidth((int)(64*pLandMine->GetScale()));
+				pLandMine->SetPosX(tempbullet->GetPosX());
+				pLandMine->SetPosY(tempbullet->GetPosY());
+				if(tempbullet->GetBulletType() == PROJECTILE_MISSILE)
+					pLandMine->SetDamage(1);
+				else
+					pLandMine->SetDamage(7);
+				pLandMine->SetBlastRadius(tempbullet->GetBlastRadius());
+				pLandMine->SetLandMineType(LM_EXPLOSION);
+				pGame->m_pOM->AddObject(pLandMine);
+				pGame->m_pOM->RemoveObject(tempbullet);
+				pLandMine->Release();
+			}
+			else if(tempbullet->GetBulletType() == PROJECTILE_LANDMINE)
+				pGame->m_pOM->RemoveObject(tempbullet);
 			break;
 		}
 	}
