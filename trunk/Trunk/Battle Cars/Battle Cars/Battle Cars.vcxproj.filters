@@ -46,9 +46,6 @@
     <Filter Include="AI States">
       <UniqueIdentifier>{250dde4f-ae48-4a1b-8f46-29f90e06f5d8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Key Binding">
-      <UniqueIdentifier>{45f5bb86-1319-48a4-80b4-cf85a603a472}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\WinMain.cpp">
@@ -172,7 +169,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\CKeyBinds.cpp">
-      <Filter>Key Binding</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CLandMine.cpp">
+      <Filter>Game Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -311,14 +311,11 @@
     <ClInclude Include="Source\CPowerUp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\CGamerProfile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Gamer_Profile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\CKeyBinds.h">
-      <Filter>Key Binding</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CLandMine.h">
+      <Filter>Game Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

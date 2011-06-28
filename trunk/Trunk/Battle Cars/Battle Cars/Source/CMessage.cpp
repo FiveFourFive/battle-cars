@@ -55,3 +55,8 @@ CPlayer* CCreatePlayerMissileMessage::GetPlayer(void)
 {
 	return m_pPlayer;
 }
+
+CCreateMiniSpecialMessage::CCreateMiniSpecialMessage(CPlayer* pPlayer) : CBaseMessage(MSG_CREATE_MINI_SPECIAL)
+{
+	m_pPlayer = pPlayer;
+}

@@ -8,6 +8,7 @@
 class CXboxInput;
 class CMessageSystem;
 
+enum characters{CAR_MINI, CAR_VETTE, CAR_HUMMER, CAR_TRUCK};
 class CPlayer : public CCar, public IListener
 {
 private:
@@ -15,11 +16,8 @@ private:
 
 	CEventSystem* m_pES;
 	CXboxInput* m_pController1;
-
-
-
-
-
+	float m_fFireTimer;
+	int m_nPlayerType;
 	RECT m_CollisionRECT;
 
 public:
@@ -37,7 +35,8 @@ public:
 
 
 	bool CheckCollision(IBaseInterface* pBase);
-
+	int GetPlayerType() {return m_nPlayerType;}
+	void SetPlayerType(int type) {m_nPlayerType = type;}
 	void HandleEvent(CEvent* pEvent);
 };
 
