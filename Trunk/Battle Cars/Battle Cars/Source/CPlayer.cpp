@@ -426,7 +426,7 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 	RECT intersection;
 	if(pBase == this)
 		return false;
-	if(pBase->GetType() == OBJECT_ENEMY)
+	if(pBase->GetType() == OBJECT_ENEMY || pBase->GetType() == OBJECT_PLAYER)
 	{
 		CCar* tempcar = (CCar*)pBase;
 		//float centerx = tempcar->GetPosX();
@@ -440,7 +440,34 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 
 		if(distance <= (GetRadius() + tempcar->GetRadius()))
 		{
-			float speed = GetSpeed();
+
+			/*float speed = GetSpeed();
+			CCar* tempcar = (CCar*)pBase;
+			tVector2D tempdirection = GetDirection();
+			tVector2D tempotherdirection = tempcar->GetDirection();
+			tVector2D tempvelocity = GetVelocity();
+			tVector2D tempothervelocity = tempcar->GetVelocity();
+
+			tempotherdirection = Vector2DNormalize(tempotherdirection);
+			tempdirection = Vector2DNormalize(tempdirection);
+
+			tempvelocity = tempvelocity + (tempothervelocity * 0.5f);
+			tempvelocity = tempvelocity + (tempotherdirection * (tempcar->GetSpeed() * 0.3f));
+			
+			tempvelocity.fX = tempvelocity.fX * tempotherdirection.fX;
+			tempvelocity.fY = tempvelocity.fY * tempotherdirection.fY;
+
+			tempothervelocity = tempothervelocity + (tempvelocity * 0.5f);
+			tempothervelocity = tempothervelocity + (tempdirection * (GetSpeed() * 0.3f));
+
+			tempothervelocity.fX = tempothervelocity.fX * tempvelocity.fX;
+			tempothervelocity.fY = tempothervelocity.fY * tempvelocity.fY;
+
+			tempcar->SetVelocity(tempothervelocity);
+			this->SetVelocity(tempvelocity);
+			tempcar->SetSpeed((tempcar->GetSpeed() * 0.5f) * -1.0f);
+			this->SetSpeed((this->GetSpeed() * 0.5f) * -1.0f);
+			return true;*/
 		//	SetPosX(GetPosX() - GetVelX() * 0.001f);
 		//	SetPosX(GetPosY() - GetVelY() * 0.001f);
 			//SetVelX(0.0f);
@@ -450,18 +477,19 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 				SetSpeed(-10);
 				m_pController1->Vibrate(10000,10000);
 			}
-			else*/
+			else*/	
+		//	{
+			if(GetSpeed() > 2 || tempcar->GetSpeed() > 2)
 			{
 				PlayCrash();
 				m_pController1->Vibrate(40000,40000);
 				SetCollisionDelay(0.0f);
-				CCar* tempcar = (CCar*)pBase;
+				//CCar* tempcar = (CCar*)pBase;
 				//tempcar->SetDirection(GetDirection());
 				//tempcar->SetSpeed(GetSpeed() * 0.2f);
 				tVector2D tempvel = GetDirection();
 				//tempvel = Vector2DNormalize(tempvel);
-				if(GetSpeed() > 0)
-					tempvel = tempvel * GetSpeed() * 0.5f;
+				tempvel = tempvel * GetSpeed() * 0.5f;
 				tVector2D currentvel = tempcar->GetVelocity();
 				tempvel = tempvel + currentvel;
 				tempcar->SetVelocity(tempvel);
@@ -469,13 +497,41 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 				tempvel.fY *= -1;
 				SetVelocity(tempvel);
 				SetSpeed(0);
+				tempcar->SetSpeed(0);
+				//SetSpeed(GetSpeed() * -1.0f);
+				//tempcar->SetSpeed(GetSpeed() * -1.0f);
+				//SetSpeed(0);
 				//SetSpeed((GetSpeed() * -1) + (GetSpeed() * 0.2f));
 			}
-			speed = GetSpeed();
+			else
+			{
+			//	SetSpeed(0);
+				tVector2D tempdirection = GetDirection();
+				tVector2D tempotherdirection = tempcar->GetDirection();
+				tempotherdirection = Vector2DNormalize(tempotherdirection);
+				tempdirection = Vector2DNormalize(tempdirection);
+				tVector2D tempvel = GetVelocity();
+				tVector2D tempothervel = tempcar->GetVelocity();
+				if(tempvel.fX == 0 && tempvel.fY == 0 && tempothervel.fX == 0 && tempothervel.fY == 0)
+				{
+					tempvel = tempvel + (tempdirection * 20);
+					tempothervel = tempothervel + (tempotherdirection * 20);
+				}
+				tempvel = tempvel * -1.0f;
+				tempothervel = tempothervel * -1.0f;
+				//tempothervel = tempothervel + (tempotherdirection * 20);
+				SetSpeed(0);
+				tempcar->SetSpeed(0);
+				this->SetVelocity(tempvel);
+				tempcar->SetVelocity(tempothervel);
+			}
+				return true;
+			//}
+			//speed = GetSpeed();
 			//return true;
 		}
 	}
-	else if(pBase->GetType() == OBJECT_PLAYER)
+	else if(pBase->GetType() == 10)
 	{
 		CPlayer* tempcar = (CPlayer*)pBase;
 		float centerx = tempcar->GetPosX();
@@ -498,7 +554,7 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 			//	m_pController1->Vibrate(10000,10000);
 			//}
 			//else
-			{
+			//{
 				PlayCrash();
 				m_pController1->Vibrate(40000,40000);
 				m_fCollisionDelay = 0.0f;
@@ -517,8 +573,8 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 				SetVelocity(tempvel);
 				SetSpeed(0);
 				//SetSpeed((GetSpeed() * -1) + (GetSpeed() * 0.2f));
-			}
-			speed = GetSpeed();
+			//}
+		//	speed = GetSpeed();
 			//return true;
 		}
 	}
@@ -567,7 +623,7 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 
 
 	}
-//	return false;
+	return false;
 }
 
 void CPlayer::HandleEvent(CEvent* pEvent)
