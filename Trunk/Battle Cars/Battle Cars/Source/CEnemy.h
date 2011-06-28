@@ -37,6 +37,7 @@ public:
 	CEnemy();
 	~CEnemy();
 
+
 	float GetViewRadius () {return m_fViewRadius;}
 	void SetViewRadius (float radius) {m_fViewRadius = radius;}
 

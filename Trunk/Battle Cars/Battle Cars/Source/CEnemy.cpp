@@ -11,6 +11,7 @@
 #include "CEnemy.h"
 #include "CCamera.h"
 #include "CWanderState.h"
+#include "CMainMenuState.h"
 
 CEnemy::CEnemy()
 {
@@ -24,6 +25,7 @@ CEnemy::CEnemy()
 	m_AICurrentState->SetOwner (this);
 
 	m_fViewRadius = 30.0f;
+
 }
 
 CEnemy::~CEnemy()
@@ -43,7 +45,7 @@ void CEnemy::Update(float fElapsedTime)
 {
 	if (m_AICurrentState)
 		m_AICurrentState->Update (fElapsedTime);
-
+	
 	CCar::Update (fElapsedTime);
 }
 

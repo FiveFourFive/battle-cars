@@ -38,7 +38,7 @@ public:
 	void Shutdown ();
 	bool Load (const char* filename);
 	
-	void Render (RECT screen);
+	void Render (CCamera* camera);
 	//void Update (float fElapsedTime);
 
 	bool CheckWorldCollision (CBase* pBase);

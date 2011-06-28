@@ -25,13 +25,16 @@ void CBullet::Update(float fElapsedTime)
 
 void CBullet::Render(CCamera* camera)
 {
+	if( (GetPosX() - camera->GetCamX()) < 0 || (GetPosX() - camera->GetCamX()) > camera->GetRenderPosX() + camera->GetWidth() )
+		return;
+
 	RECT temppos;
-	temppos.left = (LONG)(GetPosX());
-	temppos.top = (LONG)(GetPosY());
+	temppos.left = (LONG)(GetPosX() - camera->GetCamX() + camera->GetRenderPosX());
+	temppos.top = (LONG)(GetPosY() - camera->GetCamY() + camera->GetRenderPosY());
 	temppos.right = (LONG)(temppos.left + GetWidth());
 	temppos.bottom = (LONG)(temppos.top + GetHeight());
 	CSGD_Direct3D::GetInstance()->DrawRect(temppos,255,255,255);
-	m_pTM->Draw(GetImageID(),(int)GetPosX(),(int)GetPosY(),m_fScale,m_fScale);
+	m_pTM->Draw(GetImageID(),(int)GetPosX() - camera->GetCamX() + camera->GetRenderPosX(),(int)GetPosY() - camera->GetCamY() + camera->GetRenderPosY(),m_fScale,m_fScale);
 	//m_pTM->Draw(GetImageID(),(int)GetPosX(),(int)GetPosY(),0.5f,0.5f,NULL,GetPosX()-(GetWidth()),GetPosY()-(GetHeight()),m_fRotation);
 }
 

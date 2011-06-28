@@ -15,6 +15,12 @@ private:
 
 	float offX;
 	float offY;
+
+	float m_fRenderPosX;
+	float m_fRenderPosY;
+
+	int m_nWidth;
+	int m_nHeight;
 	
 public:
 
@@ -39,6 +45,14 @@ public:
 	//	Sets the owner to null nothing special.
 	//////////////////////////////////////////////////////////////////
 	void RemoveOwner() { owner = NULL;}
+
+	float GetRenderPosX(){ return m_fRenderPosX; }
+	float GetRenderPosY(){ return m_fRenderPosY; }
+	int GetWidth(){ return m_nWidth;}
+	int GetHeight() { return m_nHeight;}
+
+	void SetRenderPosX(float xPos){ m_fRenderPosX = xPos; }
+	void SetRenderPosY(float yPos){ m_fRenderPosY = yPos; }
 
 	CBase* GetOwner() { return owner;}
 	

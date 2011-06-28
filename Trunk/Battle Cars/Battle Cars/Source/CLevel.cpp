@@ -21,6 +21,7 @@
 #include "CEnemy.h"
 
 
+
 CLevel::CLevel()
 {
 	m_pTM	= CSGD_TextureManager::GetInstance ();
@@ -108,10 +109,10 @@ bool CLevel::Load (const char* filename)
 	return true;
 }
 	
-void CLevel::Render (RECT screen)
+void CLevel::Render (CCamera* camera)
 {
 	CTile* Tiles = LevelMap->GetTileList ();
-
+	RECT screen = camera->GetRect();
 
 	int StartIndex = ((screen.top / LevelMap->GetPixelHeight()) * LevelMap->GetMapWidth ()) + (screen.left / LevelMap->GetPixelWidth());
 	int EndIndex = ((screen.bottom / LevelMap->GetPixelHeight()) * LevelMap->GetMapWidth()) + (screen.right / LevelMap->GetPixelWidth());
@@ -119,8 +120,13 @@ void CLevel::Render (RECT screen)
 	if (StartIndex < 0)
 		StartIndex = 0;
 
-	int i = 0;
-	int j = 0;
+	int i = camera->GetRenderPosX() / LevelMap->GetPixelWidth();
+	int count = camera->GetRenderPosX() / LevelMap->GetPixelWidth();
+	int j = camera->GetRenderPosY() / LevelMap->GetPixelHeight();
+	float temp_var = camera->GetRenderPosY() / LevelMap->GetPixelHeight();
+	if( temp_var - j > 0.5)
+		j++;
+
 
 	for (int Index = StartIndex; Index < EndIndex; Index++, i++)
 	{
@@ -142,9 +148,9 @@ void CLevel::Render (RECT screen)
 		TileSelection.right = TileSelection.left + LevelMap->GetPixelWidth();
 		TileSelection.bottom = TileSelection.top + LevelMap->GetPixelHeight ();
 
-		if( i == 100)
+		if( i == count + 100)
 		{
-			i = 0;
+			i = camera->GetRenderPosX() / LevelMap->GetPixelWidth();
 			j++;
 		}
 		
