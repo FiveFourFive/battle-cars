@@ -53,7 +53,7 @@ bool CBullet::CheckCollision(IBaseInterface* pBase)
 		{
 			CPlayer* tempplayer = (CPlayer*)pBase;
 			CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
-			// handle what happens to player
+			// handle what happens to player)
 
 			return true;
 		}

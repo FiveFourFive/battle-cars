@@ -9,7 +9,7 @@ class CPlayer;
 class CSGD_TextureManager;
 class CCamera;
 
-enum bullets{PROJECTILE_BULLET, PROJECTILE_MISSILE, PROJECTILE_LANDMINE};
+enum bullets{PROJECTILE_BULLET, PROJECTILE_MISSILE, PROJECTILE_MINI_MISSILE, PROJECTILE_LANDMINE};
 class CBullet : public CBase
 {
 private:
@@ -42,6 +42,7 @@ public:
 	float GetBlastRadius() {return m_fBlastRadius;}
 	int GetBulletType() {return m_nBulletType;}
 	CPlayer* GetOwner(void) { return m_pOwner; }
+	CSGD_TextureManager* GetTextureManager() {return m_pTM;}
 
 	void SetCurLife(float life) { m_fCurLife = life; }
 	void SetMaxLife(float maxlife) { m_fMaxLife = maxlife; }

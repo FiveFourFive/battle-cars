@@ -302,7 +302,8 @@ void CPlayer::Update(float fElapsedTime)
 									break;
 								case CAR_TRUCK:
 									{
-
+										PlayBullet();
+										//pMS->SendMsg(new CCreateTruckSpecialMessage(this));
 									}
 									break;
 							}
