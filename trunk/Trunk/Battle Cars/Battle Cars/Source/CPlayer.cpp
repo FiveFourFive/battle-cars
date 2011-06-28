@@ -132,14 +132,19 @@ void CPlayer::Update(float fElapsedTime)
 		if(rTrig > 5)
 		{
 			//m_pController1->Vibrate(rTrig * 150,rTrig * 150);
+			SetAccelerating(true);
 			if(GetSpeed() < GetMaxSpeed())
 				SetSpeed(GetSpeed() + (GetAcceleration() * fElapsedTime));
 		}
+		else
+			SetAccelerating(false);
 		if(lTrig > 5)
 		{
+			//SetAccelerating(true);
 			if(GetSpeed() > (-0.5f * GetMaxSpeed()))
 				SetSpeed(GetSpeed() - (GetAcceleration() * fElapsedTime));
 		}
+		
 
 		if(CGame::GetInstance()->GetInputDelay() >= 0.15f)
 		{
@@ -177,13 +182,23 @@ void CPlayer::Update(float fElapsedTime)
 	}
 	else
 	{
-		if(GetSpeed() < GetMaxSpeed())
+		
 			if(m_pDI->KeyDown(DIK_UP))
-				SetSpeed(GetSpeed() + (GetAcceleration() * fElapsedTime));
+			{
+				SetAccelerating(true);
+				if(GetSpeed() < GetMaxSpeed())
+					SetSpeed(GetSpeed() + (GetAcceleration() * fElapsedTime));
+			}
+			else
+				SetAccelerating(false);
 
-		if(GetSpeed() > (-0.5f * GetMaxSpeed()))
+		
 			if(m_pDI->KeyDown(DIK_DOWN))
-				SetSpeed(GetSpeed() - (GetAcceleration() * fElapsedTime));
+			{
+				if(GetSpeed() > (-0.5f * GetMaxSpeed()))
+					SetSpeed(GetSpeed() - (GetAcceleration() * fElapsedTime));
+			}
+
 
 		if(m_pDI->KeyDown(DIK_LEFT))
 		{
@@ -354,10 +369,60 @@ void CPlayer::Render(CCamera* camera)
 bool CPlayer::CheckCollision(IBaseInterface* pBase)
 {
 	RECT intersection;
-	
+	if(pBase == this)
+		return false;
 	if(pBase->GetType() == OBJECT_ENEMY)
 	{
 		CCar* tempcar = (CCar*)pBase;
+		//float centerx = tempcar->GetPosX();
+		//float centery = tempcar->GetPosY();
+		float centerx = tempcar->GetCX1();
+		float centery = tempcar->GetCY1();
+		float myx = GetCX1();
+		float myy = GetCY1();
+		
+		float distance = sqrt(((centerx - myx)*(centerx - myx)) + ((centery - myy)*(centery - myy)));
+
+		if(distance <= (GetRadius() + tempcar->GetRadius()))
+		{
+			float speed = GetSpeed();
+		//	SetPosX(GetPosX() - GetVelX() * 0.001f);
+		//	SetPosX(GetPosY() - GetVelY() * 0.001f);
+			//SetVelX(0.0f);
+			//SetVelY(0.0f);
+			/*if(speed >= -10 && speed < 10)
+			{
+				SetSpeed(-10);
+				m_pController1->Vibrate(10000,10000);
+			}
+			else*/
+			{
+				PlayCrash();
+				m_pController1->Vibrate(40000,40000);
+				m_fCollisionDelay = 0.0f;
+				CCar* tempcar = (CCar*)pBase;
+				//tempcar->SetDirection(GetDirection());
+				//tempcar->SetSpeed(GetSpeed() * 0.2f);
+				tVector2D tempvel = GetDirection();
+				//tempvel = Vector2DNormalize(tempvel);
+				if(GetSpeed() > 0)
+					tempvel = tempvel * GetSpeed() * 0.5f;
+				tVector2D currentvel = tempcar->GetVelocity();
+				tempvel = tempvel + currentvel;
+				tempcar->SetVelocity(tempvel);
+				tempvel.fX *= -1;
+				tempvel.fY *= -1;
+				SetVelocity(tempvel);
+				SetSpeed(0);
+				//SetSpeed((GetSpeed() * -1) + (GetSpeed() * 0.2f));
+			}
+			speed = GetSpeed();
+			//return true;
+		}
+	}
+	else if(pBase->GetType() == OBJECT_PLAYER)
+	{
+		CPlayer* tempcar = (CPlayer*)pBase;
 		float centerx = tempcar->GetPosX();
 		float centery = tempcar->GetPosY();
 		float myx = GetCX1();
@@ -372,30 +437,36 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 		//	SetPosX(GetPosY() - GetVelY() * 0.001f);
 			//SetVelX(0.0f);
 			//SetVelY(0.0f);
-			if(speed >= -10 && speed < 10)
-			{
-				SetSpeed(-10);
-				m_pController1->Vibrate(10000,10000);
-			}
-			else
+			//if(speed >= -10 && speed < 10)
+			//{
+			//	SetSpeed(-10);
+			//	m_pController1->Vibrate(10000,10000);
+			//}
+			//else
 			{
 				PlayCrash();
 				m_pController1->Vibrate(40000,40000);
 				m_fCollisionDelay = 0.0f;
-				CCar* tempcar = (CCar*)pBase;
+				//CCar* tempcar = (CCar*)pBase;
 				//tempcar->SetDirection(GetDirection());
 				//tempcar->SetSpeed(GetSpeed() * 0.2f);
 				tVector2D tempvel = GetDirection();
 				//tempvel = Vector2DNormalize(tempvel);
-				tempvel = tempvel * GetSpeed() * 0.5f;
+				if(GetSpeed() > 0)
+					tempvel = tempvel * GetSpeed() * 0.5f;
+				tVector2D currentvel = tempcar->GetVelocity();
+				tempvel = tempvel + currentvel;
 				tempcar->SetVelocity(tempvel);
-				SetSpeed((GetSpeed() * -1) + (GetSpeed() * 0.2f));
+				tempvel.fX *= -1;
+				tempvel.fY *= -1;
+				SetVelocity(tempvel);
+				SetSpeed(0);
+				//SetSpeed((GetSpeed() * -1) + (GetSpeed() * 0.2f));
 			}
 			speed = GetSpeed();
-			return true;
+			//return true;
 		}
 	}
-
 
 
 	if(IntersectRect(&intersection, &GetRect(), &pBase->GetRect()))
@@ -441,7 +512,7 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 
 
 	}
-	return false;
+//	return false;
 }
 
 void CPlayer::HandleEvent(CEvent* pEvent)

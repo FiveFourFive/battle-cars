@@ -101,7 +101,7 @@ void CObjectManager::CheckCollisions()
 	{
 		for(size_t m = 0; m < m_vObjectList.size(); m++)
 		{
-			if(m_vObjectList[i]->GetType() != m_vObjectList[m]->GetType())
+		//	if(m_vObjectList[i]->GetType() != m_vObjectList[m]->GetType())
 				if(m_vObjectList[i]->CheckCollision(m_vObjectList[m]))
 					break;
 		}

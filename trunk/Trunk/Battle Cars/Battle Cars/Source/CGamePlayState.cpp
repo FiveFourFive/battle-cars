@@ -159,6 +159,7 @@ void CGamePlayState::Enter(void)
 	player->SetHeight(70);
 	player->SetPosX(350);
 	player->SetPosY(225);
+	player->Rotate(0.0f);
 
 	player2->SetHealth(100);
 	player2->SetMaxHealth(100);
@@ -173,7 +174,7 @@ void CGamePlayState::Enter(void)
 	player2->SetHeight(70);
 	player2->SetPosX(500);
 	player2->SetPosY(225);
-
+	player2->Rotate(0.0f);
 	dummy->SetPosX(1500);
 	dummy->SetPosY(1800);
 	dummy->SetVelX(0);
@@ -181,7 +182,7 @@ void CGamePlayState::Enter(void)
 	dummy->SetSpeed(0);
 	dummy->SetType(OBJECT_ENEMY);
 	dummy->SetKillCount(5);
-
+	dummy->Rotate(0.0f);
 	dummy2->SetPosX(450);
 	dummy2->SetPosY(325);
 	dummy2->SetHealth(100);
@@ -190,7 +191,7 @@ void CGamePlayState::Enter(void)
 	dummy2->SetSpeed(0);
 	dummy2->SetType(OBJECT_ENEMY);
 	dummy2->SetKillCount(5);
-	
+	dummy2->Rotate(0.0f);
 
 	dummy->EnterState ();
 
@@ -588,7 +589,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 
 			//CBullet* pBullet = (CBullet*)pGame->m_pOF->CreateObject("CBullet");
 			CBullet* pBullet = new CBullet();
-			pBullet->SetType (OBJECT_BULLET);
+			pBullet->SetType(OBJECT_BULLET);
 			pBullet->SetImageID (pCBM->GetPlayer()->GetBulletImageID());
 
 			tVector2D temp;
