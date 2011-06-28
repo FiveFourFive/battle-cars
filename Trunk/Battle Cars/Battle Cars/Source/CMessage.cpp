@@ -45,3 +45,13 @@ CBullet* CDestroyBulletMessage::GetBullet(void)
 
 	return m_pBullet;
 }
+
+CCreatePlayerMissileMessage::CCreatePlayerMissileMessage(CPlayer* pPlayer) : CBaseMessage(MSG_CREATE_PLAYER_MISSILE)
+{
+	m_pPlayer = pPlayer;
+}
+
+CPlayer* CCreatePlayerMissileMessage::GetPlayer(void)
+{
+	return m_pPlayer;
+}

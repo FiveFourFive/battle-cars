@@ -6,7 +6,6 @@
 //	Purpose	:	 Defines what the tiles are.
 //				
 /////////////////////////////////////////////////
-
 #ifndef _CTILE_H_
 #define _CTILE_H_
 

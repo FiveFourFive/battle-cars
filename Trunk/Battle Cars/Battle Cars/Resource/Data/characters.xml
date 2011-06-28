@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<characters>
+            <character armor ="0" accel  ="120" maxspeed ="250" rate="0"/>
+            <character armor ="10" accel ="100" maxspeed ="225" rate=".1"/>
+            <character armor ="20" accel ="80" maxspeed ="200" rate=".2"/>
+            <character armor ="30" accel ="60" maxspeed ="175" rate=".3"/>
+</characters>
+
