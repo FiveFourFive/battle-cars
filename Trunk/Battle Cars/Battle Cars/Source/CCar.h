@@ -43,7 +43,7 @@ private:
 	tVector2D m_tOverallVelocity;
 	float m_fCollisionDelay;
 	int m_nBulletImageID;
-	int m_nWeaponImageID;
+	int m_nMissileImageID;
 	int m_nSpecialWeaponImageID;
 
 public:
