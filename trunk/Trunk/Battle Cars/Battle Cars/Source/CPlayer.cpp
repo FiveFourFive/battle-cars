@@ -557,7 +557,7 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 			//{
 				PlayCrash();
 				m_pController1->Vibrate(40000,40000);
-				m_fCollisionDelay = 0.0f;
+				SetCollisionDelay(0.0f);
 				//CCar* tempcar = (CCar*)pBase;
 				//tempcar->SetDirection(GetDirection());
 				//tempcar->SetSpeed(GetSpeed() * 0.2f);
