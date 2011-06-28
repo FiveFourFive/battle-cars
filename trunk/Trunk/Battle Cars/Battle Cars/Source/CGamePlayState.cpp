@@ -16,7 +16,6 @@
 #include "CPauseMenuState.h"
 #include "CBullet.h"
 #include "CSpeedRamp.h"
-
 #include "CPlayer.h"
 #include "CCar.h"
 #include "SGD_Math.h"
@@ -32,6 +31,11 @@
 #include "CXboxInput.h"
 #include "ParticleManager.h"
 #include "Emittor.h"
+#include "tinyxml.h"
+
+void LoadCharacters();
+
+
 CGamePlayState::CGamePlayState(void)
 {
 	m_pD3D = NULL;
@@ -43,7 +47,6 @@ CGamePlayState::CGamePlayState(void)
 	m_pMS = NULL;
 	m_pPF = NULL;
 	m_pES = NULL;
-
 }
 
 CGamePlayState::CGamePlayState(const CGamePlayState&)
@@ -139,42 +142,14 @@ void CGamePlayState::Enter(void)
 	m_pFM->PlaySound(m_nBackgroundMusicID);
 	CGame::GetInstance()->ResetInputDelay();
 
-	player = new CPlayer(m_pController1);
+	
 	dummy = new CEnemy();
 	power_up = new PowerUp();
 	dummy2 = new CCar();
-	player2 = new CPlayer(m_pController2);
-	//player->SetPosX(2000);
-	//player->SetPosY(2000);
-	player->SetHealth(100);
-	player->SetMaxHealth(100);
-	player->SetPowerUpBar(0);
-	player->SetShieldBar(100);
-	player->SetMaxPowerUp(100);
-	player->SetMaxSpeed(200);
-	player->SetMaxShield(100);
-	player->SetVelX(-20);
-	player->SetType(OBJECT_PLAYER);
-	player->SetWidth(52);
-	player->SetHeight(70);
-	player->SetPosX(350);
-	player->SetPosY(225);
 	player->Rotate(0.0f);
 
-	player2->SetHealth(100);
-	player2->SetMaxHealth(100);
-	player2->SetPowerUpBar(0);
-	player2->SetShieldBar(100);
-	player2->SetMaxPowerUp(100);
-	player2->SetMaxSpeed(200);
-	player2->SetMaxShield(100);
-	player2->SetVelX(-20);
-	player2->SetType(OBJECT_PLAYER);
-	player2->SetWidth(52);
-	player2->SetHeight(70);
-	player2->SetPosX(500);
-	player2->SetPosY(225);
 	player2->Rotate(0.0f);
+
 	dummy->SetPosX(1500);
 	dummy->SetPosY(1800);
 	dummy->SetVelX(0);
@@ -232,11 +207,14 @@ void CGamePlayState::Enter(void)
 	dummy->SetDirection(tempVector);
 	//dummy->SetVelX(10);
 	m_pOM->AddObject(dummy2);
-	m_pOM->AddObject(player);
-	m_pOM->AddObject(player2);
 	m_pOM->AddObject(speedy);
 	m_pOM->AddObject(dummy);
 	m_pOM->AddObject(power_up);
+	LoadCharacters();
+	player = characters[3];
+	player2 = characters[0];
+	m_pOM->AddObject(player);
+	m_pOM->AddObject(player2);
 	m_bCountDown = false;
 	m_fEnlarge = 0.0f;
 	m_bPlaying = false;
@@ -296,7 +274,12 @@ void CGamePlayState::Enter(void)
 
 void CGamePlayState::Exit(void)
 {
-	player->Release();
+	for(unsigned int i = 0; i < characters.size(); i++)
+	{
+		characters[i]->Release();
+	}
+	//player->Release();
+	//player2->Release();
 	player2->Release();
 	dummy->Release();
 	speedy->Release();
@@ -589,7 +572,6 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 
 			//CBullet* pBullet = (CBullet*)pGame->m_pOF->CreateObject("CBullet");
 			CBullet* pBullet = new CBullet();
-			pBullet->SetType(OBJECT_BULLET);
 			pBullet->SetImageID (pCBM->GetPlayer()->GetBulletImageID());
 
 			tVector2D temp;
@@ -625,6 +607,49 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet->Release();
 			break;
 		}
+	case MSG_CREATE_PLAYER_MISSILE:
+		{
+			CCreatePlayerMissileMessage* pCBM = (CCreatePlayerMissileMessage*)pMsg;
+
+			CGamePlayState* pGame = CGamePlayState::GetInstance();
+
+			//CBullet* pBullet = (CBullet*)pGame->m_pOF->CreateObject("CBullet");
+			CBullet* pBullet = new CBullet();
+			pBullet->SetImageID (pCBM->GetPlayer()->GetBulletImageID());
+
+			tVector2D temp;
+			//temp = pCBM->GetPlayer()->GetDirection();
+			temp.fX = 0;
+			temp.fY = -1;
+			temp = Vector2DRotate(temp,pCBM->GetPlayer()->GetRotation());
+			Vector2DNormalize(temp);
+			temp = temp * 350;
+
+			pBullet->SetScale(0.5f);
+			pBullet->SetOwner(pCBM->GetPlayer());
+			/*if ((pCBM->GetPlayer()->GetDirection () > 0))
+			pBullet->SetPosX(pCBM->GetPlayer()->GetPosX() + ((pCBM->GetPlayer()->GetWidth()* pCBM->GetPlayer ()->GetScale ())));
+			else 
+			pBullet->SetPosX(pCBM->GetPlayer()->GetPosX() - ((pCBM->GetPlayer()->GetWidth() * pCBM->GetPlayer ()->GetScale ())));
+
+			if (pCBM->GetPlayer ()->GetPlayerType () == 0)
+			pBullet->SetPosY(pCBM->GetPlayer()->GetPosY());
+			else
+			pBullet->SetPosY(pCBM->GetPlayer()->GetPosY() + (pCBM->GetPlayer()->GetHeight() * pCBM->GetPlayer ()->GetScale () *0.5f) - 4);*/
+			pBullet->SetVelX(temp.fX);
+			pBullet->SetVelY(temp.fY);
+			pBullet->SetCurLife(0.0f);
+			pBullet->SetMaxLife(5.0f);
+			pBullet->SetHeight((int)(64*pBullet->GetScale()));
+			pBullet->SetWidth((int)(64*pBullet->GetScale()));
+			pBullet->SetPosX(pCBM->GetPlayer()->GetPosX() - pCBM->GetPlayer()->GetCamera()->GetCamX());
+			pBullet->SetPosY(pCBM->GetPlayer()->GetPosY() - pCBM->GetPlayer()->GetCamera()->GetCamY());
+
+			pGame->m_pOM->AddObject(pBullet);
+
+			pBullet->Release();
+		}
+		break;
 	case MSG_DESTROY_BULLET:
 		{
 			CDestroyBulletMessage* pM = (CDestroyBulletMessage*)pMsg;
@@ -634,4 +659,53 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			break;
 		}
 	}
+}
+
+void LoadCharacters()
+{
+	vector<CPlayer*> players;
+	TiXmlDocument doc;
+	if(doc.LoadFile("resource/data/characters.xml") == false)
+		return;
+	TiXmlElement* pRoot = doc.RootElement();
+	if(!pRoot)
+		return;
+	TiXmlElement* pCharacterRoot = pRoot->FirstChildElement("character");
+	while(pCharacterRoot)
+	{
+		CPlayer* character = new CPlayer(CGame::GetInstance()->GetController1());
+		int armor, accel, maxspeed;
+		double rate;
+		float rotrate;
+		if(pCharacterRoot->Attribute("armor", &armor))
+			character->SetArmor((float)armor);
+		if(pCharacterRoot->Attribute("accel", &accel))
+			character->SetAcceleration((float)accel);
+		if(pCharacterRoot->Attribute("maxspeed", &maxspeed))
+			character->SetMaxSpeed((float)maxspeed);
+		if(pCharacterRoot->Attribute("rate", &rate))
+		{
+			rotrate = 3.14f-(float)rate;
+			character->SetRotationRate(rotrate);
+		}
+
+		character->SetPosX(2000);
+		character->SetPosY(2000);
+		character->SetHealth(100);
+		character->SetMaxHealth(100);
+		character->SetPowerUpBar(0);
+		character->SetShieldBar(100);
+		character->SetMaxPowerUp(100);
+		character->SetMaxShield(100);
+		character->SetVelX(-20);
+		character->SetType(OBJECT_PLAYER);
+		character->SetWidth(52);
+		character->SetHeight(70);
+		character->SetPosX(350);
+		character->SetPosY(225);
+		players.push_back(character);
+		pCharacterRoot = pCharacterRoot->NextSiblingElement("character");
+	}
+	CGamePlayState::GetInstance()->SetCharacters(players);
+	return;
 }

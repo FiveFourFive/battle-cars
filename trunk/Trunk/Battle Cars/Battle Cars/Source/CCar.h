@@ -23,6 +23,7 @@ private:
 	float m_fRotationRate;			// the rate at which the car rotates
 	float m_fAccelerationRate;		// the rate at which the car accelerates
 	float m_fSpeed;					// the speed the car is currently moving
+	float m_fArmor;					// the extra health stat for certain cars
 	float m_nHealth;				// the current health of the car
 	float m_nMaxHealth;				// the maximum amount of health for this car
 	float m_fPowerUpBar;			// the current amount of power this car has
@@ -34,10 +35,16 @@ private:
 	int m_nKillCount;				// the current amount of kills this car has
 	int m_nCarID;					// the id for the car texture
 	float m_fFireDelay;				// the delay between firing bullets
+	float m_fFireDelayMissiles;		// the delay between firing missiles
 	int m_nBulletSound;				// the id for the sound of firing a bullet
 	int m_nSelectedWeapon;			// the currently selected weapon (0-2) 
 	tVector2D m_tDirection;			// the forward direction that speed is applied to
 	tVector2D m_tVelocity;			// outside forces that effect which way the overall velocity of the car is
+	float m_fCollisionDelay;
+	int m_nBulletImageID;
+	int m_nWeaponImageID;
+	int m_nSpecialWeaponImageID;
+
 public:
 	CCar(void);
 	void Update(float fElapsedTime);
@@ -66,6 +73,10 @@ public:
 	int GetKillCount(void) { return m_nKillCount; }
 	float GetFireDelay(void) { return m_fFireDelay; }
 	int GetSelectedWeapon(void) { return m_nSelectedWeapon; }
+	float GetArmor(void) {return m_fArmor;}
+	float GetFireDelayMissile(void) {return m_fFireDelayMissiles;}
+	int GetBulletImageID(void) { return m_nBulletImageID; }
+	float GetCollisionDelay(void) {return m_fCollisionDelay;}
 	//setters
 	void SetPowerUpBar(float pbar) { m_fPowerUpBar = pbar; }
 	void SetShieldBar(float sbar) { m_fShieldBar = sbar; }
@@ -90,8 +101,10 @@ public:
 	void SetAccelerating(bool accel) { m_bAccelerating = accel; }
 	void SetCollisionInfo(int x1, int y1, int radius) { m_nCollisionX1 = x1; m_nCollisionY1 = y1; m_nCollisionRadius = radius; }
 	void Rotate(float angle);
-	
-	
+	void SetArmor(float fArmor) {m_fArmor = fArmor;}
+	void SetFireDelayMissile(float delay) {m_fFireDelayMissiles = delay;}
+	void SetBulletImageID(int id) {m_nBulletImageID = id;}
+	void SetCollisionDelay(float delay) {m_fCollisionDelay = delay;}
 	// plays the crash sound
 	void PlayCrash(void);
 	void PlayBullet(void);

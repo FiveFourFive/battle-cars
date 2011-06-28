@@ -18,11 +18,7 @@ private:
 
 
 
-	float m_fCollisionDelay;
-	int m_nBulletImageID;
-	int m_nFirstWeaponID;
-	int m_nSecondWeaponID;
-	int m_nSpecialWeaponID;
+
 
 	RECT m_CollisionRECT;
 
@@ -37,7 +33,7 @@ public:
 
 	CCamera* GetCamera(void) { return m_pCamera; }
 
-	int GetBulletImageID(void) { return m_nBulletImageID; }
+
 
 	bool CheckCollision(IBaseInterface* pBase);
 

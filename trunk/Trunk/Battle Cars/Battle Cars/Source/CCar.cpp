@@ -41,7 +41,8 @@ CCar::CCar(void)
 	m_nBulletSound = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/bullet1.mp3");
 
 	CSGD_FModManager::GetInstance()->SetVolume(m_nBulletSound,0.5f);
-	m_fFireDelay = 0.2f;
+	m_fFireDelay = 1.0f;
+	m_fFireDelayMissiles = 2.0f;
 
 	m_nCarID = CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/cartexture.bmp",D3DCOLOR_XRGB(255, 255, 255));
 }

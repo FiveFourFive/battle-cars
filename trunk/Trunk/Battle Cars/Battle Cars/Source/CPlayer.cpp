@@ -19,13 +19,12 @@ CPlayer::CPlayer(CXboxInput* pController)
 	m_nType = OBJECT_PLAYER;
 
 	m_pController1 = pController;
+	SetCollisionDelay(0.0f);
+	
 
-	m_fCollisionDelay = 0.0f;
-
-	m_nBulletImageID = CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/bullet.png",D3DCOLOR_XRGB(255, 255, 255));
+	SetBulletImageID(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/bullet.png",D3DCOLOR_XRGB(255, 255, 255)));
 
 	m_pCamera = new CCamera();
-	
 
 	m_pES = CEventSystem::GetInstance ();
 	CKeyBinds* tempkeys = m_pController1->GetKB();
@@ -75,7 +74,17 @@ void CPlayer::Update(float fElapsedTime)
 		float x = xState.Gamepad.sThumbLX;
 		float y = xState.Gamepad.sThumbLY;
 		CKeyBinds* tempkeys = m_pController1->GetKB();
-		if(m_fFireDelay >= GetFireDelay())
+		float firerate;
+		if(GetSelectedWeapon() == WEAPON_PISTOL)
+			firerate = GetFireDelay();
+		else if(GetSelectedWeapon() == WEAPON_RPG)
+			firerate = this->GetFireDelayMissile();
+		else if(GetSelectedWeapon() == WEAPON_SPECIAL)
+		{
+			firerate = GetMaxPowerUp();
+			m_fFireDelay = GetPowerUpBar();
+		}
+		if(m_fFireDelay >= firerate)
 		{
 			if(xState.Gamepad.wButtons & tempkeys->GetShootAccept())
 			{
@@ -87,10 +96,28 @@ void CPlayer::Update(float fElapsedTime)
 			}
 			if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_X)
 			{
-				CMessageSystem* pMS = CMessageSystem::GetInstance();
-				PlayBullet();
-				pMS->SendMsg(new CCreatePlayerBulletMessage(this));
 				m_fFireDelay = 0.0f;
+				CMessageSystem* pMS = CMessageSystem::GetInstance();
+				switch(GetSelectedWeapon())
+				{
+				case WEAPON_PISTOL:
+				{
+					PlayBullet();
+					pMS->SendMsg(new CCreatePlayerBulletMessage(this));
+				}
+					break;
+				case WEAPON_RPG:
+				{
+					PlayBullet();
+					pMS->SendMsg(new CCreatePlayerMissileMessage(this));
+				}
+					break;
+				case WEAPON_SPECIAL:
+				{
+					SetPowerUpBar(0);
+				}
+					break;
+				}
 			}
 		}
 
@@ -227,12 +254,40 @@ void CPlayer::Update(float fElapsedTime)
 		
 		if(m_pDI->KeyDown(DIK_SPACE))
 		{
-			if(m_fFireDelay >= GetFireDelay())
+			float firerate;
+			if(GetSelectedWeapon() == WEAPON_PISTOL)
+				firerate = GetFireDelay();
+			else if(GetSelectedWeapon() == WEAPON_RPG)
+				firerate = this->GetFireDelayMissile();
+			else if(GetSelectedWeapon() == WEAPON_SPECIAL)
 			{
-				CMessageSystem* pMS = CMessageSystem::GetInstance();
-				PlayBullet();
-				pMS->SendMsg(new CCreatePlayerBulletMessage(this));
+				firerate = GetMaxPowerUp();
+				m_fFireDelay = GetPowerUpBar();
+			}
+			if(m_fFireDelay >= firerate)
+			{
 				m_fFireDelay = 0.0f;
+				CMessageSystem* pMS = CMessageSystem::GetInstance();
+				switch(GetSelectedWeapon())
+				{
+					case WEAPON_PISTOL:
+					{
+						PlayBullet();
+						pMS->SendMsg(new CCreatePlayerBulletMessage(this));
+					}
+					break;
+					case WEAPON_RPG:
+					{
+						PlayBullet();
+						pMS->SendMsg(new CCreatePlayerMissileMessage(this));
+					}
+					break;
+					case WEAPON_SPECIAL:
+					{
+						SetPowerUpBar(0);
+					}
+					break;
+				}
 			}
 		}
 		if(m_pDI->KeyPressed(DIK_LCONTROL))
@@ -261,10 +316,10 @@ void CPlayer::Update(float fElapsedTime)
 		}
 	}
 
-	m_fCollisionDelay += fElapsedTime;
-	if(m_fCollisionDelay >= 0.2)
+	SetCollisionDelay(GetCollisionDelay() + fElapsedTime);
+	if(GetCollisionDelay() >= 0.2)
 	{
-		m_fCollisionDelay = 0.0f;
+		SetCollisionDelay(0.0f);
 		m_pController1->Vibrate();
 	}
 	/*if(GetSpeed() < GetMaxSpeed())
@@ -399,7 +454,7 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 			{
 				PlayCrash();
 				m_pController1->Vibrate(40000,40000);
-				m_fCollisionDelay = 0.0f;
+				SetCollisionDelay(0.0f);
 				CCar* tempcar = (CCar*)pBase;
 				//tempcar->SetDirection(GetDirection());
 				//tempcar->SetSpeed(GetSpeed() * 0.2f);
