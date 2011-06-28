@@ -225,53 +225,53 @@ bool CCar::CheckCollision(IBaseInterface* pBase)
 	if(pBase == this)
 		return false;
 
-	if(pBase->GetType() == OBJECT_PLAYER)
-	{
-		CCar* tempcar = (CCar*)pBase;
-		float centerx = tempcar->GetCX1();
-		float centery = tempcar->GetCY1();
-		float myx = GetCX1();
-		float myy = GetCY1();
-		
-		float distance = sqrt(((centerx - myx)*(centerx - myx)) + ((centery - myy)*(centery - myy)));
+	//if(pBase->GetType() == OBJECT_PLAYER)
+	//{
+	//	CCar* tempcar = (CCar*)pBase;
+	//	float centerx = tempcar->GetCX1();
+	//	float centery = tempcar->GetCY1();
+	//	float myx = GetCX1();
+	//	float myy = GetCY1();
+	//	
+	//	float distance = sqrt(((centerx - myx)*(centerx - myx)) + ((centery - myy)*(centery - myy)));
 
-		if(distance <= (GetRadius() + tempcar->GetRadius()))
-		{
-			float speed = GetSpeed();
-		//	SetPosX(GetPosX() - GetVelX() * 0.001f);
-		//	SetPosX(GetPosY() - GetVelY() * 0.001f);
-			//SetVelX(0.0f);
-			//SetVelY(0.0f);
-			//if(speed >= -10 && speed < 10)
-			//{
-			//	SetSpeed(-10);
-			//	//m_pController1->Vibrate(10000,10000);
-			//}
-			//else
-			{
-				PlayCrash();
-				//m_pController1->Vibrate(40000,40000);
-			//	m_fCollisionDelay = 0.0f;
-				//CCar* tempcar = (CCar*)pBase;
-				//tempcar->SetDirection(GetDirection());
-				//tempcar->SetSpeed(GetSpeed() * 0.2f);
-				tVector2D tempvel = GetDirection();
-				//tempvel = Vector2DNormalize(tempvel);
-				if(GetSpeed() > 0)
-					tempvel = tempvel * GetSpeed() * 0.5f;
-				tVector2D currentvel = tempcar->GetVelocity();
-				tempvel = tempvel + currentvel;
-				tempcar->SetVelocity(tempvel);
-				tempvel.fX *= -1;
-				tempvel.fY *= -1;
-				SetVelocity(tempvel);
-				SetSpeed(0);
-				//SetSpeed((GetSpeed() * -1) + (GetSpeed() * 0.2f));
-			}
-			speed = GetSpeed();
-			//return true;
-		}
-	}
+	//	if(distance <= (GetRadius() + tempcar->GetRadius()))
+	//	{
+	//		float speed = GetSpeed();
+	//	//	SetPosX(GetPosX() - GetVelX() * 0.001f);
+	//	//	SetPosX(GetPosY() - GetVelY() * 0.001f);
+	//		//SetVelX(0.0f);
+	//		//SetVelY(0.0f);
+	//		//if(speed >= -10 && speed < 10)
+	//		//{
+	//		//	SetSpeed(-10);
+	//		//	//m_pController1->Vibrate(10000,10000);
+	//		//}
+	//		//else
+	//		{
+	//			PlayCrash();
+	//			//m_pController1->Vibrate(40000,40000);
+	//		//	m_fCollisionDelay = 0.0f;
+	//			//CCar* tempcar = (CCar*)pBase;
+	//			//tempcar->SetDirection(GetDirection());
+	//			//tempcar->SetSpeed(GetSpeed() * 0.2f);
+	//			tVector2D tempvel = GetDirection();
+	//			//tempvel = Vector2DNormalize(tempvel);
+	//			if(GetSpeed() > 0)
+	//				tempvel = tempvel * GetSpeed() * 0.5f;
+	//			tVector2D currentvel = tempcar->GetVelocity();
+	//			tempvel = tempvel + currentvel;
+	//			tempcar->SetVelocity(tempvel);
+	//			tempvel.fX *= -1;
+	//			tempvel.fY *= -1;
+	//			SetVelocity(tempvel);
+	//			SetSpeed(0);
+	//			//SetSpeed((GetSpeed() * -1) + (GetSpeed() * 0.2f));
+	//		}
+	//		speed = GetSpeed();
+	//		//return true;
+	//	}
+	//}
 	return false;
 }
 
