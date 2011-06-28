@@ -210,10 +210,10 @@ void CGamePlayState::Enter(void)
 	LoadCharacters();
 	player = characters[3];
 	player2 = characters[0];
-	player->Rotate(0);
-	player2->Rotate(0);
 	player2->SetPosX(500);
 	player2->SetPosY(400);
+	player->Rotate(0);
+	player2->Rotate(0);
 	player2->SetController(m_pController2);
 	m_pOM->AddObject(player);
 	m_pOM->AddObject(player2);
@@ -282,7 +282,7 @@ void CGamePlayState::Exit(void)
 	}
 	//player->Release();
 	//player2->Release();
-	player2->Release();
+	//player2->Release();
 	dummy->Release();
 	speedy->Release();
 	dummy2->Release();

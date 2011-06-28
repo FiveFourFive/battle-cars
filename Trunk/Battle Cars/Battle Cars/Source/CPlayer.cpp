@@ -440,144 +440,55 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 
 		if(distance <= (GetRadius() + tempcar->GetRadius()))
 		{
+			tVector2D othervel = tempcar->GetOverallVelocity();
+			tVector2D currentvel = GetOverallVelocity();
 
-			/*float speed = GetSpeed();
-			CCar* tempcar = (CCar*)pBase;
-			tVector2D tempdirection = GetDirection();
-			tVector2D tempotherdirection = tempcar->GetDirection();
-			tVector2D tempvelocity = GetVelocity();
-			tVector2D tempothervelocity = tempcar->GetVelocity();
-
-			tempotherdirection = Vector2DNormalize(tempotherdirection);
-			tempdirection = Vector2DNormalize(tempdirection);
-
-			tempvelocity = tempvelocity + (tempothervelocity * 0.5f);
-			tempvelocity = tempvelocity + (tempotherdirection * (tempcar->GetSpeed() * 0.3f));
+			float myfx = abs(currentvel.fX);
+			float myfy = abs(currentvel.fY);
+			float hisfx = abs(othervel.fX);
+			float hisfy = abs(othervel.fY);
+	
 			
-			tempvelocity.fX = tempvelocity.fX * tempotherdirection.fX;
-			tempvelocity.fY = tempvelocity.fY * tempotherdirection.fY;
-
-			tempothervelocity = tempothervelocity + (tempvelocity * 0.5f);
-			tempothervelocity = tempothervelocity + (tempdirection * (GetSpeed() * 0.3f));
-
-			tempothervelocity.fX = tempothervelocity.fX * tempvelocity.fX;
-			tempothervelocity.fY = tempothervelocity.fY * tempvelocity.fY;
-
-			tempcar->SetVelocity(tempothervelocity);
-			this->SetVelocity(tempvelocity);
-			tempcar->SetSpeed((tempcar->GetSpeed() * 0.5f) * -1.0f);
-			this->SetSpeed((this->GetSpeed() * 0.5f) * -1.0f);
-			return true;*/
-		//	SetPosX(GetPosX() - GetVelX() * 0.001f);
-		//	SetPosX(GetPosY() - GetVelY() * 0.001f);
-			//SetVelX(0.0f);
-			//SetVelY(0.0f);
-			/*if(speed >= -10 && speed < 10)
+			
+			tVector2D tobeapplied;
+			if((myfx+myfy) > (hisfx+hisfy))
 			{
-				SetSpeed(-10);
-				m_pController1->Vibrate(10000,10000);
-			}
-			else*/	
-		//	{
-			if(GetSpeed() > 2 || tempcar->GetSpeed() > 2)
-			{
-				PlayCrash();
-				m_pController1->Vibrate(40000,40000);
-				SetCollisionDelay(0.0f);
-				//CCar* tempcar = (CCar*)pBase;
-				//tempcar->SetDirection(GetDirection());
-				//tempcar->SetSpeed(GetSpeed() * 0.2f);
-				tVector2D tempvel = GetDirection();
-				//tempvel = Vector2DNormalize(tempvel);
-				tempvel = tempvel * GetSpeed() * 0.5f;
-				tVector2D currentvel = tempcar->GetVelocity();
-				tempvel = tempvel + currentvel;
-				tempcar->SetVelocity(tempvel);
-				tempvel.fX *= -1;
-				tempvel.fY *= -1;
-				SetVelocity(tempvel);
-				SetSpeed(0);
-				tempcar->SetSpeed(0);
-				//SetSpeed(GetSpeed() * -1.0f);
-				//tempcar->SetSpeed(GetSpeed() * -1.0f);
-				//SetSpeed(0);
-				//SetSpeed((GetSpeed() * -1) + (GetSpeed() * 0.2f));
+				currentvel = currentvel * -0.8f;
+				tobeapplied = currentvel;
+				SetVelocity(tobeapplied);
+				tempcar->SetVelocity(tobeapplied * -1.0f);
 			}
 			else
 			{
-			//	SetSpeed(0);
-				tVector2D tempdirection = GetDirection();
-				tVector2D tempotherdirection = tempcar->GetDirection();
-				tempotherdirection = Vector2DNormalize(tempotherdirection);
-				tempdirection = Vector2DNormalize(tempdirection);
-				tVector2D tempvel = GetVelocity();
-				tVector2D tempothervel = tempcar->GetVelocity();
-				if(tempvel.fX == 0 && tempvel.fY == 0 && tempothervel.fX == 0 && tempothervel.fY == 0)
-				{
-					tempvel = tempvel + (tempdirection * 20);
-					tempothervel = tempothervel + (tempotherdirection * 20);
-				}
-				tempvel = tempvel * -1.0f;
-				tempothervel = tempothervel * -1.0f;
-				//tempothervel = tempothervel + (tempotherdirection * 20);
-				SetSpeed(0);
-				tempcar->SetSpeed(0);
-				this->SetVelocity(tempvel);
-				tempcar->SetVelocity(tempothervel);
+				othervel = othervel * -0.8f;
+				tobeapplied = othervel;
+				tempcar->SetVelocity(tobeapplied);
+				SetVelocity(tobeapplied * -1.0f);
 			}
-				return true;
-			//}
-			//speed = GetSpeed();
-			//return true;
-		}
-	}
-	else if(pBase->GetType() == 10)
-	{
-		CPlayer* tempcar = (CPlayer*)pBase;
-		float centerx = tempcar->GetPosX();
-		float centery = tempcar->GetPosY();
-		float myx = GetCX1();
-		float myy = GetCY1();
-		
-		float distance = sqrt(((centerx - myx)*(centerx - myx)) + ((centery - myy)*(centery - myy)));
 
-		if(distance <= (GetRadius() + tempcar->GetRadius()))
-		{
-			float speed = GetSpeed();
-		//	SetPosX(GetPosX() - GetVelX() * 0.001f);
-		//	SetPosX(GetPosY() - GetVelY() * 0.001f);
-			//SetVelX(0.0f);
-			//SetVelY(0.0f);
-			//if(speed >= -10 && speed < 10)
-			//{
-			//	SetSpeed(-10);
-			//	m_pController1->Vibrate(10000,10000);
-			//}
-			//else
-			//{
-				PlayCrash();
-				m_pController1->Vibrate(40000,40000);
-				SetCollisionDelay(0.0f);
-				//CCar* tempcar = (CCar*)pBase;
-				//tempcar->SetDirection(GetDirection());
-				//tempcar->SetSpeed(GetSpeed() * 0.2f);
-				tVector2D tempvel = GetDirection();
-				//tempvel = Vector2DNormalize(tempvel);
-				if(GetSpeed() > 0)
-					tempvel = tempvel * GetSpeed() * 0.5f;
-				tVector2D currentvel = tempcar->GetVelocity();
-				tempvel = tempvel + currentvel;
-				tempcar->SetVelocity(tempvel);
-				tempvel.fX *= -1;
-				tempvel.fY *= -1;
-				SetVelocity(tempvel);
-				SetSpeed(0);
-				//SetSpeed((GetSpeed() * -1) + (GetSpeed() * 0.2f));
-			//}
-		//	speed = GetSpeed();
-			//return true;
+		
+			float myspeed = GetSpeed();
+			float hisspeed = tempcar->GetSpeed();
+			float speedtouse;
+			if(myspeed > hisspeed)
+			{
+				myspeed = myspeed * 0.3f;
+				SetSpeed(-1.0f * myspeed);
+				tempcar->SetSpeed(myspeed);
+			}
+			else
+			{
+				hisspeed = hisspeed * 0.3f;
+				tempcar->SetSpeed(-1.0f * hisspeed);
+				SetSpeed(hisspeed);
+			}
+
+
+
+			
 		}
 	}
+	
 
 
 	if(IntersectRect(&intersection, &GetRect(), &pBase->GetRect()))

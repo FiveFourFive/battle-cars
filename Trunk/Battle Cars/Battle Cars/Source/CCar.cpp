@@ -120,6 +120,7 @@ void CCar::Update(float fElapsedTime)
 	//SetDirection(tempdir);
 	SetVelX(m_tVelocity.fX + tempdir.fX);
 	SetVelY(m_tVelocity.fY + tempdir.fY);
+	m_tOverallVelocity = tempvel + tempdir;
 	SetPosX(GetPosX() + (GetVelX() * fElapsedTime));
 	SetPosY(GetPosY() + (GetVelY() * fElapsedTime));
 	m_nCollisionX1 = m_nCollisionX1 + (GetVelX() * fElapsedTime);

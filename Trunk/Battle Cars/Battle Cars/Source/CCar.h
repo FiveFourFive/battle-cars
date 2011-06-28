@@ -40,6 +40,7 @@ private:
 	int m_nSelectedWeapon;			// the currently selected weapon (0-2) 
 	tVector2D m_tDirection;			// the forward direction that speed is applied to
 	tVector2D m_tVelocity;			// outside forces that effect which way the overall velocity of the car is
+	tVector2D m_tOverallVelocity;
 	float m_fCollisionDelay;
 	int m_nBulletImageID;
 	int m_nWeaponImageID;
@@ -77,7 +78,9 @@ public:
 	float GetFireDelayMissile(void) {return m_fFireDelayMissiles;}
 	int GetBulletImageID(void) { return m_nBulletImageID; }
 	float GetCollisionDelay(void) {return m_fCollisionDelay;}
+	tVector2D GetOverallVelocity(void) { return m_tOverallVelocity; }
 	//setters
+	void SetOverallVelocity(tVector2D vel) { m_tOverallVelocity = vel; }
 	void SetPowerUpBar(float pbar) { m_fPowerUpBar = pbar; }
 	void SetShieldBar(float sbar) { m_fShieldBar = sbar; }
 	void SetMaxPowerUp(float max) { m_fMaxPowerUp = max; }
