@@ -208,8 +208,11 @@ void CGamePlayState::Enter(void)
 	m_pOM->AddObject(dummy);
 	m_pOM->AddObject(power_up);
 	LoadCharacters();
-	player = characters[3];
-	player2 = characters[0];
+	player = characters[0];
+	player2 = characters[1];
+	player2->SetPosX(400);
+	player->Rotate(0.0f);
+	player2->Rotate(0.0f);
 	player2->SetPosX(500);
 	player2->SetPosY(400);
 	player->Rotate(0);
@@ -603,9 +606,9 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet->SetWidth((int)(64*pBullet->GetScale()));
 			pBullet->SetPosX(pCBM->GetPlayer()->GetPosX());
 			pBullet->SetPosY(pCBM->GetPlayer()->GetPosY());
-
+			pBullet->SetDamage(2);
+			pBullet->SetBulletType(PROJECTILE_BULLET);
 			pGame->m_pOM->AddObject(pBullet);
-
 			pBullet->Release();
 			break;
 		}
@@ -617,7 +620,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 
 			//CBullet* pBullet = (CBullet*)pGame->m_pOF->CreateObject("CBullet");
 			CBullet* pBullet = new CBullet();
-			pBullet->SetImageID (pCBM->GetPlayer()->GetBulletImageID());
+			pBullet->SetImageID (pCBM->GetPlayer()->GetMissileImageID());
 
 			tVector2D temp;
 			//temp = pCBM->GetPlayer()->GetDirection();
@@ -642,14 +645,144 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet->SetVelY(temp.fY);
 			pBullet->SetCurLife(0.0f);
 			pBullet->SetMaxLife(5.0f);
-			pBullet->SetHeight((int)(64*pBullet->GetScale()));
+			pBullet->SetHeight((int)(32*pBullet->GetScale()));
 			pBullet->SetWidth((int)(64*pBullet->GetScale()));
-			pBullet->SetPosX(pCBM->GetPlayer()->GetPosX() - pCBM->GetPlayer()->GetCamera()->GetCamX());
-			pBullet->SetPosY(pCBM->GetPlayer()->GetPosY() - pCBM->GetPlayer()->GetCamera()->GetCamY());
-
+			pBullet->SetPosX(pCBM->GetPlayer()->GetPosX());
+			pBullet->SetPosY(pCBM->GetPlayer()->GetPosY());
+			pBullet->SetDamage(5);
+			pBullet->SetBulletType(PROJECTILE_MISSILE);
 			pGame->m_pOM->AddObject(pBullet);
 
 			pBullet->Release();
+		}
+		break;
+	case MSG_CREATE_MINI_SPECIAL:
+		{
+			CCreateMiniSpecialMessage* pCMS = (CCreateMiniSpecialMessage*)pMsg;
+			CGamePlayState* pGame = CGamePlayState::GetInstance();
+			//CBullet* pBullet = (CBullet*)pGame->m_pOF->CreateObject("CBullet");
+			CBullet* pBullet = new CBullet();
+			CBullet* pBullet1 = new CBullet();
+			CBullet* pBullet2 = new CBullet();
+			CBullet* pBullet3 = new CBullet();
+			CBullet* pBullet4 = new CBullet();
+			//Missile 1
+			pBullet->SetImageID (pCMS->GetPlayer()->GetMissileImageID());
+			pBullet->SetScale(0.5f);
+			pBullet->SetOwner(pCMS->GetPlayer());
+			pBullet->SetCurLife(0.0f);
+			pBullet->SetMaxLife(3.0f);
+			pBullet->SetHeight((int)(32*pBullet->GetScale()));
+			pBullet->SetWidth((int)(64*pBullet->GetScale()));
+			pBullet->SetPosX(pCMS->GetPlayer()->GetPosX());
+			pBullet->SetPosY(pCMS->GetPlayer()->GetPosY());
+			pBullet->SetDamage(15);
+			pBullet->SetBulletType(PROJECTILE_MISSILE);
+			pBullet->SetBlastRadius(50.0f);
+			//Missile 2
+			pBullet1->SetImageID (pCMS->GetPlayer()->GetMissileImageID());
+			pBullet1->SetScale(0.5f);
+			pBullet1->SetOwner(pCMS->GetPlayer());
+			pBullet1->SetCurLife(0.0f);
+			pBullet1->SetMaxLife(3.0f);
+			pBullet1->SetHeight((int)(32*pBullet->GetScale()));
+			pBullet1->SetWidth((int)(64*pBullet->GetScale()));
+			pBullet1->SetPosX(pCMS->GetPlayer()->GetPosX());
+			pBullet1->SetPosY(pCMS->GetPlayer()->GetPosY());
+			pBullet1->SetDamage(15);
+			pBullet1->SetBulletType(PROJECTILE_MISSILE);
+			pBullet1->SetBlastRadius(50.0f);
+			//Missile 3
+			pBullet2->SetImageID (pCMS->GetPlayer()->GetMissileImageID());
+			pBullet2->SetScale(0.5f);
+			pBullet2->SetOwner(pCMS->GetPlayer());
+			pBullet2->SetCurLife(0.0f);
+			pBullet2->SetMaxLife(3.0f);
+			pBullet2->SetHeight((int)(32*pBullet->GetScale()));
+			pBullet2->SetWidth((int)(64*pBullet->GetScale()));
+			pBullet2->SetPosX(pCMS->GetPlayer()->GetPosX());
+			pBullet2->SetPosY(pCMS->GetPlayer()->GetPosY());
+			pBullet2->SetDamage(15);
+			pBullet2->SetBulletType(PROJECTILE_MISSILE);
+			pBullet2->SetBlastRadius(50.0f);
+			//Missile 4
+			pBullet3->SetImageID (pCMS->GetPlayer()->GetMissileImageID());
+			pBullet3->SetScale(0.5f);
+			pBullet3->SetOwner(pCMS->GetPlayer());
+			pBullet3->SetCurLife(0.0f);
+			pBullet3->SetMaxLife(3.0f);
+			pBullet3->SetHeight((int)(32*pBullet->GetScale()));
+			pBullet3->SetWidth((int)(64*pBullet->GetScale()));
+			pBullet3->SetPosX(pCMS->GetPlayer()->GetPosX());
+			pBullet3->SetPosY(pCMS->GetPlayer()->GetPosY());
+			pBullet3->SetDamage(15);
+			pBullet3->SetBulletType(PROJECTILE_MISSILE);
+			pBullet3->SetBlastRadius(50.0f);
+			//Missile 5
+			pBullet4->SetImageID (pCMS->GetPlayer()->GetMissileImageID());
+			pBullet4->SetScale(0.5f);
+			pBullet4->SetOwner(pCMS->GetPlayer());
+			pBullet4->SetCurLife(0.0f);
+			pBullet4->SetMaxLife(3.0f);
+			pBullet4->SetHeight((int)(32*pBullet->GetScale()));
+			pBullet4->SetWidth((int)(64*pBullet->GetScale()));
+			pBullet4->SetPosX(pCMS->GetPlayer()->GetPosX());
+			pBullet4->SetPosY(pCMS->GetPlayer()->GetPosY());
+			pBullet4->SetDamage(15);
+			pBullet4->SetBulletType(PROJECTILE_MISSILE);
+			pBullet4->SetBlastRadius(50.0f);
+			//Set up launch vectors
+			tVector2D temp;
+			temp.fX = 0;
+			temp.fY = -1;
+			temp = Vector2DRotate(temp,pCMS->GetPlayer()->GetRotation()-.5f);
+			Vector2DNormalize(temp);
+			temp = temp * 350;
+			pBullet->SetVelX(temp.fX);
+			pBullet->SetVelY(temp.fY);
+			//
+			temp.fX = 0;
+			temp.fY = -1;
+			temp = Vector2DRotate(temp,pCMS->GetPlayer()->GetRotation()-.25f);
+			Vector2DNormalize(temp);
+			temp = temp * 350;
+			pBullet1->SetVelX(temp.fX);
+			pBullet1->SetVelY(temp.fY);
+			//
+			temp.fX = 0;
+			temp.fY = -1;
+			temp = Vector2DRotate(temp,pCMS->GetPlayer()->GetRotation());
+			Vector2DNormalize(temp);
+			temp = temp * 350;
+			pBullet2->SetVelX(temp.fX);
+			pBullet2->SetVelY(temp.fY);
+			//
+			temp.fX = 0;
+			temp.fY = -1;
+			temp = Vector2DRotate(temp,pCMS->GetPlayer()->GetRotation()+.25f);
+			Vector2DNormalize(temp);
+			temp = temp * 350;
+			pBullet3->SetVelX(temp.fX);
+			pBullet3->SetVelY(temp.fY);
+			//
+			temp.fX = 0;
+			temp.fY = -1;
+			temp = Vector2DRotate(temp,pCMS->GetPlayer()->GetRotation()+.5f);
+			Vector2DNormalize(temp);
+			temp = temp * 350;
+			pBullet4->SetVelX(temp.fX);
+			pBullet4->SetVelY(temp.fY);
+
+			pGame->m_pOM->AddObject(pBullet);
+			pGame->m_pOM->AddObject(pBullet1);
+			pGame->m_pOM->AddObject(pBullet2);
+			pGame->m_pOM->AddObject(pBullet3);
+			pGame->m_pOM->AddObject(pBullet4);
+			pBullet->Release();
+			pBullet1->Release();
+			pBullet2->Release();
+			pBullet3->Release();
+			pBullet4->Release();
 		}
 		break;
 	case MSG_DESTROY_BULLET:
@@ -676,7 +809,7 @@ void LoadCharacters()
 	while(pCharacterRoot)
 	{
 		CPlayer* character = new CPlayer(CGame::GetInstance()->GetController1());
-		int armor, accel, maxspeed;
+		int armor, accel, maxspeed, counter = 0;
 		double rate;
 		float rotrate;
 		if(pCharacterRoot->Attribute("armor", &armor))
@@ -690,9 +823,6 @@ void LoadCharacters()
 			rotrate = 3.14f-(float)rate;
 			character->SetRotationRate(rotrate);
 		}
-
-		character->SetPosX(2000);
-		character->SetPosY(2000);
 		character->SetHealth(100);
 		character->SetMaxHealth(100);
 		character->SetPowerUpBar(0);
@@ -705,8 +835,10 @@ void LoadCharacters()
 		character->SetHeight(70);
 		character->SetPosX(350);
 		character->SetPosY(225);
+		character->SetPlayerType(counter);
 		players.push_back(character);
 		pCharacterRoot = pCharacterRoot->NextSiblingElement("character");
+		counter++;
 	}
 	CGamePlayState::GetInstance()->SetCharacters(players);
 	return;

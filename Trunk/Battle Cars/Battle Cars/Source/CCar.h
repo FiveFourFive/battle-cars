@@ -77,6 +77,8 @@ public:
 	float GetArmor(void) {return m_fArmor;}
 	float GetFireDelayMissile(void) {return m_fFireDelayMissiles;}
 	int GetBulletImageID(void) { return m_nBulletImageID; }
+	int GetMissileImageID(void) {return m_nMissileImageID;}
+	int GetSpecialImageID(void) {return m_nSpecialWeaponImageID;}
 	float GetCollisionDelay(void) {return m_fCollisionDelay;}
 	tVector2D GetOverallVelocity(void) { return m_tOverallVelocity; }
 	//setters
@@ -107,6 +109,8 @@ public:
 	void SetArmor(float fArmor) {m_fArmor = fArmor;}
 	void SetFireDelayMissile(float delay) {m_fFireDelayMissiles = delay;}
 	void SetBulletImageID(int id) {m_nBulletImageID = id;}
+	void SetMissileImageID(int id) {m_nMissileImageID = id;}
+	void SetSpecialWeaponImageID(int id) {m_nSpecialWeaponImageID = id;}
 	void SetCollisionDelay(float delay) {m_fCollisionDelay = delay;}
 	// plays the crash sound
 	void PlayCrash(void);

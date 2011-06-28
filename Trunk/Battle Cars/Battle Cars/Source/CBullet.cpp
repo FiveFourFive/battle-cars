@@ -10,6 +10,8 @@ CBullet::CBullet(void)
 {
 	m_pTM = CSGD_TextureManager::GetInstance();
 	m_nType = OBJECT_BULLET;
+	m_nBulletType = PROJECTILE_BULLET;
+	m_fBlastRadius = 0.0f;
 }
 
 void CBullet::Update(float fElapsedTime)

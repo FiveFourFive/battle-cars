@@ -14,7 +14,7 @@
 class CLevel;
 class CBullet;
 class CPlayer;
-enum MsgTypes { MSG_NULL = 0, MSG_CREATE_LEVEL, MSG_DESTROY_LEVEL, MSG_CREATE_PLAYER_BULLET,MSG_DESTROY_BULLET, MSG_CREATE_PLAYER_MISSILE, MSG_MAX };
+enum MsgTypes { MSG_NULL = 0, MSG_CREATE_LEVEL, MSG_DESTROY_LEVEL, MSG_CREATE_PLAYER_BULLET,MSG_DESTROY_BULLET, MSG_CREATE_PLAYER_MISSILE, MSG_CREATE_MINI_SPECIAL, MSG_MAX };
 
 class CBaseMessage
 {
@@ -81,6 +81,16 @@ public:
 	CCreatePlayerMissileMessage(CPlayer* pPlayer);
 	CPlayer* GetPlayer(void);
 
+};
+
+class CCreateMiniSpecialMessage : public CBaseMessage
+{
+private:
+	CPlayer* m_pPlayer;
+
+public:
+	CCreateMiniSpecialMessage(CPlayer* pPlayer);
+	CPlayer* GetPlayer() {return m_pPlayer;}
 };
 
 #endif

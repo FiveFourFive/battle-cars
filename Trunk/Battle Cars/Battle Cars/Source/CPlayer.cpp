@@ -23,7 +23,7 @@ CPlayer::CPlayer(CXboxInput* pController)
 	
 
 	SetBulletImageID(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/bullet.png",D3DCOLOR_XRGB(255, 255, 255)));
-
+	SetMissileImageID(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MissilePlaceholder.png", D3DCOLOR_XRGB(255, 255, 255)));
 	m_pCamera = new CCamera();
 
 	m_pES = CEventSystem::GetInstance ();
@@ -31,6 +31,8 @@ CPlayer::CPlayer(CXboxInput* pController)
 	tempkeys->SetShootAccept(XINPUT_GAMEPAD_Y);
 	m_pES->RegisterClient ("CameraCollision", this);
 	m_pES->RegisterClient("powerup", this);
+	m_fFireTimer = 0.0;
+
 }
 CPlayer::~CPlayer(void)
 {
@@ -54,8 +56,7 @@ void CPlayer::Update(float fElapsedTime)
 		m_pCamera->AttachTo(this,400.0f,300.0f);
 	m_pCamera->Update();
 
-	static float m_fFireDelay = 0.0f;
-	m_fFireDelay += fElapsedTime;
+	m_fFireTimer += fElapsedTime;
 	static float m_ftimer;
 	m_ftimer += fElapsedTime;
 	if( m_ftimer >= 3.0f)
@@ -80,23 +81,20 @@ void CPlayer::Update(float fElapsedTime)
 		else if(GetSelectedWeapon() == WEAPON_RPG)
 			firerate = this->GetFireDelayMissile();
 		else if(GetSelectedWeapon() == WEAPON_SPECIAL)
-		{
-			firerate = GetMaxPowerUp();
-			m_fFireDelay = GetPowerUpBar();
-		}
-		if(m_fFireDelay >= firerate)
+			firerate = GetFireDelay();
+		if(m_fFireTimer >= firerate)
 		{
 			if(xState.Gamepad.wButtons & tempkeys->GetShootAccept())
 			{
 				CMessageSystem* pMS = CMessageSystem::GetInstance();
 				PlayBullet();
 				pMS->SendMsg(new CCreatePlayerBulletMessage(this));
-				m_fFireDelay = 0.0f;
+				m_fFireTimer = 0.0f;
 				m_pController1->Vibrate(20000,20000);
 			}
 			if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_X)
 			{
-				m_fFireDelay = 0.0f;
+				m_fFireTimer = 0.0f;
 				CMessageSystem* pMS = CMessageSystem::GetInstance();
 				switch(GetSelectedWeapon())
 				{
@@ -260,13 +258,10 @@ void CPlayer::Update(float fElapsedTime)
 			else if(GetSelectedWeapon() == WEAPON_RPG)
 				firerate = this->GetFireDelayMissile();
 			else if(GetSelectedWeapon() == WEAPON_SPECIAL)
+				firerate = GetFireDelay();
+			if(m_fFireTimer >= firerate)
 			{
-				firerate = GetMaxPowerUp();
-				m_fFireDelay = GetPowerUpBar();
-			}
-			if(m_fFireDelay >= firerate)
-			{
-				m_fFireDelay = 0.0f;
+				m_fFireTimer = 0.0f;
 				CMessageSystem* pMS = CMessageSystem::GetInstance();
 				switch(GetSelectedWeapon())
 				{
@@ -284,7 +279,34 @@ void CPlayer::Update(float fElapsedTime)
 					break;
 					case WEAPON_SPECIAL:
 					{
-						SetPowerUpBar(0);
+						//if(GetPowerUpBar() >= GetMaxPowerUp())
+						//{
+							//SetPowerUpBar(0);
+							switch(m_nPlayerType)
+							{
+								case CAR_MINI:
+									{
+										PlayBullet();
+										pMS->SendMsg(new CCreateMiniSpecialMessage(this));
+									}
+									break;
+								case CAR_VETTE:
+									{
+										
+									}
+									break;
+								case CAR_HUMMER:
+									{
+										
+									}
+									break;
+								case CAR_TRUCK:
+									{
+
+									}
+									break;
+							}
+						//}
 					}
 					break;
 				}
@@ -308,11 +330,6 @@ void CPlayer::Update(float fElapsedTime)
 			if(GetPowerUpBar() < 100)
 				SetPowerUpBar(GetPowerUpBar() + 10);
 
-		}
-		if(m_pDI->KeyPressed(DIK_SPACE))
-		{
-			if(GetPowerUpBar() >= GetMaxPowerUp())
-				SetPowerUpBar(0);
 		}
 	}
 

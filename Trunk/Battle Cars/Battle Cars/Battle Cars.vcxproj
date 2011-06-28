@@ -89,6 +89,7 @@
     <ClCompile Include="Source\CGamerProfile.cpp" />
     <ClCompile Include="Source\CHowToPlayState.cpp" />
     <ClCompile Include="Source\CKeyBinds.cpp" />
+    <ClCompile Include="Source\CLandMine.cpp" />
     <ClCompile Include="Source\CLevel.cpp" />
     <ClCompile Include="Source\CMainMenuState.cpp" />
     <ClCompile Include="Source\CMap.cpp" />
@@ -132,9 +133,9 @@
     <ClInclude Include="Source\CEventSystem.h" />
     <ClInclude Include="Source\CGame.h" />
     <ClInclude Include="Source\CGamePlayState.h" />
-    <ClInclude Include="Source\CGamerProfile.h" />
     <ClInclude Include="Source\CHowToPlayState.h" />
     <ClInclude Include="Source\CKeyBinds.h" />
+    <ClInclude Include="Source\CLandMine.h" />
     <ClInclude Include="Source\CLevel.h" />
     <ClInclude Include="Source\CMainMenuState.h" />
     <ClInclude Include="Source\CMap.h" />
@@ -157,7 +158,6 @@
     <ClInclude Include="Source\CWanderState.h" />
     <ClInclude Include="Source\CXboxInput.h" />
     <ClInclude Include="Source\Emittor.h" />
-    <ClInclude Include="Source\Gamer_Profile.h" />
     <ClInclude Include="Source\IAIBaseState.h" />
     <ClInclude Include="Source\IBaseInterface.h" />
     <ClInclude Include="Source\IGameState.h" />
