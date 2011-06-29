@@ -82,6 +82,7 @@
     <ClCompile Include="Source\CCamera.cpp" />
     <ClCompile Include="Source\CCar.cpp" />
     <ClCompile Include="Source\CCellAnimation.cpp" />
+    <ClCompile Include="Source\CCharacterSelection.cpp" />
     <ClCompile Include="Source\CEnemy.cpp" />
     <ClCompile Include="Source\CEventSystem.cpp" />
     <ClCompile Include="Source\CGame.cpp" />
@@ -96,6 +97,7 @@
     <ClCompile Include="Source\CMap.cpp" />
     <ClCompile Include="Source\CMessage.cpp" />
     <ClCompile Include="Source\CMessageSystem.cpp" />
+    <ClCompile Include="Source\CNumPlayers.cpp" />
     <ClCompile Include="Source\CObjectManager.cpp" />
     <ClCompile Include="Source\COptionState.cpp" />
     <ClCompile Include="Source\CPauseMenuState.cpp" />
@@ -129,6 +131,7 @@
     <ClInclude Include="Source\CCamera.h" />
     <ClInclude Include="Source\CCar.h" />
     <ClInclude Include="Source\CCellAnimation.h" />
+    <ClInclude Include="Source\CCharacterSelection.h" />
     <ClInclude Include="Source\CEnemy.h" />
     <ClInclude Include="Source\CEvent.h" />
     <ClInclude Include="Source\CEventSystem.h" />
@@ -143,6 +146,7 @@
     <ClInclude Include="Source\CMap.h" />
     <ClInclude Include="Source\CMessage.h" />
     <ClInclude Include="Source\CMessageSystem.h" />
+    <ClInclude Include="Source\CNumPlayers.h" />
     <ClInclude Include="Source\CObjectFactory.h" />
     <ClInclude Include="Source\CObjectManager.h" />
     <ClInclude Include="Source\COptionState.h" />

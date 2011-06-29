@@ -26,6 +26,9 @@ CCar::CCar(void)
 	m_tVelocity.fX = 0.0f;
 	m_tVelocity.fY = 0.0f;
 
+	m_tOverallVelocity.fX = 0.0f;
+	m_tOverallVelocity.fY = 0.0f;
+
 	SetPosX(350);
 	SetPosY(225);
 
@@ -33,7 +36,9 @@ CCar::CCar(void)
 	SetHeight(70);
 	m_nCollisionRadius = GetWidth()/2;
 	m_nCollisionX1 = GetPosX();
-	m_nCollisionY1 = GetPosY() - (GetHeight()*0.5f) + (GetWidth()*0.5f);;
+	m_nCollisionY1 = GetPosY() - (GetHeight()*0.5f) + (GetWidth()*0.5f);
+	m_nCollisionX2 = 0;
+	m_nCollisionY2 = 0;
 	SetVelY(0);
 	m_nKillCount = 0;
 	SetVelX(0);
@@ -48,7 +53,7 @@ CCar::CCar(void)
 	m_fFireDelay = .50f;
 	m_fFireDelayMissiles = 1.0f;
 	SetPowerUpBar(100.0f);
-	m_nCarID = CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/cartexture.bmp",D3DCOLOR_XRGB(255, 255, 255));
+	m_nCarID = CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/cartexture.bmp",D3DCOLOR_XRGB(255, 0, 255));
 
 	CEventSystem::GetInstance()->RegisterClient("damage",this);
 }
@@ -62,7 +67,6 @@ void CCar::Update(float fElapsedTime)
 	//SetDirection(tempdir);
 	tempdir = Vector2DNormalize(tempdir);
 	tempdir = tempdir * GetSpeed();
-
 
 	if(tempvel.fX > 0)
 	{
@@ -153,11 +157,11 @@ void CCar::Render(CCamera* camera)
 	tempcar.bottom = (LONG)(tempcar.top + GetHeight());
 	
 	RECT car;
-
 	car.left = 0;
+	car.right = car.left + GetWidth();
 	car.top = 0;
 	car.bottom = car.top + GetHeight();
-	car.right = car.left + GetWidth();
+	
 
 	m_pTM->Draw(m_nCarID,GetPosX()-(GetWidth()/2)- camera->GetCamX() + camera->GetRenderPosX(),GetPosY()-(GetHeight()/2)- camera->GetCamY() + camera->GetRenderPosY(),1.0f,1.0f,&car,GetWidth()/2,GetHeight()/2,GetRotation());
 	//pD3D->DrawRect(tempcar,255,0,0);

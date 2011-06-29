@@ -59,6 +59,7 @@ private:
 
 	// list for scores;
 	std::vector<CCar*> m_lScores;
+	std::vector<CPlayer*> m_pCharacters;
 	
 	// objects
 	CPlayer* player;
@@ -83,8 +84,6 @@ private:
 	int score;		// players score;
 	float m_ftimer;	// timer before score is incremented.
 
-	vector<CPlayer*> characters;
-
 	CGamePlayState(void);
 	~CGamePlayState(void){};
 	CGamePlayState(const CGamePlayState&);
@@ -107,8 +106,8 @@ public:
 
 	static void MessageProc(CBaseMessage* pMsg);
 
-	vector<CPlayer*> GetCharacters() {return characters;}
-	void SetCharacters(vector<CPlayer*> players) {characters = players;}
+	vector<CPlayer*> GetCharacters() {return m_pCharacters;}
+	void SetCharacters(vector<CPlayer*> players) { m_pCharacters = players;}
 	CObjectManager* GetObjectManager() {return m_pOM;}
 
 };

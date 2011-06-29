@@ -8,7 +8,7 @@
 class CXboxInput;
 class CMessageSystem;
 
-enum characters{CAR_MINI, CAR_VETTE, CAR_HUMMER, CAR_TRUCK};
+enum characters{CAR_MINI, CAR_VETTE, CAR_HUMMER, CAR_TRUCK, CAR_NUM};
 class CPlayer : public CCar, public IListener
 {
 private:

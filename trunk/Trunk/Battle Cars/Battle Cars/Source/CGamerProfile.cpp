@@ -69,6 +69,8 @@ void CGamerProfile::Enter()
 
 	temp = 'A';
 
+	m_pFM->PlaySoundA(BGMusicID);
+
 }
 
 void CGamerProfile::Exit()
