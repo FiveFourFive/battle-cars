@@ -177,6 +177,12 @@
     <ClCompile Include="Source\CKeyBindsState.cpp">
       <Filter>Game States</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CCharacterSelection.cpp">
+      <Filter>Game States</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CNumPlayers.cpp">
+      <Filter>Game States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\CStopWatch.h">
@@ -321,6 +327,12 @@
       <Filter>Game Objects</Filter>
     </ClInclude>
     <ClInclude Include="Source\CKeyBindsState.h">
+      <Filter>Game States</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CCharacterSelection.h">
+      <Filter>Game States</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CNumPlayers.h">
       <Filter>Game States</Filter>
     </ClInclude>
   </ItemGroup>

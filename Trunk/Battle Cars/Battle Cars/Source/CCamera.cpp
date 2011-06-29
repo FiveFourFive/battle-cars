@@ -3,7 +3,7 @@
 #include "CCamera.h"
 #include "CBase.h"
 #include "CGame.h"
-#include "CMainMenuState.h"
+#include "CNumPlayers.h"
 #include "COptionState.h"
 
 CCamera::CCamera()
@@ -21,7 +21,7 @@ RECT CCamera::GetRect()
 {
 	RECT temp;
 
-	if( CMainMenuState::GetInstance()->GetNumberOfPlayers() == 2)
+	if( CNumPlayers::GetInstance()->GetNumberOfPlayers() == 2)
 	{
 		if( COptionState::GetInstance()->IsVertical() )
 		{

@@ -12,6 +12,7 @@
 #include "CMessageSystem.h"
 #include "CKeyBinds.h"
 #include "CMainMenuState.h"
+#include "CNumPlayers.h"
 #include "COptionState.h"
 #include <math.h>
 CPlayer::CPlayer(CXboxInput* pController)
@@ -45,7 +46,7 @@ void CPlayer::Update(float fElapsedTime)
 {
 	CSGD_DirectInput* m_pDI = CSGD_DirectInput::GetInstance();
 	
-	if( CMainMenuState::GetInstance()->GetNumberOfPlayers() == 2)
+	if( CNumPlayers::GetInstance()->GetNumberOfPlayers() == 2)
 	{
 		if( COptionState::GetInstance()->IsVertical())
 			m_pCamera->AttachTo(this,200.0f,300.0f);
@@ -472,6 +473,8 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 			float hisfy = abs(othervel.fY);
 	
 			tVector2D tobeapplied;
+			tobeapplied.fX = 0;
+			tobeapplied.fY = 0;
 			if((myfx+myfy) > (hisfx+hisfy))
 			{
 				currentvel = currentvel * -0.8f;
