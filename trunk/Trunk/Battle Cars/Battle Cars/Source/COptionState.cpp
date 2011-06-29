@@ -8,7 +8,9 @@
 #include "CSGD_FModManager.h"
 #include "CSGD_DirectInput.h"
 #include "CXboxInput.h"
-enum options{WS_EFFECTS,WS_MUSIC,WS_INPUT, WS_CAMERAVIEW ,WS_EXIT};
+#include "CKeyBinds.h"
+#include "CKeyBindsState.h"
+enum options{WS_EFFECTS,WS_MUSIC,WS_INPUT, WS_CAMERAVIEW ,WS_KEYBINDS,WS_EXIT};
 
 COptionState::COptionState(void)
 {
@@ -60,16 +62,17 @@ bool COptionState::Input(void)
 		//m_pController1->ReadInputState();
 		XINPUT_STATE xState = m_pController1->GetState();
 		BYTE rTrig = xState.Gamepad.bRightTrigger;
+		CKeyBinds* tempkeys = m_pController1->GetKB();
 		float x = xState.Gamepad.sThumbLX;
 		float y = xState.Gamepad.sThumbLY;
 		if(CGame::GetInstance()->GetInputDelay() >= 0.15f)
 		{
 			CGame::GetInstance()->ResetInputDelay();
-		if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_X)
+		if(xState.Gamepad.wButtons & tempkeys->GetAccept())
 		{
 			return this->HandleEnter();
 		}
-		else if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_B)
+		else if(xState.Gamepad.wButtons & tempkeys->GetBack())
 		{
 			CGame::GetInstance()->RemoveState(this);
 		}
@@ -83,13 +86,13 @@ bool COptionState::Input(void)
 			m_nSelection--;
 			m_pFM->PlaySound(m_nMenuMove);
 			if(m_nSelection < 0)
-				m_nSelection = 4;
+				m_nSelection = 5;
 		}
 		else if(x < 8000 && x > -8000 && y < -16000|| xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN)
 		{
 			m_nSelection++;
 			m_pFM->PlaySound(m_nMenuMove);
-			if(m_nSelection > 4)
+			if(m_nSelection > 5)
 				m_nSelection = 0;
 		}
 		}
@@ -194,14 +197,14 @@ bool COptionState::Input(void)
 		m_nSelection--;
 		m_pFM->PlaySound(m_nMenuMove);
 		if(m_nSelection < 0)
-			m_nSelection = 4;
+			m_nSelection = 5;
 	}
 
 	if(m_pDI->KeyPressed(DIK_DOWN))
 	{
 		m_nSelection++;
 		m_pFM->PlaySound(m_nMenuMove);
-		if(m_nSelection > 4)
+		if(m_nSelection > 5)
 			m_nSelection = 0;
 	}
 	if(m_fDelay > 0.20f)
@@ -361,8 +364,8 @@ void COptionState::Render(void)
 	{
 		m_pPF->Print("HORIZONTAL",520,350,0.5f,D3DCOLOR_XRGB(255,255,255));
 	}
-
-	m_pPF->Print("EXIT",300,400,0.5f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->Print("EDIT KEY BINDINGS",300,400,0.5f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("EXIT",300,450,0.5f,D3DCOLOR_XRGB(200, 0, 0));
 
 	switch(m_nSelection)
 		{
@@ -378,8 +381,11 @@ void COptionState::Render(void)
 		case WS_CAMERAVIEW:
 			m_pPF->Print("CAMERA SPLIT",300,350,0.5f,D3DCOLOR_XRGB(0, 255, 0));
 			break;
+		case WS_KEYBINDS:
+			m_pPF->Print("EDIT KEY BINDINGS",300,400,0.5f,D3DCOLOR_XRGB(0,255,0));
+			break;
 		case WS_EXIT:
-			m_pPF->Print("EXIT",300,400,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print("EXIT",300,450,0.5f,D3DCOLOR_XRGB(0, 255, 0));
 			break;
 		}
 }
@@ -397,6 +403,11 @@ bool COptionState::HandleEnter(void)
 		if(m_nSelection == WS_EXIT)
 		{
 			CGame::GetInstance()->RemoveState(this);
+		}
+		if(m_nSelection == WS_KEYBINDS)
+		{
+			CGame::GetInstance()->AddState(CKeyBindsState::GetInstance());
+			CKeyBindsState::GetInstance()->SetController(m_pController1);
 		}
 	return true;
 }

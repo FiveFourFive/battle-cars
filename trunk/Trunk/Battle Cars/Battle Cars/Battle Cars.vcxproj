@@ -89,6 +89,7 @@
     <ClCompile Include="Source\CGamerProfile.cpp" />
     <ClCompile Include="Source\CHowToPlayState.cpp" />
     <ClCompile Include="Source\CKeyBinds.cpp" />
+    <ClCompile Include="Source\CKeyBindsState.cpp" />
     <ClCompile Include="Source\CLandMine.cpp" />
     <ClCompile Include="Source\CLevel.cpp" />
     <ClCompile Include="Source\CMainMenuState.cpp" />
@@ -135,6 +136,7 @@
     <ClInclude Include="Source\CGamePlayState.h" />
     <ClInclude Include="Source\CHowToPlayState.h" />
     <ClInclude Include="Source\CKeyBinds.h" />
+    <ClInclude Include="Source\CKeyBindsState.h" />
     <ClInclude Include="Source\CLandMine.h" />
     <ClInclude Include="Source\CLevel.h" />
     <ClInclude Include="Source\CMainMenuState.h" />

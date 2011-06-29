@@ -29,6 +29,7 @@
 #include <direct.h>
 
 #include "CXboxInput.h"
+#include "CKeyBinds.h"
 #include "ParticleManager.h"
 #include "Emittor.h"
 #include "tinyxml.h"
@@ -322,6 +323,7 @@ bool CGamePlayState::Input()
 		//m_pController1->ReadInputState();
 		XINPUT_STATE xState = m_pController1->GetState();
 		BYTE rTrig = xState.Gamepad.bRightTrigger;
+		CKeyBinds* tempkeys = m_pController1->GetKB();
 		float x = xState.Gamepad.sThumbLX;
 		float y = xState.Gamepad.sThumbLY;
 
@@ -336,7 +338,7 @@ bool CGamePlayState::Input()
 			}*/
 			if(!m_bCountDown)
 			{
-				if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_X)
+				if(xState.Gamepad.wButtons & tempkeys->GetAccept())
 				{
 
 					m_pFM->PlaySound(m_nCountDown);
@@ -364,12 +366,7 @@ bool CGamePlayState::Input()
 		}
 		if(m_bPlaying)
 		{
-			if(m_pDI->KeyPressed(DIK_M))
-			{
-				CGame::GetInstance()->RemoveState(this);
-				CGame::GetInstance()->AddState(CMainMenuState::GetInstance());
-			}
-			if(m_pDI->KeyPressed(DIK_P))
+			if(m_pDI->KeyPressed(DIK_P) || m_pDI->KeyPressed(DIK_ESCAPE))
 			{
 				CGame::GetInstance()->AddState(CPauseMenuState::GetInstance());
 			}
@@ -422,14 +419,13 @@ void CGamePlayState::Update(float fElapsedTime)
 
 		m_pFM->Update();
 		m_pOM->UpdateObjects(fElapsedTime);
-
 		Level->CheckCameraCollision (player->GetCamera ());
 		Level->CheckWorldCollision (player);
 
 		m_pES->ProcessEvents ();
 		m_pMS->ProcessMessages ();
 		m_pPM->UpdateEmittors(fElapsedTime);
-m_pMS->ProcessMessages ();
+		m_pMS->ProcessMessages ();
 		if(player->GetHealth() <= 0)
 		{
 			CGame::GetInstance()->ChangeState(CMainMenuState::GetInstance());
@@ -437,13 +433,13 @@ m_pMS->ProcessMessages ();
 		}
 		for(unsigned int i = 0; i < m_lScores.size() - 1; i++)
 		{
-			for(unsigned int m = 1; m< m_lScores.size(); m++)
+			for(unsigned int m = 0; m< m_lScores.size(); m++)
 			{
-				if(m_lScores[i]->GetKillCount() < m_lScores[m]->GetKillCount())
+				if(m_lScores[m]->GetKillCount() > m_lScores[i]->GetKillCount())
 				{
-					CCar* tempcar = m_lScores[i];
-					m_lScores[i] = m_lScores[m];
-					m_lScores[m] = tempcar;
+					CCar* tempcar = m_lScores[m];
+					m_lScores[m] = m_lScores[i];
+					m_lScores[i] = tempcar;
 				}
 			}
 		}

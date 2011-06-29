@@ -9,6 +9,7 @@
 #include "CSGD_DirectInput.h"
 #include "CPrintFont.h"
 #include "CXboxInput.h"
+#include "CKeyBinds.h"
 enum options{RESUME,OPTIONS,QUIT};
 
 CPauseMenuState::CPauseMenuState(void)
@@ -48,6 +49,7 @@ bool CPauseMenuState::Input(void)
 		//m_pController->ReadInputState();
 		XINPUT_STATE xState = m_pController->GetState();
 		BYTE rTrig = xState.Gamepad.bRightTrigger;
+		CKeyBinds* tempkeys = m_pController->GetKB();
 		float x = xState.Gamepad.sThumbLX;
 		float y = xState.Gamepad.sThumbLY;
 		if(CGame::GetInstance()->GetInputDelay() >= 0.15f)
@@ -57,7 +59,7 @@ bool CPauseMenuState::Input(void)
 		{
 			return HandleEnter();
 		}
-		else if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_X)
+		else if(xState.Gamepad.wButtons & tempkeys->GetAccept())
 		{
 			return HandleEnter();
 		}

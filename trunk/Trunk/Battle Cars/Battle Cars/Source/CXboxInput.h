@@ -33,7 +33,9 @@ public:
 	CKeyBinds* GetKB(void) { return m_pKB; }
 
 
-	bool CheckShootAccept(void);
+	bool CheckShoot(void);
+	bool CheckAccept(void);
+	bool CheckBack(void);
 	bool CheckChangeWeapon(void);
 	bool CheckAccelerate(void);
 	bool CheckBreak_reverse(void);

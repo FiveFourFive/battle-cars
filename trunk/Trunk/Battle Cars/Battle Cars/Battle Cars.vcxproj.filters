@@ -174,6 +174,9 @@
     <ClCompile Include="Source\CLandMine.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CKeyBindsState.cpp">
+      <Filter>Game States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\CStopWatch.h">
@@ -316,6 +319,9 @@
     </ClInclude>
     <ClInclude Include="Source\CLandMine.h">
       <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CKeyBindsState.h">
+      <Filter>Game States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -28,7 +28,7 @@ CPlayer::CPlayer(CXboxInput* pController)
 
 	m_pES = CEventSystem::GetInstance ();
 	CKeyBinds* tempkeys = m_pController1->GetKB();
-	tempkeys->SetShootAccept(XINPUT_GAMEPAD_Y);
+	//tempkeys->SetShootAccept(XINPUT_GAMEPAD_Y);
 	m_pES->RegisterClient ("CameraCollision", this);
 	m_pES->RegisterClient("powerup", this);
 	m_fFireTimer = 0.0;
@@ -84,15 +84,15 @@ void CPlayer::Update(float fElapsedTime)
 			firerate = GetFireDelay();
 		if(m_fFireTimer >= firerate)
 		{
-			if(xState.Gamepad.wButtons & tempkeys->GetShootAccept())
+			/*if(xState.Gamepad.wButtons & tempkeys->GetShoot())
 			{
 				CMessageSystem* pMS = CMessageSystem::GetInstance();
 				PlayBullet();
 				pMS->SendMsg(new CCreatePlayerBulletMessage(this));
 				m_fFireTimer = 0.0f;
 				m_pController1->Vibrate(20000,20000);
-			}
-			if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_X)
+			}*/
+			if(xState.Gamepad.wButtons & tempkeys->GetShoot())
 			{
 				m_fFireTimer = 0.0f;
 				CMessageSystem* pMS = CMessageSystem::GetInstance();
@@ -134,7 +134,7 @@ void CPlayer::Update(float fElapsedTime)
 				if(GetSelectedWeapon() > 2)
 					SetSelectedWeapon(0);
 			}
-			if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_B)
+		/*	if(xState.Gamepad.wButtons & tempkeys->GetBack())
 			{
 				if(GetShieldBar() <= 0)
 					SetHealth(GetHealth() - 10);
@@ -151,7 +151,7 @@ void CPlayer::Update(float fElapsedTime)
 			{
 				if(GetPowerUpBar() >= GetMaxPowerUp())
 					SetPowerUpBar(0);
-			}
+			}*/
 
 		}
 		if(rTrig > 5)
@@ -460,14 +460,17 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 		{
 			tVector2D othervel = tempcar->GetOverallVelocity();
 			tVector2D currentvel = GetOverallVelocity();
-
+			if(pBase->GetType() == OBJECT_PLAYER)
+			{
+				CPlayer* tempplayer = (CPlayer*)pBase;
+				tempplayer->GetController()->Vibrate(40000,40000);
+			}
+			this->GetController()->Vibrate(40000,40000);
 			float myfx = abs(currentvel.fX);
 			float myfy = abs(currentvel.fY);
 			float hisfx = abs(othervel.fX);
 			float hisfy = abs(othervel.fY);
 	
-			
-			
 			tVector2D tobeapplied;
 			if((myfx+myfy) > (hisfx+hisfy))
 			{
@@ -565,5 +568,20 @@ void CPlayer::HandleEvent(CEvent* pEvent)
 			abc = 20;
 			//m_pMS->SendMsg (new CDestroyBulletMessage(this));
 		}
+		else if(pEvent->GetEventID() == "damage")
+		{
+		CBullet* tempbullet = (CBullet*)pEvent->GetParam2();
+		float damage = tempbullet->GetDamage();
+		if(GetShieldBar() >= 0)
+		{
+			SetShieldBar(GetShieldBar() - tempbullet->GetDamage());
+		}
+		else
+		{
+			SetHealth(GetHealth() - tempbullet->GetDamage());
+		}
+
+		}
 	}
+	
 }

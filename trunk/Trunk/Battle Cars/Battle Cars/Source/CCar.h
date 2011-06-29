@@ -3,11 +3,11 @@
 
 #include "CBase.h"
 #include "SGD_Math.h"
-
+#include "IListener.h"
 class CCamera;
 
 enum weapons { WEAPON_PISTOL, WEAPON_RPG, WEAPON_SPECIAL };
-class CCar : public CBase
+class CCar : public CBase, public IListener
 {
 
 private:
@@ -119,6 +119,8 @@ public:
 	// checks to see if the car is within the camera (within screen limits atm)
 	bool InBounds(void);
 	bool CheckCollision(IBaseInterface* pBase);
+
+	void HandleEvent(CEvent* pEvent);
 
 	RECT GetRect();
 
