@@ -65,10 +65,13 @@ bool PowerUp::CheckCollision(IBaseInterface* pBase)
 	{
 		if(pBase->GetType() == OBJECT_PLAYER)
 		{
-			CEventSystem::GetInstance()->SendEvent("powerup",pBase);
-			m_bActive = false;
-			m_fRespawn = 0.0f;
-			return true;
+			if( m_bActive)
+			{
+				CEventSystem::GetInstance()->SendEvent("powerup_power",pBase);
+				m_bActive = false;
+				m_fRespawn = 0.0f;
+				return true;
+			}
 		}
 	}
 	return false;

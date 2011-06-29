@@ -31,14 +31,14 @@ CPlayer::CPlayer(CXboxInput* pController)
 	CKeyBinds* tempkeys = m_pController1->GetKB();
 	//tempkeys->SetShootAccept(XINPUT_GAMEPAD_Y);
 	m_pES->RegisterClient ("CameraCollision", this);
-	m_pES->RegisterClient("powerup", this);
+	m_pES->RegisterClient("powerup_power", this);
 	m_fFireTimer = 0.0;
 
 }
 CPlayer::~CPlayer(void)
 {
 	m_pES->UnregisterClient ("CameraCollision", this);
-	m_pES->UnregisterClient("powerup",this);
+	m_pES->UnregisterClient("powerup_power",this);
 	delete m_pCamera;
 }
 
@@ -573,17 +573,21 @@ void CPlayer::HandleEvent(CEvent* pEvent)
 		}
 		else if(pEvent->GetEventID() == "damage")
 		{
-		CBullet* tempbullet = (CBullet*)pEvent->GetParam2();
-		float damage = tempbullet->GetDamage();
-		if(GetShieldBar() >= 0)
-		{
-			SetShieldBar(GetShieldBar() - tempbullet->GetDamage());
-		}
-		else
-		{
-			SetHealth(GetHealth() - tempbullet->GetDamage());
-		}
+			CBullet* tempbullet = (CBullet*)pEvent->GetParam2();
+			float damage = tempbullet->GetDamage();
+			if(GetShieldBar() >= 0)
+			{
+				SetShieldBar(GetShieldBar() - tempbullet->GetDamage());
+			}
+			else
+			{
+				SetHealth(GetHealth() - tempbullet->GetDamage());
+			}
 
+		}
+		else if(pEvent->GetEventID() == "powerup_power")
+		{
+			SetPowerUpBar(GetPowerUpBar() + 20);
 		}
 	}
 	
