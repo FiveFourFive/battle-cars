@@ -9,6 +9,10 @@
 #include <vector>
 #include "CSGD_TextureManager.h"
 #include <math.h>
+#include "CEventSystem.h"
+#include "CEvent.h"
+#include "CBullet.h"
+
 CCar::CCar(void)
 {
 	m_fAccelerationRate = 200.0f;
@@ -45,6 +49,8 @@ CCar::CCar(void)
 	m_fFireDelayMissiles = 1.0f;
 	SetPowerUpBar(100.0f);
 	m_nCarID = CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/cartexture.bmp",D3DCOLOR_XRGB(255, 255, 255));
+
+	CEventSystem::GetInstance()->RegisterClient("damage",this);
 }
 
 
@@ -335,4 +341,12 @@ RECT CCar::GetRect()
 	temp_rect.bottom = temp_rect.top + GetHeight();
 
 	return temp_rect;
+}
+
+void CCar::HandleEvent(CEvent* pEvent)
+{
+	if(this == pEvent->GetParam())
+	{
+		
+	}
 }

@@ -27,6 +27,7 @@ public:
 	void Render(CCamera* camera);
 
 	void SetController(CXboxInput* pController) { m_pController1 = pController; }
+	CXboxInput* GetController(void) { return m_pController1; }
 	void SetCollisionRect (RECT collision) {m_CollisionRECT = collision;}
 	RECT GetCollisionRect () { return m_CollisionRECT;}
 

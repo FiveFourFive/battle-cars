@@ -6,10 +6,7 @@
 #include <XInput.h>
 CKeyBinds::CKeyBinds(void)
 {
-	shoot_accept = XINPUT_GAMEPAD_X;
-	change_weapon = XINPUT_GAMEPAD_LEFT_SHOULDER;
-	/*accelerate ;
-	break_reverse;*/
+	ResetDefaults();
 
 }
 
@@ -20,6 +17,14 @@ CKeyBinds::~CKeyBinds(void)
 
 void CKeyBinds::ResetDefaults(void)
 {
-	shoot_accept = XINPUT_GAMEPAD_X;
+	shoot = XINPUT_GAMEPAD_X;
+	accept = XINPUT_GAMEPAD_A;
 	change_weapon = XINPUT_GAMEPAD_LEFT_SHOULDER;
+	back = XINPUT_GAMEPAD_B;
+	shoot_trigger = false;
+	accept_trigger = false;
+	back_trigger = false;
+	change_trigger = false;
+	accel_trigger = true;
+	break_trigger = true;
 }

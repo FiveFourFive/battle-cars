@@ -6,6 +6,8 @@
 #include "CMessage.h"
 #include "CMessageSystem.h"
 #include "CCamera.h"
+#include "CEvent.h"
+#include "CEventSystem.h"
 CBullet::CBullet(void)
 {
 	m_pTM = CSGD_TextureManager::GetInstance();
@@ -54,7 +56,7 @@ bool CBullet::CheckCollision(IBaseInterface* pBase)
 			CPlayer* tempplayer = (CPlayer*)pBase;
 			CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
 			// handle what happens to player)
-
+			CEventSystem::GetInstance()->SendEvent("damage",pBase,this);
 			return true;
 		}
 		else if(pBase->GetType() == OBJECT_ENEMY)

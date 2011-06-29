@@ -167,9 +167,9 @@ bool CEventSystem::AlreadyRegistered(EVENTID eventID, IListener* pClient)
 }
 
 
-void CEventSystem::SendEvent(EVENTID eventID, void* pData)
+void CEventSystem::SendEvent(EVENTID eventID, void* pData, void* pData2)
 {
-	CEvent newEvent(eventID, pData);
+	CEvent newEvent(eventID, pData, pData2);
 
 	m_CurrentEvents.push_back(newEvent);
 }

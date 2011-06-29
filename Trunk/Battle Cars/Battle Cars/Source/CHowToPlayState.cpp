@@ -9,7 +9,7 @@
 #include "CSGD_DirectInput.h"
 #include "CSGD_Direct3D.h"
 #include "CXboxInput.h"
-
+#include "CKeyBinds.h"
 enum menu {EXIT};
 
 CHowToPlayState::CHowToPlayState(void)
@@ -72,12 +72,13 @@ bool CHowToPlayState::Input(void)
 		//m_pController1->ReadInputState();
 		XINPUT_STATE xState = m_pController1->GetState();
 		BYTE rTrig = xState.Gamepad.bRightTrigger;
+		CKeyBinds* tempkeys = m_pController1->GetKB();
 		float x = xState.Gamepad.sThumbLX;
 		float y = xState.Gamepad.sThumbLY;
 		if(CGame::GetInstance()->GetInputDelay() >= 0.15f)
 		{
 			CGame::GetInstance()->ResetInputDelay();
-			if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_B)
+			if(xState.Gamepad.wButtons & tempkeys->GetBack())
 			{
 				return HandleEnter();
 			}

@@ -47,7 +47,7 @@ public:
 	void UnregisterClient(EVENTID eventID, IListener* pClient);
 	void UnregisterClientAll(IListener* pClient);
 
-	void SendEvent(EVENTID eventID, void* pData = NULL);
+	void SendEvent(EVENTID eventID, void* pData = NULL, void* pData2 = NULL);
 	void ProcessEvents(void);
 	void ClearEvents(void);
 
