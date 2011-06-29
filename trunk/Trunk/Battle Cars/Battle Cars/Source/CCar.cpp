@@ -123,14 +123,15 @@ void CCar::Update(float fElapsedTime)
 
 
 	SetVelocity(tempvel);
+	m_nCollisionX1 = m_nCollisionX1 + (GetVelX() * fElapsedTime);
+	m_nCollisionY1 = m_nCollisionY1 + (GetVelY() * fElapsedTime);
 	//SetDirection(tempdir);
 	SetVelX(m_tVelocity.fX + tempdir.fX);
 	SetVelY(m_tVelocity.fY + tempdir.fY);
 	m_tOverallVelocity = tempvel + tempdir;
 	SetPosX(GetPosX() + (GetVelX() * fElapsedTime));
 	SetPosY(GetPosY() + (GetVelY() * fElapsedTime));
-	m_nCollisionX1 = m_nCollisionX1 + (GetVelX() * fElapsedTime);
-	m_nCollisionY1 = m_nCollisionY1 + (GetVelY() * fElapsedTime);
+
 	CBase::Update(fElapsedTime);
 	InBounds();
 }
@@ -296,7 +297,7 @@ bool CCar::InBounds(void)
 	{
 		if(GetVelX() <= 0)
 			SetPosX(GetWidth()*0.5f);
-
+		SetVelX(0);
 		//m_fSpeed = -1 * m_fSpeed;
 		//SetVelX(100);
 	}
@@ -328,6 +329,7 @@ bool CCar::InBounds(void)
 			SetPosY(GetHeight() * 0.5f);
 		//m_fSpeed = -1 * m_fSpeed;
 		//SetVelY(100);
+		SetVelY(0);
 	}
 	return true;
 }
