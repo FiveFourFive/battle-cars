@@ -75,13 +75,18 @@ private:
 	float m_EndScaleX;					// The scale for each particle
 	float m_EndScaleY;					// The scale for each particle
 
-	bool m_isContinuous;
+	bool m_isContinuous;				// Is the particle continuous
+	bool m_isBursting;					// Is the particle Bursting
 
 	int SourceBlend;					// Blend state for the Source
 	int DestinationBlend;				// Blend state for the Destination
 	std::string imagename;					// The name of the particle image
 
 	int ID;								// the ID of the emittor
+
+	int Source;							// The source blend for the emittor to use.
+	int Destination;					// the destination blend for the emittor to use.
+
 
 public:
 

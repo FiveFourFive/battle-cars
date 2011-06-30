@@ -59,7 +59,7 @@ void Emittor::Update(float fElapsedTime)
 				m_vParticleList[i]->scaleX_timer += fElapsedTime;
 				m_vParticleList[i]->scaleY_timer += fElapsedTime;
 
-				m_vParticleList[i]->rotation += rotation;
+				m_vParticleList[i]->rotation += 0.01;
                 if (m_vParticleList[i]->rotation >= 6.28f)
                     m_vParticleList[i]->rotation = 0.0f;
 
@@ -116,13 +116,12 @@ void Emittor::Render(CCamera* camera)
 	CSGD_Direct3D::GetInstance()->GetDirect3DDevice()->GetRenderState(D3DRS_SRCBLEND,(DWORD*)&temp_source);
 	CSGD_Direct3D::GetInstance()->GetDirect3DDevice()->GetRenderState(D3DRS_DESTBLEND,(DWORD*)&temp_destination);
 
+	CSGD_Direct3D::GetInstance()->GetDirect3DDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+	CSGD_Direct3D::GetInstance()->GetDirect3DDevice()->SetRenderState(D3DRS_SRCBLEND, this->SourceBlend);
+	CSGD_Direct3D::GetInstance()->GetDirect3DDevice()->SetRenderState(D3DRS_DESTBLEND, this->DestinationBlend);
 
 	for( unsigned int i = 0; i < m_vParticleList.size(); i++)
 	{
-		CSGD_Direct3D::GetInstance()->GetDirect3DDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
-		CSGD_Direct3D::GetInstance()->GetDirect3DDevice()->SetRenderState(D3DRS_SRCBLEND, this->SourceBlend);
-		CSGD_Direct3D::GetInstance()->GetDirect3DDevice()->SetRenderState(D3DRS_DESTBLEND, this->DestinationBlend);
-
 		if( !m_vParticleList[i]->isDead)
 		{
 			
@@ -131,6 +130,8 @@ void Emittor::Render(CCamera* camera)
 				NULL, 0, 0, m_vParticleList[i]->rotation, m_vParticleList[i]->color);
 		}
 	}
+
+	CSGD_Direct3D::GetInstance()->GetSprite()->Flush();
 
 	CSGD_Direct3D::GetInstance()->GetDirect3DDevice()->SetRenderState(D3DRS_SRCBLEND, temp_source);
 	CSGD_Direct3D::GetInstance()->GetDirect3DDevice()->SetRenderState(D3DRS_DESTBLEND, temp_destination);
