@@ -227,21 +227,25 @@ void CCharacterSelection::Render()
 	case CAR_MINI:
 		{
 			m_pPF->Print( "MIGHTY MINI", 10, 50, 0.5f, D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print( "SPECIAL: SHOTGUN OF MINI ROCKETS", 275, 475, 0.4f, D3DCOLOR_XRGB(103,197,166));
 		}
 		break;
 	case CAR_VETTE:
 		{
 			m_pPF->Print( "FLAMING FURY", 10, 100, 0.5f, D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print( "SPECIAL: FLAME THROWER", 275, 475, 0.4f, D3DCOLOR_XRGB(103,197,166));
 		}
 		break;
 	case CAR_HUMMER:
 		{
 			m_pPF->Print( "THE HAMMER", 10, 150, 0.5f, D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print( "SPECIAL: GATLING GUN", 275, 475, 0.4f, D3DCOLOR_XRGB(103,197,166));
 		}
 		break;
 	case CAR_TRUCK:
 		{
 			m_pPF->Print( "REDRUCKER", 10, 200, 0.5f, D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print( "SPECIAL: FLAME SHEILD", 275, 475, 0.4f, D3DCOLOR_XRGB(103,197,166));
 		}
 		break;
 	case CAR_NUM:
@@ -268,6 +272,9 @@ void CCharacterSelection::Render()
 
 	m_pPF->Print("HEALTH", 250, 150, 0.5f, D3DCOLOR_XRGB(200,0,0));
 	CSGD_Direct3D::GetInstance()->DrawRect(render_health_rect, 128,128,0);
+	char buffer[32];
+	sprintf_s(buffer, "%.0f", (currPlayer->GetHealth() + currPlayer->GetArmor()));
+	m_pPF->Print(buffer, 500, 160, 1.0f, D3DCOLOR_XRGB(200,0,0));
 
 	RECT render_speed_rect;
 	render_speed_rect.left = 450;
@@ -278,6 +285,8 @@ void CCharacterSelection::Render()
 
 	m_pPF->Print("SPEED", 250, 225, 0.5f, D3DCOLOR_XRGB(200,0,0));
 	CSGD_Direct3D::GetInstance()->DrawRect(render_speed_rect, 128,128,0);
+	sprintf_s(buffer, "%.0f", currPlayer->GetMaxSpeed());
+	m_pPF->Print(buffer, 500, 235, 1.0f, D3DCOLOR_XRGB(200,0,0));
 
 	RECT render_acceleration_rect;
 	render_acceleration_rect.left = 450;
@@ -288,6 +297,8 @@ void CCharacterSelection::Render()
 
 	m_pPF->Print("ACCELERATION", 250, 300, 0.5f, D3DCOLOR_XRGB(200,0,0));
 	CSGD_Direct3D::GetInstance()->DrawRect(render_acceleration_rect, 128,128,0);
+	sprintf_s(buffer, "%.0f", currPlayer->GetAcceleration());
+	m_pPF->Print(buffer, 500, 310, 1.0f, D3DCOLOR_XRGB(200,0,0));
 
 	RECT render_agility_rect;
 	render_agility_rect.left = 450;
@@ -298,6 +309,8 @@ void CCharacterSelection::Render()
 
 	m_pPF->Print("AGILITY", 250, 375, 0.5f, D3DCOLOR_XRGB(200,0,0));
 	CSGD_Direct3D::GetInstance()->DrawRect(render_agility_rect, 128,128,0);
+	sprintf_s(buffer, "%.2f", currPlayer->GetRotationRate());
+	m_pPF->Print(buffer, 500, 385, 1.0f, D3DCOLOR_XRGB(200,0,0));
 
 
 	if( IsPlayer1Selecting() )
