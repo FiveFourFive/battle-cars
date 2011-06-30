@@ -301,7 +301,7 @@ bool CCar::InBounds(void)
 	{
 		if(GetVelX() <= 0)
 			SetPosX(GetWidth()*0.5f);
-		SetVelX(0);
+		//SetVelX(0);
 		//m_fSpeed = -1 * m_fSpeed;
 		//SetVelX(100);
 	}
@@ -333,7 +333,7 @@ bool CCar::InBounds(void)
 			SetPosY(GetHeight() * 0.5f);
 		//m_fSpeed = -1 * m_fSpeed;
 		//SetVelY(100);
-		SetVelY(0);
+		//SetVelY(0);
 	}
 	return true;
 }
