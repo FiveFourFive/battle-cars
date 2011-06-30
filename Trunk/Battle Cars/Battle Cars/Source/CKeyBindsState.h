@@ -8,6 +8,7 @@ class CPrintFont;
 class CSGD_FModManager;
 class CSGD_DirectInput;
 class CXboxInput;
+class CKeyBinds;
 class CKeyBindsState : public IGameState
 {
 private:
@@ -17,6 +18,7 @@ private:
 	CSGD_FModManager* m_pFM;
 	CSGD_DirectInput* m_pDI;
 	CXboxInput* m_pController;
+	CKeyBinds* m_pKB;
 	int m_nBackgroundMusicID;
 	int m_nFontID;
 	int m_nSelection;

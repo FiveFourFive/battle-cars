@@ -406,8 +406,9 @@ bool COptionState::HandleEnter(void)
 		}
 		if(m_nSelection == WS_KEYBINDS)
 		{
-			CGame::GetInstance()->AddState(CKeyBindsState::GetInstance());
 			CKeyBindsState::GetInstance()->SetController(m_pController1);
+			CGame::GetInstance()->AddState(CKeyBindsState::GetInstance());
+			
 		}
 	return true;
 }

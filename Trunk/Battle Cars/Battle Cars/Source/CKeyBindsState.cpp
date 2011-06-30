@@ -9,7 +9,7 @@
 #include "CXboxInput.h"
 #include "CKeyBinds.h"
 
-enum options{WS_SHOOT,WS_ACCEPT,WS_BACK, WS_CHANGE_WEAPON ,WS_EXIT};
+enum options{WS_ACCEPT,WS_BACK,WS_SHOOT, WS_CHANGE_WEAPON ,WS_EXIT};
 CKeyBindsState::CKeyBindsState(void)
 {
 	m_pD3D = NULL;
@@ -45,7 +45,11 @@ void CKeyBindsState::Enter(void)
 	m_nMenuMove = m_pFM->LoadSound("resource/sounds/menuchange.mp3");
 	m_nSoundA = m_pFM->LoadSound("resource/sounds/bullet1.mp3");
 	m_nSoundB = CMainMenuState::GetInstance()->GetBackgroundMusicID();
-
+	m_nSelection = 0;
+	if(m_pController)
+	{
+		m_pKB = m_pController->GetKB();
+	}
 }
 
 bool CKeyBindsState::Input(void)
@@ -61,13 +65,136 @@ bool CKeyBindsState::Input(void)
 		if(CGame::GetInstance()->GetInputDelay() >= 0.15f)
 		{
 			CGame::GetInstance()->ResetInputDelay();
-		if(xState.Gamepad.wButtons & tempkeys->GetAccept())
+			if(xState.Gamepad.wButtons & m_pKB->GetAccept())
+			{
+				HandleEnter();
+			}
+		if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_A)
 		{
-			return this->HandleEnter();
+			
+			switch(m_nSelection)
+			{
+			case WS_ACCEPT:
+				if(m_pKB->GetBack() != XINPUT_GAMEPAD_A)
+				m_pKB->SetAccept(XINPUT_GAMEPAD_A);
+				break;
+			case WS_BACK:
+				if(m_pKB->GetAccept() != XINPUT_GAMEPAD_A)
+				m_pKB->SetBack(XINPUT_GAMEPAD_A);
+				break;
+			case WS_SHOOT:
+				m_pKB->SetShoot(XINPUT_GAMEPAD_A);
+				break;
+			case WS_CHANGE_WEAPON:
+				m_pKB->SetChangeWeapon(XINPUT_GAMEPAD_A);
+				break;
+
+			}
 		}
-		else if(xState.Gamepad.wButtons & tempkeys->GetBack())
+		else if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_B)
 		{
-			CGame::GetInstance()->RemoveState(this);
+			switch(m_nSelection)
+			{
+			case WS_ACCEPT:
+				if(m_pKB->GetBack() != XINPUT_GAMEPAD_B)
+				m_pKB->SetAccept(XINPUT_GAMEPAD_B);
+				break;
+			case WS_BACK:
+				if(m_pKB->GetAccept() != XINPUT_GAMEPAD_B)
+				m_pKB->SetBack(XINPUT_GAMEPAD_B);
+				break;
+			case WS_SHOOT:
+				m_pKB->SetShoot(XINPUT_GAMEPAD_B);
+				break;
+			case WS_CHANGE_WEAPON:
+				m_pKB->SetChangeWeapon(XINPUT_GAMEPAD_B);
+				break;
+
+			}
+		}
+		else if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_Y)
+		{
+			switch(m_nSelection)
+			{
+			case WS_ACCEPT:
+				if(m_pKB->GetBack() != XINPUT_GAMEPAD_Y)
+				m_pKB->SetAccept(XINPUT_GAMEPAD_Y);
+				break;
+			case WS_BACK:
+				if(m_pKB->GetAccept() != XINPUT_GAMEPAD_Y)
+				m_pKB->SetBack(XINPUT_GAMEPAD_Y);
+				break;
+			case WS_SHOOT:
+				m_pKB->SetShoot(XINPUT_GAMEPAD_Y);
+				break;
+			case WS_CHANGE_WEAPON:
+				m_pKB->SetChangeWeapon(XINPUT_GAMEPAD_Y);
+				break;
+
+			}
+		}
+		else if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_X)
+		{
+			switch(m_nSelection)
+			{
+			case WS_ACCEPT:
+				if(m_pKB->GetBack() != XINPUT_GAMEPAD_A)
+				m_pKB->SetAccept(XINPUT_GAMEPAD_X);
+				break;
+			case WS_BACK:
+				if(m_pKB->GetAccept() != XINPUT_GAMEPAD_A)
+				m_pKB->SetBack(XINPUT_GAMEPAD_X);
+				break;
+			case WS_SHOOT:
+				m_pKB->SetShoot(XINPUT_GAMEPAD_X);
+				break;
+			case WS_CHANGE_WEAPON:
+				m_pKB->SetChangeWeapon(XINPUT_GAMEPAD_X);
+				break;
+
+			}
+		}
+		else if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_LEFT_SHOULDER)
+		{
+			switch(m_nSelection)
+			{
+			case WS_ACCEPT:
+				if(m_pKB->GetBack() != XINPUT_GAMEPAD_LEFT_SHOULDER)
+				m_pKB->SetAccept(XINPUT_GAMEPAD_LEFT_SHOULDER);
+				break;
+			case WS_BACK:
+				if(m_pKB->GetAccept() != XINPUT_GAMEPAD_LEFT_SHOULDER)
+				m_pKB->SetBack(XINPUT_GAMEPAD_LEFT_SHOULDER);
+				break;
+			case WS_SHOOT:
+				m_pKB->SetShoot(XINPUT_GAMEPAD_LEFT_SHOULDER);
+				break;
+			case WS_CHANGE_WEAPON:
+				m_pKB->SetChangeWeapon(XINPUT_GAMEPAD_LEFT_SHOULDER);
+				break;
+
+			}
+		}
+		else if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER)
+		{
+			switch(m_nSelection)
+			{
+			case WS_ACCEPT:
+				if(m_pKB->GetBack() != XINPUT_GAMEPAD_RIGHT_SHOULDER)
+				m_pKB->SetAccept(XINPUT_GAMEPAD_RIGHT_SHOULDER);
+				break;
+			case WS_BACK:
+				if(m_pKB->GetAccept() != XINPUT_GAMEPAD_RIGHT_SHOULDER)
+				m_pKB->SetBack(XINPUT_GAMEPAD_RIGHT_SHOULDER);
+				break;
+			case WS_SHOOT:
+				m_pKB->SetShoot(XINPUT_GAMEPAD_RIGHT_SHOULDER);
+				break;
+			case WS_CHANGE_WEAPON:
+				m_pKB->SetChangeWeapon(XINPUT_GAMEPAD_RIGHT_SHOULDER);
+				break;
+
+			}
 		}
 		}
 		if(CGame::GetInstance()->GetThumbDelay() >= 0.15f)
@@ -142,22 +269,139 @@ void CKeyBindsState::Render(void)
 	char buffer[32];
 
 
-	m_pPF->Print("INPUT DEVICE",300,300,0.5f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->Print("INPUT DEVICE",150,120,0.5f,D3DCOLOR_XRGB(200, 0, 0));	
+	m_pPF->Print("ACCEPT", 150,200,0.5f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("BACK", 150,250,0.5f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("SHOOT", 150,300,0.5f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("CHANGE WEAPON", 150,350,0.5f,D3DCOLOR_XRGB(255,0,0));
 	if(CGame::GetInstance()->ControllerInput())
 	{
-		m_pPF->Print("GAMEPAD",520,300,0.5f,D3DCOLOR_XRGB(255,255,255));
+		m_pPF->Print("GAMEPAD",370,120,0.5f,D3DCOLOR_XRGB(255,255,255));
+		switch(m_pKB->GetAccept())
+		{
+		case XINPUT_GAMEPAD_A:
+			m_pPF->Print("A",400,200,0.5f,D3DCOLOR_XRGB(255,255,255));
+			break;
+		case XINPUT_GAMEPAD_X:
+			m_pPF->Print("X",400,200,0.5f,D3DCOLOR_XRGB(255,255,255));
+			break;
+		case XINPUT_GAMEPAD_Y:
+			m_pPF->Print("Y",400,200,0.5f,D3DCOLOR_XRGB(255,255,255));
+			break;
+		case XINPUT_GAMEPAD_B:
+			m_pPF->Print("B",400,200,0.5f,D3DCOLOR_XRGB(255,255,255));
+			break;
+		case XINPUT_GAMEPAD_LEFT_SHOULDER:
+			m_pPF->Print("LEFT BUMPER",400,200,0.5f,D3DCOLOR_XRGB(255,255,255));
+			break;
+		case XINPUT_GAMEPAD_RIGHT_SHOULDER:
+			m_pPF->Print("RIGHT BUMPER",400,200,0.5f,D3DCOLOR_XRGB(255,255,255));
+			break;
 
+		default:
 
+			break;
+		}
+		switch(m_pKB->GetBack())
+		{
+		case XINPUT_GAMEPAD_A:
+			m_pPF->Print("A",400,250,0.5f,D3DCOLOR_XRGB(255,255,255));
+			break;
+		case XINPUT_GAMEPAD_X:
+			m_pPF->Print("X",400,250,0.5f,D3DCOLOR_XRGB(255,255,255));
+			break;
+		case XINPUT_GAMEPAD_Y:
+			m_pPF->Print("Y",400,250,0.5f,D3DCOLOR_XRGB(255,255,255));
+			break;
+		case XINPUT_GAMEPAD_B:
+			m_pPF->Print("B",400,250,0.5f,D3DCOLOR_XRGB(255,255,255));
+			break;
+		case XINPUT_GAMEPAD_LEFT_SHOULDER:
+			m_pPF->Print("LEFT BUMPER",400,250,0.5f,D3DCOLOR_XRGB(255,255,255));
+			break;
+		case XINPUT_GAMEPAD_RIGHT_SHOULDER:
+			m_pPF->Print("RIGHT BUMPER",400,250,0.5f,D3DCOLOR_XRGB(255,255,255));
+			break;
 
+		default:
+
+			break;
+		}
+		switch(m_pKB->GetShoot())
+		{
+		case XINPUT_GAMEPAD_A:
+			m_pPF->Print("A",400,300,0.5f,D3DCOLOR_XRGB(255,255,255));
+			break;
+		case XINPUT_GAMEPAD_X:
+			m_pPF->Print("X",400,300,0.5f,D3DCOLOR_XRGB(255,255,255));
+			break;
+		case XINPUT_GAMEPAD_Y:
+			m_pPF->Print("Y",400,300,0.5f,D3DCOLOR_XRGB(255,255,255));
+			break;
+		case XINPUT_GAMEPAD_B:
+			m_pPF->Print("B",400,300,0.5f,D3DCOLOR_XRGB(255,255,255));
+			break;
+		case XINPUT_GAMEPAD_LEFT_SHOULDER:
+			m_pPF->Print("LEFT BUMPER",400,300,0.5f,D3DCOLOR_XRGB(255,255,255));
+			break;
+		case XINPUT_GAMEPAD_RIGHT_SHOULDER:
+			m_pPF->Print("RIGHT BUMPER",400,300,0.5f,D3DCOLOR_XRGB(255,255,255));
+			break;
+
+		default:
+
+			break;
+		}
+		switch(m_pKB->GetChangeWeapon())
+		{
+		case XINPUT_GAMEPAD_A:
+			m_pPF->Print("A",400,350,0.5f,D3DCOLOR_XRGB(255,255,255));
+			break;
+		case XINPUT_GAMEPAD_X:
+			m_pPF->Print("X",400,350,0.5f,D3DCOLOR_XRGB(255,255,255));
+			break;
+		case XINPUT_GAMEPAD_Y:
+			m_pPF->Print("Y",400,350,0.5f,D3DCOLOR_XRGB(255,255,255));
+			break;
+		case XINPUT_GAMEPAD_B:
+			m_pPF->Print("B",400,350,0.5f,D3DCOLOR_XRGB(255,255,255));
+			break;
+		case XINPUT_GAMEPAD_LEFT_SHOULDER:
+			m_pPF->Print("LEFT BUMPER",400,350,0.5f,D3DCOLOR_XRGB(255,255,255));
+			break;
+		case XINPUT_GAMEPAD_RIGHT_SHOULDER:
+			m_pPF->Print("RIGHT BUMPER",400,350,0.5f,D3DCOLOR_XRGB(255,255,255));
+			break;
+
+		default:
+
+			break;
+		}
 
 	}
 	else
 	{
-		m_pPF->Print("KEYBOARD",520,300,0.5f,D3DCOLOR_XRGB(255,255,255));
+		m_pPF->Print("KEYBOARD",370,120,0.5f,D3DCOLOR_XRGB(255,255,255));
 	}
-
-	
-
+	m_pPF->Print("EXIT",150,400,0.5f,D3DCOLOR_XRGB(255, 0, 0));
+	switch(m_nSelection)
+		{
+		case WS_ACCEPT:			
+			m_pPF->Print("ACCEPT",150,200,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			break;
+		case WS_BACK:
+			m_pPF->Print("BACK",150,250,0.5f,D3DCOLOR_XRGB(0, 255, 0));	
+			break;
+		case WS_SHOOT:
+			m_pPF->Print("SHOOT",150,300,0.5f,D3DCOLOR_XRGB(0, 255, 0));	
+			break;
+		case WS_CHANGE_WEAPON:
+			m_pPF->Print("CHANGE WEAPON",150,350,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			break;
+		case WS_EXIT:
+			m_pPF->Print("EXIT",150,400,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			break;
+		}
 }
 
 void CKeyBindsState::Exit(void)
@@ -168,10 +412,11 @@ void CKeyBindsState::Exit(void)
 
 bool CKeyBindsState::HandleEnter(void)
 {
-	m_pFM->PlaySound(m_nMenuSelect);
+	
 		if(m_nSelection == WS_EXIT)
 		{
 			CGame::GetInstance()->RemoveState(this);
+			m_pFM->PlaySound(m_nMenuSelect);
 		}
 	return true;
 }

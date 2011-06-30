@@ -27,7 +27,7 @@ public:
 	CXboxInput(int PlayerNum);
 	~CXboxInput(void);
 	XINPUT_STATE ReadInputState(void);
-	XINPUT_STATE GetState(void) { return m_xState; }
+	XINPUT_STATE GetState(void);
 	bool Connected(void);
 	void Vibrate(int left = 0, int right = 0);
 	CKeyBinds* GetKB(void) { return m_pKB; }

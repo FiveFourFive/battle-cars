@@ -461,17 +461,14 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 		{
 			tVector2D othervel = tempcar->GetOverallVelocity();
 			tVector2D currentvel = GetOverallVelocity();
-			if(pBase->GetType() == OBJECT_PLAYER)
-			{
-				CPlayer* tempplayer = (CPlayer*)pBase;
-				tempplayer->GetController()->Vibrate(40000,40000);
-			}
-			this->GetController()->Vibrate(40000,40000);
+
 			float myfx = abs(currentvel.fX);
 			float myfy = abs(currentvel.fY);
 			float hisfx = abs(othervel.fX);
 			float hisfy = abs(othervel.fY);
 	
+			
+			
 			tVector2D tobeapplied;
 			tobeapplied.fX = 0;
 			tobeapplied.fY = 0;

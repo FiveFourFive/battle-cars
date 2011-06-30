@@ -52,3 +52,12 @@ bool CXboxInput::Connected(void)
 	else
 		return false;
 }
+
+XINPUT_STATE CXboxInput::GetState(void)
+{
+	ZeroMemory(&m_xState, sizeof(XINPUT_STATE));
+
+	XInputGetState(m_nPlayerNum, &m_xState);
+
+	return m_xState;
+}
