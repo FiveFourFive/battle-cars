@@ -14,6 +14,7 @@
 #include "COptionState.h"
 #include "CSGD_DirectInput.h"
 #include "CXboxInput.h"
+#include "CKeyboardKeyBinds.h"
 //#include <XInput.h>
 CGame::CGame()
 {
@@ -26,7 +27,7 @@ CGame::CGame()
 	m_pController1 = NULL;
 	m_pController2 = NULL;
 	m_bController = false;
-
+	m_pKeyboardKB = new CKeyboardKeyBinds;
 	m_fElapsedTime		=	0;
 	m_ScreenWidth	= 800;
 	m_ScreenHeight	= 600;
@@ -160,7 +161,9 @@ void CGame::Update(float fElapsedTime)
 {
 	m_fInputDelay += fElapsedTime;
 	m_fThumbDelay += fElapsedTime;
-	if(!m_pController1->Connected())
+	if(m_pController1->Connected())
+		m_bController = true;
+	else
 		m_bController = false;
 	m_vGameStates.back()->Update(fElapsedTime);
 }
@@ -211,6 +214,7 @@ void CGame::Shutdown()
 {
 	delete m_pController1;
 	delete m_pController2;
+	delete m_pKeyboardKB;
 	for(unsigned int i = 0; i < m_vGameStates.size(); i++)
 	{
 		m_vGameStates.back()->Exit();

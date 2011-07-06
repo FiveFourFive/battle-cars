@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Gamer_Profiles>
-    <Gamer_Profile>ANDY</Gamer_Profile>
-    <Gamer_Profile>WADE</Gamer_Profile>
-    <Gamer_Profile>JOSH</Gamer_Profile>
+    <Gamer_Profile>ANDY
+        <Controller_Keybinds accept="4096" back="8192" shoot="16384" change_weapon="256" kaccept="28" kback="1" kshoot="57" kaccelerate="200" kbreak="208" kleft="203" kright="205" kchange_weapon="29" />
+    </Gamer_Profile>
+    <Gamer_Profile>WAAAA
+        <Controller_Keybinds accept="4096" back="8192" shoot="16384" change_weapon="256" kaccept="28" kback="1" kshoot="57" kaccelerate="200" kbreak="208" kleft="203" kright="205" kchange_weapon="29" />
+    </Gamer_Profile>
+    <Gamer_Profile>JOSH
+        <Controller_Keybinds accept="4096" back="8192" shoot="16384" change_weapon="256" kaccept="28" kback="1" kshoot="57" kaccelerate="200" kbreak="208" kleft="203" kright="205" kchange_weapon="29" />
+    </Gamer_Profile>
 </Gamer_Profiles>

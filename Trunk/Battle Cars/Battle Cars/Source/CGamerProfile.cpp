@@ -13,6 +13,8 @@
 #include "CSGD_FModManager.h"
 #include "CPrintFont.h"
 #include "CXboxInput.h"
+#include "CKeyBinds.h"
+#include "CKeyboardKeyBinds.h"
 
 CGamerProfile* CGamerProfile::instance = NULL;
 
@@ -66,11 +68,13 @@ void CGamerProfile::Enter()
 	PosX = 350;
 
 	LoadProfiles("resource/data/gamer_profile.xml");
-
+	for(int i = 0; i < m_vUserProfiles.size(); i++)
+	{
+		m_vUserProfiles[i]->m_pKB = CGame::GetInstance()->GetController1()->GetKB();
+		m_vUserProfiles[i]->m_pKKB = CGame::GetInstance()->GetKeyboardKeyBinds();
+	}
 	temp = 'A';
-
 	m_pFM->PlaySoundA(BGMusicID);
-
 }
 
 void CGamerProfile::Exit()
@@ -332,6 +336,39 @@ bool CGamerProfile::SaveProfiles(const char* szXmlFileName)
 		TiXmlText* pText = new TiXmlText(m_vUserProfiles[i]->m_sUserName.c_str());
 		pProfile->LinkEndChild(pText);
 
+		int accept = m_vUserProfiles[i]->m_pKB->GetAccept();
+		int back = m_vUserProfiles[i]->m_pKB->GetBack();
+		int shoot = m_vUserProfiles[i]->m_pKB->GetShoot();
+		int change_weapon = m_vUserProfiles[i]->m_pKB->GetChangeWeapon();
+
+		TiXmlElement* pKB = new TiXmlElement("Controller_Keybinds");
+		pKB->SetAttribute("accept",accept);
+		pKB->SetAttribute("back",back);
+		pKB->SetAttribute("shoot",shoot);
+		pKB->SetAttribute("change_weapon",change_weapon);
+		
+		int kaccept = m_vUserProfiles[i]->m_pKKB->GetAccept();
+		int kback = m_vUserProfiles[i]->m_pKKB->GetBack();
+		int kshoot = m_vUserProfiles[i]->m_pKKB->GetShoot();
+
+		int forward = m_vUserProfiles[i]->m_pKKB->Getforward();
+		int backward = m_vUserProfiles[i]->m_pKKB->Getbackward();
+		int left = m_vUserProfiles[i]->m_pKKB->GetLeft();
+		int right = m_vUserProfiles[i]->m_pKKB->GetRight();
+		int kchange_weapon = m_vUserProfiles[i]->m_pKKB->GetChangeWeapon();
+		pKB->SetAttribute("kaccept",kaccept);
+		pKB->SetAttribute("kback",kback);
+		pKB->SetAttribute("kshoot",kshoot);
+		
+		pKB->SetAttribute("kaccelerate",forward);
+		pKB->SetAttribute("kbreak",backward);
+		pKB->SetAttribute("kleft",left);
+		pKB->SetAttribute("kright",right);
+		pKB->SetAttribute("kchange_weapon", kchange_weapon);
+		
+
+		pProfile->LinkEndChild(pKB);
+		//pProfile->LinkEndChild(pKKB);
 		pRoot->LinkEndChild(pProfile);
 /////////////////////////////////////////////////////////////////////
 	}
