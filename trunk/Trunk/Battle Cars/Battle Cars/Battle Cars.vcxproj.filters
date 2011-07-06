@@ -183,6 +183,9 @@
     <ClCompile Include="Source\CNumPlayers.cpp">
       <Filter>Game States</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CKeyboardKeyBinds.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\CStopWatch.h">
@@ -308,9 +311,6 @@
     <ClInclude Include="Source\CEnemy.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Battle Cars Solution\Battle Cars\Battle Cars\Source\CGamerProfile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\CWanderState.h">
       <Filter>AI States</Filter>
     </ClInclude>
@@ -334,6 +334,15 @@
     </ClInclude>
     <ClInclude Include="Source\CNumPlayers.h">
       <Filter>Game States</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CKeyboardKeyBinds.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Gamer_Profile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CGamerProfile.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

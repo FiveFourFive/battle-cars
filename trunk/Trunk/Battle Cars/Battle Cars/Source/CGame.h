@@ -18,6 +18,7 @@ class IGameState;
 class CSGD_FModManager;
 class CSGD_DirectInput;
 class CXboxInput;
+class CKeyboardKeyBinds;
 class CGame
 {
 private:
@@ -29,6 +30,7 @@ private:
 	CSGD_DirectInput*		m_pDI;
 
 	//controller input
+	CKeyboardKeyBinds*		m_pKeyboardKB;
 	CXboxInput*				m_pController1;
 	CXboxInput*				m_pController2;
 	bool m_bController;
@@ -86,7 +88,8 @@ public:
 	int GetScreenWidth() { return m_ScreenWidth;}
 	int GetScreenHeight(){ return m_ScreenHeight;}
 	void SetControllerInput(bool input) { m_bController = input; }
-
+	void SetKB(CKeyboardKeyBinds* newKB) { m_pKeyboardKB = newKB; }
+	CKeyboardKeyBinds* GetKeyboardKeyBinds(void) { return m_pKeyboardKB; }
 	float getSoundAVolume();
 	float getSoundBVolume();
 

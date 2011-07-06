@@ -8,8 +8,8 @@
 #include "CSGD_DirectInput.h"
 #include "CXboxInput.h"
 #include "CKeyBinds.h"
-
-enum options{WS_ACCEPT,WS_BACK,WS_SHOOT, WS_CHANGE_WEAPON ,WS_EXIT};
+#include "CKeyboardKeyBinds.h"
+enum options{WS_ACCEPT,WS_BACK,WS_SHOOT, WS_CHANGE_WEAPON ,WS_FORWARD,WS_BACKWARD,WS_LEFT,WS_RIGHT,WS_EXIT};
 CKeyBindsState::CKeyBindsState(void)
 {
 	m_pD3D = NULL;
@@ -46,14 +46,24 @@ void CKeyBindsState::Enter(void)
 	m_nSoundA = m_pFM->LoadSound("resource/sounds/bullet1.mp3");
 	m_nSoundB = CMainMenuState::GetInstance()->GetBackgroundMusicID();
 	m_nSelection = 0;
+	m_nSelected = 0;
 	if(m_pController)
 	{
 		m_pKB = m_pController->GetKB();
 	}
+	m_pKeyboardKB = CGame::GetInstance()->GetKeyboardKeyBinds();
+	if(CGame::GetInstance()->ControllerInput())
+		m_nMaxOptions = 4;
+	else
+		m_nMaxOptions = 8;
 }
 
 bool CKeyBindsState::Input(void)
 {
+	if(CGame::GetInstance()->ControllerInput())
+		m_nMaxOptions = 4;
+	else
+		m_nMaxOptions = 8;
 	if(CGame::GetInstance()->ControllerInput())
 	{
 		//m_pController1->ReadInputState();
@@ -206,13 +216,13 @@ bool CKeyBindsState::Input(void)
 			m_nSelection--;
 			m_pFM->PlaySound(m_nMenuMove);
 			if(m_nSelection < 0)
-				m_nSelection = 4;
+				m_nSelection = m_nMaxOptions;
 		}
 		else if(x < 8000 && x > -8000 && y < -16000|| xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN)
 		{
 			m_nSelection++;
 			m_pFM->PlaySound(m_nMenuMove);
-			if(m_nSelection > 4)
+			if(m_nSelection > m_nMaxOptions)
 				m_nSelection = 0;
 		}
 		}
@@ -220,31 +230,43 @@ bool CKeyBindsState::Input(void)
 	}
 	else
 	{
-
-	if(m_pDI->KeyPressed(DIK_ESCAPE))
+		if(m_bSelected)
+			m_bSelected = SendKeyBinds();
+		else
+		{
+		if(m_pDI->KeyPressed(DIK_RETURN))
+		{
+			m_nSelected = 255;
+			m_bSelected = true;
+		}
+		
+	if(m_pDI->KeyPressed(DIK_ESCAPE) && !m_bSelected)
 	{
 		CGame::GetInstance()->RemoveState(this);
 	}
-	if(m_pDI->KeyPressed(DIK_RETURN))
+	if(m_pDI->KeyPressed(DIK_RETURN) && !m_bSelected)
 	{
 		return this->HandleEnter();
 	}
-	if(m_pDI->KeyPressed(DIK_UP))
+	if(m_pDI->KeyPressed(DIK_UP) && !m_bSelected)
 	{
 		m_nSelection--;
 		m_pFM->PlaySound(m_nMenuMove);
 		if(m_nSelection < 0)
-			m_nSelection = 4;
+			m_nSelection = m_nMaxOptions;
 	}
 
-	if(m_pDI->KeyPressed(DIK_DOWN))
+	if(m_pDI->KeyPressed(DIK_DOWN) && !m_bSelected)
 	{
 		m_nSelection++;
 		m_pFM->PlaySound(m_nMenuMove);
-		if(m_nSelection > 4)
+		if(m_nSelection > m_nMaxOptions)
 			m_nSelection = 0;
 	}
+	
 	}
+
+}
 	return true;
 }
 
@@ -270,13 +292,15 @@ void CKeyBindsState::Render(void)
 
 
 	m_pPF->Print("INPUT DEVICE",150,120,0.5f,D3DCOLOR_XRGB(200, 0, 0));	
-	m_pPF->Print("ACCEPT", 150,200,0.5f,D3DCOLOR_XRGB(255,0,0));
+
+	if(CGame::GetInstance()->ControllerInput())
+	{
+		m_pPF->Print("ACCEPT", 150,200,0.5f,D3DCOLOR_XRGB(255,0,0));
 	m_pPF->Print("BACK", 150,250,0.5f,D3DCOLOR_XRGB(255,0,0));
 	m_pPF->Print("SHOOT", 150,300,0.5f,D3DCOLOR_XRGB(255,0,0));
 	m_pPF->Print("CHANGE WEAPON", 150,350,0.5f,D3DCOLOR_XRGB(255,0,0));
-	if(CGame::GetInstance()->ControllerInput())
-	{
 		m_pPF->Print("GAMEPAD",370,120,0.5f,D3DCOLOR_XRGB(255,255,255));
+		m_pPF->Print("EXIT",150,400,0.5f,D3DCOLOR_XRGB(255,0,0));
 		switch(m_pKB->GetAccept())
 		{
 		case XINPUT_GAMEPAD_A:
@@ -372,51 +396,773 @@ void CKeyBindsState::Render(void)
 		case XINPUT_GAMEPAD_RIGHT_SHOULDER:
 			m_pPF->Print("RIGHT BUMPER",400,350,0.5f,D3DCOLOR_XRGB(255,255,255));
 			break;
-
 		default:
 
 			break;
 		}
 
+	switch(m_nSelection)
+	{
+	case WS_ACCEPT:
+			m_pPF->Print("ACCEPT", 150,200,0.5f,D3DCOLOR_XRGB(0,255,0));
+			
+		break;
+	case WS_BACK:
+		m_pPF->Print("BACK", 150,250,0.5f,D3DCOLOR_XRGB(0,255,0));
+			
+		break;
+	case WS_SHOOT:
+		m_pPF->Print("SHOOT", 150,300,0.5f,D3DCOLOR_XRGB(0,255,0));
+			
+		break;
+	case WS_CHANGE_WEAPON:
+		m_pPF->Print("CHANGE WEAPON", 150,350,0.5f,D3DCOLOR_XRGB(0,255,0));
+		break;
+	case 4:
+		m_pPF->Print("EXIT", 150,400,0.5f,D3DCOLOR_XRGB(0,255,0));
+		break;
+	}
 	}
 	else
 	{
 		m_pPF->Print("KEYBOARD",370,120,0.5f,D3DCOLOR_XRGB(255,255,255));
-	}
-	m_pPF->Print("EXIT",150,400,0.5f,D3DCOLOR_XRGB(255, 0, 0));
+			m_pPF->Print("ACCEPT", 150,150,0.5f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("BACK", 150,200,0.5f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("SHOOT", 150,250,0.5f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("CHANGE WEAPON", 150,300,0.5f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("ACCELERATE",150,350,0.5f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("BREAK",150,400,0.5f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("TURN LEFT",150,450,0.5f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("TURN RIGHT",150,500,0.5f,D3DCOLOR_XRGB(255,0,0));
+
+		m_pPF->Print("EXIT",150,550,0.5f,D3DCOLOR_XRGB(255,0,0));
+		char buffer[128];
+		strcpy_s(buffer,_countof(buffer),GetKeyBound(m_pKeyboardKB->GetAccept()));
+		m_pPF->Print(buffer,400,150,0.5f,D3DCOLOR_XRGB(255,255,255));
+		strcpy_s(buffer,_countof(buffer),GetKeyBound(m_pKeyboardKB->GetBack()));
+		m_pPF->Print(buffer,400,200,0.5f,D3DCOLOR_XRGB(255,255,255));
+		strcpy_s(buffer,_countof(buffer),GetKeyBound(m_pKeyboardKB->GetShoot()));
+		m_pPF->Print(buffer,400,250,0.5f,D3DCOLOR_XRGB(255,255,255));
+		strcpy_s(buffer,_countof(buffer),GetKeyBound(m_pKeyboardKB->GetChangeWeapon()));
+		m_pPF->Print(buffer,400,300,0.5f,D3DCOLOR_XRGB(255,255,255));
+		strcpy_s(buffer,_countof(buffer),GetKeyBound(m_pKeyboardKB->Getforward()));
+		m_pPF->Print(buffer,400,350,0.5f,D3DCOLOR_XRGB(255,255,255));
+		strcpy_s(buffer,_countof(buffer),GetKeyBound(m_pKeyboardKB->Getbackward()));
+		m_pPF->Print(buffer,400,400,0.5f,D3DCOLOR_XRGB(255,255,255));
+		strcpy_s(buffer,_countof(buffer),GetKeyBound(m_pKeyboardKB->GetLeft()));
+		m_pPF->Print(buffer,400,450,0.5f,D3DCOLOR_XRGB(255,255,255));
+		strcpy_s(buffer,_countof(buffer),GetKeyBound(m_pKeyboardKB->GetRight()));
+		m_pPF->Print(buffer,400,500,0.5f,D3DCOLOR_XRGB(255,255,255));
+
 	switch(m_nSelection)
-		{
-		case WS_ACCEPT:			
-			m_pPF->Print("ACCEPT",150,200,0.5f,D3DCOLOR_XRGB(0, 255, 0));
-			break;
-		case WS_BACK:
-			m_pPF->Print("BACK",150,250,0.5f,D3DCOLOR_XRGB(0, 255, 0));	
-			break;
-		case WS_SHOOT:
-			m_pPF->Print("SHOOT",150,300,0.5f,D3DCOLOR_XRGB(0, 255, 0));	
-			break;
-		case WS_CHANGE_WEAPON:
-			m_pPF->Print("CHANGE WEAPON",150,350,0.5f,D3DCOLOR_XRGB(0, 255, 0));
-			break;
-		case WS_EXIT:
-			m_pPF->Print("EXIT",150,400,0.5f,D3DCOLOR_XRGB(0, 255, 0));
-			break;
-		}
+	{
+	case WS_ACCEPT:
+			m_pPF->Print("ACCEPT", 150,150,0.5f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
+		break;
+	case WS_BACK:
+		m_pPF->Print("BACK", 150,200,0.5f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
+		break;
+	case WS_SHOOT:
+		m_pPF->Print("SHOOT", 150,250,0.5f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
+		break;
+	case WS_CHANGE_WEAPON:
+		m_pPF->Print("CHANGE WEAPON", 150,300,0.5f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
+		break;
+	case WS_FORWARD:
+		m_pPF->Print("ACCELERATE", 150,350,0.5f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
+		break;
+	case WS_BACKWARD:
+		m_pPF->Print("BREAK", 150,400,0.5f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
+		break;
+	case WS_LEFT:
+		m_pPF->Print("TURN LEFT", 150,450,0.5f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
+		break;
+	case WS_RIGHT:
+		m_pPF->Print("TURN RIGHT", 150,500,0.5f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
+		break;
+	case WS_EXIT:
+		m_pPF->Print("EXIT", 150,550,0.5f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
+		break;
+	}
+
+	}
+
 }
 
 void CKeyBindsState::Exit(void)
 {
 	m_pTM->UnloadTexture(m_nFontID);
 	delete m_pPF;
+	CGame::GetInstance()->SetKB(m_pKeyboardKB);
 }
 
 bool CKeyBindsState::HandleEnter(void)
 {
-	
+	if(CGame::GetInstance()->ControllerInput())
+	{
+		if(m_nSelection == 4)
+		{
+			CGame::GetInstance()->RemoveState(this);
+			m_pFM->PlaySound(m_nMenuSelect);
+		}
+	}
+	else
+	{
 		if(m_nSelection == WS_EXIT)
 		{
 			CGame::GetInstance()->RemoveState(this);
 			m_pFM->PlaySound(m_nMenuSelect);
 		}
+	}
+	return true;
+}
+bool CKeyBindsState::SendKeyBinds(void)
+{
+	if(m_pDI->KeyPressed(DIK_RETURN))
+		{
+		return SetKeyBind(DIK_RETURN);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_ESCAPE))
+		{
+		return SetKeyBind(DIK_ESCAPE);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_A))
+		{
+		return SetKeyBind(DIK_A);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_B))
+		{
+		return SetKeyBind(DIK_B);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_C))
+		{
+		return SetKeyBind(DIK_C);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_D))
+		{
+		return SetKeyBind(DIK_D);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_E))
+		{
+		return SetKeyBind(DIK_E);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_F))
+		{
+		return SetKeyBind(DIK_F);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_G))
+		{
+		return SetKeyBind(DIK_G);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_H))
+		{
+		return SetKeyBind(DIK_H);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_I))
+		{
+		return SetKeyBind(DIK_I);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_J))
+		{
+		return SetKeyBind(DIK_J);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_K))
+		{
+		return SetKeyBind(DIK_K);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_L))
+		{
+		return SetKeyBind(DIK_L);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_M))
+		{
+		return SetKeyBind(DIK_M);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_N))
+		{
+		return SetKeyBind(DIK_N);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_O))
+		{
+		return SetKeyBind(DIK_O);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_P))
+		{
+		return SetKeyBind(DIK_P);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_Q))
+		{
+		return SetKeyBind(DIK_Q);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_R))
+		{
+		return SetKeyBind(DIK_R);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_S))
+		{
+		return SetKeyBind(DIK_S);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_T))
+		{
+		return SetKeyBind(DIK_T);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_U))
+		{
+		return SetKeyBind(DIK_U);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_V))
+		{
+		return SetKeyBind(DIK_V);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_W))
+		{
+		return SetKeyBind(DIK_W);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_X))
+		{
+		return SetKeyBind(DIK_X);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_Y))
+		{
+		return SetKeyBind(DIK_Y);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_Z))
+		{
+		return SetKeyBind(DIK_Z);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_UP))
+		{
+		return SetKeyBind(DIK_UP);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_DOWN))
+		{
+		return SetKeyBind(DIK_DOWN);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_LEFT))
+		{
+		return SetKeyBind(DIK_LEFT);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_RIGHT))
+		{
+		return SetKeyBind(DIK_RIGHT);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_LCONTROL))
+		{
+		return SetKeyBind(DIK_LCONTROL);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_RCONTROL))
+		{
+		return SetKeyBind(DIK_RCONTROL);
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_SPACE))
+		{
+		return SetKeyBind(DIK_SPACE);	
+		
+		}
+	else if( m_pDI->KeyPressed(DIK_LSHIFT))
+		{
+			return SetKeyBind(DIK_LSHIFT);
+			
+		}
+	else if( m_pDI->KeyPressed(DIK_RSHIFT))
+		{
+			return SetKeyBind(DIK_RSHIFT);
+			
+		}
+	else if( m_pDI->KeyPressed(DIK_TAB))
+		{
+			return SetKeyBind(DIK_TAB);
+			
+		}
+	else if( m_pDI->KeyPressed(DIK_1))
+		{
+			return SetKeyBind(DIK_1);
+			
+		}
+	else if( m_pDI->KeyPressed(DIK_2))
+		{
+			return SetKeyBind(DIK_2);
+			
+		}
+	else if( m_pDI->KeyPressed(DIK_3))
+		{
+			return SetKeyBind(DIK_3);
+			
+		}
+	else if( m_pDI->KeyPressed(DIK_4))
+		{
+			return SetKeyBind(DIK_4);
+			
+		}
+	else if( m_pDI->KeyPressed(DIK_5))
+		{
+			return SetKeyBind(DIK_5);
+			
+		}
+	else if( m_pDI->KeyPressed(DIK_6))
+		{
+			return SetKeyBind(DIK_6);
+			
+		}
+	else if( m_pDI->KeyPressed(DIK_7))
+		{
+			return SetKeyBind(DIK_7);
+			
+		}
+	else if( m_pDI->KeyPressed(DIK_8))
+		{
+			return SetKeyBind(DIK_8);
+			
+		}
+	else if( m_pDI->KeyPressed(DIK_9))
+		{
+			return SetKeyBind(DIK_9);
+			
+		}
+	else if( m_pDI->KeyPressed(DIK_0))
+		{
+			return SetKeyBind(DIK_0);
+			
+		}
+	else if( m_pDI->KeyPressed(DIK_NUMPAD1))
+		{
+			return SetKeyBind(DIK_NUMPAD1);
+			
+		}
+	else if( m_pDI->KeyPressed(DIK_NUMPAD2))
+		{
+			return SetKeyBind(DIK_NUMPAD2);
+			
+		}
+	else if( m_pDI->KeyPressed(DIK_NUMPAD3))
+		{
+			return SetKeyBind(DIK_NUMPAD3);
+			
+		}
+	else if( m_pDI->KeyPressed(DIK_NUMPAD4))
+		{
+			return SetKeyBind(DIK_NUMPAD4);
+			
+		}
+	else if(m_pDI->KeyPressed(DIK_NUMPAD6))
+		{
+			return SetKeyBind(DIK_NUMPAD6);
+			
+		}
+	else if( m_pDI->KeyPressed(DIK_NUMPAD6))
+		{
+			return SetKeyBind(DIK_NUMPAD6);
+			
+		}
+	else if( m_pDI->KeyPressed(DIK_NUMPAD7))
+		{
+			return SetKeyBind(DIK_NUMPAD7);
+			
+		}
+	else if( m_pDI->KeyPressed(DIK_NUMPAD8))
+		{
+			return SetKeyBind(DIK_NUMPAD8);
+			
+		}
+	else if( m_pDI->KeyPressed(DIK_NUMPAD9))
+		{
+			return SetKeyBind(DIK_NUMPAD9);
+			
+		}
+	else if( m_pDI->KeyPressed(DIK_NUMPAD0))
+		{
+			return SetKeyBind(DIK_NUMPAD0);
+			
+		}
+	else if( m_pDI->KeyPressed(DIK_NUMPADENTER))
+		{
+			return SetKeyBind(DIK_NUMPADENTER);
+			
+		}
+	m_nSelected = 0;
+	return true;
+}
+char* CKeyBindsState::GetKeyBound(int keycode)
+{
+	char buffer[128];
+	switch(keycode)
+	{
+	case DIK_RETURN:
+		{
+		strcpy_s(buffer,_countof(buffer),"ENTER");
+		break;
+		}
+	case DIK_ESCAPE:
+		{
+		strcpy_s(buffer,_countof(buffer),"ESC");
+		break;
+		}
+	case DIK_A:
+		{
+		strcpy_s(buffer,_countof(buffer),"A");	
+		break;
+		}
+	case DIK_B:
+		{
+		strcpy_s(buffer,_countof(buffer),"B");	
+		break;
+		}
+	case DIK_C:
+		{
+		strcpy_s(buffer,_countof(buffer),"C");	
+		break;
+		}
+	case DIK_D:
+		{
+		strcpy_s(buffer,_countof(buffer),"D");	
+		break;
+		}
+	case DIK_E:
+		{
+		strcpy_s(buffer,_countof(buffer),"E");	
+		break;
+		}
+	case DIK_F:
+		{
+		strcpy_s(buffer,_countof(buffer),"F");	
+		break;
+		}
+	case DIK_G:
+		{
+		strcpy_s(buffer,_countof(buffer),"G");	
+		break;
+		}
+	case DIK_H:
+		{
+		strcpy_s(buffer,_countof(buffer),"H");	
+		break;
+		}
+	case DIK_I:
+		{
+		strcpy_s(buffer,_countof(buffer),"I");	
+		break;
+		}
+	case DIK_J:
+		{
+		strcpy_s(buffer,_countof(buffer),"J");	
+		break;
+		}
+	case DIK_K:
+		{
+		strcpy_s(buffer,_countof(buffer),"K");	
+		break;
+		}
+	case DIK_L:
+		{
+		strcpy_s(buffer,_countof(buffer),"L");	
+		break;
+		}
+	case DIK_M:
+		{
+		strcpy_s(buffer,_countof(buffer),"M");	
+		break;
+		}
+	case DIK_N:
+		{
+		strcpy_s(buffer,_countof(buffer),"N");	
+		break;
+		}
+	case DIK_O:
+		{
+		strcpy_s(buffer,_countof(buffer),"O");	
+		break;
+		}
+	case DIK_P:
+		{
+		strcpy_s(buffer,_countof(buffer),"P");	
+		break;
+		}
+	case DIK_Q:
+		{
+		strcpy_s(buffer,_countof(buffer),"Q");	
+		break;
+		}
+	case DIK_R:
+		{
+		strcpy_s(buffer,_countof(buffer),"R");	
+		break;
+		}
+	case DIK_S:
+		{
+		strcpy_s(buffer,_countof(buffer),"S");	
+		break;
+		}
+	case DIK_T:
+		{
+		strcpy_s(buffer,_countof(buffer),"T");	
+		break;
+		}
+	case DIK_U:
+		{
+		strcpy_s(buffer,_countof(buffer),"U");	
+		break;
+		}
+	case DIK_V:
+		{
+		strcpy_s(buffer,_countof(buffer),"V");	
+		break;
+		}
+	case DIK_W:
+		{
+		strcpy_s(buffer,_countof(buffer),"W");	
+		break;
+		}
+	case DIK_X:
+		{
+		strcpy_s(buffer,_countof(buffer),"X");	
+		break;
+		}
+	case DIK_Y:
+		{
+		strcpy_s(buffer,_countof(buffer),"Y");	
+		break;
+		}
+	case DIK_Z:
+		{
+		strcpy_s(buffer,_countof(buffer),"Z");	
+		break;
+		}
+	case DIK_UP:
+		{
+		strcpy_s(buffer,_countof(buffer),"UP ARROW");	
+		break;
+		}
+	case DIK_DOWN:
+		{
+		strcpy_s(buffer,_countof(buffer),"DOWN ARROW");	
+		break;
+		}
+	case DIK_LEFT:
+		{
+		strcpy_s(buffer,_countof(buffer),"LEFT ARROW");	
+		break;
+		}
+	case DIK_RIGHT:
+		{
+		strcpy_s(buffer,_countof(buffer),"RIGHT ARROW");	
+		break;
+		}
+	case DIK_LCONTROL:
+		{
+			strcpy_s(buffer,_countof(buffer),"LEFT CONTROL");	
+			break;
+		}
+	case DIK_RCONTROL:
+		{
+			strcpy_s(buffer,_countof(buffer),"RIGHT CONTROL");	
+			break;
+		}
+	case DIK_SPACE:
+		{
+			strcpy_s(buffer,_countof(buffer),"SPACEBAR");	
+			break;
+		}
+	case DIK_LSHIFT:
+		{
+			strcpy_s(buffer,_countof(buffer),"LEFT SHIFT");	
+			break;
+		}
+	case DIK_RSHIFT:
+		{
+			strcpy_s(buffer,_countof(buffer),"RIGHT SHIFT");	
+			break;
+		}
+	case DIK_TAB:
+		{
+			strcpy_s(buffer,_countof(buffer),"TAB");	
+			break;
+		}
+	case DIK_1:
+		{
+			strcpy_s(buffer,_countof(buffer),"1");	
+			break;
+		}
+	case DIK_2:
+		{
+			strcpy_s(buffer,_countof(buffer),"2");	
+			break;
+		}
+	case DIK_3:
+		{
+			strcpy_s(buffer,_countof(buffer),"3");	
+			break;
+		}
+	case DIK_4:
+		{
+			strcpy_s(buffer,_countof(buffer),"4");	
+			break;
+		}
+	case DIK_5:
+		{
+			strcpy_s(buffer,_countof(buffer),"5");	
+			break;
+		}
+	case DIK_6:
+		{
+			strcpy_s(buffer,_countof(buffer),"6");	
+			break;
+		}
+	case DIK_7:
+		{
+			strcpy_s(buffer,_countof(buffer),"7");	
+			break;
+		}
+	case DIK_8:
+		{
+			strcpy_s(buffer,_countof(buffer),"8");	
+			break;
+		}
+	case DIK_9:
+		{
+			strcpy_s(buffer,_countof(buffer),"9");	
+			break;
+		}
+	case DIK_0:
+		{
+			strcpy_s(buffer,_countof(buffer),"0");	
+			break;
+		}
+	case DIK_NUMPAD1:
+		{
+			strcpy_s(buffer,_countof(buffer),"NUMPAD 1");	
+			break;
+		}
+	case DIK_NUMPAD2:
+		{
+			strcpy_s(buffer,_countof(buffer),"NUMPAD 2");	
+			break;
+		}
+	case DIK_NUMPAD3:
+		{
+			strcpy_s(buffer,_countof(buffer),"NUMPAD 3");	
+			break;
+		}
+	case DIK_NUMPAD4:
+		{
+			strcpy_s(buffer,_countof(buffer),"NUMPAD 4");	
+			break;
+		}
+	case DIK_NUMPAD5:
+		{
+			strcpy_s(buffer,_countof(buffer),"NUMPAD 5");	
+			break;
+		}
+	case DIK_NUMPAD6:
+		{
+			strcpy_s(buffer,_countof(buffer),"NUMPAD 6");	
+			break;
+		}
+	case DIK_NUMPAD7:
+		{
+			strcpy_s(buffer,_countof(buffer),"NUMPAD 7");	
+			break;
+		}
+	case DIK_NUMPAD8:
+		{
+			strcpy_s(buffer,_countof(buffer),"NUMPAD 8");	
+			break;
+		}
+	case DIK_NUMPAD9:
+		{
+			strcpy_s(buffer,_countof(buffer),"NUMPA 9");	
+			break;
+		}
+	case DIK_NUMPAD0:
+		{
+			strcpy_s(buffer,_countof(buffer),"NUMPAD 0");	
+			break;
+		}
+	case DIK_NUMPADENTER:
+		{
+			strcpy_s(buffer,_countof(buffer),"NUMPAD ENTER");	
+			break;
+		}
+	}
+
+	return buffer;
+}
+
+bool CKeyBindsState::SetKeyBind(int keycode)
+{
+	switch(m_nSelection)
+	{
+	case WS_ACCEPT:
+		if(m_pKeyboardKB->GetBack() != keycode)
+		{
+			m_pKeyboardKB->SetAccept(keycode);
+			return false;
+		}
+		break;
+	case WS_BACK:
+		if(m_pKeyboardKB->GetAccept() != keycode)
+		{
+			m_pKeyboardKB->SetBack(keycode);
+			return false;
+		}
+		break;
+	case WS_SHOOT:
+		m_pKeyboardKB->SetShoot(keycode);
+		return false;
+		break;
+	case WS_CHANGE_WEAPON:
+		m_pKeyboardKB->SetChangeWeapon(keycode);
+		return false;
+		break;
+	case WS_FORWARD:
+		m_pKeyboardKB->SetForward(keycode);
+		return false;
+		break;
+	case WS_BACKWARD:
+		m_pKeyboardKB->SetBackward(keycode);
+		return false;
+		break;
+	case WS_LEFT:
+		m_pKeyboardKB->SetLeft(keycode);
+		return false;
+		break;
+	case WS_RIGHT:
+		m_pKeyboardKB->SetRight(keycode);
+		return false;
+		break;
+	}
 	return true;
 }

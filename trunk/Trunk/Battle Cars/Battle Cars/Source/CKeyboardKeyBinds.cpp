@@ -15,4 +15,8 @@ void CKeyboardKeyBinds::ResetDefaults(void)
 	accept = DIK_RETURN;
 	back = DIK_ESCAPE;
 	change_weapon = DIK_LCONTROL;
+	forward = DIK_UP;
+	backward = DIK_DOWN;
+	left = DIK_LEFT;
+	right = DIK_RIGHT;
 }
