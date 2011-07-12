@@ -186,6 +186,9 @@
     <ClCompile Include="Source\CKeyboardKeyBinds.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CLevelSelectionState.cpp">
+      <Filter>Game States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\CStopWatch.h">
@@ -343,6 +346,9 @@
     </ClInclude>
     <ClInclude Include="Source\CGamerProfile.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CLevelSelectionState.h">
+      <Filter>Game States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
