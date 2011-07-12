@@ -94,6 +94,7 @@
     <ClCompile Include="Source\CKeyboardKeyBinds.cpp" />
     <ClCompile Include="Source\CLandMine.cpp" />
     <ClCompile Include="Source\CLevel.cpp" />
+    <ClCompile Include="Source\CLevelSelectionState.cpp" />
     <ClCompile Include="Source\CMainMenuState.cpp" />
     <ClCompile Include="Source\CMap.cpp" />
     <ClCompile Include="Source\CMessage.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="Source\CKeyboardKeyBinds.h" />
     <ClInclude Include="Source\CLandMine.h" />
     <ClInclude Include="Source\CLevel.h" />
+    <ClInclude Include="Source\CLevelSelectionState.h" />
     <ClInclude Include="Source\CMainMenuState.h" />
     <ClInclude Include="Source\CMap.h" />
     <ClInclude Include="Source\CMessage.h" />
