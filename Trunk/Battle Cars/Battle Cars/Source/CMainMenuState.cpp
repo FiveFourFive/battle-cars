@@ -12,6 +12,8 @@
 #include "CXboxInput.h"
 #include "CKeyBinds.h"
 #include "CNumPlayers.h"
+#include "CLevelSelectionState.h"
+
 enum menu {PLAY, OPTIONS, HOW_TO_PLAY, GAMER_PROFILE, HIGH_SCORES, CREDITS, EXIT};
 
 CMainMenuState::CMainMenuState(void)
@@ -206,7 +208,7 @@ bool CMainMenuState::HandleEnter(void)
 		switch(m_nSelection)
 		{
 		case PLAY:
-			CGame::GetInstance()->AddState(CNumPlayers::GetInstance() );
+			CGame::GetInstance()->AddState(CLevelSelectionState::GetInstance());
 			break;
 		case OPTIONS:
 			CGame::GetInstance()->AddState(COptionState::GetInstance());

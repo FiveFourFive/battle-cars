@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Levels>
+        <Level>
+               <LevelImageName>level1.bmp</LevelImageName>
+               <LevelDataName>TESTMAP.XML</LevelDataName>
+       </Level>
+        <Level>
+               <LevelImageName>level2.bmp</LevelImageName>
+               <LevelDataName>TESTMAP.XML</LevelDataName>
+        </Level>
+</Levels>
+

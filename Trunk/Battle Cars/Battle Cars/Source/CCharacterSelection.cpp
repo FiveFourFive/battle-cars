@@ -43,12 +43,13 @@ void CCharacterSelection::Enter()
 	m_pDI = CSGD_DirectInput::GetInstance();
 	m_pTM = CSGD_TextureManager::GetInstance();
 	m_pFM = CSGD_FModManager::GetInstance();
-	m_pPF = new CPrintFont(m_nFontID);
 	
 	m_nMenuSelect = m_pFM->LoadSound("resource/sounds/menuselect.mp3");
 	m_nMenuMove = m_pFM->LoadSound("resource/sounds/menuchange.mp3");
 	m_nIncorrectSelection = m_pFM->LoadSound("resource/sounds/buzzer2.mp3");
 	m_nFontID = m_pTM->LoadTexture("resource/graphics/FontPlaceholder.png",D3DCOLOR_XRGB(0, 0, 0));
+
+	m_pPF = new CPrintFont(m_nFontID);
 
 	if( LoadCharacters() == false)
 		MessageBox(NULL, "Failed to Load characters", 0, 0);
