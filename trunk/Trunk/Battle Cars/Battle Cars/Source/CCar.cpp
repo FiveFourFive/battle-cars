@@ -12,6 +12,8 @@
 #include "CEventSystem.h"
 #include "CEvent.h"
 #include "CBullet.h"
+#include "ParticleManager.h"
+#include "Emittor.h"
 
 CCar::CCar(void)
 {
@@ -34,7 +36,7 @@ CCar::CCar(void)
 
 	SetWidth(52);
 	SetHeight(70);
-	m_nCollisionRadius = GetWidth()/2;
+	m_nCollisionRadius = (float)(GetWidth()/2.0f);
 	m_nCollisionX1 = GetPosX();
 	m_nCollisionY1 = GetPosY() - (GetHeight()*0.5f) + (GetWidth()*0.5f);
 	m_nCollisionX2 = 0;
@@ -55,12 +57,16 @@ CCar::CCar(void)
 	SetPowerUpBar(100.0f);
 	m_nCarID = CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/cartexture.bmp",D3DCOLOR_XRGB(255, 0, 255));
 
+	m_fCollisionEffect = 0.0f;
+
 	CEventSystem::GetInstance()->RegisterClient("damage",this);
+	CEventSystem::GetInstance()->RegisterClient("collision", this);
 }
 
 
 void CCar::Update(float fElapsedTime)
 {
+	m_fCollisionEffect += fElapsedTime;
 
 	tVector2D tempdir = GetDirection();
 	tVector2D tempvel = GetVelocity();
@@ -72,19 +78,19 @@ void CCar::Update(float fElapsedTime)
 	{
 		// adjusting these changes the time it takes for the velocity 
 		// to get back to the direction vector
-		tempvel.fX -= tempvel.fX * 0.05;
+		tempvel.fX -= tempvel.fX * 0.05f;
 	}
 	if(tempvel.fY > 0)
 	{
-		tempvel.fY -= tempvel.fY * 0.05;
+		tempvel.fY -= tempvel.fY * 0.05f;
 	}
 	if(tempvel.fX < 0)
 	{
-		tempvel.fX -= tempvel.fX * 0.05;
+		tempvel.fX -= tempvel.fX * 0.05f;
 	}
 	if(tempvel.fY < 0)
 	{
-		tempvel.fY -= tempvel.fY * 0.05;
+		tempvel.fY -= tempvel.fY * 0.05f;
 	}
 
 
@@ -163,7 +169,7 @@ void CCar::Render(CCamera* camera)
 	car.bottom = car.top + GetHeight();
 	
 
-	m_pTM->Draw(m_nCarID,GetPosX()-(GetWidth()/2)- camera->GetCamX() + camera->GetRenderPosX(),GetPosY()-(GetHeight()/2)- camera->GetCamY() + camera->GetRenderPosY(),1.0f,1.0f,&car,GetWidth()/2,GetHeight()/2,GetRotation());
+	m_pTM->Draw(m_nCarID,(int)GetPosX()-(GetWidth()/2)- (int)camera->GetCamX() + (int)camera->GetRenderPosX(),(int)GetPosY()-(GetHeight()/2)- (int)camera->GetCamY() + (int)camera->GetRenderPosY(),1.0f,1.0f,&car,GetWidth()/2.0f,GetHeight()/2.0f,GetRotation());
 	//pD3D->DrawRect(tempcar,255,0,0);
 	//pD3D->DrawText("BEEP", (int)(GetPosX()- camera->GetCamX() + 10), (int)(GetPosY()- camera->GetCamY() + 35),255,255,255);
 	pD3D->DrawLine((int)(GetPosX()- camera->GetCamX() + camera->GetRenderPosX()), (int)(GetPosY()- camera->GetCamY()+ camera->GetRenderPosY()), (int)(GetPosX()- camera->GetCamX() + camera->GetRenderPosX() + GetVelX()), (int)(GetPosY()- camera->GetCamY() + camera->GetRenderPosY() + GetVelY()),255,255,255);
@@ -184,10 +190,10 @@ void CCar::Render(CCamera* camera)
 	//m_nCollisionY1 = GetPosY() - camera->GetCamY();
 	pD3D->GetSprite()->Flush();
 	RECT tempcircle1;
-	tempcircle1.left = m_nCollisionX1 - camera->GetCamX() + camera->GetRenderPosX();
-	tempcircle1.top = m_nCollisionY1 - camera->GetCamY() + camera->GetRenderPosY();
-	tempcircle1.right = tempcircle1.left + m_nCollisionRadius;
-	tempcircle1.bottom = tempcircle1.top + m_nCollisionRadius;
+	tempcircle1.left = (int)(m_nCollisionX1 - camera->GetCamX() + camera->GetRenderPosX());
+	tempcircle1.top = (int)(m_nCollisionY1 - camera->GetCamY() + camera->GetRenderPosY());
+	tempcircle1.right = tempcircle1.left + (int)m_nCollisionRadius;
+	tempcircle1.bottom = tempcircle1.top + (int)m_nCollisionRadius;
 
 	pD3D->DrawRect(tempcircle1,255,255,255);
 
@@ -199,7 +205,7 @@ void CCar::Render(CCamera* camera)
 }
 void CCar::Rotate(float angle)
 {
-	float newangle = angle / 180 * 3.14159;
+	float newangle = angle / 180 * 3.14159f;
 
 	/*float s = sin(angle);
 	float c = sin(angle);
@@ -353,6 +359,16 @@ void CCar::HandleEvent(CEvent* pEvent)
 {
 	if(this == pEvent->GetParam())
 	{
-		
+		if( pEvent->GetEventID() == "collision")
+		{
+			ParticleManager* pPM = ParticleManager::GetInstance(); 
+			Emittor* tempemittor = pPM->CreateEffect(pPM->GetEmittor(COLLISION_EMITTOR), GetCX1(), GetCY1());
+
+			if( tempemittor)
+			{
+				tempemittor->SetTimeToDie(1.0f);
+				pPM->AttachToBasePosition(NULL, tempemittor, GetCX1(), GetCY1());
+			}
+		}
 	}
 }

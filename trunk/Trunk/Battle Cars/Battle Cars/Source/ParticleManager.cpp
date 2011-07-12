@@ -36,33 +36,21 @@ void ParticleManager::DeleteInstance()
 
 void ParticleManager::UpdateEmittors(float fElapsedTime)
 {
-	vector<int> templist;
-
 	if( this == NULL)
 		return;
-
-	for( unsigned int j = 0; j < m_GameEmittors.size(); j++)
-	{
-		if( m_GameEmittors[j]->IsDead() == false)
-		{
-			if( m_GameEmittors[j]->IsActive() == false)
-			{
-				templist.push_back(j);
-			}
-		}
-	}
-
-	for( unsigned int j = 0; j < templist.size(); j++)
-	{
-		int index = templist[j];
-		m_GameEmittors[index]->SetIsActive(true);
-		m_ActiveEmittors.push_back(m_GameEmittors[index]);
-	}
 
 	for( unsigned int i = 0; i < m_ActiveEmittors.size(); i++)
 	{
 		if( m_ActiveEmittors[i])
-		m_ActiveEmittors[i]->Update(fElapsedTime);
+		{
+			m_ActiveEmittors[i]->Update(fElapsedTime);
+
+			if( m_ActiveEmittors[i]->GetCurrentLife() >= m_ActiveEmittors[i]->GetTimeToDie())
+			{
+				delete m_ActiveEmittors[i];
+				m_ActiveEmittors.erase(m_ActiveEmittors.begin() + i, m_ActiveEmittors.begin() + i + 1);
+			}
+		}
 	}
 }
 
@@ -92,190 +80,213 @@ bool ParticleManager::LoadEmittor( const char* FileName)
 		return false;
 	}
 
-	Emittor* temp = new Emittor();
 #pragma region XML_Variables
-	TiXmlElement* pNumParticles = pRoot->FirstChildElement("NumberofParticles");
-	if( pNumParticles)
+	TiXmlElement* xEmittor = pRoot->FirstChildElement("Emittor");
+
+	while( xEmittor != NULL)
 	{
-		temp->SetMaxNumber(atoi(pNumParticles->GetText()));
-	}
-	else 
-		MessageBox(0, "Failed to Load Number of Particles", 0,0);
+		Emittor* temp = new Emittor();
 
-	TiXmlElement* pMinLifeSpan = pRoot->FirstChildElement("MinLifeSpan");
-	if( pMinLifeSpan)
-	{
-		temp->SetMinLife((float)atof(pMinLifeSpan->GetText()));
-	}
-	else 
-		MessageBox(0, "Failed to Load Minimum Life Span of Particles", 0,0);
-
-	TiXmlElement* pMaxLifeSpan = pRoot->FirstChildElement("MaxLifeSpan");
-	if( pMaxLifeSpan)
-	{
-		temp->SetEndLife((float)atof(pMaxLifeSpan->GetText()));
-	}
-	else 
-		MessageBox(0, "Failed to Load Maximum Life Span of Particles", 0,0);
-
-	TiXmlElement* pStartColor = pRoot->FirstChildElement("StartColor");
-	if( pStartColor)
-	{
-		int col[4] = {-1, -1, -1, -1};
-
-		pStartColor->Attribute("A", &col[0]);
-		pStartColor->Attribute("R", &col[1]);
-		pStartColor->Attribute("G", &col[2]);
-		pStartColor->Attribute("B", &col[3]);
-
-		for( int i = 0; i < 4; i++)
+		TiXmlElement* pNumParticles = xEmittor->FirstChildElement("NumberofParticles");
+		if( pNumParticles)
 		{
-			if( col[i] == -1)
-			{
-				MessageBox(0, "ERROR: Failed to load color values",0,0);
-			}
+			temp->SetMaxNumber(atoi(pNumParticles->GetText()));
 		}
+		else 
+			MessageBox(0, "Failed to Load Number of Particles", 0,0);
 
-		temp->SetStartColor(D3DCOLOR_ARGB(col[0], col[1], col[2], col[3]));
-	}
-	else 
-		MessageBox(0, "Failed to Load Starting Color of Emittor", 0,0);
-
-	TiXmlElement* pEndColor = pRoot->FirstChildElement("EndColor");
-	if( pEndColor)
-	{
-		int col[4] = {-1, -1, -1, -1};
-
-		pEndColor->Attribute("A", &col[0]);
-		pEndColor->Attribute("R", &col[1]);
-		pEndColor->Attribute("G", &col[2]);
-		pEndColor->Attribute("B", &col[3]);
-
-		for( int i = 0; i < 4; i++)
+		TiXmlElement* pMinLifeSpan = xEmittor->FirstChildElement("MinLifeSpan");
+		if( pMinLifeSpan)
 		{
-			if( col[i] == -1)
-			{
-				MessageBox(0, "ERROR: Failed to load color values",0,0);
-			}
+			temp->SetMinLife((float)atof(pMinLifeSpan->GetText()));
 		}
+		else 
+			MessageBox(0, "Failed to Load Minimum Life Span of Particles", 0,0);
 
-		temp->SetEndColor(D3DCOLOR_ARGB(col[0], col[1], col[2], col[3]));
-	}
-	else 
-		MessageBox(0, "Failed to Load Ending Color of Emittor", 0,0);
+		TiXmlElement* pMaxLifeSpan = xEmittor->FirstChildElement("MaxLifeSpan");
+		if( pMaxLifeSpan)
+		{
+			temp->SetEndLife((float)atof(pMaxLifeSpan->GetText()));
+		}
+		else 
+			MessageBox(0, "Failed to Load Maximum Life Span of Particles", 0,0);
 
-	TiXmlElement* pStartXScale = pRoot->FirstChildElement("XStartScale");
-	if(pStartXScale)
-	{
-		temp->SetStartScaleX( (float)atof(pStartXScale->GetText()));
-	}
-	else
-		MessageBox(0, "Failed to load X Starting Scale", 0, 0);
+		TiXmlElement* pStartColor = xEmittor->FirstChildElement("StartColor");
+		if( pStartColor)
+		{
+			int col[4] = {-1, -1, -1, -1};
 
-	TiXmlElement* pEndXScale = pRoot->FirstChildElement("XEndScale");
-	if(pEndXScale)
-	{
-		temp->SetEndScaleX( (float)atof(pEndXScale->GetText()));
-	}
-	else
-		MessageBox(0, "Failed to load X Ending Scale", 0, 0);
+			pStartColor->Attribute("A", &col[0]);
+			pStartColor->Attribute("R", &col[1]);
+			pStartColor->Attribute("G", &col[2]);
+			pStartColor->Attribute("B", &col[3]);
 
-	TiXmlElement* pStartYScale = pRoot->FirstChildElement("YStartScale");
-	if(pStartXScale)
-	{
-		temp->SetStartScaleY( (float)atof(pStartYScale->GetText()));
-	}
-	else
-		MessageBox(0, "Failed to load Y Starting Scale", 0, 0);
+			for( int i = 0; i < 4; i++)
+			{
+				if( col[i] == -1)
+				{
+					MessageBox(0, "ERROR: Failed to load color values",0,0);
+				}
+			}
 
-	TiXmlElement* pEndYScale = pRoot->FirstChildElement("YEndScale");
-	if(pEndXScale)
-	{
-		temp->SetEndScaleY( (float)atof(pEndYScale->GetText()));
-	}
-	else
-		MessageBox(0, "Failed to load Y Ending Scale", 0, 0);
+			temp->SetStartColor(D3DCOLOR_ARGB(col[0], col[1], col[2], col[3]));
+		}
+		else 
+			MessageBox(0, "Failed to Load Starting Color of Emittor", 0,0);
 
-	TiXmlElement* pMinXVelocity = pRoot->FirstChildElement("MinXVelocity");
-	TiXmlElement* pMinYVelocity = pRoot->FirstChildElement("MinYVelocity");
-	if(pMinXVelocity && pMinYVelocity)
-	{
-		temp->SetMinVelocity((float)atof(pMinXVelocity->GetText()), (float)atof(pMinYVelocity->GetText()));
-	}
-	else
-		MessageBox(0, "Failed to load Min Velocity", 0, 0);
+		TiXmlElement* pEndColor = xEmittor->FirstChildElement("EndColor");
+		if( pEndColor)
+		{
+			int col[4] = {-1, -1, -1, -1};
 
-	TiXmlElement* pMaxXVelocity = pRoot->FirstChildElement("MaxXVelocity");
-	TiXmlElement* pMaxYVelocity = pRoot->FirstChildElement("MaxYVelocity");
-	if(pMaxXVelocity && pMaxYVelocity)
-	{
-		temp->SetMaxVelocity((float)atof(pMaxXVelocity->GetText()), (float)atof(pMaxYVelocity->GetText()));
-	}
-	else
-		MessageBox(0, "Failed to load Max Velocity", 0, 0);
+			pEndColor->Attribute("A", &col[0]);
+			pEndColor->Attribute("R", &col[1]);
+			pEndColor->Attribute("G", &col[2]);
+			pEndColor->Attribute("B", &col[3]);
 
-	TiXmlElement* pXAccel = pRoot->FirstChildElement("XAcceleration");
-	TiXmlElement* pYAccel = pRoot->FirstChildElement("YAcceleration");
-	if(pXAccel && pYAccel)
-	{
-		temp->SetAcceleration((float)atof(pXAccel->GetText()), (float)atof(pYAccel->GetText()));
-	}
-	else
-		MessageBox(0, "Failed to load Acceleration", 0, 0);
+			for( int i = 0; i < 4; i++)
+			{
+				if( col[i] == -1)
+				{
+					MessageBox(0, "ERROR: Failed to load color values",0,0);
+				}
+			}
 
-	TiXmlElement* pRotation = pRoot->FirstChildElement("YAcceleration");
-	if(pRotation)
-	{
-		temp->SetRotation((float)atof(pRotation->GetText()));
-	}
-	else
-		MessageBox(0, "Failed to load Rotation for emittor", 0, 0);
+			temp->SetEndColor(D3DCOLOR_ARGB(col[0], col[1], col[2], col[3]));
+		}
+		else 
+			MessageBox(0, "Failed to Load Ending Color of Emittor", 0,0);
 
-	TiXmlElement* pSource = pRoot->FirstChildElement("SourceBlend");
-	if(pSource)
-	{
-		temp->SetSourceBlend(atoi(pSource->GetText()));
-	}
-	else
-		MessageBox(0, "Failed to load Source Blend", 0, 0);
-
-	TiXmlElement* pDestination = pRoot->FirstChildElement("DestinationBlend");
-	if(pDestination)
-	{
-		temp->SetDestinationBlend(atoi(pDestination->GetText()));
-	}
-	else
-		MessageBox(0, "Failed to load Destination Blend", 0, 0);
-
-	TiXmlElement* pImageName = pRoot->FirstChildElement("ImageName");
-	if(pImageName)
-	{
-		temp->SetImageString(pImageName->GetText());
-	}
-	else
-		MessageBox(0, "Failed to load Particle Image Name", 0, 0);
-
-	TiXmlElement* pRepeat = pRoot->FirstChildElement("Continuous");
-	if(pRepeat)
-	{
-		const char* repeat = pRepeat->GetText();
-
-		if( strcmp(repeat, "true"))
-			temp->SetIsContinuous(false);
+		TiXmlElement* pStartXScale = xEmittor->FirstChildElement("XStartScale");
+		if(pStartXScale)
+		{
+			temp->SetStartScaleX( (float)atof(pStartXScale->GetText()));
+		}
 		else
-			temp->SetIsContinuous(true);
-	}
-	else
-		MessageBox(0, "Failed to load if this was a Continuous Effect or not", 0, 0);
+			MessageBox(0, "Failed to load X Starting Scale", 0, 0);
+
+		TiXmlElement* pEndXScale = xEmittor->FirstChildElement("XEndScale");
+		if(pEndXScale)
+		{
+			temp->SetEndScaleX( (float)atof(pEndXScale->GetText()));
+		}
+		else
+			MessageBox(0, "Failed to load X Ending Scale", 0, 0);
+
+		TiXmlElement* pStartYScale = xEmittor->FirstChildElement("YStartScale");
+		if(pStartXScale)
+		{
+			temp->SetStartScaleY( (float)atof(pStartYScale->GetText()));
+		}
+		else
+			MessageBox(0, "Failed to load Y Starting Scale", 0, 0);
+
+		TiXmlElement* pEndYScale = xEmittor->FirstChildElement("YEndScale");
+		if(pEndXScale)
+		{
+			temp->SetEndScaleY( (float)atof(pEndYScale->GetText()));
+		}
+		else
+			MessageBox(0, "Failed to load Y Ending Scale", 0, 0);
+
+		TiXmlElement* pMinXVelocity = xEmittor->FirstChildElement("MinXVelocity");
+		TiXmlElement* pMinYVelocity = xEmittor->FirstChildElement("MinYVelocity");
+		if(pMinXVelocity && pMinYVelocity)
+		{
+			temp->SetMinVelocity((float)atof(pMinXVelocity->GetText()), (float)atof(pMinYVelocity->GetText()));
+		}
+		else
+			MessageBox(0, "Failed to load Min Velocity", 0, 0);
+
+		TiXmlElement* pMaxXVelocity = xEmittor->FirstChildElement("MaxXVelocity");
+		TiXmlElement* pMaxYVelocity = xEmittor->FirstChildElement("MaxYVelocity");
+		if(pMaxXVelocity && pMaxYVelocity)
+		{
+			temp->SetMaxVelocity((float)atof(pMaxXVelocity->GetText()), (float)atof(pMaxYVelocity->GetText()));
+		}
+		else
+			MessageBox(0, "Failed to load Max Velocity", 0, 0);
+
+		TiXmlElement* pXAccel = xEmittor->FirstChildElement("XAcceleration");
+		TiXmlElement* pYAccel = xEmittor->FirstChildElement("YAcceleration");
+		if(pXAccel && pYAccel)
+		{
+			temp->SetAcceleration((float)atof(pXAccel->GetText()), (float)atof(pYAccel->GetText()));
+		}
+		else
+			MessageBox(0, "Failed to load Acceleration", 0, 0);
+
+		TiXmlElement* pRotation = xEmittor->FirstChildElement("YAcceleration");
+		if(pRotation)
+		{
+			temp->SetRotation((float)atof(pRotation->GetText()));
+		}
+		else
+			MessageBox(0, "Failed to load Rotation for emittor", 0, 0);
+
+		TiXmlElement* pSource = xEmittor->FirstChildElement("SourceBlend");
+		if(pSource)
+		{
+			temp->SetSourceBlend(atoi(pSource->GetText()));
+		}
+		else
+			MessageBox(0, "Failed to load Source Blend", 0, 0);
+
+		TiXmlElement* pDestination = xEmittor->FirstChildElement("DestinationBlend");
+		if(pDestination)
+		{
+			temp->SetDestinationBlend(atoi(pDestination->GetText()));
+		}
+		else
+			MessageBox(0, "Failed to load Destination Blend", 0, 0);
+
+		TiXmlElement* pImageName = xEmittor->FirstChildElement("ImageName");
+		if(pImageName)
+		{
+			temp->SetImageString(pImageName->GetText());
+		}
+		else
+			MessageBox(0, "Failed to load Particle Image Name", 0, 0);
+
+		TiXmlElement* pRepeat = xEmittor->FirstChildElement("Continuous");
+		if(pRepeat)
+		{
+			const char* repeat = pRepeat->GetText();
+
+			if( strcmp(repeat, "true"))
+				temp->SetIsContinuous(false);
+			else
+				temp->SetIsContinuous(true);
+		}
+		else
+			MessageBox(0, "Failed to load if this was a Continuous Effect or not", 0, 0);
+
+		TiXmlElement* xBursting = xEmittor->FirstChildElement("Bursting");
+		if(pRepeat)
+		{
+			const char* burst = xBursting->GetText();
+
+			if( strcmp(burst, "true"))
+				temp->SetIsContinuous(false);
+			else
+				temp->SetIsContinuous(true);
+		}
+		else
+			MessageBox(0, "Failed to load if this was a Continuous Effect or not", 0, 0);
+	
 
 
 #pragma endregion
 
-	temp->InitializeEmittor();
-	temp->SetID(Count);
+		temp->InitializeEmittor();
+		temp->SetID(Count);
 
-	Count += 1;
-	m_GameEmittors.push_back(temp);	// Pushes temp onto the Game emittor.
+		Count += 1;
+		m_GameEmittors.push_back(temp);	// Pushes temp onto the Game emittor.
+
+		xEmittor = xEmittor->NextSiblingElement();
+
+	}
 	
 
 	return true; // If successful.
@@ -291,8 +302,15 @@ void ParticleManager::AttachToBase(CBase* base, Emittor* emittor)
 
 void ParticleManager::AttachToBasePosition(CBase* base, Emittor* emittor, float offsetX, float offsetY)
 {
-	emittor->SetBase(base);
-	emittor->SetPosition( base->GetPosX() + offsetX, base->GetPosY() + offsetY);
+	if( base )
+	{
+		emittor->SetBase(base);
+		emittor->SetPosition( base->GetPosX() + offsetX, base->GetPosY() + offsetY);
+	}
+	else
+	{
+		emittor->SetPosition(offsetX, offsetY);
+	}
 
 }
 
@@ -327,4 +345,65 @@ Emittor* ParticleManager::GetEmittor(int id)
 	}
 
 	return NULL;
+}
+
+Emittor* ParticleManager::CreateEffect( Emittor* temp_emittor, float posX, float posY)
+{
+	Emittor* new_emittor = new Emittor();
+	new_emittor->SetPosition(posX, posY);
+	new_emittor->SetMaxNumber(temp_emittor->GetMaxNumber());
+	new_emittor->SetMinLife(temp_emittor->GetMinLife());
+	new_emittor->SetEndLife(temp_emittor->GetEndLife());
+	new_emittor->SetStartColor(temp_emittor->GetStartColor());
+	new_emittor->SetEndColor(temp_emittor->GetEndColor());
+	new_emittor->SetStartScaleX(temp_emittor->GetStartScaleX());
+	new_emittor->SetEndScaleX(temp_emittor->GetEndScaleX());
+	new_emittor->SetStartScaleY(temp_emittor->GetStartScaleY());
+	new_emittor->SetEndScaleY(temp_emittor->GetEndScaleY());
+	new_emittor->SetMinVelocity(temp_emittor->GetMinVelocity().fX, temp_emittor->GetMinVelocity().fY );
+	new_emittor->SetMaxVelocity(temp_emittor->GetMaxVelocity().fX, temp_emittor->GetMaxVelocity().fY );
+	new_emittor->SetAcceleration(temp_emittor->GetAcceleration().fX, temp_emittor->GetAcceleration().fY );
+	new_emittor->SetRotation(temp_emittor->GetRotation());
+	new_emittor->SetSourceBlend(temp_emittor->GetSourceBlend());
+	new_emittor->SetDestinationBlend(temp_emittor->GetDestinationBlend());
+	new_emittor->SetImageString(temp_emittor->GetImageString());
+	new_emittor->SetIsContinuous(temp_emittor->GetIsContinuous());
+	new_emittor->SetTextureID(temp_emittor->GetTextureID());
+	new_emittor->SetIsDead(false);
+	new_emittor->SetIsBursting(temp_emittor->IsBursting());
+	m_ActiveEmittors.push_back(new_emittor);
+
+	new_emittor->ClearParticleList();
+
+	for (int i = 0; i < new_emittor->GetMaxNumber(); i++)
+        {
+
+            Particle* temp = new Particle();
+
+			temp->position = new_emittor->GetPosition();
+			temp->color = new_emittor->GetStartColor();
+
+			temp->currLife = 0;
+			temp->maxlife = RAND_FLOAT(new_emittor->GetMinLife(), new_emittor->GetEndLife());
+
+			temp->spawnDelay = RAND_FLOAT(0.0f, 1.0f);
+			
+			temp->velocity.fX = (RAND_FLOAT(new_emittor->GetMinVelocity().fX,new_emittor->GetMaxVelocity().fX)) * 0.1f;
+			temp->velocity.fY = (RAND_FLOAT(new_emittor->GetMinVelocity().fY, new_emittor->GetMaxVelocity().fY)) * 0.1f;
+			temp->scaleX = new_emittor->GetStartScaleX();
+			temp->scaleY = new_emittor->GetStartScaleY();
+
+			temp->rotation = 0.0f;
+
+			temp->colorfade_timer = 0.0f;
+			temp->scaleX_timer = 0.0f;
+			temp->scaleY_timer = 0.0f;
+			temp->spawn_timer = 0.0f;
+
+			temp->isDead = true;
+
+			new_emittor->AddToParticleList(temp);
+        }
+
+	return new_emittor;
 }

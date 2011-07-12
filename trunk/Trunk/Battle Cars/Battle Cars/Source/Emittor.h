@@ -68,7 +68,7 @@ private:
 	bool isDead;				// Is the emittor itself Dead/InActive or is it Undead/Active.
 	bool isActive;				// Is the emittor itself Active, if not then we can add it on to active list if its alive.
 	
-	float m_fCurrElapsedTime;	// Variable used to store the current 
+	float m_fTimeToDie;			// Variable used to store the time until the emittor dies. 
 
 	float m_StartScaleX;				// The scale for each particle
 	float m_StartScaleY;				// The scale for each particle
@@ -83,9 +83,6 @@ private:
 	std::string imagename;					// The name of the particle image
 
 	int ID;								// the ID of the emittor
-
-	int Source;							// The source blend for the emittor to use.
-	int Destination;					// the destination blend for the emittor to use.
 
 
 public:
@@ -127,11 +124,35 @@ public:
 		return isActive;
 	}
 
+	bool IsBursting()
+	{
+		return m_isBursting;
+	}
+
 	// Accessors
 	int GetTextureID() { return m_nTextureID;}
 	float GetCurrentLife() { return m_fCurrLife;}
-	float GetEndLife() { return m_fEndLife;}
+	float GetTimeToDie() { return m_fTimeToDie;}
 	int GetID(){ return ID;}
+	tVector2D GetPosition(){ return position;}
+	int GetMaxNumber(){ return m_nMaxNumber;}
+	float GetMinLife(){ return m_fMinLife;}
+	float GetEndLife(){ return m_fEndLife;}
+	D3DCOLOR GetStartColor(){ return m_StartColor;}
+	D3DCOLOR GetEndColor(){ return m_EndColor;}
+	tVector2D GetAcceleration(){ return acceleration;}
+	tVector2D GetMinVelocity(){ return minVelocity;}
+	tVector2D GetMaxVelocity(){ return maxVelocity;}
+	float GetRotation() { return rotation;}
+	float GetStartScaleX(){ return m_StartScaleX;}
+	float GetEndScaleX(){ return m_EndScaleX;}
+	float GetStartScaleY(){ return m_StartScaleY;}
+	float GetEndScaleY(){ return m_EndScaleY;}
+	bool GetIsContinuous(){ return m_isContinuous;}
+	int GetSourceBlend() { return SourceBlend;}
+	int GetDestinationBlend() { return DestinationBlend;}
+	std::string GetImageString(){ return imagename;}
+
 
 	// Mutators
 	void SetBase(CBase* base);
@@ -158,8 +179,12 @@ public:
 	void SetDestinationBlend(int value){ DestinationBlend = value;}
 	void SetImageString( std::string filename) { imagename = filename;}
 	void SetID( int id) { ID = id;}
+	void SetTimeToDie(float time) { m_fTimeToDie = time;}
+	void SetIsBursting(bool value){ m_isBursting = value;}
 
-	void ResetElapsedEmitterTime() { m_fCurrElapsedTime = 0.0f;}
+	void ResetElapsedEmitterTime() { m_fCurrLife = 0.0f;}
+	void ClearParticleList(){ m_vParticleList.clear();}
+	void AddToParticleList(Particle* particle){ m_vParticleList.push_back(particle);}
 
 	////////////////////////////////////////////////////////////////////////
 	//

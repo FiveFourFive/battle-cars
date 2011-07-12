@@ -68,7 +68,7 @@ void CGamerProfile::Enter()
 	PosX = 350;
 
 	LoadProfiles("resource/data/gamer_profile.xml");
-	for(int i = 0; i < m_vUserProfiles.size(); i++)
+	for(unsigned int i = 0; i < m_vUserProfiles.size(); i++)
 	{
 		m_vUserProfiles[i]->m_pKB = CGame::GetInstance()->GetController1()->GetKB();
 		m_vUserProfiles[i]->m_pKKB = CGame::GetInstance()->GetKeyboardKeyBinds();

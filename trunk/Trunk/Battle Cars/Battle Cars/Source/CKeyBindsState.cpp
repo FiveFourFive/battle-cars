@@ -288,8 +288,6 @@ void CKeyBindsState::Render(void)
 	
 	m_pPF->Print("KEY BINDINGS",220,50,1.0f,D3DCOLOR_XRGB(200, 0, 0));
 
-	char buffer[32];
-
 
 	m_pPF->Print("INPUT DEVICE",150,120,0.5f,D3DCOLOR_XRGB(200, 0, 0));	
 

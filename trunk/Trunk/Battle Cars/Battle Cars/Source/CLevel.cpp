@@ -120,9 +120,9 @@ void CLevel::Render (CCamera* camera)
 	if (StartIndex < 0)
 		StartIndex = 0;
 
-	int i = camera->GetRenderPosX() / LevelMap->GetPixelWidth();
-	int count = camera->GetRenderPosX() / LevelMap->GetPixelWidth();
-	int j = camera->GetRenderPosY() / LevelMap->GetPixelHeight();
+	int i = (int)camera->GetRenderPosX() / LevelMap->GetPixelWidth();
+	int count = (int)camera->GetRenderPosX() / LevelMap->GetPixelWidth();
+	int j = (int)camera->GetRenderPosY() / LevelMap->GetPixelHeight();
 	float temp_var = camera->GetRenderPosY() / LevelMap->GetPixelHeight();
 	if( temp_var - j > 0.5)
 		j++;
@@ -150,7 +150,7 @@ void CLevel::Render (CCamera* camera)
 
 		if( i == count + 100)
 		{
-			i = camera->GetRenderPosX() / LevelMap->GetPixelWidth();
+			i = (int)camera->GetRenderPosX() / LevelMap->GetPixelWidth();
 			j++;
 		}
 		

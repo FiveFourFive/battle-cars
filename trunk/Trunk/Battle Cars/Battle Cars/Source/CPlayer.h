@@ -9,7 +9,7 @@ class CXboxInput;
 class CMessageSystem;
 
 enum characters{CAR_MINI, CAR_VETTE, CAR_HUMMER, CAR_TRUCK, CAR_NUM};
-class CPlayer : public CCar, public IListener
+class CPlayer : public CCar
 {
 private:
 	CCamera* m_pCamera;

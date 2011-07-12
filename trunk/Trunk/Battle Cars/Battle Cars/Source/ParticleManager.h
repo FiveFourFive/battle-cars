@@ -8,6 +8,8 @@ class Emittor;
 class CBase;
 class CCamera;
 
+enum emittor_types{ COLLISION_EMITTOR, MISSLE_EMITTOR, EXPLOSION_EMITTOR, TOTAL_EMITTOR};
+
 class ParticleManager
 {
 private:
@@ -95,6 +97,17 @@ public:
 	//	as well as set the base as the emittors base.
 	//////////////////////////////////////////////////
 	void AttachToBasePosition(CBase* base, Emittor* emittor, float offsetX = 0, float offsetY = 0);
+
+	///////////////////////////////////////////////////
+	//
+	// Return: Emittor*
+	//
+	// Input: Emittor*
+	//
+	// This will create a new emittor without overriding the default loaded onces.
+	// Purpose is to reuse the effect and create multiple effects without overriding each other.
+	////////////////////////////////////////////////////
+	Emittor* CreateEffect( Emittor* temp_emittor, float posX, float posY);
 
 	void ShutDownParticleManager();
 

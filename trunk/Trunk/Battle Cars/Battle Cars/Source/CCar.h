@@ -45,6 +45,7 @@ private:
 	int m_nBulletImageID;
 	int m_nMissileImageID;
 	int m_nSpecialWeaponImageID;
+	float m_fCollisionEffect;		// used to create a single particle effect with the send event rather than creating more than what was desired.
 
 public:
 	CCar(void);
@@ -80,6 +81,7 @@ public:
 	int GetMissileImageID(void) {return m_nMissileImageID;}
 	int GetSpecialImageID(void) {return m_nSpecialWeaponImageID;}
 	float GetCollisionDelay(void) {return m_fCollisionDelay;}
+	float GetEffectTimer(){ return m_fCollisionEffect;}
 	tVector2D GetOverallVelocity(void) { return m_tOverallVelocity; }
 	//setters
 	void SetOverallVelocity(tVector2D vel) { m_tOverallVelocity = vel; }
@@ -104,7 +106,7 @@ public:
 	void DecrementWeapon(void) { m_nSelectedWeapon--; }
 	void SetSelectedWeapon(int wepnum) { m_nSelectedWeapon = wepnum; }
 	void SetAccelerating(bool accel) { m_bAccelerating = accel; }
-	void SetCollisionInfo(int x1, int y1, int radius) { m_nCollisionX1 = x1; m_nCollisionY1 = y1; m_nCollisionRadius = radius; }
+	void SetCollisionInfo(float x1, float y1, float radius) { m_nCollisionX1 = x1; m_nCollisionY1 = y1; m_nCollisionRadius = radius; }
 	void Rotate(float angle);
 	void SetArmor(float fArmor) {m_fArmor = fArmor;}
 	void SetFireDelayMissile(float delay) {m_fFireDelayMissiles = delay;}
@@ -112,6 +114,7 @@ public:
 	void SetMissileImageID(int id) {m_nMissileImageID = id;}
 	void SetSpecialWeaponImageID(int id) {m_nSpecialWeaponImageID = id;}
 	void SetCollisionDelay(float delay) {m_fCollisionDelay = delay;}
+	void ResetEffectTimer(){ m_fCollisionEffect = 0.0f;}
 	// plays the crash sound
 	void PlayCrash(void);
 	void PlayBullet(void);
