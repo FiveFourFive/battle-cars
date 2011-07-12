@@ -22,7 +22,7 @@
 
 class CCamera;
 
-class CEnemy : public CCar, public IListener
+class CEnemy : public CCar
 {
 private:
 	IAIBaseState*  m_AICurrentState;

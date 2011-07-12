@@ -14,7 +14,11 @@
 #include "CMainMenuState.h"
 #include "CNumPlayers.h"
 #include "COptionState.h"
+#include "ParticleManager.h"
+#include "Emittor.h"
 #include <math.h>
+
+
 CPlayer::CPlayer(CXboxInput* pController)
 {
 	m_nType = OBJECT_PLAYER;
@@ -490,7 +494,7 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 		
 			float myspeed = GetSpeed();
 			float hisspeed = tempcar->GetSpeed();
-			float speedtouse;
+			//float speedtouse;
 			if(myspeed > hisspeed)
 			{
 				myspeed = myspeed * 0.3f;
@@ -504,7 +508,7 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 				SetSpeed(hisspeed);
 			}
 
-
+			CEventSystem::GetInstance()->SendEvent("collision",this);
 
 			
 		}
@@ -571,7 +575,7 @@ void CPlayer::HandleEvent(CEvent* pEvent)
 		else if(pEvent->GetEventID() == "damage")
 		{
 			CBullet* tempbullet = (CBullet*)pEvent->GetParam2();
-			float damage = tempbullet->GetDamage();
+			float damage = (float)tempbullet->GetDamage();
 			if(GetShieldBar() >= 0)
 			{
 				SetShieldBar(GetShieldBar() - tempbullet->GetDamage());
@@ -585,6 +589,22 @@ void CPlayer::HandleEvent(CEvent* pEvent)
 		else if(pEvent->GetEventID() == "powerup_power")
 		{
 			SetPowerUpBar(GetPowerUpBar() + 20);
+		}
+		else if( pEvent->GetEventID() == "collision")
+		{
+			if( GetEffectTimer() >= 0.5f)
+			{
+				ParticleManager* pPM = ParticleManager::GetInstance();  
+				Emittor* tempemittor = pPM->CreateEffect(pPM->GetEmittor(COLLISION_EMITTOR), GetCX1(), GetCY1());
+
+				if( tempemittor)
+				{
+					tempemittor->SetTimeToDie(1.0f);
+					pPM->AttachToBasePosition(NULL, tempemittor, GetCX1(), GetCY1());
+				}
+
+				ResetEffectTimer();
+			}
 		}
 	}
 	

@@ -216,8 +216,8 @@ void CGamePlayState::Enter(void)
 	else
 		player2 = m_pCharacters[3];
 
-	player->Rotate(0);
-	player2->Rotate(0);
+	player->Rotate(0.0f);
+	player2->Rotate(0.0f);
 	player2->SetController(m_pController2);
 	m_pOM->AddObject(player);
 	m_pOM->AddObject(player2);
@@ -240,20 +240,7 @@ void CGamePlayState::Enter(void)
 	m_pD3D->DeviceEnd();
 	m_pD3D->Present();
 
-	m_pPM->LoadEmittor("resource/data/temp.xml");
-	//Level->Load ("Resource/Data/TestMap.xml");
-	Emittor* tempemittor = m_pPM->GetEmittor(0);
-
-	/*temp.left = 0;
-	temp.top = 0;
-	temp.right = temp.left + CGame::GetInstance ()->GetScreenWidth();
-	temp.bottom = temp.top + CGame::GetInstance ()->GetScreenHeight();*/
-
-	if( tempemittor)
-	{
-		//tempemittor->SetIsDead(false);
-		//tempemittor->SetIsActive(false);
-	}
+	m_pPM->LoadEmittor("resource/data/collision.xml");
 
 	time = 120;
 	m_fElapsedSecond = 0.0f;
@@ -261,7 +248,7 @@ void CGamePlayState::Enter(void)
 
 	player2->SetPosX(550);
 
-	m_pPM->AttachToBasePosition(player, tempemittor, 0, 0);
+	
 
 	m_pD3D->Clear(0, 0, 0);
 	m_pD3D->DeviceBegin();
@@ -424,7 +411,6 @@ void CGamePlayState::Update(float fElapsedTime)
 		Level->CheckWorldCollision (player);
 
 		m_pES->ProcessEvents ();
-		m_pMS->ProcessMessages ();
 		m_pPM->UpdateEmittors(fElapsedTime);
 		m_pMS->ProcessMessages ();
 		if(player->GetHealth() <= 0)

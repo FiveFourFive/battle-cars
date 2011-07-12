@@ -32,7 +32,7 @@ void CLandMine::Render(CCamera* camera)
 	temppos.right = (LONG)(temppos.left + GetWidth());
 	temppos.bottom = (LONG)(temppos.top + GetHeight());
 	CSGD_Direct3D::GetInstance()->DrawRect(temppos,255,255,255);
-	GetTextureManager()->Draw(GetImageID(),((int)GetPosX()-(GetWidth() * .5f)) - camera->GetCamX() + camera->GetRenderPosX(),((int)GetPosY()-(GetHeight()*.5f)) - camera->GetCamY() + camera->GetRenderPosY(),GetScale(),GetScale());
+	GetTextureManager()->Draw(GetImageID(),(int)(GetPosX()-(GetWidth() * .5f)) - (int)camera->GetCamX() + (int)camera->GetRenderPosX(),(int)(GetPosY()-(GetHeight()*.5f)) - (int)camera->GetCamY() + (int)camera->GetRenderPosY(),GetScale(),GetScale());
 }
 
 bool CLandMine::CheckCollision(IBaseInterface* pBase)

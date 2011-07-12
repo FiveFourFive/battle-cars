@@ -15,7 +15,6 @@ namespace temp_variables
 
 Emittor::Emittor()
 {
-	m_fCurrElapsedTime = 0.0f;
 	position.fX = 0.0f;
 	position.fY = 0.0f;
 	acceleration.fX = 0.0f;
@@ -24,6 +23,9 @@ Emittor::Emittor()
 	minVelocity.fY = 0.0f;
 	maxVelocity.fX = 0.0f;
 	maxVelocity.fY = 0.0f;
+
+	isActive = false;
+	isDead = true;
 
 	m_fCurrLife = 0.0f;
 }
@@ -40,76 +42,75 @@ Emittor::~Emittor()
 
 void Emittor::Update(float fElapsedTime)
 {
+	m_fCurrLife += fElapsedTime;
 	
-            for (unsigned int i = 0; i < m_vParticleList.size(); i++)
-            {
-				m_vParticleList[i]->spawn_timer += fElapsedTime;
+        for (unsigned int i = 0; i < m_vParticleList.size(); i++)
+        {
+			m_vParticleList[i]->spawn_timer += fElapsedTime;
 
+			if( IsBursting() == false )
+			{
 				if (m_vParticleList[i]->spawn_timer <= m_vParticleList[i]->spawnDelay)
-                    continue;
-                else
+					continue;
+				else
+					m_vParticleList[i]->isDead = false;
+			}
+			else
 					m_vParticleList[i]->isDead = false;
 
-				m_vParticleList[i]->position.fX += (m_vParticleList[i]->velocity.fX + acceleration.fX * fElapsedTime);
-				m_vParticleList[i]->position.fY += (m_vParticleList[i]->velocity.fY + acceleration.fY * fElapsedTime);
+			m_vParticleList[i]->position.fX += (m_vParticleList[i]->velocity.fX + acceleration.fX * fElapsedTime);
+			m_vParticleList[i]->position.fY += (m_vParticleList[i]->velocity.fY + acceleration.fY * fElapsedTime);
                 
 
-				m_vParticleList[i]->currLife += fElapsedTime;
-				m_vParticleList[i]->colorfade_timer += fElapsedTime;
-				m_vParticleList[i]->scaleX_timer += fElapsedTime;
-				m_vParticleList[i]->scaleY_timer += fElapsedTime;
+			m_vParticleList[i]->currLife += fElapsedTime;
+			m_vParticleList[i]->colorfade_timer += fElapsedTime;
+			m_vParticleList[i]->scaleX_timer += fElapsedTime;
+			m_vParticleList[i]->scaleY_timer += fElapsedTime;
 
-				m_vParticleList[i]->rotation += 0.01;
-                if (m_vParticleList[i]->rotation >= 6.28f)
-                    m_vParticleList[i]->rotation = 0.0f;
+				m_vParticleList[i]->rotation += this->rotation * fElapsedTime;
+            if (m_vParticleList[i]->rotation >= 6.28f)
+                m_vParticleList[i]->rotation = 0.0f;
 
                
-                UpdateColor(i);
-                UpdateScale(i);
+            UpdateColor(i);
+            UpdateScale(i);
 
-				if (m_vParticleList[i]->colorfade_timer >= m_vParticleList[i]->maxlife)
-                    m_vParticleList[i]->colorfade_timer = 0.0f;
-                if (m_vParticleList[i]->scaleX_timer >= m_vParticleList[i]->maxlife)
-                    m_vParticleList[i]->scaleX_timer = 0.0f;
-                if (m_vParticleList[i]->scaleY_timer >= m_vParticleList[i]->maxlife)
-                    m_vParticleList[i]->scaleY_timer = 0.0f;
+			if (m_vParticleList[i]->colorfade_timer >= m_vParticleList[i]->maxlife)
+                m_vParticleList[i]->colorfade_timer = 0.0f;
+            if (m_vParticleList[i]->scaleX_timer >= m_vParticleList[i]->maxlife)
+                m_vParticleList[i]->scaleX_timer = 0.0f;
+            if (m_vParticleList[i]->scaleY_timer >= m_vParticleList[i]->maxlife)
+                m_vParticleList[i]->scaleY_timer = 0.0f;
 
 				
-                    if (m_vParticleList[i]->currLife > m_vParticleList[i]->maxlife)
-                    {
-						if( m_isContinuous)
-						{
-							m_vParticleList[i]->currLife = 0.0f;
+                if (m_vParticleList[i]->currLife > m_vParticleList[i]->maxlife)
+                {
+					if( m_isContinuous)
+					{
+						m_vParticleList[i]->currLife = 0.0f;
 
-							m_vParticleList[i]->position = position;
-							if( fElapsedTime > 1)
-							{
-								
-							m_vParticleList[i]->velocity.fX = (rand()% (int)maxVelocity.fX - fabs(minVelocity.fX)) * 0.01f;
-							m_vParticleList[i]->velocity.fY = (rand()% (int)maxVelocity.fY - fabs(minVelocity.fY)) * 0.01f;
-							}
-							else
-							{
-								m_vParticleList[i]->velocity.fX = (RAND_FLOAT(minVelocity.fX, maxVelocity.fX)) * fElapsedTime;
-								m_vParticleList[i]->velocity.fY = (RAND_FLOAT(minVelocity.fY, maxVelocity.fY)) * fElapsedTime;
-							}
-							m_vParticleList[i]->color = m_StartColor;
-							m_vParticleList[i]->scaleX = m_StartScaleX;
-							m_vParticleList[i]->scaleY = m_StartScaleY;
+						m_vParticleList[i]->position = position;
+						m_vParticleList[i]->velocity.fX = (RAND_FLOAT(minVelocity.fX, maxVelocity.fX)) * fElapsedTime;
+						m_vParticleList[i]->velocity.fY = (RAND_FLOAT(minVelocity.fY, maxVelocity.fY)) * fElapsedTime;
+						m_vParticleList[i]->color = m_StartColor;
+						m_vParticleList[i]->scaleX = m_StartScaleX;
+						m_vParticleList[i]->scaleY = m_StartScaleY;
 
-							m_vParticleList[i]->spawn_timer = 0.0f;
-							m_vParticleList[i]->isDead = true;
-						}
-						else
-							m_vParticleList[i]->isDead = true;
-				
+						m_vParticleList[i]->spawn_timer = 0.0f;
+						m_vParticleList[i]->isDead = true;
 					}
-			}
+					else
+						m_vParticleList[i]->isDead = true;
+				
+				}
+		}
 
 }
 
 void Emittor::Render(CCamera* camera)
 {
+	CSGD_Direct3D::GetInstance()->GetSprite()->Flush();
+
 	CSGD_TextureManager* pTM = CSGD_TextureManager::GetInstance();
 	int temp_source = 0;
 	int temp_destination = 0;
@@ -126,8 +127,8 @@ void Emittor::Render(CCamera* camera)
 		{
 			
 			// Renders each individual particle.
-			pTM->Draw(m_nTextureID, (int)m_vParticleList[i]->position.fX - (int)camera->GetCamX(), (int)m_vParticleList[i]->position.fY - (int)camera->GetCamY(), m_vParticleList[i]->scaleX, m_vParticleList[i]->scaleY,
-				NULL, 0, 0, m_vParticleList[i]->rotation, m_vParticleList[i]->color);
+			pTM->Draw(m_nTextureID, (int)m_vParticleList[i]->position.fX - (int)(pTM->GetTextureWidth(this->GetTextureID())*0.5f) - (int)camera->GetCamX(), (int)m_vParticleList[i]->position.fY - (int)(pTM->GetTextureHeight(this->GetTextureID())*0.5f) - (int)camera->GetCamY(), m_vParticleList[i]->scaleX, m_vParticleList[i]->scaleY,
+				NULL, (float)pTM->GetTextureWidth(this->GetTextureID()), (float)pTM->GetTextureHeight(this->GetTextureID()), m_vParticleList[i]->rotation, m_vParticleList[i]->color);
 		}
 	}
 
@@ -218,8 +219,6 @@ void Emittor::InitializeEmittor()
 	directory += imagename;
 	SetTextureID( CSGD_TextureManager::GetInstance()->LoadTexture(directory.c_str(), D3DCOLOR_XRGB(0,0,0)));
 
-	isDead = false;
-
 	m_vParticleList.clear();
 
 	for (int i = 0; i < this->m_nMaxNumber; i++)
@@ -230,16 +229,15 @@ void Emittor::InitializeEmittor()
 			temp->position = this->position;
 			temp->color = this->m_StartColor;
 
-			temp->currLife = 0;
+			temp->currLife = 0.0f;
 			temp->maxlife = RAND_FLOAT(m_fMinLife, m_fEndLife);
-
-			temp->maxlife = RAND_FLOAT(this->m_fMinLife, this->m_fEndLife);
 			temp->spawnDelay = RAND_FLOAT(0.0f, 1.0f);
 			
-			temp->velocity.fX = 0;
-			temp->velocity.fY = 0;
-
-			temp->rotation = this->rotation;
+			temp->velocity.fX = (RAND_FLOAT(minVelocity.fX, maxVelocity.fX)) * 0.01f;
+			temp->velocity.fY = (RAND_FLOAT(minVelocity.fY, maxVelocity.fY)) * 0.01f;
+			temp->scaleX = m_StartScaleX;
+			temp->scaleY = m_StartScaleY;
+			temp->rotation = 0.0f;
 
 			temp->colorfade_timer = 0.0f;
 			temp->scaleX_timer = 0.0f;
