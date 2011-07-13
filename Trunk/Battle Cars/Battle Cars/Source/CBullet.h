@@ -8,6 +8,7 @@
 class CPlayer;
 class CSGD_TextureManager;
 class CCamera;
+class Emittor;
 
 enum bullets{PROJECTILE_BULLET, PROJECTILE_MISSILE, PROJECTILE_MINI_MISSILE, PROJECTILE_LANDMINE};
 class CBullet : public CBase
@@ -26,6 +27,8 @@ private:
 	float m_fBlastRadius;
 	int m_nBulletType;
 	float m_fSlowRate;
+	
+	int trace_particle;				// The index to the particle effect.
 
 public:
 	CBullet(void);
@@ -58,6 +61,9 @@ public:
 	void SetBlastRadius(float radius) {m_fBlastRadius = radius;}
 	void SetSlowRate(float rate) {m_fSlowRate = rate;}
 	bool CheckCollision(IBaseInterface* pBase);
+
+	void SetTracerEmittor(int index){ trace_particle = index;}
+	int GetTracerEmittor(){ return trace_particle;}
 };
 
 

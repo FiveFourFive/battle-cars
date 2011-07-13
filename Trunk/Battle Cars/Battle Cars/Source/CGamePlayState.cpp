@@ -260,6 +260,7 @@ void CGamePlayState::Enter(void)
 	m_pD3D->Present();
 
 	m_pPM->LoadEmittor("resource/data/collision.xml");
+	m_pPM->LoadEmittor("resource/data/missle_flame.xml");
 
 	time = 30;
 	m_fElapsedSecond = 0.0f;
@@ -665,6 +666,17 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet->SetBulletType(PROJECTILE_MISSILE);
 			pBullet->SetRotation(pCBM->GetPlayer()->GetRotation());
 			pGame->m_pOM->AddObject(pBullet);
+
+			ParticleManager* pPM = ParticleManager::GetInstance(); 
+			Emittor* tempemittor = pPM->CreateEffect(pPM->GetEmittor(MISSLE_EMITTOR), pBullet->GetPosX(), pBullet->GetPosY());
+
+			if( tempemittor)
+			{
+				pBullet->SetTracerEmittor(tempemittor->GetID());
+				tempemittor->SetTimeToDie(100.0f);
+				pPM->AttachToBasePosition(pBullet, tempemittor, pBullet->GetWidth()*0.5f, pBullet->GetHeight()*0.5f);
+
+			}
 
 			pBullet->Release();
 		}
@@ -1092,7 +1104,9 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			CBullet* tempbullet = pM->GetBullet();
 			CGamePlayState* pGame = CGamePlayState::GetInstance();
 			if(tempbullet->GetBulletType() == PROJECTILE_BULLET)
+			{
 				pGame->m_pOM->RemoveObject(tempbullet);
+			}
 			else if(tempbullet->GetBulletType() == PROJECTILE_MISSILE || tempbullet->GetBulletType() == PROJECTILE_MINI_MISSILE)
 			{
 				CLandMine* pLandMine = new CLandMine();

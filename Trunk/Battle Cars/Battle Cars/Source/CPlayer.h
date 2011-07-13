@@ -23,6 +23,7 @@ private:
 	float m_fIcyBullets;
 	float m_fFlames;
 	RECT m_CollisionRECT;
+	bool Collision_effect;			//Check whether effect has been applied yet or not.
 
 	int m_nPlayerNum;
 

@@ -52,6 +52,17 @@ void ParticleManager::UpdateEmittors(float fElapsedTime)
 			}
 		}
 	}
+
+	for( unsigned int i = 0; i < m_GameEmittors.size(); i++)
+	{
+		if( m_GameEmittors[i] )
+			
+			if( m_GameEmittors[i]->GetCurrentLife() >= m_GameEmittors[i]->GetTimeToDie())
+			{
+				m_GameEmittors.erase(m_GameEmittors.begin() + i, m_GameEmittors.begin() + i+1);
+				Count--;
+			}
+	}
 }
 
 void ParticleManager::RenderEmittors(CCamera* camera)
@@ -267,17 +278,18 @@ bool ParticleManager::LoadEmittor( const char* FileName)
 			const char* burst = xBursting->GetText();
 
 			if( strcmp(burst, "true"))
-				temp->SetIsContinuous(false);
+				temp->SetIsBursting(false);
 			else
-				temp->SetIsContinuous(true);
+				temp->SetIsBursting(true);
 		}
 		else
-			MessageBox(0, "Failed to load if this was a Continuous Effect or not", 0, 0);
+			MessageBox(0, "Failed to load if this was a Bursting Effect or not", 0, 0);
 	
 
 
 #pragma endregion
 
+		temp->SetBase(NULL);
 		temp->InitializeEmittor();
 		temp->SetID(Count);
 
@@ -371,7 +383,11 @@ Emittor* ParticleManager::CreateEffect( Emittor* temp_emittor, float posX, float
 	new_emittor->SetTextureID(temp_emittor->GetTextureID());
 	new_emittor->SetIsDead(false);
 	new_emittor->SetIsBursting(temp_emittor->IsBursting());
+	Count++;
+	new_emittor->SetBase(NULL);
+	new_emittor->SetID(Count);
 	m_ActiveEmittors.push_back(new_emittor);
+	m_GameEmittors.push_back(new_emittor);
 
 	new_emittor->ClearParticleList();
 
