@@ -2,6 +2,7 @@
 #include "CBase.h"
 #include "CCamera.h"
 #include "CSGD_TextureManager.h"
+#include "CBullet.h"
 
 namespace temp_variables
 {
@@ -26,6 +27,8 @@ Emittor::Emittor()
 
 	isActive = false;
 	isDead = true;
+
+	ID = 0;
 
 	m_fCurrLife = 0.0f;
 }
@@ -53,13 +56,19 @@ void Emittor::Update(float fElapsedTime)
 				if (m_vParticleList[i]->spawn_timer <= m_vParticleList[i]->spawnDelay)
 					continue;
 				else
-					m_vParticleList[i]->isDead = false;
-			}
-			else
+				{
 					m_vParticleList[i]->isDead = false;
 
-			m_vParticleList[i]->position.fX += (m_vParticleList[i]->velocity.fX + acceleration.fX * fElapsedTime);
-			m_vParticleList[i]->position.fY += (m_vParticleList[i]->velocity.fY + acceleration.fY * fElapsedTime);
+				}
+			}
+			else
+			{
+					m_vParticleList[i]->isDead = false;
+
+			}
+
+				m_vParticleList[i]->position.fX += (m_vParticleList[i]->velocity.fX + acceleration.fX * fElapsedTime);
+				m_vParticleList[i]->position.fY += (m_vParticleList[i]->velocity.fY + acceleration.fY * fElapsedTime);
                 
 
 			m_vParticleList[i]->currLife += fElapsedTime;
@@ -214,7 +223,10 @@ void Emittor::InitializeEmittor()
 		MessageBox(0, "Failed to Initialize Emittor, emittor's value is NULL", 0, 0);
 		return;
 	}
-	
+
+	this->SetCurrLife(0.0f);
+	this->SetTimeToDie(1.0f);
+
 	std::string directory = "Resource/Graphics/";
 	directory += imagename;
 	SetTextureID( CSGD_TextureManager::GetInstance()->LoadTexture(directory.c_str(), D3DCOLOR_XRGB(0,0,0)));

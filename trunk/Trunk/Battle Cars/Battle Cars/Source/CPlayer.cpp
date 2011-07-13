@@ -16,6 +16,9 @@
 #include "COptionState.h"
 #include <math.h>
 #include "CHUD.h"
+#include "ParticleManager.h"
+#include "Emittor.h"
+
 CPlayer::CPlayer(CXboxInput* pController)
 {
 	m_nType = OBJECT_PLAYER;
@@ -34,11 +37,14 @@ CPlayer::CPlayer(CXboxInput* pController)
 	//tempkeys->SetShootAccept(XINPUT_GAMEPAD_Y);
 	m_pES->RegisterClient ("CameraCollision", this);
 	m_pES->RegisterClient("powerup_power", this);
+	CEventSystem::GetInstance()->RegisterClient("collision", this);
 	m_fFireTimer = 0.0;
 	m_bIsFlameThrowerOn = false;
 	m_bIsIcyGatlingOn = false;
 	m_fIcyBullets = 0.0f;
 	m_fFlames = 0.0f;
+
+	Collision_effect = false;
 
 }
 CPlayer::~CPlayer(void)
@@ -461,7 +467,11 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 			}
 
 
-
+			if( !Collision_effect )
+			{
+				CEventSystem::GetInstance()->SendEvent("collision", this);
+				Collision_effect = true;
+			}
 			
 		}
 	}
@@ -543,6 +553,18 @@ void CPlayer::HandleEvent(CEvent* pEvent)
 		else if(pEvent->GetEventID() == "powerup_power")
 		{
 			SetPowerUpBar(GetPowerUpBar() + 20);
+		}
+		else if( pEvent->GetEventID() == "collision")
+		{
+			ParticleManager* pPM = ParticleManager::GetInstance(); 
+			Emittor* tempemittor = pPM->CreateEffect(pPM->GetEmittor(COLLISION_EMITTOR), GetCX1(), GetCY1());
+
+			if( tempemittor)
+			{
+				tempemittor->SetTimeToDie(1.0f);
+				pPM->AttachToBasePosition(NULL, tempemittor, GetCX1(), GetCY1());
+				Collision_effect = false;
+			}
 		}
 	}
 	

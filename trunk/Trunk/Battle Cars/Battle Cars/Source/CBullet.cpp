@@ -8,6 +8,9 @@
 #include "CCamera.h"
 #include "CEvent.h"
 #include "CEventSystem.h"
+#include "Emittor.h"
+#include "ParticleManager.h"
+
 CBullet::CBullet(void)
 {
 	m_pTM = CSGD_TextureManager::GetInstance();
@@ -15,6 +18,7 @@ CBullet::CBullet(void)
 	m_nBulletType = PROJECTILE_BULLET;
 	m_fBlastRadius = 0.0f;
 	m_fSlowRate = 0.0f;
+	trace_particle = -1;
 }
 
 void CBullet::Update(float fElapsedTime)
@@ -22,8 +26,19 @@ void CBullet::Update(float fElapsedTime)
 	m_fCurLife += fElapsedTime;
 	SetPosX(GetPosX() + GetVelX() * fElapsedTime);
 	SetPosY(GetPosY() + GetVelY() * fElapsedTime);
+
+	ParticleManager* pPM = ParticleManager::GetInstance();
+
+	if( trace_particle > -1 )
+		pPM->AttachToBasePosition(this, pPM->GetEmittor(trace_particle), GetWidth()*0.5f, GetHeight()*0.5f);
+
 	if(m_fCurLife >= m_fMaxLife)
 	{
+		if( trace_particle > -1)
+		{
+			pPM->GetEmittor(trace_particle)->SetTimeToDie(0.0f);
+			pPM->GetEmittor(trace_particle)->SetBase(NULL);
+		}
 		CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
 	}
 }
@@ -47,6 +62,7 @@ void CBullet::Render(CCamera* camera)
 bool CBullet::CheckCollision(IBaseInterface* pBase)
 {
 	RECT intersection;
+	ParticleManager* pPM = ParticleManager::GetInstance();
 	if(GetOwner() == pBase)
 			return false;
 	if(IntersectRect(&intersection, &GetRect(), &pBase->GetRect()))
@@ -57,6 +73,11 @@ bool CBullet::CheckCollision(IBaseInterface* pBase)
 		{
 			CPlayer* tempplayer = (CPlayer*)pBase;
 			CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
+			if( trace_particle > -1)
+			{
+				pPM->GetEmittor(trace_particle)->SetTimeToDie(0.0f);
+				pPM->GetEmittor(trace_particle)->SetBase(NULL);
+			}
 			// handle what happens to player)
 			CEventSystem::GetInstance()->SendEvent("damage",pBase,this);
 			return true;
@@ -65,6 +86,11 @@ bool CBullet::CheckCollision(IBaseInterface* pBase)
 		{
 			CEnemy* tempenemy = (CEnemy*)pBase;
 			CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
+			if( trace_particle > -1)
+			{
+				pPM->GetEmittor(trace_particle)->SetTimeToDie(0.0f);
+				pPM->GetEmittor(trace_particle)->SetBase(NULL);
+			}
 			// handle what happens to enemy
 			CEventSystem::GetInstance()->SendEvent("damage",pBase,this);
 			return true;

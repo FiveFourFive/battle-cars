@@ -84,7 +84,9 @@ public:
 		m_uiRefCount--;
 
 		if(!m_uiRefCount)
+		{
 			delete this;
+		}
 	}
 
 	virtual RECT GetRect();
