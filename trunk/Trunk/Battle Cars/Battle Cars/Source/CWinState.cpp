@@ -182,6 +182,6 @@ void CWinState::Render(void)
 bool CWinState::HandleEnter(void)
 {
 		m_pFM->PlaySound(m_nMenuSelect);
-		CGame::GetInstance()->ChangeState(CMainMenuState::GetInstance();
+		CGame::GetInstance()->ChangeState(CMainMenuState::GetInstance());
 	return true;
 }
