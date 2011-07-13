@@ -51,7 +51,7 @@ void CPlayer::Update(float fElapsedTime)
 	if( CNumPlayers::GetInstance()->GetNumberOfPlayers() == 2)
 	{
 		if( COptionState::GetInstance()->IsVertical())
-			m_pCamera->AttachTo(this,CGame::GetInstance()->GetScreenWidth()*0.25f,CGame::GetInstance()->GetScreenHeight()*0.25f);
+			m_pCamera->AttachTo(this,CGame::GetInstance()->GetScreenWidth()*0.25f,CGame::GetInstance()->GetScreenHeight()*0.5f);
 		else
 			m_pCamera->AttachTo(this,CGame::GetInstance()->GetScreenWidth()*0.5f, CGame::GetInstance()->GetScreenHeight()*0.25f);
 	}
