@@ -60,3 +60,23 @@ CCreateMiniSpecialMessage::CCreateMiniSpecialMessage(CPlayer* pPlayer) : CBaseMe
 {
 	m_pPlayer = pPlayer;
 }
+
+CCreateTruckSpecialMessage::CCreateTruckSpecialMessage(CPlayer* pPlayer) : CBaseMessage(MSG_CREATE_TRUCK_SPECIAL)
+{
+	m_pPlayer = pPlayer;
+}
+
+CCreateVetteSpecialMessage::CCreateVetteSpecialMessage(CPlayer* pPlayer) : CBaseMessage(MSG_CREATE_VETTE_SPECIAL)
+{
+	m_pPlayer = pPlayer;
+}
+
+CCreateHummerSpecialMessage::CCreateHummerSpecialMessage(CPlayer* pPlayer) : CBaseMessage(MSG_CREATE_HUMMER_SPECIAL)
+{
+	m_pPlayer = pPlayer;
+}
+
+CCreateEnemyBulletMessage::CCreateEnemyBulletMessage(CEnemy* pEnemy) : CBaseMessage(MSG_CREATE_ENEMY_BULLET_MESSAGE)
+{
+	m_pEnemy = pEnemy;
+}

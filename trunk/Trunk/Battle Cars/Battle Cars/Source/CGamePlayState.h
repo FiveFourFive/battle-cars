@@ -14,7 +14,7 @@ using std::string;
 #include <vector>
 using namespace std;
 #include <list>
-
+#include "SGD_Math.h"
 
 #include "CLevel.h"
 
@@ -43,7 +43,6 @@ private:
 	CSGD_FModManager* m_pFM;
 	CMessageSystem* m_pMS;
 	CEventSystem* m_pES;
-
 	CObjectManager* m_pOM;
 	CObjectFactory<string,CBase>* m_pOF;
 
@@ -59,7 +58,6 @@ private:
 
 	// list for scores;
 	std::vector<CCar*> m_lScores;
-	std::vector<CPlayer*> m_pCharacters;
 	
 	// objects
 	CPlayer* player;
@@ -84,6 +82,8 @@ private:
 	int score;		// players score;
 	float m_ftimer;	// timer before score is incremented.
 
+	vector<CPlayer*> characters;
+
 	CGamePlayState(void);
 	~CGamePlayState(void){};
 	CGamePlayState(const CGamePlayState&);
@@ -106,11 +106,13 @@ public:
 	static CGamePlayState* GetInstance();
 
 	static void MessageProc(CBaseMessage* pMsg);
-
-	vector<CPlayer*> GetCharacters() {return m_pCharacters;}
-	void SetCharacters(vector<CPlayer*> players) { m_pCharacters = players;}
+	//Accessors
+	vector<CPlayer*> GetCharacters() {return characters;}
+	CPlayer* GetPlayer1() {return player;}
+	CPlayer* GetPlayer2() {return player2;}
 	CObjectManager* GetObjectManager() {return m_pOM;}
-
+	//Mutators
+	void SetCharacters(vector<CPlayer*> players) {characters = players;}
 };
 
 

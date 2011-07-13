@@ -35,6 +35,10 @@ CPlayer::CPlayer(CXboxInput* pController)
 	m_pES->RegisterClient ("CameraCollision", this);
 	m_pES->RegisterClient("powerup_power", this);
 	m_fFireTimer = 0.0;
+	m_bIsFlameThrowerOn = false;
+	m_bIsIcyGatlingOn = false;
+	m_fIcyBullets = 0.0f;
+	m_fFlames = 0.0f;
 
 }
 CPlayer::~CPlayer(void)
@@ -67,7 +71,30 @@ void CPlayer::Update(float fElapsedTime)
 		m_ftimer = 0.0f;
 		SetKillCount(GetKillCount() + 1);
 	}
-
+	if(m_bIsFlameThrowerOn)
+	{
+		m_fFlames = m_fFlames - fElapsedTime;
+		if(m_fFlames > 0.0f)
+		{
+			PlayBullet();		
+			CMessageSystem::GetInstance()->SendMsg(new CCreateVetteSpecialMessage(this));
+			m_fFireTimer = 0.0f;
+		}
+		else
+			m_bIsFlameThrowerOn = false;
+	}
+	else if(m_bIsIcyGatlingOn)
+	{
+		if((int)(m_fIcyBullets)%6 == 0)
+		{
+			PlayBullet();
+			CMessageSystem::GetInstance()->SendMsg(new CCreateHummerSpecialMessage(this));
+			m_fFireTimer = 0.0f;
+		}
+		m_fIcyBullets -= 1.0f;
+		if(m_fIcyBullets <= 0.0f)
+			m_bIsIcyGatlingOn = false;
+	}
 
 	if(CGame::GetInstance()->ControllerInput())
 	{
@@ -108,7 +135,33 @@ void CPlayer::Update(float fElapsedTime)
 					break;
 				case WEAPON_SPECIAL:
 				{
-					SetPowerUpBar(0);
+					switch(GetPlayerType())
+							{
+								case CAR_MINI:
+									{
+										PlayBullet();
+										pMS->SendMsg(new CCreateMiniSpecialMessage(this));
+									}
+									break;
+								case CAR_VETTE:
+									{
+										m_fFlames = 1.5f;
+										m_bIsFlameThrowerOn = true;
+									}
+									break;
+								case CAR_HUMMER:
+									{
+										m_fIcyBullets = 40.0f;
+										m_bIsIcyGatlingOn = true;
+									}
+									break;
+								case CAR_TRUCK:
+									{
+										PlayBullet();
+										pMS->SendMsg(new CCreateTruckSpecialMessage(this));
+									}
+									break;
+							}
 				}
 					break;
 				}
@@ -260,7 +313,7 @@ void CPlayer::Update(float fElapsedTime)
 						//if(GetPowerUpBar() >= GetMaxPowerUp())
 						//{
 							//SetPowerUpBar(0);
-							switch(m_nPlayerType)
+							switch(GetPlayerType())
 							{
 								case CAR_MINI:
 									{
@@ -270,18 +323,20 @@ void CPlayer::Update(float fElapsedTime)
 									break;
 								case CAR_VETTE:
 									{
-										
+										m_fFlames = 1.5f;
+										m_bIsFlameThrowerOn = true;
 									}
 									break;
 								case CAR_HUMMER:
 									{
-										
+										m_fIcyBullets = 40.0f;
+										m_bIsIcyGatlingOn = true;
 									}
 									break;
 								case CAR_TRUCK:
 									{
 										PlayBullet();
-										//pMS->SendMsg(new CCreateTruckSpecialMessage(this));
+										pMS->SendMsg(new CCreateTruckSpecialMessage(this));
 									}
 									break;
 							}
@@ -473,6 +528,8 @@ void CPlayer::HandleEvent(CEvent* pEvent)
 		{
 			CBullet* tempbullet = (CBullet*)pEvent->GetParam2();
 			float damage = tempbullet->GetDamage();
+			if(tempbullet->GetSlowRate() != 0.0f)
+				SetSpeed(GetSpeed()*.75f);
 			if(GetShieldBar() >= 0)
 			{
 				SetShieldBar(GetShieldBar() - tempbullet->GetDamage());

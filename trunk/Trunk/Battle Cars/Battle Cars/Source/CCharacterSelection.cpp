@@ -530,6 +530,7 @@ bool CCharacterSelection::HandleEnter()
 bool CCharacterSelection::LoadCharacters()
 {
 	TiXmlDocument doc;
+	int counter = 0;
 	if(doc.LoadFile("resource/data/characters.xml") == false)
 		return false;
 	TiXmlElement* pRoot = doc.RootElement();
@@ -571,11 +572,11 @@ bool CCharacterSelection::LoadCharacters()
 		character->SetHeight(70);
 		character->SetPosX(350);
 		character->SetPosY(225);
-
+		character->SetPlayerType(counter);
 		string temp_buffer = "resource/graphics/";
 		temp_buffer += buffer;
 		character->SetImageID(m_pTM->LoadTexture(temp_buffer.c_str(), D3DCOLOR_XRGB(255,255,255))); 
-
+		counter++;
 		m_vPlayerList.push_back(character);
 		pCharacterRoot = pCharacterRoot->NextSiblingElement("character");
 	}

@@ -12,8 +12,10 @@
 #include "CCamera.h"
 #include "CWanderState.h"
 #include "CMainMenuState.h"
+#include "CBullet.h"
+#include "CSGD_Direct3D.h"
 
-CEnemy::CEnemy()
+CEnemy::CEnemy(CXboxInput* pController) : CPlayer(pController)
 {
 	m_nType = OBJECT_ENEMY;
 	m_pES = CEventSystem::GetInstance ();
@@ -23,9 +25,8 @@ CEnemy::CEnemy()
 	m_AICurrentState = CWanderState::GetInstance();
 
 	m_AICurrentState->SetOwner (this);
-
+	EnterState();
 	m_fViewRadius = 30.0f;
-
 }
 
 CEnemy::~CEnemy()
@@ -55,6 +56,7 @@ void CEnemy::Render(CCamera* camera)
 
 	if (m_AICurrentState)
 		m_AICurrentState->Render ();
+
 }
 
 void CEnemy::ChangeState (IAIBaseState* state)
@@ -76,7 +78,25 @@ void CEnemy::ChangeState (IAIBaseState* state)
 
 void CEnemy::HandleEvent(CEvent* pEvent)
 {
-
+	if(this == pEvent->GetParam())
+	{
+		if(pEvent->GetEventID() == "damage")
+		{
+			CBullet* tempbullet = (CBullet*)pEvent->GetParam2();
+			float damage = tempbullet->GetDamage();
+			if(tempbullet->GetSlowRate() != 0.0f)
+				SetSpeed(GetSpeed()*.75f);
+			if(GetShieldBar() >= 0)
+			{
+				SetShieldBar(GetShieldBar() - tempbullet->GetDamage());
+			}
+			else
+			{
+				SetHealth(GetHealth() - tempbullet->GetDamage());
+			}
+		}
+		
+	}
 }
 
 bool CEnemy::CheckCollision(IBaseInterface* pBase)
