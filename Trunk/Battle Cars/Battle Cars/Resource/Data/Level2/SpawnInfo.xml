@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Spawns>
+  <Spawn XPos="26" YPos="6" Type="1">NoName</Spawn>
+  <Spawn XPos="4" YPos="7" Type="1">NoName</Spawn>
+  <Spawn XPos="13" YPos="9" Type="1">NoName</Spawn>
+  <Spawn XPos="26" YPos="12" Type="1">NoName</Spawn>
+  <Spawn XPos="26" YPos="13" Type="1">NoName</Spawn>
+  <Spawn XPos="16" YPos="15" Type="1">NoName</Spawn>
+  <Spawn XPos="17" YPos="15" Type="1">NoName</Spawn>
+  <Spawn XPos="35" YPos="16" Type="1">NoName</Spawn>
+  <Spawn XPos="10" YPos="21" Type="1">NoName</Spawn>
+  <Spawn XPos="17" YPos="32" Type="1">NoName</Spawn>
+  <Spawn XPos="18" YPos="32" Type="1">NoName</Spawn>
+  <Spawn XPos="6" YPos="34" Type="1">NoName</Spawn>
+</Spawns>
