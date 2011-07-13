@@ -328,70 +328,8 @@ void CPlayer::Render(CCamera* camera)
 
 	CCar::Render(camera);
 
-	// HUD informations
-	RECT health;
-	RECT shield;
-	RECT power;
-	RECT weapon;
-	RECT minimap;
-	RECT score;
-
 	m_pHUD->Render();
-	//score.left = 0;
-	//score.top = 340;
-	//score.right = score.left + 80;
-	//score.bottom = score.top + 150;
-	//pD3D->DrawRect(score,255,255,255);
-	//pD3D->DrawText("Scoreboard",2,350,0,0,0);
-
-	//weapon.left = 0;
-	//weapon.top = 500;
-	//weapon.right = weapon.left + 90;
-	//weapon .bottom = weapon.top + 100;
-	//switch(GetSelectedWeapon())
-	//{
-	//case WEAPON_PISTOL:
-	//	pD3D->DrawRect(weapon,255,255,255);
-	//	break;
-	//case WEAPON_RPG:
-	//	pD3D->DrawRect(weapon,255,0,0);
-	//	break;
-	//case WEAPON_SPECIAL:
-	//	pD3D->DrawRect(weapon,0,0,255);
-	//	break;
-	//}
-	//pD3D->DrawText("weapon",10,550,0,0,0);
 	
-	
-
-	/*minimap.left = 650;
-	minimap.top = 450;
-	minimap.right = minimap.left + 150;
-	minimap.bottom = minimap.top + 150;
-	pD3D->DrawRect(minimap,255,255,255);*/
-	//pD3D->DrawText("minimap",660,525,0,0,0);
-
-	health.left = 90;
-	health.top = 520;
-	health.right = (LONG)(health.left + (GetHealth()/GetMaxHealth()) * 100);
-	health.bottom = health.top + 30;
-	pD3D->DrawRect(health,0,255,0);
-
-
-	shield.left = 90;
-	shield.top = 520;
-	shield.right = (LONG)(shield.left + (GetShieldBar()/GetMaxShield()) * 100);
-	shield.bottom = shield.top + 30;
-	pD3D->DrawRect(shield,105,105,105);
-	//pD3D->DrawText("health",100,530,0,0,0);
-
-	power.left = 90;
-	power.top = 550;
-	power.right = power.left + (int)((GetPowerUpBar()/GetMaxPowerUp()) * 80);
-	power.bottom = power.top + 20;
-	pD3D->DrawRect(power,0,80,255);
-	//pD3D->DrawText("power",100,550,0,255,0);
-
 	
 }
 
