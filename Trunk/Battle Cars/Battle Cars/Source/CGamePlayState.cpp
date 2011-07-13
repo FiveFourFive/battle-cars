@@ -375,7 +375,7 @@ void CGamePlayState::Update(float fElapsedTime)
 		player->GetCamera()->SetRenderPosY(0);
 
 	
-		player2->GetCamera()->SetRenderPosX(400);
+		player2->GetCamera()->SetRenderPosX(CGame::GetInstance()->GetScreenWidth() * 0.5f);
 		player2->GetCamera()->SetRenderPosY(0);
 	}
 	else
@@ -385,7 +385,7 @@ void CGamePlayState::Update(float fElapsedTime)
 
 	
 		player2->GetCamera()->SetRenderPosX(0);
-		player2->GetCamera()->SetRenderPosY(300);
+		player2->GetCamera()->SetRenderPosY(CGame::GetInstance()->GetScreenHeight()*0.5f);
 	}
 
 	if(m_bPlaying)
@@ -499,15 +499,15 @@ void CGamePlayState::Render(void)
 	{
 		if( COptionState::GetInstance()->IsVertical())
 		{
-			m_pD3D->DrawLine(400, 0, 400, 600, 255,0,0);
-			player2->GetCamera()->AttachTo(player2, CGame::GetInstance()->GetScreenWidth()*0.25f, CGame::GetInstance()->GetScreenHeight()*0.25f);
-			player->GetCamera()->AttachTo(player, CGame::GetInstance()->GetScreenWidth()*0.25f, CGame::GetInstance()->GetScreenHeight()*0.25f);
+			m_pD3D->DrawLine(CGame::GetInstance()->GetScreenWidth() * 0.5f, 0, CGame::GetInstance()->GetScreenWidth() * 0.5f, CGame::GetInstance()->GetScreenHeight(), 255,0,0);
+			/*player2->GetCamera()->AttachTo(player2, CGame::GetInstance()->GetScreenWidth()*0.25f, CGame::GetInstance()->GetScreenHeight()*0.25f);
+			player->GetCamera()->AttachTo(player, CGame::GetInstance()->GetScreenWidth()*0.25f, CGame::GetInstance()->GetScreenHeight()*0.25f);*/
 		}
 		else
 		{
-			m_pD3D->DrawLine(0, 300, 800, 300, 255,0,0);
-			player2->GetCamera()->AttachTo(player2, CGame::GetInstance()->GetScreenWidth()*0.5f, CGame::GetInstance()->GetScreenHeight()*0.5f);
-			player->GetCamera()->AttachTo(player, CGame::GetInstance()->GetScreenWidth()*0.5f, CGame::GetInstance()->GetScreenHeight()*0.5f);
+			m_pD3D->DrawLine(0, CGame::GetInstance()->GetScreenHeight()*0.5f, CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight()*0.5f, 255,0,0);
+			/*player2->GetCamera()->AttachTo(player2, CGame::GetInstance()->GetScreenWidth()*0.5f, CGame::GetInstance()->GetScreenHeight()*0.5f);
+			player->GetCamera()->AttachTo(player, CGame::GetInstance()->GetScreenWidth()*0.5f, CGame::GetInstance()->GetScreenHeight()*0.5f);*/
 		}
 
 	}
