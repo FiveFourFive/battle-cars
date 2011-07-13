@@ -10,6 +10,7 @@
 #include "CHowToPlayState.h"
 #include "CGamerProfile.h"
 #include "CXboxInput.h"
+#include "CWinState.h"
 #include "CKeyBinds.h"
 #include "CNumPlayers.h"
 #include "CLevelSelectionState.h"

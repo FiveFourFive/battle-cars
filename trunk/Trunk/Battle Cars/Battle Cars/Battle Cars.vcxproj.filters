@@ -189,6 +189,15 @@
     <ClCompile Include="Source\CLevelSelectionState.cpp">
       <Filter>Game States</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CHUD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CLossState.cpp">
+      <Filter>Game States</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CWinState.cpp">
+      <Filter>Game States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\CStopWatch.h">
@@ -348,6 +357,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\CLevelSelectionState.h">
+      <Filter>Game States</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CHUD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CLossState.h">
+      <Filter>Game States</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CWinState.h">
       <Filter>Game States</Filter>
     </ClInclude>
   </ItemGroup>

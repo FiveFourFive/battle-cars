@@ -12,6 +12,8 @@
 
 #include "CGame.h"
 #include "CMainMenuState.h"
+#include "CLossState.h"
+#include "CWinState.h"
 #include "COptionState.h"
 #include "CPauseMenuState.h"
 #include "CNumPlayers.h"
@@ -214,8 +216,10 @@ void CGamePlayState::Enter(void)
 	else
 		player2 = m_pCharacters[3];
 
-	player->Rotate(0.0f);
-	player2->Rotate(0.0f);
+	player->SetPlayerNum(1);
+	player->SetType(OBJECT_PLAYER);
+	player->Rotate(0);
+	player2->Rotate(0);
 	player2->SetController(m_pController2);
 	m_pOM->AddObject(player);
 	m_pOM->AddObject(player2);
@@ -242,7 +246,7 @@ void CGamePlayState::Enter(void)
 
 	m_pPM->LoadEmittor("resource/data/collision.xml");
 
-	time = 120;
+	time = 30;
 	m_fElapsedSecond = 0.0f;
 	score = 0;
 
@@ -271,6 +275,8 @@ void CGamePlayState::Exit(void)
 {
 	for(unsigned int i = 0; i < m_pCharacters.size(); i++)
 	{
+		if(m_pCharacters[i]->GetPlayerNum() == 1)
+			CGame::GetInstance()->SetScore(m_pCharacters[i]->GetKillCount());
 		m_pCharacters[i]->Release();
 	}
 	//player->Release();
@@ -318,12 +324,6 @@ bool CGamePlayState::Input()
 		if(CGame::GetInstance()->GetInputDelay() >= 0.15f)
 		{
 			CGame::GetInstance()->ResetInputDelay();
-			/*if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_START)
-			{
-				CGame::GetInstance()->AddState(CPauseMenuState::GetInstance());
-				CPauseMenuState::GetInstance()->SetController(m_pController1);
-				return true;
-			}*/
 			if(!m_bCountDown)
 			{
 				if(xState.Gamepad.wButtons & tempkeys->GetAccept())
@@ -415,21 +415,10 @@ void CGamePlayState::Update(float fElapsedTime)
 		m_pMS->ProcessMessages ();
 		if(player->GetHealth() <= 0)
 		{
-			CGame::GetInstance()->ChangeState(CMainMenuState::GetInstance());
+			CGame::GetInstance()->ChangeState(CLossState::GetInstance());
 			CGame::GetInstance()->ResetInputDelay();
 		}
-		for(unsigned int i = 0; i < m_lScores.size() - 1; i++)
-		{
-			for(unsigned int m = 0; m< m_lScores.size(); m++)
-			{
-				if(m_lScores[m]->GetKillCount() > m_lScores[i]->GetKillCount())
-				{
-					CCar* tempcar = m_lScores[m];
-					m_lScores[m] = m_lScores[i];
-					m_lScores[i] = tempcar;
-				}
-			}
-		}
+		SortScores(0,m_lScores.size()-1);
 
 		
 	}
@@ -453,7 +442,7 @@ void CGamePlayState::Update(float fElapsedTime)
 	}
 	if( time < 0 )
 	{
-		CGame::GetInstance()->ChangeState(CMainMenuState::GetInstance());
+		CGame::GetInstance()->ChangeState(CWinState::GetInstance());
 	}
 
 		
@@ -469,8 +458,6 @@ void CGamePlayState::Render(void)
 		Level->Render(player2->GetCamera());
 		m_pOM->RenderObjects(player2->GetCamera());
 	}
-
-	
 
 
 	if(!m_bPlaying)
@@ -492,7 +479,7 @@ void CGamePlayState::Render(void)
 			sprintf_s(timebuff, "%i:%i", minutes, seconds);
 		m_pPF->Print(timebuff, 350, 30, 1.0, D3DCOLOR_XRGB(255,255,255)); 
 	}
-	for(unsigned int i = 0; i < m_lScores.size(); i++)
+	for(int i = m_lScores.size()-1; i >= 0; i--)
 	{
 		char buffer[32];
 		int color = 0;
@@ -513,14 +500,14 @@ void CGamePlayState::Render(void)
 		if( COptionState::GetInstance()->IsVertical())
 		{
 			m_pD3D->DrawLine(400, 0, 400, 600, 255,0,0);
-			player2->GetCamera()->AttachTo(player2, 200, 300);
-			player->GetCamera()->AttachTo(player, 200, 300);
+			player2->GetCamera()->AttachTo(player2, CGame::GetInstance()->GetScreenWidth()*0.25f, CGame::GetInstance()->GetScreenHeight()*0.25f);
+			player->GetCamera()->AttachTo(player, CGame::GetInstance()->GetScreenWidth()*0.25f, CGame::GetInstance()->GetScreenHeight()*0.25f);
 		}
 		else
 		{
 			m_pD3D->DrawLine(0, 300, 800, 300, 255,0,0);
-			player2->GetCamera()->AttachTo(player2, 400, 150);
-			player->GetCamera()->AttachTo(player, 400, 150);
+			player2->GetCamera()->AttachTo(player2, CGame::GetInstance()->GetScreenWidth()*0.5f, CGame::GetInstance()->GetScreenHeight()*0.5f);
+			player->GetCamera()->AttachTo(player, CGame::GetInstance()->GetScreenWidth()*0.5f, CGame::GetInstance()->GetScreenHeight()*0.5f);
 		}
 
 	}
@@ -569,7 +556,6 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet->SetImageID (pCBM->GetPlayer()->GetBulletImageID());
 
 			tVector2D temp;
-			//temp = pCBM->GetPlayer()->GetDirection();
 			temp.fX = 0;
 			temp.fY = -1;
 			temp = Vector2DRotate(temp,pCBM->GetPlayer()->GetRotation());
@@ -578,15 +564,6 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 
 			pBullet->SetScale(0.5f);
 			pBullet->SetOwner(pCBM->GetPlayer());
-			/*if ((pCBM->GetPlayer()->GetDirection () > 0))
-			pBullet->SetPosX(pCBM->GetPlayer()->GetPosX() + ((pCBM->GetPlayer()->GetWidth()* pCBM->GetPlayer ()->GetScale ())));
-			else 
-			pBullet->SetPosX(pCBM->GetPlayer()->GetPosX() - ((pCBM->GetPlayer()->GetWidth() * pCBM->GetPlayer ()->GetScale ())));
-
-			if (pCBM->GetPlayer ()->GetPlayerType () == 0)
-			pBullet->SetPosY(pCBM->GetPlayer()->GetPosY());
-			else
-			pBullet->SetPosY(pCBM->GetPlayer()->GetPosY() + (pCBM->GetPlayer()->GetHeight() * pCBM->GetPlayer ()->GetScale () *0.5f) - 4);*/
 			pBullet->SetVelX(temp.fX);
 			pBullet->SetVelY(temp.fY);
 			pBullet->SetCurLife(0.0f);
@@ -612,7 +589,6 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet->SetImageID (pCBM->GetPlayer()->GetMissileImageID());
 
 			tVector2D temp;
-			//temp = pCBM->GetPlayer()->GetDirection();
 			temp.fX = 0;
 			temp.fY = -1;
 			temp = Vector2DRotate(temp,pCBM->GetPlayer()->GetRotation());
@@ -621,15 +597,6 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 
 			pBullet->SetScale(0.5f);
 			pBullet->SetOwner(pCBM->GetPlayer());
-			/*if ((pCBM->GetPlayer()->GetDirection () > 0))
-			pBullet->SetPosX(pCBM->GetPlayer()->GetPosX() + ((pCBM->GetPlayer()->GetWidth()* pCBM->GetPlayer ()->GetScale ())));
-			else 
-			pBullet->SetPosX(pCBM->GetPlayer()->GetPosX() - ((pCBM->GetPlayer()->GetWidth() * pCBM->GetPlayer ()->GetScale ())));
-
-			if (pCBM->GetPlayer ()->GetPlayerType () == 0)
-			pBullet->SetPosY(pCBM->GetPlayer()->GetPosY());
-			else
-			pBullet->SetPosY(pCBM->GetPlayer()->GetPosY() + (pCBM->GetPlayer()->GetHeight() * pCBM->GetPlayer ()->GetScale () *0.5f) - 4);*/
 			pBullet->SetVelX(temp.fX);
 			pBullet->SetVelY(temp.fY);
 			pBullet->SetCurLife(0.0f);
@@ -809,4 +776,27 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			break;
 		}
 	}
+}
+
+void CGamePlayState::SortScores(int left, int right)
+{
+	int index = 1;
+	int offset;
+	while(index < m_lScores.size())
+	{
+		offset = index-1;
+		while(offset >= 0)
+		{
+			if(m_lScores[index]->GetKillCount() < m_lScores[offset]->GetKillCount())
+			{
+				CCar* tempcar = m_lScores[index];
+				m_lScores[index] = m_lScores[offset];
+				m_lScores[offset] = tempcar;
+				
+			}
+			offset--;
+		}
+		index++;
+	}
+
 }

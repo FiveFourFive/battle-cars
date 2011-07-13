@@ -29,8 +29,8 @@ CGame::CGame()
 	m_bController = false;
 	m_pKeyboardKB = new CKeyboardKeyBinds;
 	m_fElapsedTime		=	0;
-	m_ScreenWidth	= 800;
-	m_ScreenHeight	= 600;
+	m_ScreenWidth	= 1440;
+	m_ScreenHeight	= 900;
 
 	srand (unsigned int (time (NULL)));
 }

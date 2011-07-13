@@ -27,8 +27,8 @@
 const char* g_szWINDOW_CLASS_NAME	= "Game Window";			//	Window Class Name.
 
 const char* g_szWINDOW_TITLE		= "Battle Cars: Mayhem and Destruction";	//	Window Title.
-const int	g_nWINDOW_WIDTH			= 800;						//	Window Width.
-const int	g_nWINDOW_HEIGHT		= 600;						//	Window Height.
+const int	g_nWINDOW_WIDTH			= 1440;						//	Window Width.
+const int	g_nWINDOW_HEIGHT		= 900;						//	Window Height.
 
 //	Windowed or Full screen depending on project setting
 #ifdef _DEBUG
