@@ -54,6 +54,9 @@ public:
 	//////////////////////////////////////////////////
 	bool LoadLevel(const char* szXmlFileName);
 
+	int GetSelection(){ return m_nSelection;}
+	SLevel* GetLevel(int index){ return m_ListofLevels[index];}
+
 };
 
 #endif

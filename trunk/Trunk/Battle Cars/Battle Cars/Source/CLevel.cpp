@@ -148,7 +148,7 @@ void CLevel::Render (CCamera* camera)
 		TileSelection.right = TileSelection.left + LevelMap->GetPixelWidth();
 		TileSelection.bottom = TileSelection.top + LevelMap->GetPixelHeight ();
 
-		if( i == count + 100)
+		if( i == count + (LevelMap->GetMapWidth()))
 		{
 			i = (int)camera->GetRenderPosX() / LevelMap->GetPixelWidth();
 			j++;

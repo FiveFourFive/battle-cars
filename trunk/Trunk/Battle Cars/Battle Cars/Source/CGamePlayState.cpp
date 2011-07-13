@@ -36,6 +36,7 @@
 #include "Emittor.h"
 #include "tinyxml.h"
 #include "CLandMine.h"
+#include "CLevelSelectionState.h"
 
 CGamePlayState::CGamePlayState(void)
 {
@@ -170,9 +171,6 @@ void CGamePlayState::Enter(void)
 
 	dummy->EnterState ();
 
-	Level->SetSpawn (player2);
-	
-
 	m_pD3D->Clear(0, 0, 0);
 	m_pD3D->DeviceBegin();
 	m_pD3D->SpriteBegin();
@@ -225,6 +223,8 @@ void CGamePlayState::Enter(void)
 	m_fEnlarge = 0.0f;
 	m_bPlaying = false;
 	m_fCountDown = 0.0f;
+
+	Level->SetSpawn (player2);
 
 	m_pD3D->Clear(0, 0, 0);
 	m_pD3D->DeviceBegin();
@@ -547,9 +547,14 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 	case MSG_CREATE_LEVEL:
 		{
 			CLevel* level = CGamePlayState::GetInstance ()->GetLevel();
+			std::string level_file_name = "resource/data/";
+			char buffer[32];
+			sprintf_s(buffer,32, "level%i/", CLevelSelectionState::GetInstance()->GetSelection() + 1);
+			level_file_name += buffer;
+			std::string temp_file = CLevelSelectionState::GetInstance()->GetLevel(CLevelSelectionState::GetInstance()->GetSelection())->FileName;
+			level_file_name += temp_file;
 
-			level->Load ("Resource/Data/TestMap.xml");
-
+			level->Load (level_file_name.c_str());
 			break;
 		}
 	case MSG_CREATE_PLAYER_BULLET:

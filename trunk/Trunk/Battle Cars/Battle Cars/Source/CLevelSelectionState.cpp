@@ -15,20 +15,28 @@
 
 CLevelSelectionState::CLevelSelectionState()
 {
-	m_pTM = NULL;
 	m_pPF = NULL;
-	m_pFM = NULL;
-	m_pDI = NULL;
+
+	m_pDI = CSGD_DirectInput::GetInstance();
+	m_pTM = CSGD_TextureManager::GetInstance();
+	m_pFM = CSGD_FModManager::GetInstance();
 
 	for( int i = 0; i < LEVEL_MAX; i++)
 	{
 		m_ListofLevels[i] = NULL;
 	}
+
+	if( LoadLevel("resource/data/LevelSelectionData.xml") == false)
+		MessageBox(0, "Failed to Load Level Image and Data FileName", 0, 0);
 }
 
 CLevelSelectionState::~CLevelSelectionState()
 {
-
+	for( int i = 0; i < LEVEL_MAX; i++)
+	{
+		delete m_ListofLevels[i];
+		m_ListofLevels[i] = NULL;
+	}
 }
 
 CLevelSelectionState* CLevelSelectionState::GetInstance()
@@ -39,19 +47,11 @@ CLevelSelectionState* CLevelSelectionState::GetInstance()
 
 void CLevelSelectionState::Enter()
 {
-	m_pDI = CSGD_DirectInput::GetInstance();
-	m_pTM = CSGD_TextureManager::GetInstance();
-	m_pFM = CSGD_FModManager::GetInstance();
-	
-
 	m_nMenuSelect = m_pFM->LoadSound("resource/sounds/menuselect.mp3");
 	m_nMenuMove = m_pFM->LoadSound("resource/sounds/menuchange.mp3");
 	m_nFontID = m_pTM->LoadTexture("resource/graphics/FontPlaceholder.png",D3DCOLOR_XRGB(0, 0, 0));
 
 	m_pPF = new CPrintFont(m_nFontID);
-
-	if( LoadLevel("resource/data/LevelSelectionData.xml") == false)
-		MessageBox(0, "Failed to Load Level Image and Data FileName", 0, 0);
 
 	m_nSelection = 0;
 
@@ -59,13 +59,6 @@ void CLevelSelectionState::Enter()
 
 void CLevelSelectionState::Exit()
 {
-	for( int i = 0; i < LEVEL_MAX; i++)
-	{
-		m_pTM->UnloadTexture(m_ListofLevels[i]->ImageID);
-		delete m_ListofLevels[i];
-		m_ListofLevels[i] = NULL;
-	}
-
 	delete m_pPF;
 }
 
@@ -164,13 +157,11 @@ void CLevelSelectionState::Render()
 		}
 	}
 
-	
-
 }
 
 bool CLevelSelectionState::HandleEnter()
 {
-	CGame::GetInstance()->AddState(CNumPlayers::GetInstance());
+	CGame::GetInstance()->ChangeState(CNumPlayers::GetInstance());
 	return true;
 }
 
