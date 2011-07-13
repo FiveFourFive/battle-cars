@@ -491,9 +491,7 @@ void CGamePlayState::Render(void)
 		//color = 255;
 		m_pD3D->DrawText(buffer,2,370+(12*i),0,color,0);
 	}
-	char scorebuff[32];
-	sprintf_s(scorebuff, "SCORE:%i", score);
-	m_pPF->Print(scorebuff, 380, 550, 1.0, D3DCOLOR_XRGB(255,255,255));
+	
 
 	if( CNumPlayers::GetInstance()->GetNumberOfPlayers() == 2)
 	{
