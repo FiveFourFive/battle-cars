@@ -14,7 +14,7 @@
 #include <vector>
 
 #include "IAIBaseState.h"
-#include "CCar.h"
+#include "CPlayer.h"
 #include "IListener.h"
 #include "CEventSystem.h"
 #include "SGD_Math.h"
@@ -22,7 +22,7 @@
 
 class CCamera;
 
-class CEnemy : public CCar
+class CEnemy : public CPlayer
 {
 private:
 	IAIBaseState*  m_AICurrentState;
@@ -34,7 +34,7 @@ private:
 	float m_fViewRadius;
 
 public:
-	CEnemy();
+	CEnemy(CXboxInput* pController);
 	~CEnemy();
 
 

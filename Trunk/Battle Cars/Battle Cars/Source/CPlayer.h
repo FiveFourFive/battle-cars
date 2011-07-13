@@ -9,7 +9,7 @@ class CXboxInput;
 class CMessageSystem;
 class CHUD;
 
-enum characters{CAR_MINI, CAR_VETTE, CAR_HUMMER, CAR_TRUCK, CAR_NUM};
+
 class CPlayer : public CCar
 {
 private:
@@ -18,7 +18,10 @@ private:
 	CEventSystem* m_pES;
 	CXboxInput* m_pController1;
 	float m_fFireTimer;
-	int m_nPlayerType;
+	bool m_bIsFlameThrowerOn;
+	bool m_bIsIcyGatlingOn;
+	float m_fIcyBullets;
+	float m_fFlames;
 	RECT m_CollisionRECT;
 
 	int m_nPlayerNum;
@@ -30,7 +33,7 @@ public:
 	void Render(CCamera* camera);
 
 	void SetController(CXboxInput* pController) { m_pController1 = pController; }
-	CXboxInput* GetController(void) { return m_pController1; }
+	CXboxInput* GetController(void) {return m_pController1; }
 	void SetCollisionRect (RECT collision) {m_CollisionRECT = collision;}
 	RECT GetCollisionRect () { return m_CollisionRECT;}
 
@@ -41,8 +44,8 @@ public:
 
 
 	bool CheckCollision(IBaseInterface* pBase);
-	int GetPlayerType() {return m_nPlayerType;}
-	void SetPlayerType(int type) {m_nPlayerType = type;}
+	bool IsFlameThrowerOn() {return m_bIsFlameThrowerOn;}
+	void SetFlameThrower(bool flame) {m_bIsFlameThrowerOn = flame;}
 	void HandleEvent(CEvent* pEvent);
 };
 

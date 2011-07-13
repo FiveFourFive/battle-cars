@@ -14,7 +14,9 @@
 class CLevel;
 class CBullet;
 class CPlayer;
-enum MsgTypes { MSG_NULL = 0, MSG_CREATE_LEVEL, MSG_DESTROY_LEVEL, MSG_CREATE_PLAYER_BULLET,MSG_DESTROY_BULLET, MSG_CREATE_PLAYER_MISSILE, MSG_CREATE_MINI_SPECIAL, MSG_MAX };
+class CEnemy;
+enum MsgTypes { MSG_NULL = 0, MSG_CREATE_LEVEL, MSG_DESTROY_LEVEL, MSG_CREATE_PLAYER_BULLET,MSG_DESTROY_BULLET, MSG_CREATE_PLAYER_MISSILE, 
+	MSG_CREATE_MINI_SPECIAL, MSG_CREATE_TRUCK_SPECIAL, MSG_CREATE_VETTE_SPECIAL, MSG_CREATE_HUMMER_SPECIAL, MSG_CREATE_ENEMY_BULLET_MESSAGE, MSG_MAX };
 
 class CBaseMessage
 {
@@ -93,4 +95,48 @@ public:
 	CPlayer* GetPlayer() {return m_pPlayer;}
 };
 
+class CCreateTruckSpecialMessage : public CBaseMessage
+{
+private:
+	CPlayer* m_pPlayer;
+
+public:
+	CCreateTruckSpecialMessage(CPlayer* pPlayer);
+	CPlayer* GetPlayer() {return m_pPlayer;}
+
+};
+
+class CCreateVetteSpecialMessage : public CBaseMessage
+{
+private:
+	CPlayer* m_pPlayer;
+
+public:
+	CCreateVetteSpecialMessage(CPlayer* pPlayer);
+	CPlayer* GetPlayer() {return m_pPlayer;}
+};
+
+class CCreateHummerSpecialMessage : public CBaseMessage
+{
+private:
+	CPlayer* m_pPlayer;
+
+public:
+	CCreateHummerSpecialMessage(CPlayer* pPlayer);
+	CPlayer* GetPlayer() {return m_pPlayer;}
+};
+
+class CCreateEnemyBulletMessage : public CBaseMessage
+{
+private:
+	CEnemy* m_pEnemy;
+
+public:
+	CCreateEnemyBulletMessage(CEnemy* pEnemy);
+	CEnemy* GetEnemy(void) {return m_pEnemy;}
+
+};
+
 #endif
+
+

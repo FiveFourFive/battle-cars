@@ -20,11 +20,12 @@ private:
 	float m_fVelY;
 	float m_fRotation;
 	float m_fScale;
-	int m_nDamage;
+	float m_nDamage;
 	float m_fCurLife;
 	float m_fMaxLife;
 	float m_fBlastRadius;
 	int m_nBulletType;
+	float m_fSlowRate;
 
 public:
 	CBullet(void);
@@ -38,8 +39,9 @@ public:
 	float GetScale(void) { return m_fScale; }
 	float GetCurLife(void) { return m_fCurLife; }
 	float GetMaxLife(void) { return m_fMaxLife; }
-	int GetDamage() {return m_nDamage;}
+	float GetDamage() {return m_nDamage;}
 	float GetBlastRadius() {return m_fBlastRadius;}
+	float GetSlowRate() {return m_fSlowRate;}
 	int GetBulletType() {return m_nBulletType;}
 	CPlayer* GetOwner(void) { return m_pOwner; }
 	CSGD_TextureManager* GetTextureManager() {return m_pTM;}
@@ -51,9 +53,10 @@ public:
 	void SetScale(float scale) { m_fScale = scale; }
 	void SetRotation(float rot) { m_fRotation = rot; }
 	void SetOwner(CPlayer* own) { m_pOwner = own; }
-	void SetDamage(int dam) {m_nDamage = dam;}
+	void SetDamage(float dam) {m_nDamage = dam;}
 	void SetBulletType(int type) {m_nBulletType = type;}
 	void SetBlastRadius(float radius) {m_fBlastRadius = radius;}
+	void SetSlowRate(float rate) {m_fSlowRate = rate;}
 	bool CheckCollision(IBaseInterface* pBase);
 };
 

@@ -7,6 +7,7 @@
 class CCamera;
 
 enum weapons { WEAPON_PISTOL, WEAPON_RPG, WEAPON_SPECIAL };
+enum characters{CAR_MINI, CAR_VETTE, CAR_HUMMER, CAR_TRUCK, CAR_NUM};
 class CCar : public CBase, public IListener
 {
 
@@ -45,6 +46,7 @@ private:
 	int m_nBulletImageID;
 	int m_nMissileImageID;
 	int m_nSpecialWeaponImageID;
+	int m_nPlayerType;
 	float m_fCollisionEffect;		// used to create a single particle effect with the send event rather than creating more than what was desired.
 
 public:
@@ -85,6 +87,7 @@ public:
 	float GetCollisionDelay(void) {return m_fCollisionDelay;}
 	float GetEffectTimer(){ return m_fCollisionEffect;}
 	tVector2D GetOverallVelocity(void) { return m_tOverallVelocity; }
+	int GetPlayerType() {return m_nPlayerType;}
 	//setters
 	void SetOverallVelocity(tVector2D vel) { m_tOverallVelocity = vel; }
 	void SetPowerUpBar(float pbar) { m_fPowerUpBar = pbar; }
@@ -116,6 +119,7 @@ public:
 	void SetMissileImageID(int id) {m_nMissileImageID = id;}
 	void SetSpecialWeaponImageID(int id) {m_nSpecialWeaponImageID = id;}
 	void SetCollisionDelay(float delay) {m_fCollisionDelay = delay;}
+	void SetPlayerType(int type) {m_nPlayerType = type;}
 	void ResetEffectTimer(){ m_fCollisionEffect = 0.0f;}
 	// plays the crash sound
 	void PlayCrash(void);

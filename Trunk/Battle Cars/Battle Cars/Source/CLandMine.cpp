@@ -2,6 +2,7 @@
 #include "CMessageSystem.h"
 #include "CSGD_Direct3D.h"
 #include "CSGD_TextureManager.h"
+#include "CEventSystem.h"
 
 CLandMine::CLandMine() : CBullet()
 {
@@ -40,11 +41,14 @@ bool CLandMine::CheckCollision(IBaseInterface* pBase)
 	RECT intersection;
 	if(IntersectRect(&intersection, &GetRect(), &pBase->GetRect()))
 	{
-		if(pBase->GetType() == OBJECT_PLAYER || pBase->GetType() == OBJECT_PLAYER)
+		if(pBase->GetType() == OBJECT_PLAYER || pBase->GetType() == OBJECT_ENEMY)
 		{
 			//send damage event
 			if(m_nLandMineType == LM_LM)
+			{
 				CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
+				CEventSystem::GetInstance()->SendEvent("damage",pBase,this);
+			}
 		}
 	}
 	return false;

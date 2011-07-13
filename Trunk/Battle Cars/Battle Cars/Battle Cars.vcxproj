@@ -77,6 +77,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\CAnimation.cpp" />
+    <ClCompile Include="Source\CAttackState.cpp" />
     <ClCompile Include="Source\CBase.cpp" />
     <ClCompile Include="Source\CBullet.cpp" />
     <ClCompile Include="Source\CCamera.cpp" />
@@ -85,6 +86,7 @@
     <ClCompile Include="Source\CCharacterSelection.cpp" />
     <ClCompile Include="Source\CEnemy.cpp" />
     <ClCompile Include="Source\CEventSystem.cpp" />
+    <ClCompile Include="Source\CFleeState.cpp" />
     <ClCompile Include="Source\CGame.cpp" />
     <ClCompile Include="Source\CGamePlayState.cpp" />
     <ClCompile Include="Source\CGamerProfile.cpp" />
@@ -130,6 +132,7 @@
   <ItemGroup>
     <ClInclude Include="resource.h" />
     <ClInclude Include="Source\CAnimation.h" />
+    <ClInclude Include="Source\CAttackState.h" />
     <ClInclude Include="Source\CBase.h" />
     <ClInclude Include="Source\CBullet.h" />
     <ClInclude Include="Source\CCamera.h" />
@@ -139,6 +142,7 @@
     <ClInclude Include="Source\CEnemy.h" />
     <ClInclude Include="Source\CEvent.h" />
     <ClInclude Include="Source\CEventSystem.h" />
+    <ClInclude Include="Source\CFleeState.h" />
     <ClInclude Include="Source\CGame.h" />
     <ClInclude Include="Source\CGamePlayState.h" />
     <ClInclude Include="Source\CGamerProfile.h" />
