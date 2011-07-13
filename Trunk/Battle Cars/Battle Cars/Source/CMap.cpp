@@ -13,6 +13,7 @@
 #include "CMap.h"
 #include "CTile.h"
 #include "tinyxml.h"
+#include "CLevelSelectionState.h"
 
 CMap::CMap ()
 {
@@ -47,6 +48,9 @@ bool CMap::LoadTiles (const char* filename)
 {
 	TiXmlDocument doc;
 	std::string path = "Resource/Data/";
+	char buffer[32];
+	sprintf_s(buffer,32, "level%i/", CLevelSelectionState::GetInstance()->GetSelection() + 1);
+	path += buffer;
 
 	std::string filepath = path + filename;
 
@@ -124,6 +128,9 @@ bool CMap::LoadCollisions (const char* filename)
 	
 	TiXmlDocument doc;
 	std::string path = "Resource/Data/";
+	char buffer[32];
+	sprintf_s(buffer,32, "level%i/", CLevelSelectionState::GetInstance()->GetSelection() + 1);
+	path += buffer;
 
 	std::string filepath = path + filename;
 
@@ -174,6 +181,9 @@ bool CMap::LoadSpawns (const char* filename)
 	
 	TiXmlDocument doc;
 	std::string path = "Resource/Data/";
+	char buffer[32];
+	sprintf_s(buffer,32, "level%i/", CLevelSelectionState::GetInstance()->GetSelection() + 1);
+	path += buffer;
 
 	std::string filepath = path + filename;
 
@@ -223,6 +233,9 @@ bool CMap::LoadEvents (const char* filename)
 {
 	TiXmlDocument doc;
 	std::string path = "Resource/Data/";
+	char buffer[32];
+	sprintf_s(buffer,32, "level%i/", CLevelSelectionState::GetInstance()->GetSelection() + 1);
+	path += buffer;
 
 	std::string filepath = path + filename;
 
