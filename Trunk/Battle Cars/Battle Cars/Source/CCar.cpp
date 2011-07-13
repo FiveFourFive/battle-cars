@@ -39,8 +39,8 @@ CCar::CCar(void)
 	m_nCollisionRadius = (float)(GetWidth()/2.0f);
 	m_nCollisionX1 = GetPosX();
 	m_nCollisionY1 = GetPosY() - (GetHeight()*0.5f) + (GetWidth()*0.5f);
-	m_nCollisionX2 = 0;
-	m_nCollisionY2 = 0;
+	m_nCollisionX2 = GetPosX();
+	m_nCollisionY2 = GetPosY() + (GetHeight()*0.5f) - (GetWidth()*0.5f);
 	SetVelY(0);
 	m_nKillCount = 0;
 	SetVelX(0);
@@ -142,6 +142,8 @@ void CCar::Update(float fElapsedTime)
 	SetPosY(GetPosY() + (GetVelY() * fElapsedTime));
 	m_nCollisionX1 = m_nCollisionX1 + (GetVelX() * fElapsedTime);
 	m_nCollisionY1 = m_nCollisionY1 + (GetVelY() * fElapsedTime);
+	m_nCollisionX2 = m_nCollisionX2 + (GetVelX() * fElapsedTime);
+	m_nCollisionY2 = m_nCollisionY2 + (GetVelY() * fElapsedTime);
 	CBase::Update(fElapsedTime);
 	InBounds();
 }
@@ -172,16 +174,16 @@ void CCar::Render(CCamera* camera)
 	m_pTM->Draw(m_nCarID,(int)GetPosX()-(GetWidth()/2)- (int)camera->GetCamX() + (int)camera->GetRenderPosX(),(int)GetPosY()-(GetHeight()/2)- (int)camera->GetCamY() + (int)camera->GetRenderPosY(),1.0f,1.0f,&car,GetWidth()/2.0f,GetHeight()/2.0f,GetRotation());
 	//pD3D->DrawRect(tempcar,255,0,0);
 	//pD3D->DrawText("BEEP", (int)(GetPosX()- camera->GetCamX() + 10), (int)(GetPosY()- camera->GetCamY() + 35),255,255,255);
-	pD3D->DrawLine((int)(GetPosX()- camera->GetCamX() + camera->GetRenderPosX()), (int)(GetPosY()- camera->GetCamY()+ camera->GetRenderPosY()), (int)(GetPosX()- camera->GetCamX() + camera->GetRenderPosX() + GetVelX()), (int)(GetPosY()- camera->GetCamY() + camera->GetRenderPosY() + GetVelY()),255,255,255);
-	pD3D->DrawLine(400, 600, 400, 550,255,255,255);
+	//pD3D->DrawLine((int)(GetPosX()- camera->GetCamX() + camera->GetRenderPosX()), (int)(GetPosY()- camera->GetCamY()+ camera->GetRenderPosY()), (int)(GetPosX()- camera->GetCamX() + camera->GetRenderPosX() + GetVelX()), (int)(GetPosY()- camera->GetCamY() + camera->GetRenderPosY() + GetVelY()),255,255,255);
+	//pD3D->DrawLine(400, 600, 400, 550,255,255,255);
 	float dir1 = GetDirection().fX;
 	float dir2 = GetDirection().fY;
-	pD3D->DrawLine((int)(GetPosX()- camera->GetCamX()+ camera->GetRenderPosX()), (int)(GetPosY()- camera->GetCamY() + camera->GetRenderPosY()), (int)(GetPosX() + (20 * dir1)- camera->GetCamX() + camera->GetRenderPosX()), (int)(GetPosY() + (20 * dir2)- camera->GetCamY() + camera->GetRenderPosY()), 0,255,0);
+	//pD3D->DrawLine((int)(GetPosX()- camera->GetCamX()+ camera->GetRenderPosX()), (int)(GetPosY()- camera->GetCamY() + camera->GetRenderPosY()), (int)(GetPosX() + (20 * dir1)- camera->GetCamX() + camera->GetRenderPosX()), (int)(GetPosY() + (20 * dir2)- camera->GetCamY() + camera->GetRenderPosY()), 0,255,0);
 	char buffer[128];
 	sprintf_s(buffer,"fX: %f	fY: %f",dir1,dir2);
-	pD3D->DrawText(buffer,(int)(GetPosX()- camera->GetCamX() + camera->GetRenderPosX()), (int)(GetPosY()- camera->GetCamY()+ camera->GetRenderPosY()),0,0,255);
+	//pD3D->DrawText(buffer,(int)(GetPosX()- camera->GetCamX() + camera->GetRenderPosX()), (int)(GetPosY()- camera->GetCamY()+ camera->GetRenderPosY()),0,0,255);
 	sprintf_s(buffer,"R: %f",GetRotation());
-	pD3D->DrawText(buffer,(int)(GetPosX()- camera->GetCamX()+ camera->GetRenderPosX())+10, (int)(GetPosY()- camera->GetCamY()+ camera->GetRenderPosY())+20,0,0,255);
+	//pD3D->DrawText(buffer,(int)(GetPosX()- camera->GetCamX()+ camera->GetRenderPosX())+10, (int)(GetPosY()- camera->GetCamY()+ camera->GetRenderPosY())+20,0,0,255);
 
 
 	// testing collision rotation
@@ -197,15 +199,20 @@ void CCar::Render(CCamera* camera)
 
 	pD3D->DrawRect(tempcircle1,255,255,255);
 
+	RECT tempcircle2;
+	tempcircle2.left = m_nCollisionX2 - camera->GetCamX() + camera->GetRenderPosX();
+	tempcircle2.top = m_nCollisionY2 - camera->GetCamY() + camera->GetRenderPosY();
+	tempcircle2.right = tempcircle2.left + m_nCollisionRadius;
+	tempcircle2.bottom = tempcircle2.top + m_nCollisionRadius;
 
-
+	pD3D->DrawRect(tempcircle2,0,0,255);
 	// end collision testing
 
 
 }
 void CCar::Rotate(float angle)
 {
-	float newangle = angle / 180 * 3.14159f;
+	float newangle = angle / 180.0f * 3.14159f;
 
 	/*float s = sin(angle);
 	float c = sin(angle);
@@ -226,6 +233,16 @@ void CCar::Rotate(float angle)
 	float tempY1 = m_nCollisionY1;
 	m_nCollisionX1 = GetPosX() + (cos(angle)) * (tempX1 - GetPosX()) - sin(angle) * (tempY1 - GetPosY());
 	m_nCollisionY1 = GetPosY() + (sin(angle)) * (tempX1 - GetPosX()) + cos(angle) * (tempY1 - GetPosY());
+
+
+	m_nCollisionX2 = GetPosX();
+	m_nCollisionY2 = GetPosY() + (GetHeight() * 0.5f) - (GetWidth() * 0.5f);
+
+	float tempX2 = m_nCollisionX2;
+	float tempY2 = m_nCollisionY2;
+	angle = angle + (3.14159f);
+	m_nCollisionX2 = GetPosX() + (cos(angle)) * (tempX1 - GetPosX()) - sin(angle) * (tempY1 - GetPosY());
+	m_nCollisionY2 = GetPosY() + (sin(angle)) * (tempX1 - GetPosX()) + cos(angle) * (tempY1 - GetPosY()); 
 }
 void CCar::PlayCrash(void)
 {

@@ -93,6 +93,7 @@ private:
 	void Update(float fElapsedTime);
 	void Render(void);
 	bool HandleEnter(void);
+	void SortScores(int left, int right); // move to HUD class if implemented
 public:
 
 	CLevel* GetLevel () {return Level;}

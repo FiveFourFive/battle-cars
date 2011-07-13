@@ -58,6 +58,8 @@ public:
 	tVector2D GetVelocity(void) { return m_tVelocity; }
 	float GetCX1(void) { return m_nCollisionX1; }
 	float GetCY1(void) { return m_nCollisionY1; }
+	float GetCX2(void) { return m_nCollisionX2; }
+	float GetCY2(void) { return m_nCollisionY2; }
 	float GetRadius(void) { return m_nCollisionRadius; }
 	float GetVelX(void)	{return m_fVelX;}
 	float GetVelY(void)	{return m_fVelY;}

@@ -7,18 +7,21 @@
 
 class CXboxInput;
 class CMessageSystem;
+class CHUD;
 
 enum characters{CAR_MINI, CAR_VETTE, CAR_HUMMER, CAR_TRUCK, CAR_NUM};
 class CPlayer : public CCar
 {
 private:
 	CCamera* m_pCamera;
-
+	CHUD* m_pHUD;
 	CEventSystem* m_pES;
 	CXboxInput* m_pController1;
 	float m_fFireTimer;
 	int m_nPlayerType;
 	RECT m_CollisionRECT;
+
+	int m_nPlayerNum;
 
 public:
 	CPlayer(CXboxInput* pController);
@@ -33,6 +36,8 @@ public:
 
 	CCamera* GetCamera(void) { return m_pCamera; }
 
+	int GetPlayerNum(void) { return m_nPlayerNum; }
+	void SetPlayerNum(int num) { m_nPlayerNum = num; }
 
 
 	bool CheckCollision(IBaseInterface* pBase);

@@ -89,12 +89,14 @@
     <ClCompile Include="Source\CGamePlayState.cpp" />
     <ClCompile Include="Source\CGamerProfile.cpp" />
     <ClCompile Include="Source\CHowToPlayState.cpp" />
+    <ClCompile Include="Source\CHUD.cpp" />
     <ClCompile Include="Source\CKeyBinds.cpp" />
     <ClCompile Include="Source\CKeyBindsState.cpp" />
     <ClCompile Include="Source\CKeyboardKeyBinds.cpp" />
     <ClCompile Include="Source\CLandMine.cpp" />
     <ClCompile Include="Source\CLevel.cpp" />
     <ClCompile Include="Source\CLevelSelectionState.cpp" />
+    <ClCompile Include="Source\CLossState.cpp" />
     <ClCompile Include="Source\CMainMenuState.cpp" />
     <ClCompile Include="Source\CMap.cpp" />
     <ClCompile Include="Source\CMessage.cpp" />
@@ -114,6 +116,7 @@
     <ClCompile Include="Source\CStopWatch.cpp" />
     <ClCompile Include="Source\CTile.cpp" />
     <ClCompile Include="Source\CWanderState.cpp" />
+    <ClCompile Include="Source\CWinState.cpp" />
     <ClCompile Include="Source\CXboxInput.cpp" />
     <ClCompile Include="Source\Emittor.cpp" />
     <ClCompile Include="Source\ParticleManager.cpp" />
@@ -140,12 +143,14 @@
     <ClInclude Include="Source\CGamePlayState.h" />
     <ClInclude Include="Source\CGamerProfile.h" />
     <ClInclude Include="Source\CHowToPlayState.h" />
+    <ClInclude Include="Source\CHUD.h" />
     <ClInclude Include="Source\CKeyBinds.h" />
     <ClInclude Include="Source\CKeyBindsState.h" />
     <ClInclude Include="Source\CKeyboardKeyBinds.h" />
     <ClInclude Include="Source\CLandMine.h" />
     <ClInclude Include="Source\CLevel.h" />
     <ClInclude Include="Source\CLevelSelectionState.h" />
+    <ClInclude Include="Source\CLossState.h" />
     <ClInclude Include="Source\CMainMenuState.h" />
     <ClInclude Include="Source\CMap.h" />
     <ClInclude Include="Source\CMessage.h" />
@@ -166,6 +171,7 @@
     <ClInclude Include="Source\CStopWatch.h" />
     <ClInclude Include="Source\CTile.h" />
     <ClInclude Include="Source\CWanderState.h" />
+    <ClInclude Include="Source\CWinState.h" />
     <ClInclude Include="Source\CXboxInput.h" />
     <ClInclude Include="Source\Emittor.h" />
     <ClInclude Include="Source\Gamer_Profile.h" />

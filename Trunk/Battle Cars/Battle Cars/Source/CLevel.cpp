@@ -116,7 +116,7 @@ void CLevel::Render (CCamera* camera)
 
 	int StartIndex = ((screen.top / LevelMap->GetPixelHeight()) * LevelMap->GetMapWidth ()) + (screen.left / LevelMap->GetPixelWidth());
 	int EndIndex = ((screen.bottom / LevelMap->GetPixelHeight()) * LevelMap->GetMapWidth()) + (screen.right / LevelMap->GetPixelWidth());
-
+	
 	if (StartIndex < 0)
 		StartIndex = 0;
 
