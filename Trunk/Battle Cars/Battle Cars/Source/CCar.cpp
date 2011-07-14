@@ -70,8 +70,13 @@ CCar::CCar(void)
 
 void CCar::Update(float fElapsedTime)
 {
+	if( GetHealth() <= 0.0f)
+	{
+		m_fRespawnTimer += fElapsedTime;
+		return;
+	}
+
 	m_fCollisionEffect += fElapsedTime;
-	m_fRespawnTimer += fElapsedTime;
 
 	tVector2D tempdir = GetDirection();
 	tVector2D tempvel = GetVelocity();

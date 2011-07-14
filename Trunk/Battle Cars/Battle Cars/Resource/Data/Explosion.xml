@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Emittors>
+  <Emittor>
+    <Name>Smoke_Explosion</Name>
+    <NumberofParticles>50.00000</NumberofParticles>
+    <MinLifeSpan>1</MinLifeSpan>
+    <MaxLifeSpan>1.5</MaxLifeSpan>
+    <StartColor A="255" R="0" G="255" B="255" />
+    <EndColor A="0" R="255" G="255" B="0" />
+    <XStartScale>0.3</XStartScale>
+    <XEndScale>2.0</XEndScale>
+    <YStartScale>0.3</YStartScale>
+    <YEndScale>2.0</YEndScale>
+    <MinXVelocity>-50</MinXVelocity>
+    <MaxXVelocity>50</MaxXVelocity>
+    <MinYVelocity>-50</MinYVelocity>
+    <MaxYVelocity>50</MaxYVelocity>
+    <XAcceleration>0</XAcceleration>
+    <YAcceleration>0</YAcceleration>
+    <Rotation>0</Rotation>
+    <SourceBlend>5</SourceBlend>
+    <DestinationBlend>6</DestinationBlend>
+    <ImageName>Puff.png</ImageName>
+    <Continuous>false</Continuous>
+    <Bursting>true</Bursting>
+  </Emittor>
+  <Emittor>
+    <Name>Fire Burst</Name>
+    <NumberofParticles>50.00000</NumberofParticles>
+    <MinLifeSpan>0.3</MinLifeSpan>
+    <MaxLifeSpan>0.8</MaxLifeSpan>
+    <StartColor A="255" R="0" G="0" B="0" />
+    <EndColor A="0" R="255" G="128" B="0" />
+    <XStartScale>0.3</XStartScale>
+    <XEndScale>2.0</XEndScale>
+    <YStartScale>0.3</YStartScale>
+    <YEndScale>2.0</YEndScale>
+    <MinXVelocity>-30.000</MinXVelocity>
+    <MaxXVelocity>30.000</MaxXVelocity>
+    <MinYVelocity>-30.000</MinYVelocity>
+    <MaxYVelocity>30.000</MaxYVelocity>
+    <XAcceleration>50.000</XAcceleration>
+    <YAcceleration>-50.000</YAcceleration>
+    <Rotation>0</Rotation>
+    <SourceBlend>5</SourceBlend>
+    <DestinationBlend>6</DestinationBlend>
+    <ImageName>Puff2.png</ImageName>
+    <Continuous>false</Continuous>
+    <Bursting>false</Bursting>
+  </Emittor>
+  <Emittor>
+    <Name>Fire Burst</Name>
+    <NumberofParticles>50.00000</NumberofParticles>
+    <MinLifeSpan>0.3</MinLifeSpan>
+    <MaxLifeSpan>0.8</MaxLifeSpan>
+    <StartColor A="255" R="0" G="0" B="0" />
+    <EndColor A="0" R="255" G="128" B="0" />
+    <XStartScale>0.3</XStartScale>
+    <XEndScale>2.0</XEndScale>
+    <YStartScale>0.3</YStartScale>
+    <YEndScale>2.0</YEndScale>
+    <MinXVelocity>-30.000</MinXVelocity>
+    <MaxXVelocity>30.000</MaxXVelocity>
+    <MinYVelocity>-30.000</MinYVelocity>
+    <MaxYVelocity>30.000</MaxYVelocity>
+    <XAcceleration>-50.000</XAcceleration>
+    <YAcceleration>-100.000</YAcceleration>
+    <Rotation>0</Rotation>
+    <SourceBlend>5</SourceBlend>
+    <DestinationBlend>6</DestinationBlend>
+    <ImageName>Puff2.png</ImageName>
+    <Continuous>false</Continuous>
+    <Bursting>false</Bursting>
+  </Emittor>
+  <Emittor>
+    <Name>Fire Burst</Name>
+    <NumberofParticles>50.00000</NumberofParticles>
+    <MinLifeSpan>0.3</MinLifeSpan>
+    <MaxLifeSpan>0.8</MaxLifeSpan>
+    <StartColor A="255" R="0" G="0" B="0" />
+    <EndColor A="0" R="255" G="128" B="0" />
+    <XStartScale>0.3</XStartScale>
+    <XEndScale>2.0</XEndScale>
+    <YStartScale>0.3</YStartScale>
+    <YEndScale>2.0</YEndScale>
+    <MinXVelocity>-30.000</MinXVelocity>
+    <MaxXVelocity>30.000</MaxXVelocity>
+    <MinYVelocity>-30.000</MinYVelocity>
+    <MaxYVelocity>30.000</MaxYVelocity>
+    <XAcceleration>-100.000</XAcceleration>
+    <YAcceleration>0.000</YAcceleration>
+    <Rotation>0</Rotation>
+    <SourceBlend>5</SourceBlend>
+    <DestinationBlend>6</DestinationBlend>
+    <ImageName>Puff2.png</ImageName>
+    <Continuous>false</Continuous>
+    <Bursting>false</Bursting>
+  </Emittor>
+  <Emittor>
+    <Name>Fire Explosion</Name>
+    <NumberofParticles>50.00000</NumberofParticles>
+    <MinLifeSpan>1</MinLifeSpan>
+    <MaxLifeSpan>1.5</MaxLifeSpan>
+    <StartColor A="255" R="255" G="128" B="0" />
+    <EndColor A="0" R="255" G="255" B="0" />
+    <XStartScale>0.3</XStartScale>
+    <XEndScale>2.0</XEndScale>
+    <YStartScale>0.3</YStartScale>
+    <YEndScale>2.0</YEndScale>
+    <MinXVelocity>-50.000</MinXVelocity>
+    <MaxXVelocity>50.000</MaxXVelocity>
+    <MinYVelocity>-50.000</MinYVelocity>
+    <MaxYVelocity>50.000</MaxYVelocity>
+    <XAcceleration>0</XAcceleration>
+    <YAcceleration>0</YAcceleration>
+    <Rotation>0</Rotation>
+    <SourceBlend>5</SourceBlend>
+    <DestinationBlend>6</DestinationBlend>
+    <ImageName>Sparkle2.png</ImageName>
+    <Continuous>false</Continuous>
+    <Bursting>true</Bursting>
+  </Emittor>
+</Emittors>

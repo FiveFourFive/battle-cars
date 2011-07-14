@@ -404,8 +404,8 @@ Emittor* ParticleManager::CreateEffect( Emittor* temp_emittor, float posX, float
 
 			temp->spawnDelay = RAND_FLOAT(0.0f, 1.0f);
 			
-			temp->velocity.fX = (RAND_FLOAT(new_emittor->GetMinVelocity().fX,new_emittor->GetMaxVelocity().fX)) * 0.1f;
-			temp->velocity.fY = (RAND_FLOAT(new_emittor->GetMinVelocity().fY, new_emittor->GetMaxVelocity().fY)) * 0.1f;
+			temp->velocity.fX = (RAND_FLOAT(new_emittor->GetMinVelocity().fX,new_emittor->GetMaxVelocity().fX)) * 0.01f;
+			temp->velocity.fY = (RAND_FLOAT(new_emittor->GetMinVelocity().fY, new_emittor->GetMaxVelocity().fY)) * 0.01f;
 			temp->scaleX = new_emittor->GetStartScaleX();
 			temp->scaleY = new_emittor->GetStartScaleY();
 

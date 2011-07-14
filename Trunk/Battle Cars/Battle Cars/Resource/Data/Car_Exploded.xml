@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Emittors>
+  <Emittor>
+    <Name>Smoke</Name>
+    <NumberofParticles>200.00000</NumberofParticles>
+    <MinLifeSpan>0.5</MinLifeSpan>
+    <MaxLifeSpan>1</MaxLifeSpan>
+    <StartColor A="255" R="95" G="95" B="95" />
+    <EndColor A="0" R="74" G="74" B="74" />
+    <XStartScale>0.3</XStartScale>
+    <XEndScale>2.0</XEndScale>
+    <YStartScale>0.3</YStartScale>
+    <YEndScale>2.0</YEndScale>
+    <MinXVelocity>-50</MinXVelocity>
+    <MaxXVelocity>50</MaxXVelocity>
+    <MinYVelocity>-50</MinYVelocity>
+    <MaxYVelocity>50</MaxYVelocity>
+    <XAcceleration>0</XAcceleration>
+    <YAcceleration>0</YAcceleration>
+    <Rotation>0</Rotation>
+    <SourceBlend>5</SourceBlend>
+    <DestinationBlend>6</DestinationBlend>
+    <ImageName>Puff.png</ImageName>
+    <Continuous>true</Continuous>
+    <Bursting>false</Bursting>
+  </Emittor>
+  <Emittor>
+    <Name>Burst</Name>
+    <NumberofParticles>30.00000</NumberofParticles>
+    <MinLifeSpan>0.5</MinLifeSpan>
+    <MaxLifeSpan>1</MaxLifeSpan>
+    <StartColor A="255" R="255" G="128" B="0" />
+    <EndColor A="255" R="255" G="128" B="0" />
+    <XStartScale>0.3</XStartScale>
+    <XEndScale>2.0</XEndScale>
+    <YStartScale>0.3</YStartScale>
+    <YEndScale>2.0</YEndScale>
+    <MinXVelocity>-50</MinXVelocity>
+    <MaxXVelocity>50</MaxXVelocity>
+    <MinYVelocity>-50</MinYVelocity>
+    <MaxYVelocity>50</MaxYVelocity>
+    <XAcceleration>0</XAcceleration>
+    <YAcceleration>0</YAcceleration>
+    <Rotation>0</Rotation>
+    <SourceBlend>5</SourceBlend>
+    <DestinationBlend>7</DestinationBlend>
+    <ImageName>Puff2.png</ImageName>
+    <Continuous>true</Continuous>
+    <Bursting>false</Bursting>
+  </Emittor>
+</Emittors>
