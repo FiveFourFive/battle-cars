@@ -32,6 +32,7 @@ class CSpeedRamp;
 class ParticleManager;
 class CEnemy;
 class PowerUp;
+class CDeathmatchMode;
 class CKeyboardKeyBinds;
 class CKeyBinds;
 
@@ -47,6 +48,8 @@ private:
 	CEventSystem* m_pES;
 	CObjectManager* m_pOM;
 	CObjectFactory<string,CBase>* m_pOF;
+
+	CDeathmatchMode* m_pMode;
 
 	CKeyBinds*				m_pPlayer1KB;
 	CKeyboardKeyBinds*		m_pPlayer1KeyboardKB;
@@ -118,6 +121,7 @@ public:
 	CObjectManager* GetObjectManager() {return m_pOM;}
 	//Mutators
 	void SetCharacters(vector<CPlayer*> players) {characters = players;}
+	CDeathmatchMode* GetMode(void) { return m_pMode; }
 };
 
 

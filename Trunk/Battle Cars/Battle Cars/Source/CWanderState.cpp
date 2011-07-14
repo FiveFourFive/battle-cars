@@ -37,7 +37,7 @@ CWanderState* CWanderState::GetInstance()
 
 void CWanderState::Update (float fElapsedTime)
 {
-	m_Owner->SetSpeed (m_Owner->GetSpeed () + 10.0f);
+	m_Owner->SetSpeed (m_Owner->GetSpeed () + 0.80f);
 
 	if (m_Owner->GetSpeed () > 150.0f)
 	{
@@ -262,6 +262,7 @@ void CWanderState::Wander(float fElapsedTime)
 		m_fturnLeftOrRight = Steering(currentEnemyDirection, TargetVector); 
 		if(m_fturnLeftOrRight < 0.0f)
 		{
+			
 			if(m_fRotationAngle - (m_Owner->GetRotationRate() * fElapsedTime) < 0.0f)
 			{
 				m_Owner->SetRotation(m_Owner->GetRotation()-m_fRotationAngle);
@@ -282,9 +283,11 @@ void CWanderState::Wander(float fElapsedTime)
 				m_Owner->SetDirection(direction);
 				m_fRotationAngle -= (m_Owner->GetRotationRate() * fElapsedTime);
 			}
+			m_Owner->Rotate(m_Owner->GetRotation());
 		}
 		else
 		{
+			
 			if(m_fRotationAngle - (m_Owner->GetRotationRate() * fElapsedTime) < 0.0f)
 			{
 				m_Owner->SetRotation(m_Owner->GetRotation()+m_fRotationAngle);
@@ -305,6 +308,7 @@ void CWanderState::Wander(float fElapsedTime)
 				m_Owner->SetDirection(direction);
 				m_fRotationAngle -= (m_Owner->GetRotationRate() * fElapsedTime);
 			}
+			m_Owner->Rotate(m_Owner->GetRotation());
 		}
 
 		if(currentEnemyDirection.fX < 0.0f && currentEnemyDirection.fY < 0.0f)

@@ -198,6 +198,15 @@
     <ClCompile Include="Source\CWinState.cpp">
       <Filter>Game States</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CAttackState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CFleeState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CDeathmatchMode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\CStopWatch.h">
@@ -367,6 +376,15 @@
     </ClInclude>
     <ClInclude Include="Source\CWinState.h">
       <Filter>Game States</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CAttackState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CFleeState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CDeathmatchMode.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

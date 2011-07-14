@@ -3,6 +3,7 @@
 #include "CSGD_Direct3D.h"
 #include "CEventSystem.h"
 #include "CEvent.h"
+#include "CCar.h"
 PowerUp::PowerUp()
 {
 	m_nType = SHIELD_POWERUP;
@@ -69,11 +70,12 @@ bool PowerUp::CheckCollision(IBaseInterface* pBase)
 			{
 				if(pBase->GetType() == OBJECT_PLAYER || pBase->GetType() == OBJECT_ENEMY)
 				{
-				if(m_nType == WEAPONS_POWERUP)
+				if(m_nPtype == WEAPONS_POWERUP)
 				{
-					CEventSystem::GetInstance()->SendEvent("weapon_level",pBase,pBase);
+					CCar* car = (CCar*)pBase;
+					CEventSystem::GetInstance()->SendEvent("weapon_level",car);
 				}
-				else if(m_nType == SHIELD_POWERUP)
+				else if(m_nPtype == SHIELD_POWERUP)
 				{
 					CEventSystem::GetInstance()->SendEvent("powerup_power",pBase);
 				}
