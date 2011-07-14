@@ -417,7 +417,7 @@ bool CCharacterSelection::HandleEnter()
 							m_bPlayer1_turn = false;
 							m_bPlayer2_turn = true;
 							isAvailable[CAR_VETTE] = false;
-							m_player1->SetWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/flamethrower_icon.png"));
+							m_player1->SetWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/flamerthrower_icon.png"));
 						}
 						else
 							m_pFM->PlaySoundA(m_nIncorrectSelection);
@@ -490,7 +490,7 @@ bool CCharacterSelection::HandleEnter()
 							m_player1 = m_vPlayerList[CAR_VETTE];
 							m_bPlayer1_turn = false;
 							isAvailable[CAR_VETTE] = false;
-							m_player1->SetWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/flamethrower_icon.png"));
+							m_player1->SetWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/flamerthrower_icon.png"));
 						}
 						else
 							m_pFM->PlaySoundA(m_nIncorrectSelection);
