@@ -88,6 +88,8 @@ void CEnemy::HandleEvent(CEvent* pEvent)
 		if(pEvent->GetEventID() == "damage")
 		{
 			CBullet* tempbullet = (CBullet*)pEvent->GetParam2();
+			if(tempbullet->GetOwner() != this)
+			{
    			float damage = tempbullet->GetDamage();
 			if(tempbullet->GetSlowRate() != 0.0f)
 				SetSpeed(GetSpeed()*.75f);
@@ -103,8 +105,9 @@ void CEnemy::HandleEvent(CEvent* pEvent)
 			{
 			
 				if(GetIsAlive() == true)
-					tempbullet->GetOwner()->SetKillCount(GetKillCount() + 1);
+					tempbullet->GetOwner()->SetKillCount(tempbullet->GetOwner()->GetKillCount() + 1);
 				SetIsAlive(false);
+			}
 			}
 		}
 		else if( pEvent->GetEventID() == "collision")

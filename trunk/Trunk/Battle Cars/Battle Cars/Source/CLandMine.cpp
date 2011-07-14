@@ -3,6 +3,9 @@
 #include "CSGD_Direct3D.h"
 #include "CSGD_TextureManager.h"
 #include "CEventSystem.h"
+#include "CPlayer.h"
+#include "CEnemy.h"
+#include "CCar.h"
 
 CLandMine::CLandMine() : CBullet()
 {
@@ -39,6 +42,8 @@ void CLandMine::Render(CCamera* camera)
 bool CLandMine::CheckCollision(IBaseInterface* pBase)
 {
 	RECT intersection;
+	if(this->GetOwner() == pBase)
+		return false;
 	if(IntersectRect(&intersection, &GetRect(), &pBase->GetRect()))
 	{
 		if(pBase->GetType() == OBJECT_PLAYER || pBase->GetType() == OBJECT_ENEMY)

@@ -105,6 +105,8 @@ void CDeathmatchMode::CheckWinLoss(void)
 				CGame::GetInstance()->ChangeState(CLossState::GetInstance());
 			}
 		}
+		else
+			CGame::GetInstance()->ChangeState(CLossState::GetInstance());
 	}
 
 }
