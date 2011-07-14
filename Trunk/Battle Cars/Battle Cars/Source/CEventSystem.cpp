@@ -117,7 +117,7 @@ void CEventSystem::DispatchEvent(CEvent *pEvent)
 		(*mmIter).second->HandleEvent(pEvent);
 	}*/
 
-	for (size_t index = 0; index < m_ClientEvents.size (); index++)
+	for (size_t index = 0; index < m_Clients.size (); index++)
 	{
 		(*(m_Clients.begin () + index))->HandleEvent (pEvent);
 	}
