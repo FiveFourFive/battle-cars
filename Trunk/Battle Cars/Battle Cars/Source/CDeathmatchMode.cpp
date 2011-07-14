@@ -3,6 +3,8 @@
 #include "CGamePlayState.h"
 #include "CPlayer.h"
 #include <vector>
+#include "CLevel.h"
+#include "CMap.h"
 #include "CGame.h"
 #include "CWinState.h"
 #include "CLossState.h"
@@ -21,12 +23,20 @@ void CDeathmatchMode::CheckCarStatus(CCar* car)
 {
 	if(car->GetHealth() <= 0)
 	{
-		car->SetPosX(rand() % 5000 + 100);
-		car->SetPosY(rand() % 5000 + 100);
-		car->SetHealth(car->GetMaxHealth());
-		car->SetShieldBar(car->GetMaxShield());
-		car->SetPowerUpBar(0);
-		car->SetSpecialLevel(0);
+		if( car->GetRespawnTimer() > 5.0f )
+		{
+			car->SetRespawnTimer(0.0f);
+			int width_index = CLevel::GetInstance()->GetMap()->GetMapWidth() * CLevel::GetInstance()->GetMap()->GetPixelWidth();
+			int height_index = CLevel::GetInstance()->GetMap()->GetMapHeight() * CLevel::GetInstance()->GetMap()->GetPixelHeight();
+
+			car->SetPosX(rand() % width_index + 100);
+			car->SetPosY(rand() % height_index + 100);
+			car->SetHealth(car->GetMaxHealth());
+			car->SetShieldBar(car->GetMaxShield());
+			car->SetPowerUpBar(0);
+			car->SetSpecialLevel(0);
+		}
+
 	}
 }
 
