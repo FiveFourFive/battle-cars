@@ -11,6 +11,10 @@ public:
 	string m_sUserName;
 	CKeyBinds* m_pKB;
 	CKeyboardKeyBinds* m_pKKB;
+
+	string GetUserName(){ return m_sUserName;}
+	CKeyBinds* GetControllerBinds(){ return m_pKB;}
+	CKeyboardKeyBinds* GetKeyboardBinds(){ return m_pKKB;}
 };
 
 #endif

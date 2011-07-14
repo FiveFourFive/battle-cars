@@ -25,7 +25,6 @@ CGamerProfile::CGamerProfile()
 	m_pTM   = NULL;
 	m_pFM   = NULL;
 	m_pPF   = NULL;
-	activeProfile = NULL;
 	editProfile = false;
 
 	PosX = 0;
@@ -37,6 +36,15 @@ CGamerProfile::CGamerProfile()
 	PosY[4] = 500;
 
 	CurrPos = 200;
+
+	LoadProfiles("resource/data/gamer_profile.xml");
+	for(unsigned int i = 0; i < m_vUserProfiles.size(); i++)
+	{
+		m_vUserProfiles[i]->m_pKB = CGame::GetInstance()->GetController1()->GetKB();
+		m_vUserProfiles[i]->m_pKKB = CGame::GetInstance()->GetKeyboardKeyBinds();
+	}
+
+	activeProfile = m_vUserProfiles[0];
 }
 
 CGamerProfile::~CGamerProfile()
@@ -67,12 +75,6 @@ void CGamerProfile::Enter()
 	BGMusicID = m_pFM->LoadSound("Resource/Sounds/NeonCity.mp3", FMOD_LOOP_NORMAL);
 	PosX = 350;
 
-	LoadProfiles("resource/data/gamer_profile.xml");
-	for(unsigned int i = 0; i < m_vUserProfiles.size(); i++)
-	{
-		m_vUserProfiles[i]->m_pKB = CGame::GetInstance()->GetController1()->GetKB();
-		m_vUserProfiles[i]->m_pKKB = CGame::GetInstance()->GetKeyboardKeyBinds();
-	}
 	temp = 'A';
 	m_pFM->PlaySoundA(BGMusicID);
 }
@@ -84,13 +86,6 @@ void CGamerProfile::Exit()
 	m_pFM->UnloadSound(BGMusicID);
 
 	delete m_pPF;
-
-	for( unsigned int i = 0; i < m_vUserProfiles.size(); i++)
-	{
-		delete m_vUserProfiles[i];
-	}
-
-	m_vUserProfiles.clear();
 }
 
 bool CGamerProfile::Input()

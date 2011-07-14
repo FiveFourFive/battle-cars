@@ -32,6 +32,8 @@ class CSpeedRamp;
 class ParticleManager;
 class CEnemy;
 class PowerUp;
+class CKeyboardKeyBinds;
+class CKeyBinds;
 
 class CGamePlayState : public IGameState
 {
@@ -45,6 +47,9 @@ private:
 	CEventSystem* m_pES;
 	CObjectManager* m_pOM;
 	CObjectFactory<string,CBase>* m_pOF;
+
+	CKeyBinds*				m_pPlayer1KB;
+	CKeyboardKeyBinds*		m_pPlayer1KeyboardKB;
 
 	CXboxInput* m_pController1;
 	CXboxInput* m_pController2;

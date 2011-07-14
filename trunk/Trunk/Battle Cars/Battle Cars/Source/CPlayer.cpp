@@ -52,6 +52,7 @@ CPlayer::~CPlayer(void)
 	m_pES->UnregisterClient ("CameraCollision", this);
 	m_pES->UnregisterClient("powerup_power",this);
 	delete m_pCamera;
+	delete m_pHUD;
 }
 
 void CPlayer::Update(float fElapsedTime)

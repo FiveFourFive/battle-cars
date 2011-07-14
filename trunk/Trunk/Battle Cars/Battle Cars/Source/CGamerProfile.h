@@ -58,6 +58,8 @@ public:
 	void Enter();		// Load up everything needed for this game state.
 	void Exit();		// Shutdown everything and deallocate memory that this program started.
 
+	Gamer_Profile* GetActiveProfile(){ return activeProfile;}
+
 	////////////////////////////////////////////////////////
 	//	Loads up the Gamer profiles xml file. Only three profiles will be saved at once.
 	////////////////////////////////////////////////////////
