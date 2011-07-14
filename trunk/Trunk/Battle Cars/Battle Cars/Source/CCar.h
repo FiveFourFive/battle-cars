@@ -48,6 +48,7 @@ private:
 	int m_nSpecialWeaponImageID;
 	int m_nSpecialLevel;
 	int m_nPlayerType;
+	bool m_bIsAlive;
 	float m_fCollisionEffect;		// used to create a single particle effect with the send event rather than creating more than what was desired.
 	float m_fRespawnTimer;			// The elapsed time until the object respawns again.
 
@@ -93,6 +94,7 @@ public:
 	float GetEffectTimer(){ return m_fCollisionEffect;}
 	tVector2D GetOverallVelocity(void) { return m_tOverallVelocity; }
 	int GetPlayerType() {return m_nPlayerType;}
+	bool GetIsAlive(void) { return m_bIsAlive; }
 	float GetRespawnTimer(){ return m_fRespawnTimer;}
 	bool GetCollisionEffect(){ return Collision_effect; }
 	//setters
@@ -129,6 +131,7 @@ public:
 	void SetCollisionDelay(float delay) {m_fCollisionDelay = delay;}
 	void SetPlayerType(int type) {m_nPlayerType = type;}
 	void ResetEffectTimer(){ m_fCollisionEffect = 0.0f;}
+	void SetIsAlive(bool alive) { m_bIsAlive = alive; }
 	void SetRespawnTimer(float respawn){ m_fRespawnTimer = respawn;}
 	void SetCollisionEffect(bool value){ Collision_effect = value;}
 

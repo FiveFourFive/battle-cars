@@ -26,6 +26,7 @@ void CDeathmatchMode::CheckCarStatus(CCar* car)
 		if( car->GetRespawnTimer() > 5.0f )
 		{
 			car->SetRespawnTimer(0.0f);
+			car->SetIsAlive(true);
 			int width_index = CLevel::GetInstance()->GetMap()->GetMapWidth() * CLevel::GetInstance()->GetMap()->GetPixelWidth();
 			int height_index = CLevel::GetInstance()->GetMap()->GetMapHeight() * CLevel::GetInstance()->GetMap()->GetPixelHeight();
 
@@ -46,9 +47,9 @@ void CDeathmatchMode::CheckWinLoss(void)
 	{
 		vector<CCar*>* scores;
 		scores = CGamePlayState::GetInstance()->GetList();
-		if(scores->front()->GetType() == OBJECT_PLAYER)
+		if(scores->back()->GetType() == OBJECT_PLAYER)
 		{
-			CPlayer* tempplayer = (CPlayer*)scores->front();
+			CPlayer* tempplayer = (CPlayer*)scores->back();
 			if(tempplayer->GetPlayerNum() == 1)
 			{
 				CGame::GetInstance()->ChangeState(CWinState::GetInstance());

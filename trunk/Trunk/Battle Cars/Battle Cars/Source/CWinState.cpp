@@ -149,13 +149,21 @@ void CWinState::Update(float fElapsedTime)
 
 void CWinState::Render(void)
 {
+	m_pPF->Print("GAME OVER YOU WIN",220,50,1.0f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("FINAL SCORE: ", 100,150,1.0f,D3DCOLOR_XRGB(0,0,255));
+	char buffer[128];
+	int playerscore = CGame::GetInstance()->GetScore();
+	sprintf_s(buffer,"%i", playerscore);
+	m_pPF->Print(buffer,500,150,1.0f,D3DCOLOR_XRGB(0,255,0));
+	m_pPF->Print("PRESS ENTER/BACK TO CONTINUE",60,430,1.0f,D3DCOLOR_XRGB(255,255,255));
+	
 	RECT cars;
-	cars.left = 400;
+	cars.left = 600;
 	cars.top = 300;
 	cars.right = cars.left + 60;
 	cars.bottom = cars.top + 100;
 	int color = 0;
-	char buffer[128];
+	
 	sprintf_s(buffer,"%f",m_fTotalTurns);
 	m_pD3D->DrawText(buffer,400,280,255,255,255);
 	switch(m_nSlot)

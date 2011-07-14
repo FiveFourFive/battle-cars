@@ -77,11 +77,6 @@ void CPlayer::Update(float fElapsedTime)
 	m_fFireTimer += fElapsedTime;
 	static float m_ftimer;
 	m_ftimer += fElapsedTime;
-	if( m_ftimer >= 3.0f)
-	{
-		m_ftimer = 0.0f;
-		SetKillCount(GetKillCount() + 1);
-	}
 	if(m_bIsFlameThrowerOn)
 	{
 		m_fFlames = m_fFlames - fElapsedTime;
@@ -609,6 +604,13 @@ void CPlayer::HandleEvent(CEvent* pEvent)
 			else
 			{
 				SetHealth(GetHealth() - tempbullet->GetDamage());
+			}
+			if(GetHealth() <= 0)
+			{
+				
+				if(GetIsAlive() == true)
+				tempbullet->GetOwner()->SetKillCount(GetKillCount() + 1);
+				SetIsAlive(false);
 			}
 
 		}

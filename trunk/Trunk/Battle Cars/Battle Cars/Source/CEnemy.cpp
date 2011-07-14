@@ -94,6 +94,13 @@ void CEnemy::HandleEvent(CEvent* pEvent)
 			{
 				SetHealth(GetHealth() - tempbullet->GetDamage());
 			}
+			if(GetHealth() <= 0)
+			{
+			
+				if(GetIsAlive() == true)
+					tempbullet->GetOwner()->SetKillCount(GetKillCount() + 1);
+				SetIsAlive(false);
+			}
 		}
 		else if(pEvent->GetEventID() == "weapon_level")
 		{
