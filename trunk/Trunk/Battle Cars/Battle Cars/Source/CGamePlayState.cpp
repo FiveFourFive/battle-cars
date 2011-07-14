@@ -297,8 +297,10 @@ void CGamePlayState::Enter(void)
 
 	m_pPM->LoadEmittor("resource/data/collision.xml");
 	m_pPM->LoadEmittor("resource/data/missle_flame.xml");
+	m_pPM->LoadEmittor("resource/data/explosion.xml");
+	m_pPM->LoadEmittor("resource/data/car_exploded.xml");
 
-	time = 60;
+	time = 120;
 	m_fElapsedSecond = 0.0f;
 	score = 0;
 
@@ -523,6 +525,14 @@ void CGamePlayState::Update(float fElapsedTime)
 
 void CGamePlayState::Render(void)
 {
+	RECT temp;					 ////
+	temp.left = 0;				 //////
+	temp.top = 0;				 // replace this with background image
+	temp.right = CGame::GetInstance()->GetScreenWidth();			 ////////
+	temp.bottom = CGame::GetInstance()->GetScreenHeight();			 //////
+	m_pD3D->GetSprite()->Flush();////
+	m_pD3D->DrawRect(temp,0,0,0);//
+
 	Level->Render (player->GetCamera ());
 	m_pOM->RenderObjects(player->GetCamera());
 
@@ -649,7 +659,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet->SetWidth((int)(64*pBullet->GetScale()));
 			pBullet->SetPosX(pCBM->GetPlayer()->GetPosX());
 			pBullet->SetPosY(pCBM->GetPlayer()->GetPosY());
-			pBullet->SetDamage(2);
+			pBullet->SetDamage(200);
 			pBullet->SetBulletType(PROJECTILE_BULLET);
 			pBullet->SetRotation(pCBM->GetPlayer()->GetRotation());
 			pGame->m_pOM->AddObject(pBullet);

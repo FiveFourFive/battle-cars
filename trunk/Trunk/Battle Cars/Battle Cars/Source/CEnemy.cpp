@@ -106,7 +106,6 @@ void CEnemy::HandleEvent(CEvent* pEvent)
 			
 				if(GetIsAlive() == true)
 					tempbullet->GetOwner()->SetKillCount(tempbullet->GetOwner()->GetKillCount() + 1);
-				SetIsAlive(false);
 			}
 			}
 		}

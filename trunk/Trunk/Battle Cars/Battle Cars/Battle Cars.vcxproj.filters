@@ -314,9 +314,6 @@
     <ClInclude Include="Source\CPauseMenuState.h">
       <Filter>Game States</Filter>
     </ClInclude>
-    <ClInclude Include="Source\CCamera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\CBullet.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
@@ -391,6 +388,9 @@
     </ClInclude>
     <ClInclude Include="Source\CGameModeSelectionState.h">
       <Filter>Game States</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CCamera.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

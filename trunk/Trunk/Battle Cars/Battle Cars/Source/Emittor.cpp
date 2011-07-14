@@ -67,8 +67,8 @@ void Emittor::Update(float fElapsedTime)
 
 			}
 
-				m_vParticleList[i]->position.fX += (m_vParticleList[i]->velocity.fX + acceleration.fX * fElapsedTime);
-				m_vParticleList[i]->position.fY += (m_vParticleList[i]->velocity.fY + acceleration.fY * fElapsedTime);
+				m_vParticleList[i]->position.fX += (m_vParticleList[i]->velocity.fX + (acceleration.fX * fElapsedTime));
+				m_vParticleList[i]->position.fY += (m_vParticleList[i]->velocity.fY + (acceleration.fY * fElapsedTime));
                 
 
 			m_vParticleList[i]->currLife += fElapsedTime;
@@ -136,8 +136,8 @@ void Emittor::Render(CCamera* camera)
 		{
 			
 			// Renders each individual particle.
-			pTM->Draw(m_nTextureID, (int)m_vParticleList[i]->position.fX - (int)(pTM->GetTextureWidth(this->GetTextureID())*0.5f) - (int)camera->GetCamX(), (int)m_vParticleList[i]->position.fY - (int)(pTM->GetTextureHeight(this->GetTextureID())*0.5f) - (int)camera->GetCamY(), m_vParticleList[i]->scaleX, m_vParticleList[i]->scaleY,
-				NULL, (float)pTM->GetTextureWidth(this->GetTextureID()), (float)pTM->GetTextureHeight(this->GetTextureID()), m_vParticleList[i]->rotation, m_vParticleList[i]->color);
+			pTM->Draw(m_nTextureID, (int)m_vParticleList[i]->position.fX - (int)(pTM->GetTextureWidth(this->GetTextureID())*0.5f) - (int)camera->GetCamX() + (int)camera->GetRenderPosX(), (int)m_vParticleList[i]->position.fY - (int)(pTM->GetTextureHeight(this->GetTextureID())*0.5f) - (int)camera->GetCamY()+ (int)camera->GetRenderPosY(), m_vParticleList[i]->scaleX, m_vParticleList[i]->scaleY,
+				NULL, (float)pTM->GetTextureWidth(this->GetTextureID())*0.5f, (float)pTM->GetTextureHeight(this->GetTextureID()) *0.5f, m_vParticleList[i]->rotation, m_vParticleList[i]->color);
 		}
 	}
 
@@ -245,8 +245,8 @@ void Emittor::InitializeEmittor()
 			temp->maxlife = RAND_FLOAT(m_fMinLife, m_fEndLife);
 			temp->spawnDelay = RAND_FLOAT(0.0f, 1.0f);
 			
-			temp->velocity.fX = (RAND_FLOAT(minVelocity.fX, maxVelocity.fX)) * 0.01f;
-			temp->velocity.fY = (RAND_FLOAT(minVelocity.fY, maxVelocity.fY)) * 0.01f;
+			temp->velocity.fX = (RAND_FLOAT(minVelocity.fX, maxVelocity.fX)) * 0.001f;
+			temp->velocity.fY = (RAND_FLOAT(minVelocity.fY, maxVelocity.fY)) * 0.001f;
 			temp->scaleX = m_StartScaleX;
 			temp->scaleY = m_StartScaleY;
 			temp->rotation = 0.0f;
