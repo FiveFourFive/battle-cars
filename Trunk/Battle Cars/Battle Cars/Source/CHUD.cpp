@@ -11,6 +11,11 @@ CHUD::CHUD(void)
 
 	m_nMiniMapID = CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/huds/minimap_overlay.png",D3DCOLOR_XRGB(255,255,255));
 	m_pTM = CSGD_TextureManager::GetInstance();
+
+	//m_nHealthID = m_pTM->LoadTexture("resource
+//	m_nScoreBoardID
+	//m_nPistolID = m_pTM->LoadTexture("reoursce
+	//m_nMissileID
 }
 
 CHUD::~CHUD(void)

@@ -46,6 +46,7 @@ private:
 	int m_nBulletImageID;
 	int m_nMissileImageID;
 	int m_nSpecialWeaponImageID;
+	int m_nSpecialLevel;
 	int m_nPlayerType;
 	float m_fCollisionEffect;		// used to create a single particle effect with the send event rather than creating more than what was desired.
 
@@ -62,6 +63,7 @@ public:
 	float GetCY1(void) { return m_nCollisionY1; }
 	float GetCX2(void) { return m_nCollisionX2; }
 	float GetCY2(void) { return m_nCollisionY2; }
+	int GetSpecialLevel(void) { return m_nSpecialLevel; }
 	float GetRadius(void) { return m_nCollisionRadius; }
 	float GetVelX(void)	{return m_fVelX;}
 	float GetVelY(void)	{return m_fVelY;}
@@ -90,6 +92,7 @@ public:
 	int GetPlayerType() {return m_nPlayerType;}
 	//setters
 	void SetOverallVelocity(tVector2D vel) { m_tOverallVelocity = vel; }
+	void SetSpecialLevel(int level) { m_nSpecialLevel = level; }
 	void SetPowerUpBar(float pbar) { m_fPowerUpBar = pbar; }
 	void SetShieldBar(float sbar) { m_fShieldBar = sbar; }
 	void SetMaxPowerUp(float max) { m_fMaxPowerUp = max; }

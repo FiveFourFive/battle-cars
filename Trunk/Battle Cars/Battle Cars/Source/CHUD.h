@@ -15,6 +15,8 @@ private:
 	int m_nMiniMapID;
 	int m_nScoreBoardID;
 	int m_nHealthID;
+	int m_nPistolID;
+	int m_nMissileID;
 public:
 	CHUD(void);
 	~CHUD(void);

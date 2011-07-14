@@ -33,7 +33,7 @@ CCar::CCar(void)
 
 	SetPosX(350);
 	SetPosY(225);
-
+	m_nSpecialLevel = 0;
 	SetWidth(52);
 	SetHeight(70);
 	m_nCollisionRadius = (float)(GetWidth()/2.0f);
@@ -61,6 +61,7 @@ CCar::CCar(void)
 
 	CEventSystem::GetInstance()->RegisterClient("damage",this);
 	CEventSystem::GetInstance()->RegisterClient("collision", this);
+	CEventSystem::GetInstance()->RegisterClient("weapon_level",this);
 }
 
 
@@ -259,7 +260,17 @@ bool CCar::CheckCollision(IBaseInterface* pBase)
 {
 	if(pBase == this)
 		return false;
+	RECT intersection;
+	if(IntersectRect(&intersection, &GetRect(), &pBase->GetRect()))
+	{
+		if(pBase->GetType() == 2)
+		{
+			if(GetSpecialLevel() < 4)
+				SetSpecialLevel(GetSpecialLevel() + 1);
 
+
+		}
+	}
 	//if(pBase->GetType() == OBJECT_PLAYER)
 	//{
 	//	CCar* tempcar = (CCar*)pBase;
@@ -374,7 +385,9 @@ RECT CCar::GetRect()
 
 void CCar::HandleEvent(CEvent* pEvent)
 {
-	if(this == pEvent->GetParam())
+	CCar* tempcar = (CCar*)pEvent->GetParam();
+	
+	if(this == tempcar)
 	{
 		if( pEvent->GetEventID() == "collision")
 		{
@@ -386,6 +399,18 @@ void CCar::HandleEvent(CEvent* pEvent)
 				tempemittor->SetTimeToDie(1.0f);
 				pPM->AttachToBasePosition(NULL, tempemittor, GetCX1(), GetCY1());
 			}
+		}
+		else if(pEvent->GetEventID() == "weapon_level")
+		{
+			if(GetSpecialLevel() < 4)
+				SetSpecialLevel(GetSpecialLevel() + 1);
+		}
+		else if(pEvent->GetEventID() == "powerup_power")
+		{
+			if(GetPowerUpBar() < GetMaxPowerUp())
+				SetPowerUpBar(GetPowerUpBar() + 20);
+			if(GetPowerUpBar() > GetMaxPowerUp())
+				SetPowerUpBar(GetMaxPowerUp());
 		}
 	}
 }

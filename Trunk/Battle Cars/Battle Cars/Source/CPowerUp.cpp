@@ -61,18 +61,27 @@ RECT PowerUp::GetRect()
 bool PowerUp::CheckCollision(IBaseInterface* pBase)
 {
 	RECT intersection;
+	if(pBase == this)
+		return false;
 	if(IntersectRect(&intersection, &GetRect(), &pBase->GetRect()))
 	{
-		if(pBase->GetType() == OBJECT_PLAYER)
-		{
-			if( m_bActive)
+		if(m_bActive)
 			{
-				CEventSystem::GetInstance()->SendEvent("powerup_power",pBase);
+				if(pBase->GetType() == OBJECT_PLAYER || pBase->GetType() == OBJECT_ENEMY)
+				{
+				if(m_nType == WEAPONS_POWERUP)
+				{
+					CEventSystem::GetInstance()->SendEvent("weapon_level",pBase,pBase);
+				}
+				else if(m_nType == SHIELD_POWERUP)
+				{
+					CEventSystem::GetInstance()->SendEvent("powerup_power",pBase);
+				}
 				m_bActive = false;
 				m_fRespawn = 0.0f;
 				return true;
+				}
 			}
-		}
 	}
 	return false;
 }
