@@ -22,8 +22,6 @@ void CEventSystem::RegisterClient(EVENTID eventID, IListener* pClient)
 
 	/*m_ClientDatabase.Insert (eventID, pClient);*/
 
-	m_ClientEvents.push_back (eventID);
-	m_Clients.push_back (pClient);
 }
 
 void CEventSystem::UnregisterClient(EVENTID eventID, IListener *pClient)
@@ -138,6 +136,7 @@ void CEventSystem::DispatchEvent(CEvent *pEvent)
 bool CEventSystem::AlreadyRegistered(EVENTID eventID, IListener* pClient)
 {
 	bool IsRegistered = false;
+	bool IsClientRegistered = false;
 
 	/*pair<multimap<EVENTID, IListener*>::iterator,
 		 multimap<EVENTID, IListener*>::iterator> range;
@@ -154,14 +153,30 @@ bool CEventSystem::AlreadyRegistered(EVENTID eventID, IListener* pClient)
 		}
 	}*/
 
-	for (size_t index = 0; index < m_ClientEvents.size (); index++)
+	
+
+	for( size_t i = 0; i < m_Clients.size(); i++)
 	{
-		if ((*(m_Clients.begin () + index)) == pClient && (*(m_ClientEvents.begin () + index)) == eventID)
+		if((*(m_Clients.begin () + i)) == pClient)
 		{
-			IsRegistered = true;
-			break;
+			IsClientRegistered = true;
+
+			for (size_t index = 0; index < m_ClientEvents.size (); index++)
+			{
+				if ((*(m_ClientEvents.begin () + index)) == eventID)
+				{
+					IsRegistered = true;
+					break;
+				}
+			}
 		}
 	}
+
+	if( !IsRegistered )
+		m_ClientEvents.push_back (eventID);
+
+	if( !IsClientRegistered )
+		m_Clients.push_back (pClient);
 
 	return IsRegistered;
 }
