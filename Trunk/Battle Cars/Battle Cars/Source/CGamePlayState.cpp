@@ -298,7 +298,7 @@ void CGamePlayState::Enter(void)
 	m_pPM->LoadEmittor("resource/data/collision.xml");
 	m_pPM->LoadEmittor("resource/data/missle_flame.xml");
 
-	time = 30;
+	time = 60;
 	m_fElapsedSecond = 0.0f;
 	score = 0;
 
@@ -342,7 +342,7 @@ void CGamePlayState::Exit(void)
 	{
 		power_ups[i]->Release();
 	}
-
+	power_ups.clear();
 	m_pES->ClearEvents ();
 	m_pES->ShutdownEventSystem ();
 

@@ -529,40 +529,7 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 
 	if(IntersectRect(&intersection, &GetRect(), &pBase->GetRect()))
 	{
-		/*if(pBase->GetType() == 2)
-		{
-			if(GetSpecialLevel() < 4)
-				SetSpecialLevel(GetSpecialLevel() + 1);
-
-
-		}*/
-		if(pBase->GetType() == OBJECT_ENEMY)
-		{
-			
-			// old rectangle collision - save for reference
-			
-			//float speed = GetSpeed();
-			//if(speed >= -10 && speed < 10)
-			//{
-			//	SetSpeed(-10);
-			//	m_pController1->Vibrate(10000,10000);
-			//}
-			//else
-			//{
-			//	PlayCrash();
-			//	m_pController1->Vibrate(40000,40000);
-			//	m_fCollisionDelay = 0.0f;
-			//	CCar* tempcar = (CCar*)pBase;
-			//	//tempcar->SetDirection(GetDirection());
-			//	//tempcar->SetSpeed(GetSpeed() * 0.2f);
-			//	tempcar->SetVelocity(GetDirection());
-			//	SetSpeed((GetSpeed() * -1) + (GetSpeed() * 0.2f));
-			//}
-			//speed = GetSpeed();
-
-			//return true;
-		}
-		else if(pBase->GetType() == OBJECT_BULLET)
+		if(pBase->GetType() == OBJECT_BULLET)
 		{
 			return false;
 		}
@@ -594,6 +561,8 @@ void CPlayer::HandleEvent(CEvent* pEvent)
 		else if(pEvent->GetEventID() == "damage")
 		{
 			CBullet* tempbullet = (CBullet*)pEvent->GetParam2();
+			if(tempbullet->GetOwner() != this)
+			{
 			float damage = tempbullet->GetDamage();
 			if(tempbullet->GetSlowRate() != 0.0f)
 				SetSpeed(GetSpeed()*.75f);
@@ -609,8 +578,9 @@ void CPlayer::HandleEvent(CEvent* pEvent)
 			{
 				
 				if(GetIsAlive() == true)
-				tempbullet->GetOwner()->SetKillCount(GetKillCount() + 1);
+					tempbullet->GetOwner()->SetKillCount(tempbullet->GetOwner()->GetKillCount() + 1);
 				SetIsAlive(false);
+			}
 			}
 
 		}

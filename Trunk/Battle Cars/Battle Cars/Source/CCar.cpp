@@ -117,7 +117,6 @@ void CCar::Update(float fElapsedTime)
 	if(GetSpeed() < 1.0f && GetSpeed() > -1.0f)
 		SetSpeed(0);
 
-
 	SetVelocity(tempvel);
 
 	//SetDirection(tempdir);
