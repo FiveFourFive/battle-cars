@@ -15,6 +15,13 @@ class CPlayer : public CCar
 private:
 	CCamera* m_pCamera;
 	CHUD* m_pHUD;
+	int m_nHealth_Overlay_Index;
+	int m_nHealth_Underlay_Index;
+
+	int m_nScore_Overlay_Index;
+
+	int m_nWeaponImageIndex;
+
 	CEventSystem* m_pES;
 	CXboxInput* m_pController1;
 	float m_fFireTimer;
@@ -36,6 +43,8 @@ public:
 	CXboxInput* GetController(void) {return m_pController1; }
 	void SetCollisionRect (RECT collision) {m_CollisionRECT = collision;}
 	RECT GetCollisionRect () { return m_CollisionRECT;}
+	void SetWeaponIcon(int icon){m_nWeaponImageIndex=icon;}
+	int GetWeaponIcon(){return m_nWeaponImageIndex;}
 
 	CCamera* GetCamera(void) { return m_pCamera; }
 

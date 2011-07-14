@@ -57,7 +57,7 @@ CCar::CCar(void)
 	m_fFireDelay = .50f;
 	m_fFireDelayMissiles = 1.0f;
 	SetPowerUpBar(100.0f);
-	m_nCarID = CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/cartexture.bmp",D3DCOLOR_XRGB(255, 0, 255));
+	m_nCarID = CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BC_Truck.png");
 
 	m_fCollisionEffect = 0.0f;
 	m_fRespawnTimer = 0.0f;
@@ -149,14 +149,8 @@ void CCar::Render(CCamera* camera)
 	tempcar.right = (LONG)(tempcar.left + GetWidth());
 	tempcar.bottom = (LONG)(tempcar.top + GetHeight());
 	
-	RECT car;
-	car.left = 0;
-	car.right = car.left + GetWidth();
-	car.top = 0;
-	car.bottom = car.top + GetHeight();
-	
 
-	m_pTM->Draw(m_nCarID,(int)GetPosX()-(GetWidth()/2)- (int)camera->GetCamX() + (int)camera->GetRenderPosX(),(int)GetPosY()-(GetHeight()/2)- (int)camera->GetCamY() + (int)camera->GetRenderPosY(),1.0f,1.0f,&car,GetWidth()/2.0f,GetHeight()/2.0f,GetRotation());
+	m_pTM->Draw(m_nCarID,(int)GetPosX()-(GetWidth()/2)- (int)camera->GetCamX() + (int)camera->GetRenderPosX(),(int)GetPosY()-(GetHeight()/2)- (int)camera->GetCamY() + (int)camera->GetRenderPosY(),.5f,.5f,NULL,32,32,GetRotation());
 	//pD3D->DrawRect(tempcar,255,0,0);
 	//pD3D->DrawText("BEEP", (int)(GetPosX()- camera->GetCamX() + 10), (int)(GetPosY()- camera->GetCamY() + 35),255,255,255);
 	//pD3D->DrawLine((int)(GetPosX()- camera->GetCamX() + camera->GetRenderPosX()), (int)(GetPosY()- camera->GetCamY()+ camera->GetRenderPosY()), (int)(GetPosX()- camera->GetCamX() + camera->GetRenderPosX() + GetVelX()), (int)(GetPosY()- camera->GetCamY() + camera->GetRenderPosY() + GetVelY()),255,255,255);
