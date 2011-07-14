@@ -46,6 +46,8 @@ public:
 	bool CheckEnemyCollision (CBase* pBase);
 
 	void SetSpawn (CBase* pBase);
+
+	CMap* GetMap(void) { return LevelMap; }
 };
 
 #endif
