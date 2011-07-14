@@ -14,6 +14,7 @@ public:
 	~CDeathmatchMode(void);
 	void CheckCarStatus(CCar* car);
 
+	void CheckWinLoss(void);
 	//void (*HandleCar) (CCar* car);
 
 };

@@ -127,8 +127,6 @@ void CLossState::Render(void)
 	int playerscore = CGame::GetInstance()->GetScore();
 	sprintf_s(buffer,"%i", playerscore);
 
-
-
 	m_pPF->Print(buffer,500,150,1.0f,D3DCOLOR_XRGB(0,255,0));
 	m_pPF->Print("PRESS ENTER/BACK TO CONTINUE",60,430,1.0f,D3DCOLOR_XRGB(255,255,255));
 
@@ -137,7 +135,7 @@ void CLossState::Render(void)
 bool CLossState::HandleEnter(void)
 {
 	m_pFM->PlaySound(m_nMenuSelect);
-	CGame::GetInstance()->RemoveState(this);
+	CGame::GetInstance()->ChangeState(CMainMenuState::GetInstance());
 
 	return true;
 }
