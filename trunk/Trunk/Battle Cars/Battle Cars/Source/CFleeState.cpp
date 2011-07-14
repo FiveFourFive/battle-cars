@@ -48,7 +48,6 @@ void CFleeState::Update (float fElapsedTime)
 	//Check to see if healed
 	if(!Damaged())
 	{
-		if(m_Owner)
 			m_Owner->ChangeState(CWanderState::GetInstance());
 	}
 	//Check to see if far enough away
@@ -75,9 +74,14 @@ void CFleeState::Exit ()
 
 bool CFleeState::Damaged()
 {
-	if(m_Owner->GetHealth() >= 800.0f)
+	if(m_Owner)
+	{
+	if(m_Owner->GetHealth() >= 70.0f)
 		return false;
 	return true;
+	}
+	else
+		return true;
 }
 
 void CFleeState::Flee(float fElapsedTime)
@@ -143,10 +147,10 @@ void CFleeState::Flee(float fElapsedTime)
 bool CFleeState::Escaped()
 {
 	tVector2D target1Distance;
-	if(m_Target)
+	if(m_Target && m_Owner)
 	{
 		target1Distance.fX = (m_Target->GetPosX()+(m_Target->GetWidth()*.5f))-(m_Owner->GetPosX()+(m_Owner->GetWidth()*.5f));
-		target1Distance.fY = (m_Target->GetPosY()+(m_Target->GetHeight()*.5f))-(m_Owner->GetPosX()+(m_Owner->GetWidth()*.5f));
+		target1Distance.fY = (m_Target->GetPosY()+(m_Target->GetHeight()*.5f))-(m_Owner->GetPosX()+(m_Owner->GetHeight()*.5f));
 		if(Vector2DLength(target1Distance) >= 900.0f)
 			return true;
 		else

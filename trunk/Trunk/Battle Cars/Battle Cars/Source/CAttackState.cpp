@@ -37,7 +37,7 @@ CAttackState* CAttackState::GetInstance()
 void CAttackState::Update (float fElapsedTime)
 {
 	//Handle acceleration and speed
-	m_Owner->SetSpeed (m_Owner->GetSpeed () + 25.0f);
+	m_Owner->SetSpeed (m_Owner->GetSpeed () + 2.0f);
 
 	if (m_Owner->GetSpeed () > 150.0f)
 	{
@@ -68,7 +68,7 @@ void CAttackState::Render ()
 
 void CAttackState::Enter ()
 {
-	m_fAggroRadius = 825.0f;
+	m_fAggroRadius = 850.0f;
 	m_fFireRate = 1.0f;
 	m_fFireTimer = 0.0f;
 }
@@ -82,7 +82,8 @@ void CAttackState::Exit ()
 void CAttackState::Chase(float fElapsedTime)
 {
 	tVector2D TargetVector;
-
+	if(m_Target)
+	{
 	TargetVector.fX = (m_Target->GetPosX()+(m_Target->GetWidth()*.5f)) - (m_Owner->GetPosX()+(m_Owner->GetWidth()*.5f));
 	TargetVector.fY = (m_Target->GetPosY()+(m_Target->GetHeight()*.5f)) - (m_Owner->GetPosY()+(m_Owner->GetHeight()*.5f));
 	tVector2D currentEnemyDirection = m_Owner->GetDirection();
@@ -134,6 +135,7 @@ void CAttackState::Chase(float fElapsedTime)
 			rotationAngle -= (m_Owner->GetRotationRate() * fElapsedTime);
 		}
 	}
+	}
 }
 
 bool CAttackState::StillThreat()
@@ -142,10 +144,10 @@ bool CAttackState::StillThreat()
 	if(m_Target)
 	{
 		target1Distance.fX = (m_Target->GetPosX()+(m_Target->GetWidth()*.5f))-(m_Owner->GetPosX()+(m_Owner->GetWidth()*.5f));
-		target1Distance.fY = (m_Target->GetPosY()+(m_Target->GetHeight()*.5f))-(m_Owner->GetPosX()+(m_Owner->GetWidth()*.5f));
+		target1Distance.fY = (m_Target->GetPosY()+(m_Target->GetHeight()*.5f))-(m_Owner->GetPosX()+(m_Owner->GetHeight()*.5f));
 		if(Vector2DLength(target1Distance) <= m_fAggroRadius)
 		{
-			if(Vector2DLength(target1Distance) <= 150.0f)
+			if(Vector2DLength(target1Distance) <= 250.0f)
 				m_Owner->SetSpeed(0);
 			return true;
 		}
@@ -160,10 +162,12 @@ bool CAttackState::Damaged()
 {
 	if(m_Owner)
 	{
-		if(m_Owner->GetHealth() <= 500.0f)
+		if(m_Owner->GetHealth() <= 50.0f)
 		{
 			return true;
 		}
+		else
+			return false;
 	}
 	return false;
 }

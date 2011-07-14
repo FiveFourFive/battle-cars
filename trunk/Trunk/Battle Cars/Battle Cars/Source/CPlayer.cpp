@@ -37,7 +37,8 @@ CPlayer::CPlayer(CXboxInput* pController)
 	//tempkeys->SetShootAccept(XINPUT_GAMEPAD_Y);
 	m_pES->RegisterClient ("CameraCollision", this);
 	m_pES->RegisterClient("powerup_power", this);
-	CEventSystem::GetInstance()->RegisterClient("collision", this);
+	m_pES->RegisterClient("collision", this);
+	m_pES->RegisterClient("health_up", this);
 	m_fFireTimer = 0.0;
 	m_bIsFlameThrowerOn = false;
 	m_bIsIcyGatlingOn = false;
@@ -51,6 +52,8 @@ CPlayer::~CPlayer(void)
 {
 	m_pES->UnregisterClient ("CameraCollision", this);
 	m_pES->UnregisterClient("powerup_power",this);
+	m_pES->UnregisterClient("health_up", this);
+	m_pES->UnregisterClient("collision", this);
 	delete m_pCamera;
 	delete m_pHUD;
 }
@@ -575,6 +578,15 @@ void CPlayer::HandleEvent(CEvent* pEvent)
 		{
 			if(GetSpecialLevel() < 4)
 				SetSpecialLevel(GetSpecialLevel() + 1);
+		}
+		else if(pEvent->GetEventID() == "health_up")
+		{
+			if(GetHealth() < GetMaxHealth())
+			{
+				SetHealth(GetHealth()+20.0f);
+				if(GetHealth() > GetMaxHealth())
+					SetHealth(GetMaxHealth());
+			}
 		}
 	}
 	
