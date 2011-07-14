@@ -4,10 +4,12 @@
 #include "CPlayer.h"
 #include "CCamera.h"
 #include "CPrintFont.h"
+#include "CGamePlayState.h"
+#include <vector>
 #include "CGame.h"
 CHUD::CHUD(void)
 {
-	m_pPF = new CPrintFont(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/FontPlaceholder.png",D3DCOLOR_XRGB(0, 0, 0)));
+	m_pPF = new CPrintFont(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BC_Font.png",D3DCOLOR_XRGB(0, 0, 0)));
 
 	m_nMiniMapID = CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/huds/minimap_overlay.png",D3DCOLOR_XRGB(255,255,255));
 	m_pTM = CSGD_TextureManager::GetInstance();
@@ -76,4 +78,19 @@ void CHUD::Render(void)
 	char scorebuff[32];
 	sprintf_s(scorebuff, "SCORE:%i", m_pOwner->GetKillCount());
 	m_pPF->Print(scorebuff, 0 + (pCamera->GetWidth()*0.5f) - 100 + pCamera->GetRenderPosX(), pCamera->GetHeight() - 30 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY(), 0.75f, D3DCOLOR_XRGB(255,255,255));
-}
+
+	vector<CCar*> scores = CGamePlayState::GetInstance()->GetScores();
+	char buffer[32];
+	DWORD color = 0;
+	for(int i = 0; i < scores.size()-1; i++)
+	{
+
+		sprintf_s(buffer,"%i)%i",i+1,scores[i]->GetKillCount());
+		if(scores[i]->GetType() == OBJECT_PLAYER)
+		{
+			color = D3DCOLOR_ARGB(255,0,255,0);
+		}
+		m_pPF->Print(buffer,(CGame::GetInstance()->GetScreenWidth()*0.05f) + pCamera->GetRenderPosX(),pCamera->GetHeight() - 240 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY()+(20*i),1.0f,color);
+
+	}
+}	

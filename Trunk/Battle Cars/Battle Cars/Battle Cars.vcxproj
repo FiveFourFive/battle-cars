@@ -89,6 +89,7 @@
     <ClCompile Include="Source\CEventSystem.cpp" />
     <ClCompile Include="Source\CFleeState.cpp" />
     <ClCompile Include="Source\CGame.cpp" />
+    <ClCompile Include="Source\CGameModeSelectionState.cpp" />
     <ClCompile Include="Source\CGamePlayState.cpp" />
     <ClCompile Include="Source\CGamerProfile.cpp" />
     <ClCompile Include="Source\CHowToPlayState.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="Source\CEventSystem.h" />
     <ClInclude Include="Source\CFleeState.h" />
     <ClInclude Include="Source\CGame.h" />
+    <ClInclude Include="Source\CGameModeSelectionState.h" />
     <ClInclude Include="Source\CGamePlayState.h" />
     <ClInclude Include="Source\CGamerProfile.h" />
     <ClInclude Include="Source\CHowToPlayState.h" />

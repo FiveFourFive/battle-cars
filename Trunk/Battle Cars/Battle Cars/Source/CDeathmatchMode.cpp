@@ -95,10 +95,11 @@ void CDeathmatchMode::CheckWinLoss(void)
 		if(scores->back()->GetType() == OBJECT_PLAYER)
 		{
 			CPlayer* tempplayer = (CPlayer*)scores->back();
+			CWinState::GetInstance()->SetWinner(tempplayer);
 			if(tempplayer->GetPlayerNum() == 1)
 			{
 				CGame::GetInstance()->ChangeState(CWinState::GetInstance());
-
+				
 			}
 			else
 			{

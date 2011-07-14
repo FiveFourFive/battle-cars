@@ -115,6 +115,7 @@ public:
 	void Exit(void);
 
 	std::vector<CCar*>* GetList(void) { return &m_lScores; }
+	vector<CCar*> GetScores(void) { return m_lScores; }
 	static CGamePlayState* GetInstance();
 
 	static void MessageProc(CBaseMessage* pMsg);

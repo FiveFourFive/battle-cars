@@ -494,7 +494,7 @@ void CGamePlayState::Update(float fElapsedTime)
 				}
 			}
 		}
-		SortScores(0,m_lScores.size()-1);
+		SortScores(0,m_lScores.size());
 
 		
 	}
@@ -552,19 +552,19 @@ void CGamePlayState::Render(void)
 			sprintf_s(timebuff, "%i:%i", minutes, seconds);
 		m_pPF->Print(timebuff, 350, 30, 1.0, D3DCOLOR_XRGB(255,255,255)); 
 	}
-	for(int i = m_lScores.size()-1; i >= 0; i--)
-	{
-		char buffer[32];
-		DWORD color = 0;
-		sprintf_s(buffer,"%i) %i",i+1,m_lScores[i]->GetKillCount());
-		if(m_lScores[i]->GetType() == OBJECT_PLAYER)
-		{
-			color = D3DCOLOR_ARGB(255,0,255,0);
-		}
-		//color = 255;
-		m_pPF->Print(buffer,2,370+(12*i),1.0f,color);
-	}
-	
+	//for(int i = m_lScores.size()-1; i >= 0; i--)
+	//{
+	//	char buffer[32];
+	//	DWORD color = 0;
+	//	sprintf_s(buffer,"%i) %i",i+1,m_lScores[i]->GetKillCount());
+	//	if(m_lScores[i]->GetType() == OBJECT_PLAYER)
+	//	{
+	//		color = D3DCOLOR_ARGB(255,0,255,0);
+	//	}
+	//	//color = 255;
+	//	m_pPF->Print(buffer,2,370+(12*i),1.0f,color);
+	//}
+	//
 
 	if( CNumPlayers::GetInstance()->GetNumberOfPlayers() == 2)
 	{
@@ -588,10 +588,10 @@ void CGamePlayState::Render(void)
 
 	m_pPM->RenderEmittors(player->GetCamera());
 
-	
-	m_pTM->Draw(m_nMiniMapUnderlayIndex,CGame::GetInstance()->GetScreenWidth()-192,0,.75f,.75f);
-	m_pTM->Draw(m_nMiniMapMiddlelayIndex,CGame::GetInstance()->GetScreenWidth()-192,0,.75f,.75f);
-	m_pTM->Draw(m_nMiniMapOverlayIndex,CGame::GetInstance()->GetScreenWidth()-192,0,.75f,.75f);
+	//
+	//m_pTM->Draw(m_nMiniMapUnderlayIndex,CGame::GetInstance()->GetScreenWidth()-192,0,.75f,.75f);
+	//m_pTM->Draw(m_nMiniMapMiddlelayIndex,CGame::GetInstance()->GetScreenWidth()-192,0,.75f,.75f);
+	//m_pTM->Draw(m_nMiniMapOverlayIndex,CGame::GetInstance()->GetScreenWidth()-192,0,.75f,.75f);
 
 }
 
@@ -1219,6 +1219,7 @@ void CGamePlayState::SortScores(int left, int right)
 		offset = index-1;
 		while(offset >= 0)
 		{
+
 			if(m_lScores[index]->GetKillCount() < m_lScores[offset]->GetKillCount())
 			{
 				CCar* tempcar = m_lScores[index];
