@@ -47,7 +47,6 @@ void CEnemy::Update(float fElapsedTime)
 {
 	if (m_AICurrentState)
 		m_AICurrentState->Update (fElapsedTime);
-	Rotate(GetRotation());
 	CCar::Update (fElapsedTime);
 }
 

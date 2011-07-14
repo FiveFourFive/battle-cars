@@ -111,6 +111,7 @@ void CAttackState::Chase(float fElapsedTime)
 			m_Owner->SetDirection(direction);
 			rotationAngle -= (m_Owner->GetRotationRate() * fElapsedTime);
 		}
+		m_Owner->Rotate(m_Owner->GetRotation());
 	}
 	else
 	{
@@ -134,6 +135,7 @@ void CAttackState::Chase(float fElapsedTime)
 			m_Owner->SetDirection(direction);
 			rotationAngle -= (m_Owner->GetRotationRate() * fElapsedTime);
 		}
+		m_Owner->Rotate(m_Owner->GetRotation());
 	}
 	}
 }
