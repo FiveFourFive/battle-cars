@@ -38,6 +38,10 @@
 #include "CNumPlayers.h"
 #include "CCharacterSelection.h"
 #include "CLevelSelectionState.h"
+#include "CKeyboardKeyBinds.h"
+#include "CKeyBinds.h"
+#include "CGamerProfile.h"
+#include "Gamer_Profile.h"
 
 void LoadCharacters();
 
@@ -53,6 +57,9 @@ CGamePlayState::CGamePlayState(void)
 	m_pMS = NULL;
 	m_pPF = NULL;
 	m_pES = NULL;
+
+	m_pPlayer1KB			 = NULL;
+	m_pPlayer1KeyboardKB	 = NULL;
 }
 
 CGamePlayState::CGamePlayState(const CGamePlayState&)
@@ -269,6 +276,9 @@ void CGamePlayState::Enter(void)
 	m_fElapsedSecond = 0.0f;
 	score = 0;
 
+	m_pPlayer1KB = CGamerProfile::GetInstance()->GetActiveProfile()->GetControllerBinds();
+	m_pPlayer1KeyboardKB = CGamerProfile::GetInstance()->GetActiveProfile()->GetKeyboardBinds();
+
 	
 
 	m_pD3D->Clear(0, 0, 0);
@@ -449,7 +459,7 @@ void CGamePlayState::Update(float fElapsedTime)
 		if(dummy)
 		{
 		if(dummy->GetHealth() <= 0)
-		{
+		{ 
 			m_pOM->RemoveObject(dummy);
 			dummy->Release();
 			dummy = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
