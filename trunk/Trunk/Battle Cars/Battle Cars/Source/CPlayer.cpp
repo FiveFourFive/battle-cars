@@ -452,7 +452,7 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 		
 			float myspeed = GetSpeed();
 			float hisspeed = tempcar->GetSpeed();
-			float speedtouse;
+			
 			if(myspeed > hisspeed)
 			{
 				myspeed = myspeed * 0.3f;
@@ -480,13 +480,13 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 
 	if(IntersectRect(&intersection, &GetRect(), &pBase->GetRect()))
 	{
-		if(pBase->GetType() == 2)
+		/*if(pBase->GetType() == 2)
 		{
 			if(GetSpecialLevel() < 4)
 				SetSpecialLevel(GetSpecialLevel() + 1);
 
 
-		}
+		}*/
 		if(pBase->GetType() == OBJECT_ENEMY)
 		{
 			
@@ -569,6 +569,11 @@ void CPlayer::HandleEvent(CEvent* pEvent)
 				pPM->AttachToBasePosition(NULL, tempemittor, GetCX1(), GetCY1());
 				Collision_effect = false;
 			}
+		}
+		else if(pEvent->GetEventID() == "weapon_level")
+		{
+			if(GetSpecialLevel() < 4)
+				SetSpecialLevel(GetSpecialLevel() + 1);
 		}
 	}
 	

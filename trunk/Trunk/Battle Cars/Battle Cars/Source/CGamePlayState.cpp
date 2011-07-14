@@ -38,6 +38,7 @@
 #include "CNumPlayers.h"
 #include "CCharacterSelection.h"
 #include "CLevelSelectionState.h"
+#include "CDeathmatchMode.h"
 #include "CKeyboardKeyBinds.h"
 #include "CKeyBinds.h"
 #include "CGamerProfile.h"
@@ -80,6 +81,9 @@ CGamePlayState* CGamePlayState::GetInstance(void)
 
 void CGamePlayState::Enter(void)
 {
+	m_pMode = new CDeathmatchMode();
+
+
 	RECT lowerhalf = { 200, 500, 600, 540};
 	RECT regular_load = { 200, 500, 201, 540};
 	int offset = 0;
@@ -217,7 +221,10 @@ void CGamePlayState::Enter(void)
 	characters = CCharacterSelection::GetInstance()->GetList();
 	player = CCharacterSelection::GetInstance()->GetPlayer1();
 	if(CNumPlayers::GetInstance()->GetNumberOfPlayers() > 1)
+	{
 		player2 = CCharacterSelection::GetInstance()->GetPlayer2();
+		m_pOM->AddObject(player2);
+	}
 	else
 	{
 		int player2index = rand()%4;
@@ -244,10 +251,10 @@ void CGamePlayState::Enter(void)
 
 
 	m_pOM->AddObject(player);
-	m_pOM->AddObject(player2);
 	power_up->SetPosX(player->GetPosX() + 200);
 	power_up->SetPosY(player->GetPosY() + 200);
-	power_up->SetType(WEAPONS_POWERUP);
+	power_up->SetType(OBJECT_POWERUP);
+	power_up->SetPowerType(WEAPONS_POWERUP);
 	m_bCountDown = false;
 	m_fEnlarge = 0.0f;
 	m_bPlaying = false;
@@ -272,7 +279,7 @@ void CGamePlayState::Enter(void)
 	m_pPM->LoadEmittor("resource/data/collision.xml");
 	m_pPM->LoadEmittor("resource/data/missle_flame.xml");
 
-	time = 30;
+	time = 120;
 	m_fElapsedSecond = 0.0f;
 	score = 0;
 
@@ -454,11 +461,11 @@ void CGamePlayState::Update(float fElapsedTime)
 		m_pMS->ProcessMessages ();
 		if(player->GetHealth() <= 0)
 		{
-			CGame::GetInstance()->ChangeState(CLossState::GetInstance());
+			//CGame::GetInstance()->ChangeState(CLossState::GetInstance());
 		}
 		if(dummy)
 		{
-		if(dummy->GetHealth() <= 0)
+		/*if(dummy->GetHealth() <= 0)
 		{ 
 			m_pOM->RemoveObject(dummy);
 			dummy->Release();
@@ -475,7 +482,7 @@ void CGamePlayState::Update(float fElapsedTime)
 			dummy->Rotate(0.0f);
 			dummy->EnterState ();
 			m_pOM->AddObject(dummy);
-		}
+		}*/
 		}
 		for(unsigned int i = 0; i < m_lScores.size() - 1; i++)
 		{

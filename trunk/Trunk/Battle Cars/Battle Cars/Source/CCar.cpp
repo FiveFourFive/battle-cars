@@ -258,66 +258,77 @@ void CCar::PlayBullet(void)
 
 bool CCar::CheckCollision(IBaseInterface* pBase)
 {
-	if(pBase == this)
+	if(this == pBase)
 		return false;
-	RECT intersection;
-	if(IntersectRect(&intersection, &GetRect(), &pBase->GetRect()))
+	if(pBase->GetType() == OBJECT_ENEMY || pBase->GetType() == OBJECT_PLAYER)
 	{
-		if(pBase->GetType() == 2)
+		CCar* tempcar = (CCar*)pBase;
+		//float centerx = tempcar->GetPosX();
+		//float centery = tempcar->GetPosY();
+		float centerx = tempcar->GetCX1();
+		float centery = tempcar->GetCY1();
+		float myx = GetCX1();
+		float myy = GetCY1();
+
+		float centerx2 = tempcar->GetCX2();
+		float centery2 = tempcar->GetCY2();
+		float myx2 = GetCX2();
+		float myy2 = GetCY2();
+		float distance11 = sqrt(((centerx - myx)*(centerx - myx)) + ((centery - myy)*(centery - myy)));
+		float distance21 = sqrt(((centerx2 - myx2)*(centerx2 - myx2)) + ((centery2 - myy2)*(centery2 - myy2)));
+		float distance12 = sqrt(((centerx2 - myx)*(centerx2 - myx)) + ((centery2 - myy)*(centery2 - myy)));
+		float distance22 = sqrt(((centerx - myx2)*(centerx - myx2)) + ((centery - myy2)*(centery - myy2)));
+		if(distance11 <= (GetRadius() + tempcar->GetRadius()) || distance21 <= (GetRadius() + tempcar->GetRadius())
+			|| distance12 <= (GetRadius() + tempcar->GetRadius()) || distance22 <= (GetRadius() + tempcar->GetRadius()))
 		{
-			if(GetSpecialLevel() < 4)
-				SetSpecialLevel(GetSpecialLevel() + 1);
+			tVector2D othervel = tempcar->GetOverallVelocity();
+			tVector2D currentvel = GetOverallVelocity();
+
+			float myfx = abs(currentvel.fX);
+			float myfy = abs(currentvel.fY);
+			float hisfx = abs(othervel.fX);
+			float hisfy = abs(othervel.fY);
+			
+			tVector2D tobeapplied;
+			tobeapplied.fX = 0;
+			tobeapplied.fY = 0;
+			if((myfx+myfy) > (hisfx+hisfy))
+			{
+				currentvel = currentvel * -0.8f;
+				tobeapplied = currentvel;
+				SetVelocity(tobeapplied);
+				tempcar->SetVelocity(tobeapplied * -1.0f);
+			}
+			else
+			{
+				othervel = othervel * -0.8f;
+				tobeapplied = othervel;
+				tempcar->SetVelocity(tobeapplied);
+				SetVelocity(tobeapplied * -1.0f);
+			}
+
+		
+			float myspeed = GetSpeed();
+			float hisspeed = tempcar->GetSpeed();
+			
+			if(myspeed > hisspeed)
+			{
+				myspeed = myspeed * 0.3f;
+				SetSpeed(-1.0f * myspeed);
+				tempcar->SetSpeed(myspeed);
+			}
+			else
+			{
+				hisspeed = hisspeed * 0.3f;
+				tempcar->SetSpeed(-1.0f * hisspeed);
+				SetSpeed(hisspeed);
+			}
 
 
+		
+			
 		}
 	}
-	//if(pBase->GetType() == OBJECT_PLAYER)
-	//{
-	//	CCar* tempcar = (CCar*)pBase;
-	//	float centerx = tempcar->GetCX1();
-	//	float centery = tempcar->GetCY1();
-	//	float myx = GetCX1();
-	//	float myy = GetCY1();
-	//	
-	//	float distance = sqrt(((centerx - myx)*(centerx - myx)) + ((centery - myy)*(centery - myy)));
-
-	//	if(distance <= (GetRadius() + tempcar->GetRadius()))
-	//	{
-	//		float speed = GetSpeed();
-	//	//	SetPosX(GetPosX() - GetVelX() * 0.001f);
-	//	//	SetPosX(GetPosY() - GetVelY() * 0.001f);
-	//		//SetVelX(0.0f);
-	//		//SetVelY(0.0f);
-	//		//if(speed >= -10 && speed < 10)
-	//		//{
-	//		//	SetSpeed(-10);
-	//		//	//m_pController1->Vibrate(10000,10000);
-	//		//}
-	//		//else
-	//		{
-	//			PlayCrash();
-	//			//m_pController1->Vibrate(40000,40000);
-	//		//	m_fCollisionDelay = 0.0f;
-	//			//CCar* tempcar = (CCar*)pBase;
-	//			//tempcar->SetDirection(GetDirection());
-	//			//tempcar->SetSpeed(GetSpeed() * 0.2f);
-	//			tVector2D tempvel = GetDirection();
-	//			//tempvel = Vector2DNormalize(tempvel);
-	//			if(GetSpeed() > 0)
-	//				tempvel = tempvel * GetSpeed() * 0.5f;
-	//			tVector2D currentvel = tempcar->GetVelocity();
-	//			tempvel = tempvel + currentvel;
-	//			tempcar->SetVelocity(tempvel);
-	//			tempvel.fX *= -1;
-	//			tempvel.fY *= -1;
-	//			SetVelocity(tempvel);
-	//			SetSpeed(0);
-	//			//SetSpeed((GetSpeed() * -1) + (GetSpeed() * 0.2f));
-	//		}
-	//		speed = GetSpeed();
-	//		//return true;
-	//	}
-	//}
 	return false;
 }
 
@@ -387,7 +398,7 @@ void CCar::HandleEvent(CEvent* pEvent)
 {
 	CCar* tempcar = (CCar*)pEvent->GetParam();
 	
-	if(this == tempcar)
+	if(this == pEvent->GetParam())
 	{
 		if( pEvent->GetEventID() == "collision")
 		{

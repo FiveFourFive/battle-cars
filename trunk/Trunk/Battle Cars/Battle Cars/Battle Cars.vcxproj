@@ -84,6 +84,7 @@
     <ClCompile Include="Source\CCar.cpp" />
     <ClCompile Include="Source\CCellAnimation.cpp" />
     <ClCompile Include="Source\CCharacterSelection.cpp" />
+    <ClCompile Include="Source\CDeathmatchMode.cpp" />
     <ClCompile Include="Source\CEnemy.cpp" />
     <ClCompile Include="Source\CEventSystem.cpp" />
     <ClCompile Include="Source\CFleeState.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="Source\CCar.h" />
     <ClInclude Include="Source\CCellAnimation.h" />
     <ClInclude Include="Source\CCharacterSelection.h" />
+    <ClInclude Include="Source\CDeathmatchMode.h" />
     <ClInclude Include="Source\CEnemy.h" />
     <ClInclude Include="Source\CEvent.h" />
     <ClInclude Include="Source\CEventSystem.h" />

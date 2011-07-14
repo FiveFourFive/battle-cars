@@ -11,7 +11,7 @@ private:
 	float m_fRespawn;
 	float m_fRespawnDelay;
 	bool m_bActive;
-
+	int m_nPtype;
 public:
 	PowerUp();
 	~PowerUp();
@@ -23,6 +23,8 @@ public:
 	virtual RECT GetRect();
 
 	virtual bool CheckCollision(IBaseInterface* pBase);
+
+	void SetPowerType(int type) { m_nPtype = type; }
 };
 
 #endif

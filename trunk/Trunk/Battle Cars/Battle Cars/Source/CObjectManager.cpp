@@ -9,7 +9,8 @@
 #include "CObjectManager.h"
 #include "CPlayer.h"
 #include "CCamera.h"
-
+#include "CDeathmatchMode.h"
+#include "CGamePlayState.h"
 CObjectManager* CObjectManager::m_pInstance = NULL;
 
 CObjectManager::CObjectManager(void)
@@ -42,6 +43,7 @@ void CObjectManager::UpdateObjects(float fElapsedTime)
 {
 	vector<IBaseInterface*>::iterator iter = m_vObjectList.begin();
 	CheckCollisions();
+	CheckStatus();
 	while(iter != m_vObjectList.end())
 	{
 		(*iter)->Update(fElapsedTime);
@@ -104,6 +106,21 @@ void CObjectManager::CheckCollisions()
 		//	if(m_vObjectList[i]->GetType() != m_vObjectList[m]->GetType())
 				if(m_vObjectList[i]->CheckCollision(m_vObjectList[m]))
 					break;
+		}
+
+	}
+}
+
+void CObjectManager::CheckStatus(void)
+{
+	void (*HandleCar) (CCar* car);
+	CDeathmatchMode* tempmode = CGamePlayState::GetInstance()->GetMode();
+	for(size_t i = 0; i < m_vObjectList.size(); i++)
+	{
+		if(m_vObjectList[i]->GetType() == OBJECT_PLAYER || m_vObjectList[i]->GetType() == OBJECT_ENEMY)
+		{
+			CCar* tempcar = (CCar*)m_vObjectList[i];
+			tempmode->CheckCarStatus(tempcar);
 		}
 
 	}

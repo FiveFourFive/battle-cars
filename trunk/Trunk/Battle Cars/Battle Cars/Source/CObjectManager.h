@@ -34,6 +34,7 @@ public:
 	void RemoveObject(IBaseInterface* pObject);
 	void RemoveAllObjects(void);
 	void CheckCollisions(void);
+	void CheckStatus(void);
 
 };
 
