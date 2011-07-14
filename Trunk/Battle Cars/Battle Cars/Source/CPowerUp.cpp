@@ -79,6 +79,10 @@ bool PowerUp::CheckCollision(IBaseInterface* pBase)
 				{
 					CEventSystem::GetInstance()->SendEvent("powerup_power",pBase);
 				}
+				else if(m_nPtype == HEALTH_POWERUP)
+				{
+					CEventSystem::GetInstance()->SendEvent("health_up", pBase);
+				}
 				m_bActive = false;
 				m_fRespawn = 0.0f;
 				return true;
