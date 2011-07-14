@@ -58,7 +58,7 @@ void CMainMenuState::Enter(void)
 	m_pController2 = CGame::GetInstance()->GetController2();
 
 
-	m_nFontID = m_pTM->LoadTexture("resource/graphics/FontPlaceholder.png",D3DCOLOR_XRGB(0, 0, 0));
+	m_nFontID = m_pTM->LoadTexture("resource/graphics/BC_Font.png",D3DCOLOR_XRGB(0, 0, 0));
 	m_pPF = new CPrintFont(m_nFontID);
 
 	m_pFM = CSGD_FModManager::GetInstance();

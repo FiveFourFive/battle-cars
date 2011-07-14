@@ -92,20 +92,20 @@ void CGamePlayState::Enter(void)
 
 	m_pD3D	=	CSGD_Direct3D::GetInstance();
 
-	m_pD3D->Clear(0, 0, 0);
-	m_pD3D->DeviceBegin();
-	m_pD3D->SpriteBegin();
+	//m_pD3D->Clear(0, 0, 0);
+	//m_pD3D->DeviceBegin();
+	//m_pD3D->SpriteBegin();
 
 
 	m_pD3D->GetSprite()->Flush();
 	m_pD3D->DrawRect(lowerhalf, 58,58,58);
 	m_pD3D->DrawRect(regular_load, 0, 0, 255);
-	m_pD3D->GetSprite()->Flush();
+	//m_pD3D->GetSprite()->Flush();
 
 
-	m_pD3D->SpriteEnd();
-	m_pD3D->DeviceEnd();
-	m_pD3D->Present();
+	//m_pD3D->SpriteEnd();
+	//m_pD3D->DeviceEnd();
+	//m_pD3D->Present();
 
 	m_pTM	=	CSGD_TextureManager::GetInstance();
 	m_pFM	=	CSGD_FModManager::GetInstance();
@@ -118,38 +118,38 @@ void CGamePlayState::Enter(void)
 	m_pPM	=	ParticleManager::GetInstance();
 	m_pMS->InitMessageSystem (MessageProc);
 
-	m_pD3D->Clear(0, 0, 0);
-	m_pD3D->DeviceBegin();
-	m_pD3D->SpriteBegin();
+	//m_pD3D->Clear(0, 0, 0);
+	//m_pD3D->DeviceBegin();
+	//m_pD3D->SpriteBegin();
 
 	m_pD3D->DrawRect(lowerhalf, 58,58,58);
 	regular_load.right += 25;
 	m_pD3D->DrawRect(regular_load, 0, 0, 255);
 
 
-	m_pD3D->SpriteEnd();
-	m_pD3D->DeviceEnd();
-	m_pD3D->Present();
+	//m_pD3D->SpriteEnd();
+	//m_pD3D->DeviceEnd();
+	//m_pD3D->Present();
 
 	m_pMS->SendMsg (new CCreateLevelMessage());
 	m_pMS->ProcessMessages ();
 
-	m_pD3D->Clear(0, 0, 0);
-	m_pD3D->DeviceBegin();
-	m_pD3D->SpriteBegin();
+	//m_pD3D->Clear(0, 0, 0);
+	//m_pD3D->DeviceBegin();
+	//m_pD3D->SpriteBegin();
 
 	m_pD3D->DrawRect(lowerhalf, 58,58,58);
 	regular_load.right += 100;
 	m_pD3D->DrawRect(regular_load, 0, 0, 255);
 
 
-	m_pD3D->SpriteEnd();
-	m_pD3D->DeviceEnd();
-	m_pD3D->Present();
+	//m_pD3D->SpriteEnd();
+	//m_pD3D->DeviceEnd();
+	//m_pD3D->Present();
 
 	m_pController1 = CGame::GetInstance()->GetController1();
 	m_pController2 = CGame::GetInstance()->GetController2();
-	m_pPF = new CPrintFont(m_pTM->LoadTexture("resource/graphics/FontPlaceholder.png",D3DCOLOR_XRGB(0, 0, 0)));
+	m_pPF = new CPrintFont(m_pTM->LoadTexture("resource/graphics/BC_Font.png",D3DCOLOR_XRGB(0, 0, 0)));
 
 
 
@@ -195,31 +195,31 @@ void CGamePlayState::Enter(void)
 
 	dummy->EnterState ();
 
-	m_pD3D->Clear(0, 0, 0);
-	m_pD3D->DeviceBegin();
-	m_pD3D->SpriteBegin();
+	//m_pD3D->Clear(0, 0, 0);
+	//m_pD3D->DeviceBegin();
+	//m_pD3D->SpriteBegin();
 
 	m_pD3D->DrawRect(lowerhalf, 58,58,58);
 	regular_load.right += 100;
 	m_pD3D->DrawRect(regular_load, 0, 0, 255);
 
 
-	m_pD3D->SpriteEnd();
-	m_pD3D->DeviceEnd();
-	m_pD3D->Present();
-
-	m_pD3D->Clear(0, 0, 0);
-	m_pD3D->DeviceBegin();
-	m_pD3D->SpriteBegin();
+	//m_pD3D->SpriteEnd();
+	//m_pD3D->DeviceEnd();
+	//m_pD3D->Present();
+	//
+	//m_pD3D->Clear(0, 0, 0);
+	//m_pD3D->DeviceBegin();
+	//m_pD3D->SpriteBegin();
 
 	m_pD3D->DrawRect(lowerhalf, 58,58,58);
 	regular_load.right += 25;
 	m_pD3D->DrawRect(regular_load, 0, 0, 255);
 
 
-	m_pD3D->SpriteEnd();
-	m_pD3D->DeviceEnd();
-	m_pD3D->Present();
+	//m_pD3D->SpriteEnd();
+	//m_pD3D->DeviceEnd();
+	//m_pD3D->Present();
 
 	speedy = new CSpeedRamp();
 	//dummy->SetVelX(10);
@@ -281,9 +281,9 @@ void CGamePlayState::Enter(void)
 
 	Level->SetSpawn (player2);
 
-	m_pD3D->Clear(0, 0, 0);
-	m_pD3D->DeviceBegin();
-	m_pD3D->SpriteBegin();
+	//m_pD3D->Clear(0, 0, 0);
+	//m_pD3D->DeviceBegin();
+	//m_pD3D->SpriteBegin();
 
 
 	m_pD3D->DrawRect(lowerhalf, 58,58,58);
@@ -291,9 +291,9 @@ void CGamePlayState::Enter(void)
 	m_pD3D->DrawRect(regular_load, 0, 0, 255);
 
 
-	m_pD3D->SpriteEnd();
-	m_pD3D->DeviceEnd();
-	m_pD3D->Present();
+	//m_pD3D->SpriteEnd();
+	//m_pD3D->DeviceEnd();
+	//m_pD3D->Present();
 
 	m_pPM->LoadEmittor("resource/data/collision.xml");
 	m_pPM->LoadEmittor("resource/data/missle_flame.xml");
@@ -307,9 +307,9 @@ void CGamePlayState::Enter(void)
 
 	
 
-	m_pD3D->Clear(0, 0, 0);
-	m_pD3D->DeviceBegin();
-	m_pD3D->SpriteBegin();
+	//m_pD3D->Clear(0, 0, 0);
+	//m_pD3D->DeviceBegin();
+	//m_pD3D->SpriteBegin();
 
 
 	m_pD3D->DrawRect(lowerhalf, 58,58,58);
@@ -317,10 +317,14 @@ void CGamePlayState::Enter(void)
 	m_pD3D->DrawRect(regular_load, 0, 0, 255);
 
 
-	m_pD3D->SpriteEnd();
-	m_pD3D->DeviceEnd();
-	m_pD3D->Present();
+	//m_pD3D->SpriteEnd();
+	//m_pD3D->DeviceEnd();
+	//m_pD3D->Present();
 
+
+	m_nMiniMapOverlayIndex=m_pTM->LoadTexture("resource/graphics/HUDS/minimap_overlay.png");
+	m_nMiniMapMiddlelayIndex=m_pTM->LoadTexture("resource/graphics/HUDS/minimap_middlelay.png");
+	m_nMiniMapUnderlayIndex=m_pTM->LoadTexture("resource/graphics/HUDS/minimap_underlay.png");
 
 }
 
@@ -343,6 +347,11 @@ void CGamePlayState::Exit(void)
 		power_ups[i]->Release();
 	}
 	power_ups.clear();
+
+	m_pTM->UnloadTexture(m_nMiniMapOverlayIndex);
+	m_pTM->UnloadTexture(m_nMiniMapMiddlelayIndex);
+	m_pTM->UnloadTexture(m_nMiniMapUnderlayIndex);
+
 	m_pES->ClearEvents ();
 	m_pES->ShutdownEventSystem ();
 
@@ -546,14 +555,14 @@ void CGamePlayState::Render(void)
 	for(int i = m_lScores.size()-1; i >= 0; i--)
 	{
 		char buffer[32];
-		int color = 0;
+		DWORD color = 0;
 		sprintf_s(buffer,"%i) %i",i+1,m_lScores[i]->GetKillCount());
 		if(m_lScores[i]->GetType() == OBJECT_PLAYER)
 		{
-			color = 255;
+			color = D3DCOLOR_ARGB(255,0,255,0);
 		}
 		//color = 255;
-		m_pD3D->DrawText(buffer,2,370+(12*i),0,color,0);
+		m_pPF->Print(buffer,2,370+(12*i),1.0f,color);
 	}
 	
 
@@ -578,6 +587,12 @@ void CGamePlayState::Render(void)
 	
 
 	m_pPM->RenderEmittors(player->GetCamera());
+
+	
+	m_pTM->Draw(m_nMiniMapUnderlayIndex,CGame::GetInstance()->GetScreenWidth()-192,0,.75f,.75f);
+	m_pTM->Draw(m_nMiniMapMiddlelayIndex,CGame::GetInstance()->GetScreenWidth()-192,0,.75f,.75f);
+	m_pTM->Draw(m_nMiniMapOverlayIndex,CGame::GetInstance()->GetScreenWidth()-192,0,.75f,.75f);
+
 }
 
 bool CGamePlayState::HandleEnter(void)

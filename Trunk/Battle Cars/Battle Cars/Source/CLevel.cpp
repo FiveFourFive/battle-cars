@@ -133,7 +133,8 @@ void CLevel::Render (CCamera* camera)
 		int TileXPos = Tiles[Index].GetIndex() % LevelMap->GetMapWidth();
 		int TileYPos = Tiles[Index].GetIndex() / LevelMap->GetMapHeight();
 
-		/*if (TileXPos *  LevelMap->GetPixelWidth() > screen.right || TileYPos * LevelMap->GetPixelHeight() > screen.bottom
+		/*
+		if (TileXPos *  LevelMap->GetPixelWidth() > screen.right || TileYPos * LevelMap->GetPixelHeight() > screen.bottom
 			|| TileXPos *  LevelMap->GetPixelWidth() < screen.left || TileYPos * LevelMap->GetPixelHeight() < screen.top )
 		{
 			continue;

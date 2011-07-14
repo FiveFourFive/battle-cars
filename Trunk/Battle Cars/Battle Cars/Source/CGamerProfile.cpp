@@ -70,7 +70,7 @@ void CGamerProfile::Enter()
 	m_pDI  	 = CSGD_DirectInput::GetInstance();
 	m_pTM  	 = CSGD_TextureManager::GetInstance();
 	m_pFM  	 = CSGD_FModManager::GetInstance();
-	m_pPF  	 = new CPrintFont(m_pTM->LoadTexture("resource/graphics/FontPlaceholder.png",D3DCOLOR_XRGB(0, 0, 0)));
+	m_pPF  	 = new CPrintFont(m_pTM->LoadTexture("resource/graphics/BC_Font.png",D3DCOLOR_XRGB(0, 0, 0)));
 
 	BGMusicID = m_pFM->LoadSound("Resource/Sounds/NeonCity.mp3", FMOD_LOOP_NORMAL);
 	PosX = 350;

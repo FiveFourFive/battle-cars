@@ -393,7 +393,6 @@ void CPlayer::Render(CCamera* camera)
 	pD3D->DrawText(buffer,10,10,255,255,255);
 	m_pHUD->Render();
 	
-	
 }
 
 bool CPlayer::CheckCollision(IBaseInterface* pBase)

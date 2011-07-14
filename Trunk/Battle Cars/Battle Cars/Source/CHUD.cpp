@@ -12,6 +12,8 @@ CHUD::CHUD(void)
 	m_nMiniMapID = CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/huds/minimap_overlay.png",D3DCOLOR_XRGB(255,255,255));
 	m_pTM = CSGD_TextureManager::GetInstance();
 
+	m_nScoreBoardID=m_pTM->LoadTexture("resource/graphics/huds/score_hud.png");
+	m_nHealthID = m_pTM->LoadTexture("resource/graphics/huds/health_bar_underlay.png");
 	//m_nHealthID = m_pTM->LoadTexture("resource
 //	m_nScoreBoardID
 	//m_nPistolID = m_pTM->LoadTexture("reoursce
@@ -33,36 +35,16 @@ void CHUD::Render(void)
 {
 	CSGD_Direct3D* pD3D = CSGD_Direct3D::GetInstance();
 	CCamera* pCamera = m_pOwner->GetCamera();
+	m_nPistolID = m_pOwner->GetWeaponIcon();
 
 	RECT health;
 	RECT shield;
 	RECT power;
-	RECT weapon;
 	RECT minimap;
-	RECT score;
 
-	score.left = 0 + (CGame::GetInstance()->GetScreenWidth()*0.05f) + pCamera->GetRenderPosX();
-	score.top = 0 + pCamera->GetHeight() - 260 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY();
-	score.right = score.left + 80;
-	score.bottom = score.top + 150;
-	pD3D->DrawRect(score,255,255,255);
+	m_pTM->Draw(m_nScoreBoardID, (CGame::GetInstance()->GetScreenWidth()*0.05f) + pCamera->GetRenderPosX(), pCamera->GetHeight() - 260 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY());
 
-	weapon.left = 0 + (CGame::GetInstance()->GetScreenWidth()*0.05f) + pCamera->GetRenderPosX();;
-	weapon.top = 0 + pCamera->GetHeight() - 100 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY();
-	weapon.right = weapon.left + 90;
-	weapon .bottom = weapon.top + 100;
-	switch(m_pOwner->GetSelectedWeapon())
-	{
-	case WEAPON_PISTOL:
-		pD3D->DrawRect(weapon,255,255,255);
-		break;
-	case WEAPON_RPG:
-		pD3D->DrawRect(weapon,255,0,0);
-		break;
-	case WEAPON_SPECIAL:
-		pD3D->DrawRect(weapon,0,0,255);
-		break;
-	}
+	m_pTM->Draw(m_nPistolID,(CGame::GetInstance()->GetScreenWidth()*0.05f) + pCamera->GetRenderPosX(), pCamera->GetHeight() - 100 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY());
 
 	minimap.left = 0 + pCamera->GetWidth() - 150 - (CGame::GetInstance()->GetScreenWidth()*0.05f) + pCamera->GetRenderPosX();
 	minimap.top = 0 + pCamera->GetHeight() - 150 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY();
@@ -71,13 +53,15 @@ void CHUD::Render(void)
 	m_pTM->Draw(m_nMiniMapID,minimap.left-64,minimap.top-64,1.0f,1.0f);
 	pD3D->DrawRect(minimap,255,255,255);
 
-	health.left = 0 + 90 + pCamera->GetRenderPosX() + (CGame::GetInstance()->GetScreenWidth()*0.05f);
+	m_pTM->Draw(m_nHealthID, 128 + pCamera->GetRenderPosX() + (CGame::GetInstance()->GetScreenWidth()*0.05f),pCamera->GetHeight() - 94 - pCamera->GetRenderPosY() - (CGame::GetInstance()->GetScreenHeight()*0.05f));
+	CSGD_Direct3D::GetInstance()->GetSprite()->Flush();
+	health.left = 0 + 128 + pCamera->GetRenderPosX() + (CGame::GetInstance()->GetScreenWidth()*0.05f);
 	health.top = 0 + pCamera->GetHeight() - 80 - pCamera->GetRenderPosY() - (CGame::GetInstance()->GetScreenHeight()*0.05f);
 	health.right = (LONG)(health.left + (m_pOwner->GetHealth()/m_pOwner->GetMaxHealth()) * 100);
 	health.bottom = health.top + 30;
 	pD3D->DrawRect(health,0,255,0);
 
-	shield.left =  0 + 90 + pCamera->GetRenderPosX() + (CGame::GetInstance()->GetScreenWidth()*0.05f);
+	shield.left =  0 + 128 + pCamera->GetRenderPosX() + (CGame::GetInstance()->GetScreenWidth()*0.05f);
 	shield.top =  0 + pCamera->GetHeight() - 80 - pCamera->GetRenderPosY() - (CGame::GetInstance()->GetScreenHeight()*0.05f);
 	shield.right = (LONG)(shield.left + (m_pOwner->GetShieldBar()/m_pOwner->GetMaxShield()) * 100);
 	shield.bottom = shield.top + 30;

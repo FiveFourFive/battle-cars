@@ -85,6 +85,10 @@ private:
 	float m_fEnlarge;
 	bool m_bCountDown;
 
+	int m_nMiniMapOverlayIndex;
+	int m_nMiniMapMiddlelayIndex;
+	int m_nMiniMapUnderlayIndex;
+
 	int time;		// total time, convert everything into seconds: 2 minutes = 120 seconds.
 	float m_fElapsedSecond;		// determine if a second has passed.
 
