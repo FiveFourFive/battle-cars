@@ -70,7 +70,7 @@ private:
 	// objects
 	CPlayer* player;
 	CEnemy* dummy;
-	PowerUp* power_up;
+	vector<PowerUp*> power_ups;
 	CSpeedRamp* speedy;
 	CCar* dummy2;
 	CPlayer* player2;

@@ -161,8 +161,14 @@ void CGamePlayState::Enter(void)
 
 	
 	dummy = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
+	PowerUp* power_up = new PowerUp();
+	power_up->SetPosX(1000.0f);
+	power_up->SetPosY(1000.0f);
+	power_up->SetType(OBJECT_POWERUP);
+	power_up->SetPowerType(HEALTH_POWERUP);
+	power_ups.push_back(power_up);
 	power_up = new PowerUp();
-	
+	power_ups.push_back(power_up);
 	dummy2 = new CCar();
 	dummy->SetPosX(1200);
 	dummy->SetPosY(1200);
@@ -217,7 +223,8 @@ void CGamePlayState::Enter(void)
 	m_pOM->AddObject(dummy2);
 	m_pOM->AddObject(speedy);
 	m_pOM->AddObject(dummy);
-	m_pOM->AddObject(power_up);
+	m_pOM->AddObject(power_ups[0]);
+	m_pOM->AddObject(power_ups[1]);
 	characters = CCharacterSelection::GetInstance()->GetList();
 	player = CCharacterSelection::GetInstance()->GetPlayer1();
 	if(CNumPlayers::GetInstance()->GetNumberOfPlayers() > 1)
@@ -251,10 +258,11 @@ void CGamePlayState::Enter(void)
 
 
 	m_pOM->AddObject(player);
-	power_up->SetPosX(player->GetPosX() + 200);
-	power_up->SetPosY(player->GetPosY() + 200);
-	power_up->SetType(OBJECT_POWERUP);
-	power_up->SetPowerType(WEAPONS_POWERUP);
+	power_ups[1]->SetPosX(player->GetPosX() + 200);
+	power_ups[1]->SetPosY(player->GetPosY() + 200);
+	power_ups[1]->SetType(OBJECT_POWERUP);
+	power_ups[1]->SetPowerType(WEAPONS_POWERUP);
+
 	m_bCountDown = false;
 	m_fEnlarge = 0.0f;
 	m_bPlaying = false;
@@ -313,16 +321,16 @@ void CGamePlayState::Exit(void)
 			CGame::GetInstance()->SetScore(characters[i]->GetKillCount());
 		characters[i]->Release();
 	}
-	//player->Release();
-	//player2->Release();
-	//player2->Release();
 	dummy->Release();
 	speedy->Release();
 	dummy2->Release();
 	m_pPM->ShutDownParticleManager();
 	m_pPM = NULL;
 	m_lScores.clear();
-	power_up->Release ();
+	for(int i = 0; i < power_ups.size(); i++)
+	{
+		power_ups[i]->Release();
+	}
 
 	m_pES->ClearEvents ();
 	m_pES->ShutdownEventSystem ();
