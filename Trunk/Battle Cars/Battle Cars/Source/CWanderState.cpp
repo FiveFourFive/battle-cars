@@ -37,7 +37,7 @@ CWanderState* CWanderState::GetInstance()
 
 void CWanderState::Update (float fElapsedTime)
 {
-	m_Owner->SetSpeed (m_Owner->GetSpeed () + 0.80f);
+	m_Owner->SetSpeed (m_Owner->GetSpeed () + 01.0f);
 
 	if (m_Owner->GetSpeed () > 150.0f)
 	{
@@ -206,12 +206,12 @@ bool CWanderState::FindThreat()
 	if(m_Target1)
 	{
 		target1Distance.fX = (m_Target1->GetPosX()+(m_Target1->GetWidth()*.5f))-(m_Owner->GetPosX()+(m_Owner->GetWidth()*.5f));
-		target1Distance.fY = (m_Target1->GetPosY()+(m_Target1->GetHeight()*.5f))-(m_Owner->GetPosX()+(m_Owner->GetWidth()*.5f));
+		target1Distance.fY = (m_Target1->GetPosY()+(m_Target1->GetHeight()*.5f))-(m_Owner->GetPosX()+(m_Owner->GetHeight()*.5f));
 	}
 	if(m_Target2)
 	{
 		target2Distance.fX = (m_Target2->GetPosX()+(m_Target2->GetWidth()*.5f))-(m_Owner->GetPosX()+(m_Owner->GetWidth()*.5f));
-		target2Distance.fY = (m_Target2->GetPosY()+(m_Target2->GetHeight()*.5f))-(m_Owner->GetPosX()+(m_Owner->GetWidth()*.5f));
+		target2Distance.fY = (m_Target2->GetPosY()+(m_Target2->GetHeight()*.5f))-(m_Owner->GetPosX()+(m_Owner->GetHeight()*.5f));
 	
 		if(Vector2DLength(target1Distance) <= m_fAggroRadius || Vector2DLength(target2Distance) <= m_fAggroRadius)
 		{
@@ -243,7 +243,7 @@ void CWanderState::Wander(float fElapsedTime)
 	{
 		
 		tVector2D m_vTargetLocation;
-		m_fTargetX = rand()%1500+100;						// so that it works on every map GetTileWidth()*num of tiles horizontally - 100 (since we are using middle of car for position calculations)
+		m_fTargetX = rand()%10500+100;						// so that it works on every map GetTileWidth()*num of tiles horizontally - 100 (since we are using middle of car for position calculations)
 		m_fTargetY = rand()%1500+100;						// so that it works on every map GetTileHeight()*num of tiles vertically - 100 (since we are using middle of car for position calculations)
 		m_bHasTargets = true;
 

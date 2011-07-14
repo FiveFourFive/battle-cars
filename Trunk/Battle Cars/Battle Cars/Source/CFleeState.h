@@ -14,6 +14,9 @@
 //#include <Windows.h>
 #include "IAIBaseState.h"
 #include "SGD_Math.h"
+#include "CPowerUp.h"
+#include <vector>
+using namespace std;
 class CEnemy;
 class CPlayer;
 
@@ -23,6 +26,8 @@ private:
 	// member variables
 	CEnemy* m_Owner;
 	CPlayer* m_Target;
+	vector<PowerUp*> powerUps;
+
 	bool Damaged(void);
 	void Flee(float fElapsedTime);
 	bool Escaped();
@@ -43,9 +48,11 @@ public:
 	//Accessors
 	CEnemy* GetOwner() {return m_Owner;}
 	CPlayer* GetTarget() {return m_Target;}
+	vector<PowerUp*> GetPowerUps() {return powerUps;}
 	//Mutators
 	void SetOwner(CEnemy* pOwner) {m_Owner = pOwner;}
 	void SetTarget(CPlayer* pTarget) {m_Target = pTarget;}
+	void SetPowerUps(vector<PowerUp*> powerUp) {powerUps = powerUp;}
 };
 
 #endif

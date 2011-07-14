@@ -172,7 +172,7 @@ void CGamePlayState::Enter(void)
 	dummy2 = new CCar();
 	dummy->SetPosX(1200);
 	dummy->SetPosY(1200);
-	dummy->SetHealth(100);
+	dummy->SetHealth(100.0f);
 	dummy->SetShieldBar(0.0f);
 	dummy->SetVelX(0);
 	dummy->SetVelY(0);
@@ -409,7 +409,7 @@ bool CGamePlayState::Input()
 			{
 				if(dummy)
 				{
-					dummy->SetHealth(1000.0);
+					dummy->SetHealth(100.0f);
 				}
 			}
 		}

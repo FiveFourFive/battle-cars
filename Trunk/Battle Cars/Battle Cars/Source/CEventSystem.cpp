@@ -19,7 +19,6 @@ void CEventSystem::RegisterClient(EVENTID eventID, IListener* pClient)
 {
 	if (!pClient || AlreadyRegistered(eventID, pClient))	
 		return;
-
 	/*m_ClientDatabase.Insert (eventID, pClient);*/
 
 }

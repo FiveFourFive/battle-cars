@@ -27,6 +27,7 @@ CEnemy::CEnemy(CXboxInput* pController) : CPlayer(pController)
 	m_AICurrentState->SetOwner (this);
 	EnterState();
 	m_fViewRadius = 30.0f;
+	SetMaxHealth(150.0);
 }
 
 CEnemy::~CEnemy()
@@ -95,7 +96,20 @@ void CEnemy::HandleEvent(CEvent* pEvent)
 				SetHealth(GetHealth() - tempbullet->GetDamage());
 			}
 		}
-		
+		else if(pEvent->GetEventID() == "weapon_level")
+		{
+			if(GetSpecialLevel() < 4)
+				SetSpecialLevel(GetSpecialLevel() + 1);
+		}
+		else if(pEvent->GetEventID() == "health_up")
+		{
+			if(GetHealth() < GetMaxHealth())
+			{
+				SetHealth(GetHealth()+20.0f);
+				if(GetHealth() > GetMaxHealth())
+					SetHealth(GetMaxHealth());
+			}
+		}
 	}
 }
 
