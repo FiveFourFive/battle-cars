@@ -60,15 +60,25 @@ CCar::CCar(void)
 	m_nCarID = CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/cartexture.bmp",D3DCOLOR_XRGB(255, 0, 255));
 
 	m_fCollisionEffect = 0.0f;
+	m_fRespawnTimer = 0.0f;
 
 	CEventSystem::GetInstance()->RegisterClient("damage",this);
-	CEventSystem::GetInstance()->RegisterClient("collision", this);
 	CEventSystem::GetInstance()->RegisterClient("weapon_level",this);
+	CEventSystem::GetInstance()->RegisterClient("collision", this);
+	
+	Collision_effect = false;
+
 }
 
 
 void CCar::Update(float fElapsedTime)
 {
+	if( GetHealth() <= 0.0f)
+	{
+		m_fRespawnTimer += fElapsedTime;
+		return;
+	}
+
 	m_fCollisionEffect += fElapsedTime;
 
 	tVector2D tempdir = GetDirection();
@@ -307,7 +317,11 @@ bool CCar::CheckCollision(IBaseInterface* pBase)
 				SetSpeed(hisspeed);
 			}
 
-
+			if( !Collision_effect )
+			{
+				CEventSystem::GetInstance()->SendEvent("collision", this);
+				Collision_effect = true;
+			}
 		
 			return true;
 		}
@@ -414,6 +428,7 @@ void CCar::HandleEvent(CEvent* pEvent)
 			{
 				tempemittor->SetTimeToDie(1.0f);
 				pPM->AttachToBasePosition(NULL, tempemittor, GetCX1(), GetCY1());
+				Collision_effect = false;
 			}
 		}
 		else if(pEvent->GetEventID() == "weapon_level")
@@ -421,12 +436,6 @@ void CCar::HandleEvent(CEvent* pEvent)
 			if(GetSpecialLevel() < 4)
 				SetSpecialLevel(GetSpecialLevel() + 1);
 		}
-		else if(pEvent->GetEventID() == "powerup_power")
-		{
-			if(GetPowerUpBar() < GetMaxPowerUp())
-				SetPowerUpBar(GetPowerUpBar() + 20);
-			if(GetPowerUpBar() > GetMaxPowerUp())
-				SetPowerUpBar(GetMaxPowerUp());
-		}
+		
 	}
 }
