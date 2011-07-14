@@ -96,25 +96,6 @@ void CCar::Update(float fElapsedTime)
 		tempvel.fY -= tempvel.fY * 0.05f;
 	}
 
-
-	//if(tempvel.fX > 0)
-	//{
-	//	// adjusting these changes the time it takes for the velocity 
-	//	// to get back to the direction vector
-	//	tempvel.fX -= 3.0f;
-	//}
-	//if(tempvel.fY > 0)
-	//{
-	//	tempvel.fY -= 3.0f;
-	//}
-	//if(tempvel.fX < 0)
-	//{
-	//	tempvel.fX += 3.0f;
-	//}
-	//if(tempvel.fY < 0)
-	//{
-	//	tempvel.fY += 3.0f;
-	//}
 	if(tempvel.fX < 3.0f && tempvel.fX > -3.0f)
 	{
 		tempvel.fX = 0.0f;
@@ -148,7 +129,7 @@ void CCar::Update(float fElapsedTime)
 	m_nCollisionX2 = m_nCollisionX2 + (GetVelX() * fElapsedTime);
 	m_nCollisionY2 = m_nCollisionY2 + (GetVelY() * fElapsedTime);
 	CBase::Update(fElapsedTime);
-	InBounds();
+	InBounds(fElapsedTime);
 }
 
 void CCar::Render(CCamera* camera)
@@ -335,7 +316,7 @@ bool CCar::CheckCollision(IBaseInterface* pBase)
 	return false;
 }
 
-bool CCar::InBounds(void)
+bool CCar::InBounds(float fElapsedTime)
 {
 	//if(GetPosX() >= CGame::GetInstance()->GetScreenWidth() - this->GetWidth())
 	//{
@@ -349,6 +330,9 @@ bool CCar::InBounds(void)
 	{
 		if(GetVelX() <= 0)
 			SetPosX(GetWidth()*0.5f);
+		Rotate(GetRotation());
+
+		return false;
 		//SetVelX(0);
 		//m_fSpeed = -1 * m_fSpeed;
 		//SetVelX(100);
@@ -379,6 +363,8 @@ bool CCar::InBounds(void)
 	{
 		if(GetVelY() <= 0)
 			SetPosY(GetHeight() * 0.5f);
+		Rotate(GetRotation());
+		return false;
 		//m_fSpeed = -1 * m_fSpeed;
 		//SetVelY(100);
 		//SetVelY(0);
@@ -390,10 +376,14 @@ bool CCar::InBounds(void)
 	if(GetPosX() >= mapwidth)
 	{
 		SetPosX(mapwidth);
+		Rotate(GetRotation());
+		return false;
 	}
 	if(GetPosY() >= mapheight)
 	{
 		SetPosY(mapheight);
+		Rotate(GetRotation());
+		return false;
 	}
 	return true;
 }

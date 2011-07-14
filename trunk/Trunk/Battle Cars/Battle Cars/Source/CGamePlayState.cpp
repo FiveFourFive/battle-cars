@@ -468,31 +468,7 @@ void CGamePlayState::Update(float fElapsedTime)
 		m_pES->ProcessEvents ();
 		m_pPM->UpdateEmittors(fElapsedTime);
 		m_pMS->ProcessMessages ();
-		if(player->GetHealth() <= 0)
-		{
-			//CGame::GetInstance()->ChangeState(CLossState::GetInstance());
-		}
-		if(dummy)
-		{
-		/*if(dummy->GetHealth() <= 0)
-		{ 
-			m_pOM->RemoveObject(dummy);
-			dummy->Release();
-			dummy = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
-			dummy->SetPosX(1200);
-			dummy->SetPosY(1200);
-			dummy->SetHealth(1000.0f);
-			dummy->SetShieldBar(0.0f);
-			dummy->SetVelX(0);
-			dummy->SetVelY(0);
-			dummy->SetSpeed(0);
-			dummy->SetType(OBJECT_ENEMY);
-			dummy->SetKillCount(5);
-			dummy->Rotate(0.0f);
-			dummy->EnterState ();
-			m_pOM->AddObject(dummy);
-		}*/
-		}
+		
 		for(unsigned int i = 0; i < m_lScores.size() - 1; i++)
 		{
 			for(unsigned int m = 1; m< m_lScores.size(); m++)
@@ -527,10 +503,7 @@ void CGamePlayState::Update(float fElapsedTime)
 			}
 		}
 	}
-	if( time < 0 )
-	{
-		CGame::GetInstance()->ChangeState(CWinState::GetInstance());
-	}
+	m_pMode->CheckWinLoss();
 
 		
 }

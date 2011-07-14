@@ -129,7 +129,7 @@ public:
 	void PlayBullet(void);
 
 	// checks to see if the car is within the camera (within screen limits atm)
-	bool InBounds(void);
+	bool InBounds(float fElapsedTime);
 	bool CheckCollision(IBaseInterface* pBase);
 
 	void HandleEvent(CEvent* pEvent);
