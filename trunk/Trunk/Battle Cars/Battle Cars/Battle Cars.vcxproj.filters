@@ -207,6 +207,9 @@
     <ClCompile Include="Source\CDeathmatchMode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CGameModeSelectionState.cpp">
+      <Filter>Game States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\CStopWatch.h">
@@ -385,6 +388,9 @@
     </ClInclude>
     <ClInclude Include="Source\CDeathmatchMode.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CGameModeSelectionState.h">
+      <Filter>Game States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

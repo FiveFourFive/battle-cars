@@ -7,6 +7,7 @@ class CPrintFont;
 class CSGD_FModManager;
 class CSGD_DirectInput;
 class CXboxInput;
+class CPlayer;
 class CSGD_Direct3D;
 
 class CWinState : public IGameState
@@ -34,6 +35,7 @@ private:
 	int m_nNumSlots;
 	int m_nSlot;
 
+	CPlayer* m_pWinner;
 
 	CWinState(void);
 	~CWinState(void);
@@ -51,7 +53,7 @@ public:
 	void Enter(void);
 	void Exit(void);
 
-
+	void SetWinner(CPlayer* player) { m_pWinner = player; }
 };
 
 
