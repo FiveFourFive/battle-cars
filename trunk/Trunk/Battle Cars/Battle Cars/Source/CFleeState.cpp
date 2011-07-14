@@ -37,7 +37,7 @@ CFleeState* CFleeState::GetInstance()
 void CFleeState::Update (float fElapsedTime)
 {
 	//Handle acceleration and speed
-	m_Owner->SetSpeed (m_Owner->GetSpeed () + 10.0f);
+	m_Owner->SetSpeed (m_Owner->GetSpeed () + 2.0f);
 
 	if (m_Owner->GetSpeed () > 150.0f)
 	{
@@ -117,6 +117,7 @@ void CFleeState::Flee(float fElapsedTime)
 			m_Owner->SetDirection(direction);
 			rotationAngle -= (m_Owner->GetRotationRate() * fElapsedTime);
 		}
+		m_Owner->Rotate(m_Owner->GetRotation());
 	}
 	else
 	{
@@ -140,6 +141,7 @@ void CFleeState::Flee(float fElapsedTime)
 			m_Owner->SetDirection(direction);
 			rotationAngle -= (m_Owner->GetRotationRate() * fElapsedTime);
 		}
+		m_Owner->Rotate(m_Owner->GetRotation());
 	}
 	}
 }

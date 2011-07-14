@@ -433,6 +433,54 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 			float myfy = abs(currentvel.fY);
 			float hisfx = abs(othervel.fX);
 			float hisfy = abs(othervel.fY);
+
+			/*if(myfx <= 5 && myfy <= 5)
+			{
+				currentvel.fX = GetDirection().fX * 20;
+				currentvel.fY = GetDirection().fY * 20;
+			}
+			if(hisfx <= 5 && hisfy <= 5)
+			{
+				othervel.fX = tempcar->GetDirection().fX * 20;
+				othervel.fY = tempcar->GetDirection().fY * 20;
+			}*/
+			if(GetVelX() > 10)
+			{
+				SetPosX(GetPosX() + (GetVelX() * 0.001f * -1.0f));
+			}
+			else
+			{
+				float vel = GetDirection().fX * 20;
+				SetPosX(GetPosX() + (vel * 0.001f * -1.0f));
+			}
+			if(GetVelY() > 10)
+			{
+				SetPosY(GetPosY() + (GetVelY() * 0.001f * -1.0f));
+			}
+			else
+			{
+				float vel = GetDirection().fY * 20;
+				SetPosY(GetPosY() + (vel * 0.001f * -1.0f));
+			}
+			if(tempcar->GetVelX() > 10)
+			{
+				tempcar->SetPosX(tempcar->GetPosX() + (tempcar->GetVelX() * 0.001f * -1.0f));
+			}
+			else
+			{
+				float vel = tempcar->GetDirection().fX * 20;
+				tempcar->SetPosX(tempcar->GetPosX() + (vel * 0.001f * -1.0f));
+			}
+			if(tempcar->GetVelY() > 10)
+			{
+				tempcar->SetPosY(tempcar->GetPosY() + (tempcar->GetVelY() * 0.001f * -1.0f));
+			}
+			else
+			{
+				float vel = tempcar->GetDirection().fY * 20;
+				tempcar->SetPosY(tempcar->GetPosY() + (vel * 0.001f * -1.0f));
+			}
+
 			
 			tVector2D tobeapplied;
 			tobeapplied.fX = 0;
@@ -455,7 +503,8 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 		
 			float myspeed = GetSpeed();
 			float hisspeed = tempcar->GetSpeed();
-			
+
+
 			if(myspeed > hisspeed)
 			{
 				myspeed = myspeed * 0.3f;
