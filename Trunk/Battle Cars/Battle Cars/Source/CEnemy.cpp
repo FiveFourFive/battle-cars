@@ -14,6 +14,8 @@
 #include "CMainMenuState.h"
 #include "CBullet.h"
 #include "CSGD_Direct3D.h"
+#include "ParticleManager.h"
+#include "Emittor.h"
 
 CEnemy::CEnemy(CXboxInput* pController) : CPlayer(pController)
 {
@@ -27,12 +29,15 @@ CEnemy::CEnemy(CXboxInput* pController) : CPlayer(pController)
 	m_AICurrentState->SetOwner (this);
 	EnterState();
 	m_fViewRadius = 30.0f;
+
+	CEventSystem::GetInstance()->RegisterClient("collision", this);
+	SetCollisionEffect(false);
 	SetMaxHealth(150.0);
 }
 
 CEnemy::~CEnemy()
 {
-
+	CEventSystem::GetInstance()->UnregisterClient("collision", this);
 }
 
 void CEnemy::EnterState ()
@@ -102,6 +107,19 @@ void CEnemy::HandleEvent(CEvent* pEvent)
 				SetIsAlive(false);
 			}
 		}
+		else if( pEvent->GetEventID() == "collision")
+		{
+			ParticleManager* pPM = ParticleManager::GetInstance(); 
+			Emittor* tempemittor = pPM->CreateEffect(pPM->GetEmittor(COLLISION_EMITTOR), GetCX1(), GetCY1());
+
+			if( tempemittor)
+			{
+				tempemittor->SetTimeToDie(1.0f);
+				pPM->AttachToBasePosition(NULL, tempemittor, GetCX1(), GetCY1());
+				SetCollisionEffect(false);
+			}
+		}
+		
 		else if(pEvent->GetEventID() == "weapon_level")
 		{
 			if(GetSpecialLevel() < 4)
@@ -187,8 +205,13 @@ bool CEnemy::CheckCollision(IBaseInterface* pBase)
 				SetSpeed(hisspeed);
 			}
 
+			if( !GetCollisionEffect() )
+			{
+				CEventSystem::GetInstance()->SendEvent("collision", this);
+				SetCollisionEffect(true);
+			}
 
-		return true;
+			return true;
 			
 		}
 	}

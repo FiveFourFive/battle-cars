@@ -71,6 +71,7 @@ private:
 	CPlayer* player;
 	CEnemy* dummy;
 	vector<PowerUp*> power_ups;
+	PowerUp* power_up_power;
 	CSpeedRamp* speedy;
 	CCar* dummy2;
 	CPlayer* player2;

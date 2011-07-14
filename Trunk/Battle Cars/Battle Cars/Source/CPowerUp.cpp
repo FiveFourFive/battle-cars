@@ -43,8 +43,28 @@ void PowerUp::Render(CCamera* camera)
 		temp_render_rect.right = temp_render_rect.left + 40;
 		temp_render_rect.bottom = temp_render_rect.top + 40;
 
-		m_pD3D->DrawRect(temp_render_rect, 128, 128, 128);
-		m_pD3D->DrawTextA("Power_Up", (int)(GetPosX() - camera->GetCamX() + (int)(camera->GetRenderPosX())), (int)(GetPosY() - camera->GetCamY() + (int)(camera->GetRenderPosY())), 255,255,255);
+		if( GetPowerType() == SPECIAL_POWERUP)
+		{
+			m_pD3D->DrawRect(temp_render_rect, 0, 0, 255);
+			m_pD3D->DrawTextA("Special_Power_Up", (int)(GetPosX() - camera->GetCamX() + (int)(camera->GetRenderPosX())), (int)(GetPosY() - camera->GetCamY() + (int)(camera->GetRenderPosY())), 255,255,255);
+		}
+		else if( GetPowerType() == SHIELD_POWERUP)
+		{
+			m_pD3D->DrawRect(temp_render_rect, 128, 128, 128);
+			m_pD3D->DrawTextA("Shield_Power_Up", (int)(GetPosX() - camera->GetCamX() + (int)(camera->GetRenderPosX())), (int)(GetPosY() - camera->GetCamY() + (int)(camera->GetRenderPosY())), 255,255,255);
+		}
+		else if( GetPowerType() == HEALTH_POWERUP)
+		{
+			m_pD3D->DrawRect(temp_render_rect, 0, 255, 0);
+			m_pD3D->DrawTextA("Health_Power_Up", (int)(GetPosX() - camera->GetCamX() + (int)(camera->GetRenderPosX())), (int)(GetPosY() - camera->GetCamY() + (int)(camera->GetRenderPosY())), 255,255,255);
+		}
+		else if( GetPowerType() == WEAPONS_POWERUP)
+		{
+			m_pD3D->DrawRect(temp_render_rect, 255, 255, 0);
+			m_pD3D->DrawTextA("Weapons_Power_Up", (int)(GetPosX() - camera->GetCamX() + (int)(camera->GetRenderPosX())), (int)(GetPosY() - camera->GetCamY() + (int)(camera->GetRenderPosY())), 255,255,255);
+
+		}
+
 	}
 }
 
@@ -75,7 +95,7 @@ bool PowerUp::CheckCollision(IBaseInterface* pBase)
 					CCar* car = (CCar*)pBase;
 					CEventSystem::GetInstance()->SendEvent("weapon_level",car);
 				}
-				else if(m_nPtype == SHIELD_POWERUP)
+				else if(m_nPtype == SPECIAL_POWERUP)
 				{
 					CEventSystem::GetInstance()->SendEvent("powerup_power",pBase);
 				}

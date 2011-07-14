@@ -169,6 +169,8 @@ void CGamePlayState::Enter(void)
 	power_ups.push_back(power_up);
 	power_up = new PowerUp();
 	power_ups.push_back(power_up);
+	power_up = new PowerUp();
+	power_ups.push_back(power_up);
 	dummy2 = new CCar();
 	dummy->SetPosX(1200);
 	dummy->SetPosY(1200);
@@ -226,6 +228,7 @@ void CGamePlayState::Enter(void)
 	m_pOM->AddObject(dummy);
 	m_pOM->AddObject(power_ups[0]);
 	m_pOM->AddObject(power_ups[1]);
+	m_pOM->AddObject(power_ups[2]);
 	characters = CCharacterSelection::GetInstance()->GetList();
 	player = CCharacterSelection::GetInstance()->GetPlayer1();
 	if(CNumPlayers::GetInstance()->GetNumberOfPlayers() > 1)
@@ -263,6 +266,13 @@ void CGamePlayState::Enter(void)
 	power_ups[1]->SetPosY(player->GetPosY() + 200);
 	power_ups[1]->SetType(OBJECT_POWERUP);
 	power_ups[1]->SetPowerType(WEAPONS_POWERUP);
+
+	power_ups[2]->SetPosX(player->GetPosX() + 400);
+	power_ups[2]->SetPosY(player->GetPosY() + 400);
+	power_ups[2]->SetType(OBJECT_POWERUP);
+	power_ups[2]->SetPowerType(SPECIAL_POWERUP);
+
+	m_pOM->AddObject(power_up_power);
 
 	m_bCountDown = false;
 	m_fEnlarge = 0.0f;
@@ -669,7 +679,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			if( tempemittor)
 			{
 				pBullet->SetTracerEmittor(tempemittor->GetID());
-				tempemittor->SetTimeToDie(100.0f);
+				tempemittor->SetTimeToDie(pBullet->GetMaxLife());
 				pPM->AttachToBasePosition(pBullet, tempemittor, pBullet->GetWidth()*0.5f, pBullet->GetHeight()*0.5f);
 
 			}
