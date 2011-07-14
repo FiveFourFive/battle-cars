@@ -288,7 +288,7 @@ void CGamePlayState::Enter(void)
 	m_pPM->LoadEmittor("resource/data/collision.xml");
 	m_pPM->LoadEmittor("resource/data/missle_flame.xml");
 
-	time = 120;
+	time = 30;
 	m_fElapsedSecond = 0.0f;
 	score = 0;
 
@@ -451,12 +451,6 @@ void CGamePlayState::Update(float fElapsedTime)
 		{
 			m_fElapsedSecond = 0.0f;
 			time -= 1;
-		}
-
-		if( m_ftimer >= 3.0f)
-		{
-			m_ftimer = 0.0f;
-			score += 1;
 		}
 
 		m_pFM->Update();
