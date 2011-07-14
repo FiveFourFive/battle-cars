@@ -388,7 +388,9 @@ void CPlayer::Render(CCamera* camera)
 	CSGD_Direct3D* pD3D = CSGD_Direct3D::GetInstance();
 
 	CCar::Render(camera);
-
+	char buffer[128];
+	sprintf_s(buffer,"%i",GetSpecialLevel());
+	pD3D->DrawText(buffer,10,10,255,255,255);
 	m_pHUD->Render();
 	
 	
@@ -408,9 +410,6 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 		float centery = tempcar->GetCY1();
 		float myx = GetCX1();
 		float myy = GetCY1();
-		
-		
-
 
 		float centerx2 = tempcar->GetCX2();
 		float centery2 = tempcar->GetCY2();
@@ -480,6 +479,13 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 
 	if(IntersectRect(&intersection, &GetRect(), &pBase->GetRect()))
 	{
+		if(pBase->GetType() == 2)
+		{
+			if(GetSpecialLevel() < 4)
+				SetSpecialLevel(GetSpecialLevel() + 1);
+
+
+		}
 		if(pBase->GetType() == OBJECT_ENEMY)
 		{
 			
@@ -550,10 +556,7 @@ void CPlayer::HandleEvent(CEvent* pEvent)
 			}
 
 		}
-		else if(pEvent->GetEventID() == "powerup_power")
-		{
-			SetPowerUpBar(GetPowerUpBar() + 20);
-		}
+		
 		else if( pEvent->GetEventID() == "collision")
 		{
 			ParticleManager* pPM = ParticleManager::GetInstance(); 

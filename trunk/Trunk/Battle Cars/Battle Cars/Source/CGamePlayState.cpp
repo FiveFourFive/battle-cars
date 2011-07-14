@@ -151,6 +151,7 @@ void CGamePlayState::Enter(void)
 	
 	dummy = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
 	power_up = new PowerUp();
+	
 	dummy2 = new CCar();
 	dummy->SetPosX(1200);
 	dummy->SetPosY(1200);
@@ -177,7 +178,6 @@ void CGamePlayState::Enter(void)
 	m_pD3D->Clear(0, 0, 0);
 	m_pD3D->DeviceBegin();
 	m_pD3D->SpriteBegin();
-
 
 	m_pD3D->DrawRect(lowerhalf, 58,58,58);
 	regular_load.right += 100;
@@ -238,6 +238,9 @@ void CGamePlayState::Enter(void)
 
 	m_pOM->AddObject(player);
 	m_pOM->AddObject(player2);
+	power_up->SetPosX(player->GetPosX() + 200);
+	power_up->SetPosY(player->GetPosY() + 200);
+	power_up->SetType(WEAPONS_POWERUP);
 	m_bCountDown = false;
 	m_fEnlarge = 0.0f;
 	m_bPlaying = false;
