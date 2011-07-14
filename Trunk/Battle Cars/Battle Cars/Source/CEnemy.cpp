@@ -46,7 +46,7 @@ void CEnemy::Update(float fElapsedTime)
 {
 	if (m_AICurrentState)
 		m_AICurrentState->Update (fElapsedTime);
-	
+	Rotate(GetRotation());
 	CCar::Update (fElapsedTime);
 }
 
@@ -83,7 +83,7 @@ void CEnemy::HandleEvent(CEvent* pEvent)
 		if(pEvent->GetEventID() == "damage")
 		{
 			CBullet* tempbullet = (CBullet*)pEvent->GetParam2();
-			float damage = tempbullet->GetDamage();
+   			float damage = tempbullet->GetDamage();
 			if(tempbullet->GetSlowRate() != 0.0f)
 				SetSpeed(GetSpeed()*.75f);
 			if(GetShieldBar() >= 0)
@@ -168,7 +168,7 @@ bool CEnemy::CheckCollision(IBaseInterface* pBase)
 			}
 
 
-		
+		return true;
 			
 		}
 	}

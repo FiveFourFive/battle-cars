@@ -283,7 +283,7 @@ void CWanderState::Wander(float fElapsedTime)
 				m_Owner->SetDirection(direction);
 				m_fRotationAngle -= (m_Owner->GetRotationRate() * fElapsedTime);
 			}
-			m_Owner->Rotate(m_Owner->GetRotation());
+			
 		}
 		else
 		{
@@ -308,7 +308,7 @@ void CWanderState::Wander(float fElapsedTime)
 				m_Owner->SetDirection(direction);
 				m_fRotationAngle -= (m_Owner->GetRotationRate() * fElapsedTime);
 			}
-			m_Owner->Rotate(m_Owner->GetRotation());
+			
 		}
 
 		if(currentEnemyDirection.fX < 0.0f && currentEnemyDirection.fY < 0.0f)

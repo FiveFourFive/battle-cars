@@ -172,11 +172,12 @@ void CGamePlayState::Enter(void)
 	dummy2 = new CCar();
 	dummy->SetPosX(1200);
 	dummy->SetPosY(1200);
-	dummy->SetHealth(1000.0f);
+	dummy->SetHealth(100);
 	dummy->SetShieldBar(0.0f);
 	dummy->SetVelX(0);
 	dummy->SetVelY(0);
 	dummy->SetSpeed(0);
+	dummy->SetMaxHealth(100);
 	dummy->SetType(OBJECT_ENEMY);
 	dummy->SetKillCount(5);
 	dummy->Rotate(0.0f);
@@ -408,7 +409,7 @@ bool CGamePlayState::Input()
 			{
 				if(dummy)
 				{
-					dummy->SetHealth(1000.0f);
+					dummy->SetHealth(1000.0);
 				}
 			}
 		}

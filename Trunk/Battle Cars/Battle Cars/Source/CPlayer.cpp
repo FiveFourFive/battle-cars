@@ -472,8 +472,9 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 				CEventSystem::GetInstance()->SendEvent("collision", this);
 				Collision_effect = true;
 			}
-			
+			return true;
 		}
+		
 	}
 	
 

@@ -13,7 +13,9 @@
 #include "CEvent.h"
 #include "CBullet.h"
 #include "ParticleManager.h"
+#include "CMap.h"
 #include "Emittor.h"
+#include "CLevel.h"
 
 CCar::CCar(void)
 {
@@ -326,8 +328,9 @@ bool CCar::CheckCollision(IBaseInterface* pBase)
 
 
 		
-			
+			return true;
 		}
+		
 	}
 	return false;
 }
@@ -379,6 +382,18 @@ bool CCar::InBounds(void)
 		//m_fSpeed = -1 * m_fSpeed;
 		//SetVelY(100);
 		//SetVelY(0);
+	}
+	CLevel* level = CGamePlayState::GetInstance()->GetLevel();
+	CMap* map = level->GetMap();
+	int mapheight = map->GetPixelHeight() * map->GetMapHeight();
+	int mapwidth = map->GetPixelWidth() * map->GetMapWidth();
+	if(GetPosX() >= mapwidth)
+	{
+		SetPosX(mapwidth);
+	}
+	if(GetPosY() >= mapheight)
+	{
+		SetPosY(mapheight);
 	}
 	return true;
 }
