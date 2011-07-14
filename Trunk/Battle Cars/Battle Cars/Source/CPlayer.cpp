@@ -45,7 +45,8 @@ CPlayer::CPlayer(CXboxInput* pController)
 	m_fIcyBullets = 0.0f;
 	m_fFlames = 0.0f;
 
-	Collision_effect = false;
+	CEventSystem::GetInstance()->RegisterClient("collision", this);
+	SetCollisionEffect(false);
 
 }
 CPlayer::~CPlayer(void)
@@ -518,12 +519,12 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 				SetSpeed(hisspeed);
 			}
 
-
-			if( !Collision_effect )
+			if( !GetCollisionEffect() )
 			{
 				CEventSystem::GetInstance()->SendEvent("collision", this);
-				Collision_effect = true;
+				SetCollisionEffect(true);
 			}
+
 			return true;
 		}
 		
@@ -586,7 +587,8 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 
 void CPlayer::HandleEvent(CEvent* pEvent)
 {
-	if (this == pEvent->GetParam ())
+	CPlayer* temp_player = (CPlayer*)pEvent->GetParam();
+	if (this == temp_player)
 	{
 		if (pEvent->GetEventID () == "CameraCollision")
 		{
@@ -611,6 +613,18 @@ void CPlayer::HandleEvent(CEvent* pEvent)
 
 		}
 		
+		else if(pEvent->GetEventID() == "weapon_level")
+		{
+			if(GetSpecialLevel() < 4)
+				SetSpecialLevel(GetSpecialLevel() + 1);
+		}
+		else if(pEvent->GetEventID() == "powerup_power")
+		{
+			if(GetPowerUpBar() < GetMaxPowerUp())
+				SetPowerUpBar(GetPowerUpBar() + 20);
+			if(GetPowerUpBar() > GetMaxPowerUp())
+				SetPowerUpBar(GetMaxPowerUp());
+		}
 		else if( pEvent->GetEventID() == "collision")
 		{
 			ParticleManager* pPM = ParticleManager::GetInstance(); 
@@ -620,13 +634,8 @@ void CPlayer::HandleEvent(CEvent* pEvent)
 			{
 				tempemittor->SetTimeToDie(1.0f);
 				pPM->AttachToBasePosition(NULL, tempemittor, GetCX1(), GetCY1());
-				Collision_effect = false;
+				SetCollisionEffect(false);
 			}
-		}
-		else if(pEvent->GetEventID() == "weapon_level")
-		{
-			if(GetSpecialLevel() < 4)
-				SetSpecialLevel(GetSpecialLevel() + 1);
 		}
 		else if(pEvent->GetEventID() == "health_up")
 		{

@@ -49,6 +49,9 @@ private:
 	int m_nSpecialLevel;
 	int m_nPlayerType;
 	float m_fCollisionEffect;		// used to create a single particle effect with the send event rather than creating more than what was desired.
+	float m_fRespawnTimer;			// The elapsed time until the object respawns again.
+
+	bool Collision_effect;			//Check whether effect has been applied yet or not.
 
 public:
 	CCar(void);
@@ -90,6 +93,8 @@ public:
 	float GetEffectTimer(){ return m_fCollisionEffect;}
 	tVector2D GetOverallVelocity(void) { return m_tOverallVelocity; }
 	int GetPlayerType() {return m_nPlayerType;}
+	float GetRespawnTimer(){ return m_fRespawnTimer;}
+	bool GetCollisionEffect(){ return Collision_effect; }
 	//setters
 	void SetOverallVelocity(tVector2D vel) { m_tOverallVelocity = vel; }
 	void SetSpecialLevel(int level) { m_nSpecialLevel = level; }
@@ -124,6 +129,9 @@ public:
 	void SetCollisionDelay(float delay) {m_fCollisionDelay = delay;}
 	void SetPlayerType(int type) {m_nPlayerType = type;}
 	void ResetEffectTimer(){ m_fCollisionEffect = 0.0f;}
+	void SetRespawnTimer(float respawn){ m_fRespawnTimer = respawn;}
+	void SetCollisionEffect(bool value){ Collision_effect = value;}
+
 	// plays the crash sound
 	void PlayCrash(void);
 	void PlayBullet(void);
