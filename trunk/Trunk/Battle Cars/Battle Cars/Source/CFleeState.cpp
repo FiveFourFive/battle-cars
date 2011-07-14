@@ -36,6 +36,9 @@ CFleeState* CFleeState::GetInstance()
 
 void CFleeState::Update (float fElapsedTime)
 {
+	if( m_Owner->GetHealth() <= 0.0f)
+		return;
+
 	//Handle acceleration and speed
 	m_Owner->SetSpeed (m_Owner->GetSpeed () + 2.0f);
 
@@ -87,7 +90,7 @@ bool CFleeState::Damaged()
 void CFleeState::Flee(float fElapsedTime)
 {
 	tVector2D TargetVector;
-	if(m_Target)
+	if(m_Target && m_Owner)
 	{
 	TargetVector.fX = (m_Target->GetPosX()+(m_Target->GetWidth()*.5f)) - (m_Owner->GetPosX()+(m_Owner->GetWidth()*.5f));
 	TargetVector.fY = (m_Target->GetPosY()+(m_Target->GetHeight()*.5f)) - (m_Owner->GetPosY()+(m_Owner->GetHeight()*.5f));

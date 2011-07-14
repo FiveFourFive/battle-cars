@@ -60,6 +60,7 @@ CCar::CCar(void)
 	m_nCarID = CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/cartexture.bmp",D3DCOLOR_XRGB(255, 0, 255));
 
 	m_fCollisionEffect = 0.0f;
+	m_fRespawnTimer = 0.0f;
 
 	CEventSystem::GetInstance()->RegisterClient("damage",this);
 	CEventSystem::GetInstance()->RegisterClient("collision", this);
@@ -70,6 +71,7 @@ CCar::CCar(void)
 void CCar::Update(float fElapsedTime)
 {
 	m_fCollisionEffect += fElapsedTime;
+	m_fRespawnTimer += fElapsedTime;
 
 	tVector2D tempdir = GetDirection();
 	tVector2D tempvel = GetVelocity();
