@@ -15,6 +15,7 @@
 #include "CNumPlayers.h"
 #include "CGameModeSelectionState.h"
 #include "CLevelSelectionState.h"
+#include "CCreditsScreenState.h"
 
 enum menu {PLAY, OPTIONS, HOW_TO_PLAY, GAMER_PROFILE, HIGH_SCORES, CREDITS, EXIT};
 
@@ -225,7 +226,7 @@ bool CMainMenuState::HandleEnter(void)
 			CGame::GetInstance()->ChangeState(CGamePlayState::GetInstance());
 			break;
 		case CREDITS:
-			CGame::GetInstance()->ChangeState(CGamePlayState::GetInstance());
+			CGame::GetInstance()->ChangeState(CCreditsScreenState::GetInstance());
 			break;
 		case EXIT:
 			//Exit();
