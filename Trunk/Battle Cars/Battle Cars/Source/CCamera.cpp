@@ -63,11 +63,6 @@ void CCamera::AttachTo( CBase* camera_owner, float offsetX, float offsetY)
 
 void CCamera::Update(void)
 {
-	if( this->camPosX < 0 )
-		this->camPosX = 0;
-	if( this->camPosY < 0 )
-		this->camPosY = 0;
-
 	CMap* map = CLevel::GetInstance()->GetMap();
 
 	if( (this->camPosX + this->GetWidth()) > (map->GetMapWidth() * map->GetPixelWidth()) )
@@ -78,4 +73,9 @@ void CCamera::Update(void)
 	{
 		this->camPosY = (map->GetMapHeight() * map->GetPixelHeight()) - this->GetHeight() + this->owner->GetHeight() * 0.5f;;
 	}
+
+	if( this->camPosX < 0 )
+		this->camPosX = 0;
+	if( this->camPosY < 0 )
+		this->camPosY = 0;
 }
