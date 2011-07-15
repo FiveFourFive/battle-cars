@@ -119,6 +119,7 @@
     <ClCompile Include="Source\CSpeedRamp.cpp" />
     <ClCompile Include="Source\CStopWatch.cpp" />
     <ClCompile Include="Source\CTile.cpp" />
+    <ClCompile Include="Source\CTimeChallengeMode.cpp" />
     <ClCompile Include="Source\CWanderState.cpp" />
     <ClCompile Include="Source\CWinState.cpp" />
     <ClCompile Include="Source\CXboxInput.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="Source\CSpeedRamp.h" />
     <ClInclude Include="Source\CStopWatch.h" />
     <ClInclude Include="Source\CTile.h" />
+    <ClInclude Include="Source\CTimeChallengeMode.h" />
     <ClInclude Include="Source\CWanderState.h" />
     <ClInclude Include="Source\CWinState.h" />
     <ClInclude Include="Source\CXboxInput.h" />

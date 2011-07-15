@@ -300,6 +300,7 @@ void CGamePlayState::Enter(void)
 	m_pPM->LoadEmittor("resource/data/explosion.xml");
 	m_pPM->LoadEmittor("resource/data/car_exploded.xml");
 
+	
 	time = 120;
 	m_fElapsedSecond = 0.0f;
 	score = 0;
@@ -449,7 +450,6 @@ void CGamePlayState::Update(float fElapsedTime)
 		player->GetCamera()->SetRenderPosX(0);
 		player->GetCamera()->SetRenderPosY(0);
 
-	
 		player2->GetCamera()->SetRenderPosX(CGame::GetInstance()->GetScreenWidth() * 0.5f);
 		player2->GetCamera()->SetRenderPosY(0);
 	}
@@ -458,7 +458,6 @@ void CGamePlayState::Update(float fElapsedTime)
 		player->GetCamera()->SetRenderPosX(0);
 		player->GetCamera()->SetRenderPosY(0);
 
-	
 		player2->GetCamera()->SetRenderPosX(0);
 		player2->GetCamera()->SetRenderPosY(CGame::GetInstance()->GetScreenHeight()*0.5f);
 	}

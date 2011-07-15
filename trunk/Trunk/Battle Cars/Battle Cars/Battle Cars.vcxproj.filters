@@ -210,6 +210,9 @@
     <ClCompile Include="Source\CGameModeSelectionState.cpp">
       <Filter>Game States</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CTimeChallengeMode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\CStopWatch.h">
@@ -393,6 +396,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\IGameModeInterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CTimeChallengeMode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
