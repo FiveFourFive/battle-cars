@@ -441,9 +441,6 @@ bool CGamePlayState::Input()
 
 void CGamePlayState::Update(float fElapsedTime)
 {
-	m_pFM->SetVolume(m_nCountDownEnd,CGame::GetInstance()->getSoundAVolume());
-	m_pFM->SetVolume(m_nCountDown,CGame::GetInstance()->getSoundAVolume());
-	m_pFM->SetVolume(m_nBackgroundMusicID,CGame::GetInstance()->getSoundBVolume());
 
 	if( COptionState::GetInstance()->IsVertical() )
 	{
@@ -1241,4 +1238,11 @@ void CGamePlayState::SortScores(int left, int right)
 		index++;
 	}
 
+}
+
+void CGamePlayState::Setvolume(void)
+{
+	m_pFM->SetVolume(m_nCountDownEnd,CGame::GetInstance()->getSoundAVolume());
+	m_pFM->SetVolume(m_nCountDown,CGame::GetInstance()->getSoundAVolume());
+	m_pFM->SetVolume(m_nBackgroundMusicID,CGame::GetInstance()->getSoundBVolume());
 }

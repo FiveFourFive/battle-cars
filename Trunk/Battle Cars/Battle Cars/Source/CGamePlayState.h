@@ -132,6 +132,7 @@ public:
 
 	void SetGameMode(IGameModeInterface* mode) { m_pMode = mode; }
 	IGameModeInterface* GetGameMode(){ return m_pMode;}
+	void Setvolume(void);
 };
 
 
