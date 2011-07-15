@@ -131,6 +131,7 @@ public:
 	int GetTimeLeft(void) { return time; }
 
 	void SetGameMode(IGameModeInterface* mode) { m_pMode = mode; }
+	IGameModeInterface* GetGameMode(){ return m_pMode;}
 };
 
 

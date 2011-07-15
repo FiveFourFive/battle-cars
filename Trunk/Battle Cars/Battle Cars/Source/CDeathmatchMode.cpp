@@ -41,6 +41,7 @@ void CDeathmatchMode::CheckCarStatus(CCar* car)
 		{
 			car->SetIsAlive(false);
 
+#pragma region EXPLOSION_EFFECT
 			Emittor* smoke_emittor = pPM->CreateEffect(pPM->GetEmittor(EXPLOSION_SMOKE_EMITTOR), car->GetPosX(), car->GetPosY());
 			if( smoke_emittor )
 			{
@@ -74,7 +75,7 @@ void CDeathmatchMode::CheckCarStatus(CCar* car)
 				fire_emittor->SetTimeToDie(1.5f);
 				pPM->AttachToBasePosition(car, fire_emittor);
 			}
-
+#pragma endregion
 		}
 
 		if( car->GetRespawnTimer() > 1.0f )
@@ -82,6 +83,8 @@ void CDeathmatchMode::CheckCarStatus(CCar* car)
 			if( !isSet)
 			{
 				isSet = true;
+
+#pragma region BURNING_EFFECT
 				Emittor* burning_emittor = pPM->CreateEffect(pPM->GetEmittor(AFTEREXPLOSION_SMOKE_EMITTOR), car->GetPosX(), car->GetPosY());
 				if( burning_emittor )
 				{
@@ -94,6 +97,7 @@ void CDeathmatchMode::CheckCarStatus(CCar* car)
 					burning_emittor->SetTimeToDie(3.5f);
 					pPM->AttachToBasePosition(car, burning_emittor);
 				}
+#pragma endregion
 			}
 		}
 

@@ -9,6 +9,8 @@
 
 #include "CGame.h"
 #include "CCharacterSelection.h"
+#include "CGamePlayState.h"
+#include "CTimeChallengeMode.h"
 
 CNumPlayers::CNumPlayers()
 {
@@ -80,14 +82,28 @@ bool CNumPlayers::Input()
 				m_nSelection--;
 				if( m_nNumberOfPlayers >= 1)
 				{
-
-					if( m_nSelection < 0 )
-						m_nSelection = 2;
+					if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance())
+					{
+							m_nSelection = 2;
+					}
+					else
+					{
+						if( m_nSelection < 0 )
+							m_nSelection = 2;
+					}
 				}
 				else
 				{
+					if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance())
+					{
 						if( m_nSelection < 0 )
-						m_nSelection = 1;
+							m_nSelection = 0;
+					}
+					else
+					{
+						if( m_nSelection < 0 )
+							m_nSelection = 1;
+					}
 				}
 				m_pFM->PlaySound(m_nMenuMove);
 
@@ -98,14 +114,28 @@ bool CNumPlayers::Input()
 
 				if( m_nNumberOfPlayers >= 1)
 				{
-
-					if( m_nSelection > 2 )
-						m_nSelection = 0;
+					if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance())
+					{
+							m_nSelection = 2;
+					}
+					else
+					{
+						if( m_nSelection > 2 )
+							m_nSelection = 0;
+					}
 				}
 				else
 				{
+					if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance())
+					{
+						if( m_nSelection > 0 )
+							m_nSelection = 0;
+					}
+					else
+					{
 						if( m_nSelection > 1 )
-						m_nSelection = 0;
+							m_nSelection = 0;
+					}
 				}
 				m_pFM->PlaySound(m_nMenuMove);
 			}
@@ -120,16 +150,30 @@ bool CNumPlayers::Input()
 			m_nSelection--;
 
 			if( m_nNumberOfPlayers >= 1)
-			{
-
-				if( m_nSelection < 0 )
-					m_nSelection = 2;
-			}
-			else
-			{
-					if( m_nSelection < 0 )
-					m_nSelection = 1;
-			}
+				{
+					if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance())
+					{
+							m_nSelection = 2;
+					}
+					else
+					{
+						if( m_nSelection < 0 )
+							m_nSelection = 2;
+					}
+				}
+				else
+				{
+					if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance())
+					{
+						if( m_nSelection < 0 )
+							m_nSelection = 0;
+					}
+					else
+					{
+						if( m_nSelection < 0 )
+							m_nSelection = 1;
+					}
+				}
 			m_pFM->PlaySound(m_nMenuMove);
 		}
 		if( m_pDI->KeyPressed(DIK_DOWN))
@@ -137,16 +181,30 @@ bool CNumPlayers::Input()
 			m_nSelection++;
 
 			if( m_nNumberOfPlayers >= 1)
-			{
-
-				if( m_nSelection > 2 )
-					m_nSelection = 0;
-			}
-			else
-			{
-					if( m_nSelection > 1 )
-					m_nSelection = 0;
-			}
+				{
+					if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance())
+					{
+							m_nSelection = 2;
+					}
+					else
+					{
+						if( m_nSelection > 2 )
+							m_nSelection = 0;
+					}
+				}
+				else
+				{
+					if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance())
+					{
+						if( m_nSelection > 0 )
+							m_nSelection = 0;
+					}
+					else
+					{
+						if( m_nSelection > 1 )
+							m_nSelection = 0;
+					}
+				}
 			m_pFM->PlaySound(m_nMenuMove);
 		}
 
@@ -179,7 +237,14 @@ void CNumPlayers::Render()
 	m_pPF->Print("MAYHEM AND DESTRUCTION",50,100,1.0f,D3DCOLOR_XRGB(200, 0, 0));
 
 	m_pPF->Print("1 PLAYER",300,200,0.5f,D3DCOLOR_XRGB(200, 0, 0));
-	m_pPF->Print("2 PLAYER",300,250,0.5f,D3DCOLOR_XRGB(200, 0, 0));	
+	if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance())
+	{
+		m_pPF->Print("2 PLAYER",300,250,0.5f,D3DCOLOR_XRGB(128, 128, 128));	
+	}
+	else
+	{
+		m_pPF->Print("2 PLAYER",300,250,0.5f,D3DCOLOR_XRGB(200, 0, 0));	
+	}
 	m_pPF->Print("BEGIN",300,300,0.5f,D3DCOLOR_XRGB(200, 0, 0));
 
 

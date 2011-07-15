@@ -1,5 +1,6 @@
 #include "CGameModeSelectionState.h"
 #include "CDeathmatchMode.h"
+#include "CTimeChallengeMode.h"
 #include "CPrintFont.h"
 #include "CSGD_TextureManager.h"
 #include "CSGD_FModManager.h"
@@ -145,7 +146,7 @@ void CGameModeSelectionState::Render(void)
 
 	m_pPF->Print("Game Mode Selection", 50,100,1.0f,D3DCOLOR_XRGB(255,0,0));
 	m_pPF->Print("Deathmatch",100,200,0.8f,D3DCOLOR_XRGB(255,0,0));
-	m_pPF->Print("Time Trial",100,300,0.8f,D3DCOLOR_XRGB(128,128,128));
+	m_pPF->Print("Time Trial",100,300,0.8f,D3DCOLOR_XRGB(255,0,0));
 	m_pPF->Print("Collection",100,400,0.8f,D3DCOLOR_XRGB(128,128,128));
 	m_pPF->Print("Tutorial",100,500,0.8f,D3DCOLOR_XRGB(128,128,128));
 
@@ -159,6 +160,9 @@ void CGameModeSelectionState::Render(void)
 		break;
 	case WS_TT:
 		m_pPF->Print("Time Trial",100,300,0.8f,D3DCOLOR_XRGB(0,255,0));
+		m_pPF->Print(" --- Fight for your survival, Kill as many enemies until you die ", 300.0f, 300.0f, 0.5f, D3DCOLOR_XRGB(255,255,255));
+		m_pPF->Print("     or until time runs out. You win if you kill at least 20 enemies.", 300.0f, 330.0f, 0.5f, D3DCOLOR_XRGB(255,255,255));
+
 		break;
 	case WS_CC:
 		m_pPF->Print("Collection",100,400,0.8f,D3DCOLOR_XRGB(0,255,0));
@@ -180,7 +184,8 @@ bool CGameModeSelectionState::HandleEnter(void)
 		CGame::GetInstance()->AddState(CLevelSelectionState::GetInstance());
 		break;
 	case WS_TT:
-		
+		CGamePlayState::GetInstance()->SetGameMode(CTimeChallengeMode::GetInstance());
+		CGame::GetInstance()->AddState(CLevelSelectionState::GetInstance());
 		
 		break;
 	case WS_CC:
