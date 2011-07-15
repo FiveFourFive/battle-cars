@@ -213,6 +213,12 @@
     <ClCompile Include="Source\CTimeChallengeMode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CBoss.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CCreditScreenState.cpp">
+      <Filter>Game States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\CStopWatch.h">
@@ -400,6 +406,12 @@
     </ClInclude>
     <ClInclude Include="Source\CTimeChallengeMode.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CBoss.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CCreditsScreenState.h">
+      <Filter>Game States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
