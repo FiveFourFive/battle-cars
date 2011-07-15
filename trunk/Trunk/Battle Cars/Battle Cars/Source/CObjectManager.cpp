@@ -114,7 +114,7 @@ void CObjectManager::CheckCollisions()
 void CObjectManager::CheckStatus(void)
 {
 	void (*HandleCar) (CCar* car);
-	IGameModeInterface* tempmode = CGamePlayState::GetInstance()->GetMode();
+	IGameModeInterface* tempmode = (IGameModeInterface*)CGamePlayState::GetInstance()->GetMode();
 	for(size_t i = 0; i < m_vObjectList.size(); i++)
 	{
 		if(m_vObjectList[i]->GetType() == OBJECT_PLAYER || m_vObjectList[i]->GetType() == OBJECT_ENEMY)

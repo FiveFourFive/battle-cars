@@ -79,6 +79,7 @@
     <ClCompile Include="Source\CAnimation.cpp" />
     <ClCompile Include="Source\CAttackState.cpp" />
     <ClCompile Include="Source\CBase.cpp" />
+    <ClCompile Include="Source\CBoss.cpp" />
     <ClCompile Include="Source\CBullet.cpp" />
     <ClCompile Include="Source\CCamera.cpp" />
     <ClCompile Include="Source\CCar.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="Source\CAnimation.h" />
     <ClInclude Include="Source\CAttackState.h" />
     <ClInclude Include="Source\CBase.h" />
+    <ClInclude Include="Source\CBoss.h" />
     <ClInclude Include="Source\CBullet.h" />
     <ClInclude Include="Source\CCamera.h" />
     <ClInclude Include="Source\CCar.h" />

@@ -82,8 +82,10 @@ bool CBullet::CheckCollision(IBaseInterface* pBase)
 			CEventSystem::GetInstance()->SendEvent("damage",pBase,this);
 			return true;
 		}
-		else if(pBase->GetType() == OBJECT_ENEMY)
+		else if(pBase->GetType() == OBJECT_ENEMY || pBase->GetType() == OBJECT_BOSS)
 		{
+			if(GetOwner()->GetType() == OBJECT_PLAYER)
+			{
 			CEnemy* tempenemy = (CEnemy*)pBase;
 			CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
 			if( trace_particle > -1)
@@ -94,6 +96,9 @@ bool CBullet::CheckCollision(IBaseInterface* pBase)
 			// handle what happens to enemy
 			CEventSystem::GetInstance()->SendEvent("damage",pBase,this);
 			return true;
+			}
+			else
+				return false;
 		}
 	}
 	return false;

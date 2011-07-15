@@ -36,6 +36,7 @@ class PowerUp;
 class CDeathmatchMode;
 class CKeyboardKeyBinds;
 class CKeyBinds;
+class CBoss;
 
 class CGamePlayState : public IGameState
 {
@@ -72,10 +73,11 @@ private:
 	CPlayer* player;
 	CEnemy* dummy;
 	vector<PowerUp*> power_ups;
+	vector<CSpeedRamp*> ramps;
 	PowerUp* power_up_power;
-	CSpeedRamp* speedy;
 	CCar* dummy2;
 	CPlayer* player2;
+	CBoss* boss;
 	// sound
 	int m_nBackgroundMusicID;
 	int m_nCountDown;
@@ -125,10 +127,12 @@ public:
 	CPlayer* GetPlayer1() {return player;}
 	CPlayer* GetPlayer2() {return player2;}
 	CObjectManager* GetObjectManager() {return m_pOM;}
-	//Mutators
-	void SetCharacters(vector<CPlayer*> players) {characters = players;}
+	vector<CSpeedRamp*> GetSpeedRamps() {return ramps;}
 	IGameModeInterface* GetMode(void) { return m_pMode; }
 	int GetTimeLeft(void) { return time; }
+	//Mutators
+	void SetCharacters(vector<CPlayer*> players) {characters = players;}
+	void SetSpeedRamps(vector<CSpeedRamp*> speedRamps) {ramps = speedRamps;}
 
 	void SetGameMode(IGameModeInterface* mode) { m_pMode = mode; }
 	IGameModeInterface* GetGameMode(){ return m_pMode;}

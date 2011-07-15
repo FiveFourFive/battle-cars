@@ -14,6 +14,7 @@
 #include "CMainMenuState.h"
 #include "CBullet.h"
 #include "CSGD_Direct3D.h"
+#include "CSpeedRamp.h"
 #include "ParticleManager.h"
 #include "Emittor.h"
 
@@ -33,6 +34,11 @@ CEnemy::CEnemy(CXboxInput* pController) : CPlayer(pController)
 	CEventSystem::GetInstance()->RegisterClient("collision", this);
 	SetCollisionEffect(false);
 	SetMaxHealth(150.0);
+	SetShieldBar(50.0f);
+	SetMaxShield(50.0f);
+	SetHealth(150.0f);
+	m_fSpeedRampTimer = 0.0f;
+	m_bHasCollidedWithSpeedRamp = false;
 }
 
 CEnemy::~CEnemy()
@@ -52,6 +58,15 @@ void CEnemy::Update(float fElapsedTime)
 {
 	if (m_AICurrentState)
 		m_AICurrentState->Update (fElapsedTime);
+	if(m_bHasCollidedWithSpeedRamp)
+	{
+		m_fSpeedRampTimer += fElapsedTime;
+		if(m_fSpeedRampTimer >= 5.0f)
+		{
+			m_fSpeedRampTimer = 0.0f;
+			m_bHasCollidedWithSpeedRamp = false;
+		}
+	}
 	CCar::Update (fElapsedTime);
 }
 
@@ -131,9 +146,28 @@ void CEnemy::HandleEvent(CEvent* pEvent)
 		{
 			if(GetHealth() < GetMaxHealth())
 			{
-				SetHealth(GetHealth()+20.0f);
-				if(GetHealth() > GetMaxHealth())
+				float diff = GetMaxHealth() - GetHealth();
+				if(diff < 20.0f)
+				{
 					SetHealth(GetMaxHealth());
+					diff = 20.0f - diff;
+					if(GetShieldBar() < GetMaxShield())
+					{
+						SetShieldBar(GetShieldBar()+diff);
+						if(GetShieldBar() > GetMaxShield())
+							SetShieldBar(GetMaxShield());
+					}
+				}
+				else
+				{
+					SetHealth(GetHealth()+20.0f);
+				}
+			}
+			else if(GetShieldBar() < GetMaxShield())
+			{
+				SetShieldBar(GetShieldBar()+20.0f);
+				if(GetShieldBar() > GetMaxShield())
+					SetShieldBar(GetMaxShield());
 			}
 		}
 	}
@@ -215,6 +249,18 @@ bool CEnemy::CheckCollision(IBaseInterface* pBase)
 
 			return true;
 			
+		}
+	}
+	RECT intersection;
+	if(IntersectRect(&intersection, &GetRect(), &pBase->GetRect()))
+	{
+		if(pBase->GetType() == OBJECT_SPEEDRAMP)
+		{
+			SetSpeed(0);
+			CSpeedRamp* tempramp = (CSpeedRamp*)pBase;
+			SetVelocity((tempramp->GetVelDir() * (GetMaxSpeed() + 100) ));
+			m_bHasCollidedWithSpeedRamp = true;
+			return true;
 		}
 	}
 	return false;

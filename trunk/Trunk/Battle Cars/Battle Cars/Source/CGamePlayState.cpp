@@ -43,6 +43,7 @@
 #include "CKeyBinds.h"
 #include "CGamerProfile.h"
 #include "Gamer_Profile.h"
+#include "CBoss.h"
 
 void LoadCharacters();
 
@@ -160,6 +161,9 @@ void CGamePlayState::Enter(void)
 	CGame::GetInstance()->ResetInputDelay();
 
 	
+
+	boss = new CBoss(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
+	m_pOM->AddObject(boss);
 	dummy = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
 	PowerUp* power_up = new PowerUp();
 	power_up->SetPosX(1000.0f);
@@ -174,7 +178,7 @@ void CGamePlayState::Enter(void)
 	dummy2 = new CCar();
 	dummy->SetPosX(1200);
 	dummy->SetPosY(1200);
-	dummy->SetHealth(100.0f);
+	dummy->SetHealth(60.0f);
 	dummy->SetShieldBar(0.0f);
 	dummy->SetVelX(0);
 	dummy->SetVelY(0);
@@ -193,6 +197,8 @@ void CGamePlayState::Enter(void)
 	dummy2->SetKillCount(5);
 	dummy2->Rotate(0.0f);
 
+	dummy->SetPowerUps(power_ups);
+	dummy->SetMaxSpeed(200.0f);
 	dummy->EnterState ();
 
 	//m_pD3D->Clear(0, 0, 0);
@@ -221,10 +227,12 @@ void CGamePlayState::Enter(void)
 	//m_pD3D->DeviceEnd();
 	//m_pD3D->Present();
 
-	speedy = new CSpeedRamp();
+	CSpeedRamp* speedy = new CSpeedRamp();
+	ramps.push_back(speedy);
+	dummy->SetSpeedRamps(ramps);
 	//dummy->SetVelX(10);
 	m_pOM->AddObject(dummy2);
-	m_pOM->AddObject(speedy);
+	m_pOM->AddObject(ramps[0]);
 	m_pOM->AddObject(dummy);
 	m_pOM->AddObject(power_ups[0]);
 	m_pOM->AddObject(power_ups[1]);
@@ -340,17 +348,21 @@ void CGamePlayState::Exit(void)
 		characters[i]->Release();
 	}
 	dummy->Release();
-	speedy->Release();
+	boss->Release();
+	for(unsigned int i = 0; i < ramps.size(); i++)
+	{
+		ramps[i]->Release();
+	}
+	ramps.clear();
 	dummy2->Release();
 	m_pPM->ShutDownParticleManager();
 	m_pPM = NULL;
 	m_lScores.clear();
-	for(int i = 0; i < power_ups.size(); i++)
+	for(unsigned int i = 0; i < power_ups.size(); i++)
 	{
 		power_ups[i]->Release();
 	}
 	power_ups.clear();
-
 	m_pTM->UnloadTexture(m_nMiniMapOverlayIndex);
 	m_pTM->UnloadTexture(m_nMiniMapMiddlelayIndex);
 	m_pTM->UnloadTexture(m_nMiniMapUnderlayIndex);
@@ -537,8 +549,7 @@ void CGamePlayState::Render(void)
 		Level->Render(player2->GetCamera());
 		m_pOM->RenderObjects(player2->GetCamera());
 	}
-
-
+	
 	if(!m_bPlaying)
 	{
 		char buffer[32];
@@ -728,7 +739,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet->SetWidth((int)(32*pBullet->GetScale()));
 			pBullet->SetPosX(pCMS->GetPlayer()->GetPosX());
 			pBullet->SetPosY(pCMS->GetPlayer()->GetPosY());
-			pBullet->SetDamage(8);
+			pBullet->SetDamage(8*(pCMS->GetPlayer()->GetSpecialLevel()));
 			pBullet->SetBulletType(PROJECTILE_MINI_MISSILE);
 			pBullet->SetBlastRadius(50.0f);
 			pBullet->SetRotation(pCMS->GetPlayer()->GetRotation());
@@ -742,7 +753,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet1->SetWidth((int)(32*pBullet->GetScale()));
 			pBullet1->SetPosX(pCMS->GetPlayer()->GetPosX());
 			pBullet1->SetPosY(pCMS->GetPlayer()->GetPosY());
-			pBullet1->SetDamage(8);
+			pBullet1->SetDamage(8*(pCMS->GetPlayer()->GetSpecialLevel()));
 			pBullet1->SetBulletType(PROJECTILE_MINI_MISSILE);
 			pBullet1->SetBlastRadius(50.0f);
 			pBullet1->SetRotation(pCMS->GetPlayer()->GetRotation());
@@ -756,7 +767,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet2->SetWidth((int)(32*pBullet->GetScale()));
 			pBullet2->SetPosX(pCMS->GetPlayer()->GetPosX());
 			pBullet2->SetPosY(pCMS->GetPlayer()->GetPosY());
-			pBullet2->SetDamage(8);
+			pBullet2->SetDamage(8*(pCMS->GetPlayer()->GetSpecialLevel()));
 			pBullet2->SetBulletType(PROJECTILE_MINI_MISSILE);
 			pBullet2->SetBlastRadius(50.0f);
 			pBullet2->SetRotation(pCMS->GetPlayer()->GetRotation());
@@ -770,7 +781,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet3->SetWidth((int)(32*pBullet->GetScale()));
 			pBullet3->SetPosX(pCMS->GetPlayer()->GetPosX());
 			pBullet3->SetPosY(pCMS->GetPlayer()->GetPosY());
-			pBullet3->SetDamage(8);
+			pBullet3->SetDamage(8*(pCMS->GetPlayer()->GetSpecialLevel()));
 			pBullet3->SetBulletType(PROJECTILE_MINI_MISSILE);
 			pBullet3->SetBlastRadius(50.0f);
 			pBullet3->SetRotation(pCMS->GetPlayer()->GetRotation());
@@ -784,7 +795,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet4->SetWidth((int)(32*pBullet->GetScale()));
 			pBullet4->SetPosX(pCMS->GetPlayer()->GetPosX());
 			pBullet4->SetPosY(pCMS->GetPlayer()->GetPosY());
-			pBullet4->SetDamage(8);
+			pBullet4->SetDamage(8*(pCMS->GetPlayer()->GetSpecialLevel()));
 			pBullet4->SetBulletType(PROJECTILE_MINI_MISSILE);
 			pBullet4->SetBlastRadius(50.0f);
 			pBullet4->SetRotation(pCMS->GetPlayer()->GetRotation());
@@ -858,7 +869,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pLandMine->SetMaxLife(30.0f);
 			pLandMine->SetHeight((int)(64*pLandMine->GetScale()));
 			pLandMine->SetWidth((int)(64*pLandMine->GetScale()));
-			pLandMine->SetDamage(20);
+			pLandMine->SetDamage(20*(pTSM->GetPlayer()->GetSpecialLevel()));
 			pLandMine->SetBlastRadius(0.0f);
 			pLandMine->SetLandMineType(LM_LM);
 			pLandMine->SetVelX(0.0f);
@@ -871,7 +882,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pLandMine1->SetMaxLife(30.0f);
 			pLandMine1->SetHeight((int)(64*pLandMine->GetScale()));
 			pLandMine1->SetWidth((int)(64*pLandMine->GetScale()));
-			pLandMine1->SetDamage(20);
+			pLandMine1->SetDamage(20*(pTSM->GetPlayer()->GetSpecialLevel()));
 			pLandMine1->SetBlastRadius(0.0f);
 			pLandMine1->SetLandMineType(LM_LM);
 			pLandMine1->SetVelX(0.0f);
@@ -884,7 +895,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pLandMine2->SetMaxLife(30.0f);
 			pLandMine2->SetHeight((int)(64*pLandMine->GetScale()));
 			pLandMine2->SetWidth((int)(64*pLandMine->GetScale()));
-			pLandMine2->SetDamage(20);
+			pLandMine2->SetDamage(20*(pTSM->GetPlayer()->GetSpecialLevel()));
 			pLandMine2->SetBlastRadius(0.0f);
 			pLandMine2->SetLandMineType(LM_LM);
 			pLandMine2->SetVelX(0.0f);
@@ -990,7 +1001,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet->SetWidth((int)(8*pBullet->GetScale()));
 			pBullet->SetPosX(pCVS->GetPlayer()->GetPosX());
 			pBullet->SetPosY(pCVS->GetPlayer()->GetPosY());
-			pBullet->SetDamage(.25f);
+			pBullet->SetDamage(.25f*(pCVS->GetPlayer()->GetSpecialLevel()));
 			pBullet->SetBulletType(PROJECTILE_BULLET);
 			pBullet1->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_FlameParticlePlaceholder.png"));
 			pBullet1->SetScale(1.0f);
@@ -1001,7 +1012,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet1->SetWidth((int)(8*pBullet->GetScale()));
 			pBullet1->SetPosX(pCVS->GetPlayer()->GetPosX());
 			pBullet1->SetPosY(pCVS->GetPlayer()->GetPosY());
-			pBullet1->SetDamage(.25f);
+			pBullet1->SetDamage(.25f*(pCVS->GetPlayer()->GetSpecialLevel()));
 			pBullet1->SetBulletType(PROJECTILE_BULLET);
 			pBullet2->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_FlameParticlePlaceholder.png"));
 			pBullet2->SetScale(1.0f);
@@ -1012,7 +1023,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet2->SetWidth((int)(8*pBullet->GetScale()));
 			pBullet2->SetPosX(pCVS->GetPlayer()->GetPosX());
 			pBullet2->SetPosY(pCVS->GetPlayer()->GetPosY());
-			pBullet2->SetDamage(.25f);
+			pBullet2->SetDamage(.25f*(pCVS->GetPlayer()->GetSpecialLevel()));
 			pBullet2->SetBulletType(PROJECTILE_BULLET);
 			pBullet3->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_FlameParticlePlaceholder.png"));
 			pBullet3->SetScale(1.0f);
@@ -1023,7 +1034,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet3->SetWidth((int)(8*pBullet->GetScale()));
 			pBullet3->SetPosX(pCVS->GetPlayer()->GetPosX());
 			pBullet3->SetPosY(pCVS->GetPlayer()->GetPosY());
-			pBullet3->SetDamage(.25f);
+			pBullet3->SetDamage(.25f*(pCVS->GetPlayer()->GetSpecialLevel()));
 			pBullet3->SetBulletType(PROJECTILE_BULLET);
 			pBullet4->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_FlameParticlePlaceholder.png"));
 			pBullet4->SetScale(1.0f);
@@ -1034,7 +1045,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet4->SetWidth((int)(8*pBullet->GetScale()));
 			pBullet4->SetPosX(pCVS->GetPlayer()->GetPosX());
 			pBullet4->SetPosY(pCVS->GetPlayer()->GetPosY());
-			pBullet4->SetDamage(.25f);
+			pBullet4->SetDamage(.25f*(pCVS->GetPlayer()->GetSpecialLevel()));
 			pBullet4->SetBulletType(PROJECTILE_BULLET);
 
 
@@ -1107,7 +1118,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet->SetMaxLife(3.0f);
 			pBullet->SetHeight((int)(32*pBullet->GetScale()));
 			pBullet->SetWidth((int)(16*pBullet->GetScale()));
-			pBullet->SetDamage(1);
+			pBullet->SetDamage(1*(pCHS->GetPlayer()->GetSpecialLevel()));
 			pBullet->SetBulletType(PROJECTILE_BULLET);
 			pBullet->SetSlowRate(20.0f);
 			pBullet->SetRotation(pCHS->GetPlayer()->GetRotation());
@@ -1205,7 +1216,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet->SetWidth((int)(64*pBullet->GetScale()));
 			pBullet->SetPosX(pEBM->GetEnemy()->GetPosX());
 			pBullet->SetPosY(pEBM->GetEnemy()->GetPosY());
-			pBullet->SetDamage(2);
+			pBullet->SetDamage(20);
 			pBullet->SetBulletType(PROJECTILE_BULLET);
 			pBullet->SetRotation(pEBM->GetEnemy()->GetRotation());
 			pGame->m_pOM->AddObject(pBullet);
@@ -1213,6 +1224,429 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			}
 			break;
 		}
+	case MSG_CREATE_BOSS_MINI_SPECIAL:
+		{
+			CCreateBossMiniSpecial* pBMS = (CCreateBossMiniSpecial*)pMsg;
+			CBoss* tempBoss = pBMS->GetBoss();
+			if(tempBoss)
+			{
+				CGamePlayState* pGame = CGamePlayState::GetInstance();
+				CBullet* pBullet = new CBullet();
+				CBullet* pBullet1 = new CBullet();
+				CBullet* pBullet2 = new CBullet();
+				CBullet* pBullet3 = new CBullet();
+				CBullet* pBullet4 = new CBullet();
+				//Missile 1
+				pBullet->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniMissilePlaceholder.png"));
+				pBullet->SetScale(0.5f);
+				pBullet->SetOwner(pBMS->GetBoss());
+				pBullet->SetCurLife(0.0f);
+				pBullet->SetMaxLife(1.15f);
+				pBullet->SetHeight((int)(64*pBullet->GetScale()));
+				pBullet->SetWidth((int)(32*pBullet->GetScale()));
+				pBullet->SetPosX(pBMS->GetBoss()->GetPosX());
+				pBullet->SetPosY(pBMS->GetBoss()->GetPosY());
+				pBullet->SetDamage(8*(pBMS->GetBoss()->GetSpecialLevel()));
+				pBullet->SetBulletType(PROJECTILE_MINI_MISSILE);
+				pBullet->SetBlastRadius(50.0f);
+				pBullet->SetRotation(pBMS->GetBoss()->GetRotation());
+				//Missile 2
+				pBullet1->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniMissilePlaceholder.png"));
+				pBullet1->SetScale(0.5f);
+				pBullet1->SetOwner(pBMS->GetBoss());
+				pBullet1->SetCurLife(0.0f);
+				pBullet1->SetMaxLife(1.15f);
+				pBullet1->SetHeight((int)(64*pBullet->GetScale()));
+				pBullet1->SetWidth((int)(32*pBullet->GetScale()));
+				pBullet1->SetPosX(pBMS->GetBoss()->GetPosX());
+				pBullet1->SetPosY(pBMS->GetBoss()->GetPosY());
+				pBullet1->SetDamage(8*(pBMS->GetBoss()->GetSpecialLevel()));
+				pBullet1->SetBulletType(PROJECTILE_MINI_MISSILE);
+				pBullet1->SetBlastRadius(50.0f);
+				pBullet1->SetRotation(pBMS->GetBoss()->GetRotation());
+				//Missile 3
+				pBullet2->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniMissilePlaceholder.png"));
+				pBullet2->SetScale(0.5f);
+				pBullet2->SetOwner(pBMS->GetBoss());
+				pBullet2->SetCurLife(0.0f);
+				pBullet2->SetMaxLife(1.15f);
+				pBullet2->SetHeight((int)(64*pBullet->GetScale()));
+				pBullet2->SetWidth((int)(32*pBullet->GetScale()));
+				pBullet2->SetPosX(pBMS->GetBoss()->GetPosX());
+				pBullet2->SetPosY(pBMS->GetBoss()->GetPosY());
+				pBullet2->SetDamage(8*(pBMS->GetBoss()->GetSpecialLevel()));
+				pBullet2->SetBulletType(PROJECTILE_MINI_MISSILE);
+				pBullet2->SetBlastRadius(50.0f);
+				pBullet2->SetRotation(pBMS->GetBoss()->GetRotation());
+				//Missile 4
+				pBullet3->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniMissilePlaceholder.png"));
+				pBullet3->SetScale(0.5f);
+				pBullet3->SetOwner(pBMS->GetBoss());
+				pBullet3->SetCurLife(0.0f);
+				pBullet3->SetMaxLife(1.15f);
+				pBullet3->SetHeight((int)(64*pBullet->GetScale()));
+				pBullet3->SetWidth((int)(32*pBullet->GetScale()));
+				pBullet3->SetPosX(pBMS->GetBoss()->GetPosX());
+				pBullet3->SetPosY(pBMS->GetBoss()->GetPosY());
+				pBullet3->SetDamage(8*(pBMS->GetBoss()->GetSpecialLevel()));
+				pBullet3->SetBulletType(PROJECTILE_MINI_MISSILE);
+				pBullet3->SetBlastRadius(50.0f);
+				pBullet3->SetRotation(pBMS->GetBoss()->GetRotation());
+				//Missile 5
+				pBullet4->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniMissilePlaceholder.png"));
+				pBullet4->SetScale(0.5f);
+				pBullet4->SetOwner(pBMS->GetBoss());
+				pBullet4->SetCurLife(0.0f);
+				pBullet4->SetMaxLife(1.15f);
+				pBullet4->SetHeight((int)(64*pBullet->GetScale()));
+				pBullet4->SetWidth((int)(32*pBullet->GetScale()));
+				pBullet4->SetPosX(pBMS->GetBoss()->GetPosX());
+				pBullet4->SetPosY(pBMS->GetBoss()->GetPosY());
+				pBullet4->SetDamage(8*(pBMS->GetBoss()->GetSpecialLevel()));
+				pBullet4->SetBulletType(PROJECTILE_MINI_MISSILE);
+				pBullet4->SetBlastRadius(50.0f);
+				pBullet4->SetRotation(pBMS->GetBoss()->GetRotation());
+				//Set up launch vectors
+				tVector2D temp;
+				temp.fX = 0;
+				temp.fY = -1;
+				temp = Vector2DRotate(temp,pBMS->GetBoss()->GetRotation()-.5f);
+				Vector2DNormalize(temp);
+				temp = temp * 350;
+				pBullet->SetVelX(temp.fX);
+				pBullet->SetVelY(temp.fY);
+				//
+				temp.fX = 0;
+				temp.fY = -1;
+				temp = Vector2DRotate(temp,pBMS->GetBoss()->GetRotation()-.25f);
+				Vector2DNormalize(temp);
+				temp = temp * 350;
+				pBullet1->SetVelX(temp.fX);
+				pBullet1->SetVelY(temp.fY);
+				//
+				temp.fX = 0;
+				temp.fY = -1;
+				temp = Vector2DRotate(temp,pBMS->GetBoss()->GetRotation());
+				Vector2DNormalize(temp);
+				temp = temp * 350;
+				pBullet2->SetVelX(temp.fX);
+				pBullet2->SetVelY(temp.fY);
+				//
+				temp.fX = 0;
+				temp.fY = -1;
+				temp = Vector2DRotate(temp,pBMS->GetBoss()->GetRotation()+.25f);
+				Vector2DNormalize(temp);
+				temp = temp * 350;
+				pBullet3->SetVelX(temp.fX);
+				pBullet3->SetVelY(temp.fY);
+				//
+				temp.fX = 0;
+				temp.fY = -1;
+				temp = Vector2DRotate(temp,pBMS->GetBoss()->GetRotation()+.5f);
+				Vector2DNormalize(temp);
+				temp = temp * 350;
+				pBullet4->SetVelX(temp.fX);
+				pBullet4->SetVelY(temp.fY);
+
+				pGame->m_pOM->AddObject(pBullet);
+				pGame->m_pOM->AddObject(pBullet1);
+				pGame->m_pOM->AddObject(pBullet2);
+				pGame->m_pOM->AddObject(pBullet3);
+				pGame->m_pOM->AddObject(pBullet4);
+				pBullet->Release();
+				pBullet1->Release();
+				pBullet2->Release();
+				pBullet3->Release();
+				pBullet4->Release();
+			}
+		}
+		break;
+	case MSG_CREATE_BOSS_VETTE_SPECIAL:
+		{
+			CCreateBossVetteSpecial* pBVS = (CCreateBossVetteSpecial*)pMsg;
+			CBoss* tempBoss = pBVS->GetBoss();
+			if(tempBoss)
+			{
+				CGamePlayState* pGame = CGamePlayState::GetInstance();
+				float spreadrange;
+				tVector2D temp;
+				CBullet* pBullet = new CBullet;
+				CBullet* pBullet1 = new CBullet;
+				CBullet* pBullet2 = new CBullet;
+				CBullet* pBullet3 = new CBullet;
+				CBullet* pBullet4 = new CBullet;
+				pBullet->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_FlameParticlePlaceholder.png"));
+				pBullet->SetScale(1.0f);
+				pBullet->SetOwner(pBVS->GetBoss());
+				pBullet->SetCurLife(0.0f);
+				pBullet->SetMaxLife(2.0f);
+				pBullet->SetHeight((int)(8*pBullet->GetScale()));
+				pBullet->SetWidth((int)(8*pBullet->GetScale()));
+				pBullet->SetPosX(pBVS->GetBoss()->GetPosX());
+				pBullet->SetPosY(pBVS->GetBoss()->GetPosY());
+				pBullet->SetDamage(.25f*(pBVS->GetBoss()->GetSpecialLevel()));
+				pBullet->SetBulletType(PROJECTILE_BULLET);
+				pBullet1->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_FlameParticlePlaceholder.png"));
+				pBullet1->SetScale(1.0f);
+				pBullet1->SetOwner(pBVS->GetBoss());
+				pBullet1->SetCurLife(0.0f);
+				pBullet1->SetMaxLife(2.0f);
+				pBullet1->SetHeight((int)(8*pBullet->GetScale()));
+				pBullet1->SetWidth((int)(8*pBullet->GetScale()));
+				pBullet1->SetPosX(pBVS->GetBoss()->GetPosX());
+				pBullet1->SetPosY(pBVS->GetBoss()->GetPosY());
+				pBullet1->SetDamage(.25f*(pBVS->GetBoss()->GetSpecialLevel()));
+				pBullet1->SetBulletType(PROJECTILE_BULLET);
+				pBullet2->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_FlameParticlePlaceholder.png"));
+				pBullet2->SetScale(1.0f);
+				pBullet2->SetOwner(pBVS->GetBoss());
+				pBullet2->SetCurLife(0.0f);
+				pBullet2->SetMaxLife(2.0f);
+				pBullet2->SetHeight((int)(8*pBullet->GetScale()));
+				pBullet2->SetWidth((int)(8*pBullet->GetScale()));
+				pBullet2->SetPosX(pBVS->GetBoss()->GetPosX());
+				pBullet2->SetPosY(pBVS->GetBoss()->GetPosY());
+				pBullet2->SetDamage(.25f*(pBVS->GetBoss()->GetSpecialLevel()));
+				pBullet2->SetBulletType(PROJECTILE_BULLET);
+				pBullet3->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_FlameParticlePlaceholder.png"));
+				pBullet3->SetScale(1.0f);
+				pBullet3->SetOwner(pBVS->GetBoss());
+				pBullet3->SetCurLife(0.0f);
+				pBullet3->SetMaxLife(2.0f);
+				pBullet3->SetHeight((int)(8*pBullet->GetScale()));
+				pBullet3->SetWidth((int)(8*pBullet->GetScale()));
+				pBullet3->SetPosX(pBVS->GetBoss()->GetPosX());
+				pBullet3->SetPosY(pBVS->GetBoss()->GetPosY());
+				pBullet3->SetDamage(.25f*(pBVS->GetBoss()->GetSpecialLevel()));
+				pBullet3->SetBulletType(PROJECTILE_BULLET);
+				pBullet4->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_FlameParticlePlaceholder.png"));
+				pBullet4->SetScale(1.0f);
+				pBullet4->SetOwner(pBVS->GetBoss());
+				pBullet4->SetCurLife(0.0f);
+				pBullet4->SetMaxLife(2.0f);
+				pBullet4->SetHeight((int)(8*pBullet->GetScale()));
+				pBullet4->SetWidth((int)(8*pBullet->GetScale()));
+				pBullet4->SetPosX(pBVS->GetBoss()->GetPosX());
+				pBullet4->SetPosY(pBVS->GetBoss()->GetPosY());
+				pBullet4->SetDamage(.25f*(pBVS->GetBoss()->GetSpecialLevel()));
+				pBullet4->SetBulletType(PROJECTILE_BULLET);
+
+
+				temp.fX = 0;
+				temp.fY = -1;
+				temp = Vector2DRotate(temp,pBVS->GetBoss()->GetRotation());
+				Vector2DNormalize(temp);
+				temp = temp * 350;
+				pBullet->SetVelX(temp.fX);
+				pBullet->SetVelY(temp.fY);
+
+				temp.fX = 0;
+				temp.fY = -1;
+				temp = Vector2DRotate(temp,pBVS->GetBoss()->GetRotation()-.03);
+				Vector2DNormalize(temp);
+				temp = temp * 350;
+				pBullet1->SetVelX(temp.fX);
+				pBullet1->SetVelY(temp.fY);
+
+				temp.fX = 0;
+				temp.fY = -1;
+				temp = Vector2DRotate(temp,pBVS->GetBoss()->GetRotation()+.03);
+				Vector2DNormalize(temp);
+				temp = temp * 350;
+				pBullet2->SetVelX(temp.fX);
+				pBullet2->SetVelY(temp.fY);
+
+				temp.fX = 0;
+				temp.fY = -1;
+				temp = Vector2DRotate(temp,pBVS->GetBoss()->GetRotation()-.06);
+				Vector2DNormalize(temp);
+				temp = temp * 350;
+				pBullet3->SetVelX(temp.fX);
+				pBullet3->SetVelY(temp.fY);
+
+				temp.fX = 0;
+				temp.fY = -1;
+				temp = Vector2DRotate(temp,pBVS->GetBoss()->GetRotation()+.06);
+				Vector2DNormalize(temp);
+				temp = temp * 350;
+				pBullet4->SetVelX(temp.fX);
+				pBullet4->SetVelY(temp.fY);
+
+
+
+				pGame->m_pOM->AddObject(pBullet);
+				pGame->m_pOM->AddObject(pBullet1);
+				pGame->m_pOM->AddObject(pBullet2);
+				pGame->m_pOM->AddObject(pBullet3);
+				pGame->m_pOM->AddObject(pBullet4);
+
+				pBullet->Release();
+				pBullet1->Release();
+				pBullet2->Release();
+				pBullet3->Release();
+				pBullet4->Release();
+			}
+		}
+		break;
+	case MSG_CREATE_BOSS_HUMMER_SPECIAL:
+		{
+			CCreateBossHummerSpecial* pBHS = (CCreateBossHummerSpecial*)pMsg;
+			CGamePlayState* pGame = CGamePlayState::GetInstance();
+			CBullet* pBullet = new CBullet;
+			//IcyBullet 1
+			pBullet->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_IceLaserPlaceholder.png"));
+			pBullet->SetScale(1.0f);
+			pBullet->SetOwner(pBHS->GetBoss());
+			pBullet->SetCurLife(0.0f);
+			pBullet->SetMaxLife(3.0f);
+			pBullet->SetHeight((int)(32*pBullet->GetScale()));
+			pBullet->SetWidth((int)(16*pBullet->GetScale()));
+			pBullet->SetDamage(1*(pBHS->GetBoss()->GetSpecialLevel()));
+			pBullet->SetBulletType(PROJECTILE_BULLET);
+			pBullet->SetSlowRate(20.0f);
+			pBullet->SetRotation(pBHS->GetBoss()->GetRotation());
+			pBullet->SetPosX(pBHS->GetBoss()->GetPosX());
+			pBullet->SetPosY(pBHS->GetBoss()->GetPosY());
+			tVector2D temp;
+			temp.fX = 0;
+			temp.fY = -1;
+			temp = Vector2DRotate(temp,pBHS->GetBoss()->GetRotation());
+			Vector2DNormalize(temp);
+			temp = temp * 350;
+			pBullet->SetVelX(temp.fX);
+			pBullet->SetVelY(temp.fY);
+			pGame->m_pOM->AddObject(pBullet);
+			pBullet->Release();
+		}
+		break;
+	case MSG_CREATE_BOSS_TRUCK_SPECIAL:
+		{
+			CCreateBossTruckSpecial* pBTS = (CCreateBossTruckSpecial*)pMsg;
+			CGamePlayState* pGame = CGamePlayState::GetInstance();
+			//CLandMine* pLandMine = (CLandMine*)pGame->m_pOF->CreateObject("CLandMine");
+			CLandMine* pLandMine = new CLandMine();
+			CLandMine* pLandMine1 = new CLandMine();
+			CLandMine* pLandMine2 = new CLandMine();
+			pLandMine->SetDuration(20.0f);
+			pLandMine->SetScale(1.0f);
+			pLandMine->SetOwner(pBTS->GetBoss());
+			pLandMine->SetImageID (pGame->m_pTM->LoadTexture("resource/graphics/BattleCars_LandMinePlaceholder.png", D3DCOLOR_XRGB(255, 255, 255)));
+			pLandMine->SetCurLife(0.0f);
+			pLandMine->SetMaxLife(30.0f);
+			pLandMine->SetHeight((int)(64*pLandMine->GetScale()));
+			pLandMine->SetWidth((int)(64*pLandMine->GetScale()));
+			pLandMine->SetDamage(20*(pBTS->GetBoss()->GetSpecialLevel()));
+			pLandMine->SetBlastRadius(0.0f);
+			pLandMine->SetLandMineType(LM_LM);
+			pLandMine->SetVelX(0.0f);
+			pLandMine->SetVelY(0.0f);
+		/*	pLandMine1->SetDuration(20.0f);
+			pLandMine1->SetScale(1.0f);
+			pLandMine1->SetOwner(pBTS->GetBoss());
+			pLandMine1->SetImageID (pGame->m_pTM->LoadTexture("resource/graphics/BattleCars_LandMinePlaceholder.png", D3DCOLOR_XRGB(255, 255, 255)));
+			pLandMine1->SetCurLife(0.0f);
+			pLandMine1->SetMaxLife(30.0f);
+			pLandMine1->SetHeight((int)(64*pLandMine->GetScale()));
+			pLandMine1->SetWidth((int)(64*pLandMine->GetScale()));
+			pLandMine1->SetDamage(20*(pBTS->GetBoss()->GetSpecialLevel()));
+			pLandMine1->SetBlastRadius(0.0f);
+			pLandMine1->SetLandMineType(LM_LM);
+			pLandMine1->SetVelX(0.0f);
+			pLandMine1->SetVelY(0.0f);
+			pLandMine2->SetDuration(20.0f);
+			pLandMine2->SetScale(1.0f);
+			pLandMine2->SetOwner(pBTS->GetBoss());
+			pLandMine2->SetImageID (pGame->m_pTM->LoadTexture("resource/graphics/BattleCars_LandMinePlaceholder.png", D3DCOLOR_XRGB(255, 255, 255)));
+			pLandMine2->SetCurLife(0.0f);
+			pLandMine2->SetMaxLife(30.0f);
+			pLandMine2->SetHeight((int)(64*pLandMine->GetScale()));
+			pLandMine2->SetWidth((int)(64*pLandMine->GetScale()));
+			pLandMine2->SetDamage(20*(pBTS->GetBoss()->GetSpecialLevel()));
+			pLandMine2->SetBlastRadius(0.0f);
+			pLandMine2->SetLandMineType(LM_LM);
+			pLandMine2->SetVelX(0.0f);
+			pLandMine2->SetVelY(0.0f);*/
+			tVector2D direction = pBTS->GetBoss()->GetDirection();
+			if(direction.fX <=-.75f && (direction.fY <=.25 && direction.fY >= -.25f)) // left
+			{
+				pLandMine->SetPosX(pBTS->GetBoss()->GetPosX()+(pBTS->GetBoss()->GetWidth()*.5f));
+				pLandMine->SetPosY(pBTS->GetBoss()->GetPosY()-(pBTS->GetBoss()->GetHeight()*.5f));
+				/*pLandMine1->SetPosX(pLandMine->GetPosX());
+				pLandMine1->SetPosY(pLandMine->GetPosY() - 20.0f - pLandMine->GetHeight());
+				pLandMine2->SetPosX(pLandMine->GetPosX());
+				pLandMine2->SetPosY(pLandMine->GetPosY() +20+pLandMine->GetHeight());*/
+			}
+			else if(direction.fX >=.75f && (direction.fY <= .25f && direction.fY >= -.25f)) // right
+			{
+				pLandMine->SetPosX(pBTS->GetBoss()->GetPosX()-(pBTS->GetBoss()->GetWidth()*.5f)-pLandMine->GetWidth());
+				pLandMine->SetPosY(pBTS->GetBoss()->GetPosY()-(pBTS->GetBoss()->GetHeight()*.5f));
+				//pLandMine1->SetPosX(pLandMine->GetPosX());
+				//pLandMine1->SetPosY(pLandMine->GetPosY() - 20.0f - pLandMine->GetHeight());
+				//pLandMine2->SetPosX(pLandMine->GetPosX());
+				//pLandMine2->SetPosY(pLandMine->GetPosY() +20.0f+pLandMine->GetHeight());
+			}
+			else if(direction.fY >= .75f && (direction.fX <= .25f && direction.fX >= -.25f)) // up
+			{
+				pLandMine->SetPosX(pBTS->GetBoss()->GetPosX()-(pLandMine->GetWidth()*.5f));
+				pLandMine->SetPosY(pBTS->GetBoss()->GetPosY()-(pBTS->GetBoss()->GetHeight()*.5f)-pLandMine->GetHeight());
+				//pLandMine1->SetPosX(pLandMine->GetPosX() - 20.0f-pLandMine->GetWidth());
+				//pLandMine1->SetPosY(pLandMine->GetPosY());
+				//pLandMine2->SetPosX(pLandMine->GetPosX() + 20+pLandMine->GetWidth());
+				//pLandMine2->SetPosY(pLandMine->GetPosY());
+			}
+			else if(direction.fY <= -.75f && (direction.fX <= .25f && direction.fX >= -.25f)) // down
+			{
+				pLandMine->SetPosX(pBTS->GetBoss()->GetPosX()-(pLandMine->GetWidth()*.5f));
+				pLandMine->SetPosY(pBTS->GetBoss()->GetPosY()+(pBTS->GetBoss()->GetHeight()*.5f));
+				//pLandMine1->SetPosX(pLandMine->GetPosX() - 20.0f-pLandMine->GetWidth());
+				//pLandMine1->SetPosY(pLandMine->GetPosY());
+				//pLandMine2->SetPosX(pLandMine->GetPosX() + 20+pLandMine->GetWidth());
+				//pLandMine2->SetPosY(pLandMine->GetPosY());
+			}
+			else if(direction.fX <= 0 && direction.fY <= 0) // up left
+			{
+				pLandMine->SetPosX(pBTS->GetBoss()->GetPosX()+(pBTS->GetBoss()->GetWidth()*.5f));
+				pLandMine->SetPosY(pBTS->GetBoss()->GetPosY()+(pBTS->GetBoss()->GetHeight()*.5f));
+				//pLandMine1->SetPosX(pLandMine->GetPosX());
+				//pLandMine1->SetPosY(pLandMine->GetPosY() - 20.0f - pLandMine->GetHeight());
+				//pLandMine2->SetPosX(pLandMine->GetPosX() - 20.0f - pLandMine->GetWidth());
+				//pLandMine2->SetPosY(pLandMine->GetPosY());
+			}
+			else if(direction.fX <= 0 && direction.fY > 0) // down left
+			{
+				pLandMine->SetPosX(pBTS->GetBoss()->GetPosX()+(pBTS->GetBoss()->GetWidth()*.5f));
+				pLandMine->SetPosY(pBTS->GetBoss()->GetPosY()-(pBTS->GetBoss()->GetHeight()*.5f) - pLandMine->GetHeight());
+				pLandMine1->SetPosX(pLandMine->GetPosX());
+				pLandMine1->SetPosY(pLandMine->GetPosY() + 20.0f + pLandMine->GetHeight());
+				pLandMine2->SetPosX(pLandMine->GetPosX() - 20.0f - pLandMine->GetWidth());
+				pLandMine2->SetPosY(pLandMine->GetPosY());
+			}
+			else if(direction.fX > 0 && direction.fY <=0) // up right
+			{
+				pLandMine->SetPosX(pBTS->GetBoss()->GetPosX()-(pBTS->GetBoss()->GetWidth()*.5f) - pLandMine->GetWidth());
+				pLandMine->SetPosY(pBTS->GetBoss()->GetPosY()+(pBTS->GetBoss()->GetHeight()*.5f));
+				//pLandMine1->SetPosX(pLandMine->GetPosX());
+				//pLandMine1->SetPosY(pLandMine->GetPosY() - 20.0f - pLandMine->GetHeight());
+				//pLandMine2->SetPosX(pLandMine->GetPosX() + 20.0f + pLandMine->GetWidth());
+				//pLandMine2->SetPosY(pLandMine->GetPosY());
+			}
+			else if(direction.fX > 0 && direction.fY  > 0) // down right
+			{
+				pLandMine->SetPosX(pBTS->GetBoss()->GetPosX()-(pBTS->GetBoss()->GetWidth()*.5f) - pLandMine->GetWidth());
+				pLandMine->SetPosY(pBTS->GetBoss()->GetPosY()-(pBTS->GetBoss()->GetHeight()*.5f) - pLandMine->GetHeight());
+				//pLandMine1->SetPosX(pLandMine->GetPosX());
+				//pLandMine1->SetPosY(pLandMine->GetPosY() + 20.0f + pLandMine->GetHeight());
+				//pLandMine2->SetPosX(pLandMine->GetPosX() + 20.0f + pLandMine->GetWidth());
+				//pLandMine2->SetPosY(pLandMine->GetPosY());
+			}
+			pGame->m_pOM->AddObject(pLandMine);
+			//pGame->m_pOM->AddObject(pLandMine1);
+			//pGame->m_pOM->AddObject(pLandMine2);
+			pLandMine->Release();
+			//pLandMine1->Release();
+			//pLandMine2->Release();
+		}
+		break;
 	}
 }
 

@@ -25,7 +25,8 @@ public:
 	virtual bool CheckCollision(IBaseInterface* pBase);
 
 	void SetPowerType(int type) { m_nPtype = type; }
-	int GetPowerType(){return m_nPtype;}
+	int GetPowerUpType() {return m_nPtype;}
+	bool IsActive() {return m_bActive;}
 };
 
 #endif

@@ -6,8 +6,8 @@ CSpeedRamp::CSpeedRamp(void)
 	m_nType = OBJECT_SPEEDRAMP;
 	SetWidth(100);
 	SetHeight(150);
-	SetPosX(1500);
-	SetPosY(1800);
+	SetPosX(675.0f);
+	SetPosY(675.0f);
 	m_tVelDir.fX = 0.0f;
 	m_tVelDir.fY = -1.0f;
 }

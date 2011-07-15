@@ -43,22 +43,22 @@ void PowerUp::Render(CCamera* camera)
 		temp_render_rect.right = temp_render_rect.left + 40;
 		temp_render_rect.bottom = temp_render_rect.top + 40;
 
-		if( GetPowerType() == SPECIAL_POWERUP)
+		if( GetPowerUpType() == SPECIAL_POWERUP)
 		{
 			m_pD3D->DrawRect(temp_render_rect, 0, 0, 255);
 			m_pD3D->DrawTextA("Special_Power_Up", (int)(GetPosX() - camera->GetCamX() + (int)(camera->GetRenderPosX())), (int)(GetPosY() - camera->GetCamY() + (int)(camera->GetRenderPosY())), 255,255,255);
 		}
-		else if( GetPowerType() == SHIELD_POWERUP)
+		else if( GetPowerUpType() == SHIELD_POWERUP)
 		{
 			m_pD3D->DrawRect(temp_render_rect, 128, 128, 128);
 			m_pD3D->DrawTextA("Shield_Power_Up", (int)(GetPosX() - camera->GetCamX() + (int)(camera->GetRenderPosX())), (int)(GetPosY() - camera->GetCamY() + (int)(camera->GetRenderPosY())), 255,255,255);
 		}
-		else if( GetPowerType() == HEALTH_POWERUP)
+		else if( GetPowerUpType() == HEALTH_POWERUP)
 		{
 			m_pD3D->DrawRect(temp_render_rect, 0, 255, 0);
 			m_pD3D->DrawTextA("Health_Power_Up", (int)(GetPosX() - camera->GetCamX() + (int)(camera->GetRenderPosX())), (int)(GetPosY() - camera->GetCamY() + (int)(camera->GetRenderPosY())), 255,255,255);
 		}
-		else if( GetPowerType() == WEAPONS_POWERUP)
+		else if( GetPowerUpType() == WEAPONS_POWERUP)
 		{
 			m_pD3D->DrawRect(temp_render_rect, 255, 255, 0);
 			m_pD3D->DrawTextA("Weapons_Power_Up", (int)(GetPosX() - camera->GetCamX() + (int)(camera->GetRenderPosX())), (int)(GetPosY() - camera->GetCamY() + (int)(camera->GetRenderPosY())), 255,255,255);
@@ -88,7 +88,7 @@ bool PowerUp::CheckCollision(IBaseInterface* pBase)
 	{
 		if(m_bActive)
 			{
-				if(pBase->GetType() == OBJECT_PLAYER || pBase->GetType() == OBJECT_ENEMY)
+				if(pBase->GetType() == OBJECT_PLAYER || pBase->GetType() == OBJECT_ENEMY || pBase->GetType() == OBJECT_BOSS)
 				{
 				if(m_nPtype == WEAPONS_POWERUP)
 				{

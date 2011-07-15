@@ -37,15 +37,15 @@ CAttackState* CAttackState::GetInstance()
 void CAttackState::Update (float fElapsedTime)
 {
 	//Handle acceleration and speed
-	m_Owner->SetSpeed (m_Owner->GetSpeed () + 2.0f);
+	m_Owner->SetSpeed (m_Owner->GetSpeed () + 2.50f);
 
 	if (m_Owner->GetSpeed () > 150.0f)
 	{
 		m_Owner->SetSpeed (150.0f);
 	}
-	Chase(fElapsedTime);
 	if(!StillThreat())
 		m_Owner->ChangeState(CWanderState::GetInstance());
+	Chase(fElapsedTime);
 	//Fire Weapons
 	m_fFireTimer += fElapsedTime;
 	if(m_fFireTimer >= m_fFireRate)
@@ -68,7 +68,7 @@ void CAttackState::Render ()
 
 void CAttackState::Enter ()
 {
-	m_fAggroRadius = 850.0f;
+	m_fAggroRadius = 650.0f;
 	m_fFireRate = 1.0f;
 	m_fFireTimer = 0.0f;
 }
@@ -82,10 +82,10 @@ void CAttackState::Exit ()
 void CAttackState::Chase(float fElapsedTime)
 {
 	tVector2D TargetVector;
-	if(m_Target)
+	if(m_Target && m_Owner)
 	{
-	TargetVector.fX = (m_Target->GetPosX()+(m_Target->GetWidth()*.5f)) - (m_Owner->GetPosX()+(m_Owner->GetWidth()*.5f));
-	TargetVector.fY = (m_Target->GetPosY()+(m_Target->GetHeight()*.5f)) - (m_Owner->GetPosY()+(m_Owner->GetHeight()*.5f));
+	TargetVector.fX = (m_Target->GetPosX()) - (m_Owner->GetPosX());
+	TargetVector.fY = (m_Target->GetPosY()) - (m_Owner->GetPosY());
 	tVector2D currentEnemyDirection = m_Owner->GetDirection();
 	float rotationAngle = AngleBetweenVectors(currentEnemyDirection, TargetVector);
 	float turnLeftOrRight = Steering(currentEnemyDirection, TargetVector);
@@ -143,14 +143,14 @@ void CAttackState::Chase(float fElapsedTime)
 bool CAttackState::StillThreat()
 {
 	tVector2D target1Distance;
-	if(m_Target)
+	if(m_Target && m_Owner)
 	{
-		target1Distance.fX = (m_Target->GetPosX()+(m_Target->GetWidth()*.5f))-(m_Owner->GetPosX()+(m_Owner->GetWidth()*.5f));
-		target1Distance.fY = (m_Target->GetPosY()+(m_Target->GetHeight()*.5f))-(m_Owner->GetPosX()+(m_Owner->GetHeight()*.5f));
+		target1Distance.fX = (m_Target->GetPosX())-(m_Owner->GetPosX());
+		target1Distance.fY = (m_Target->GetPosY())-(m_Owner->GetPosY());
 		if(Vector2DLength(target1Distance) <= m_fAggroRadius)
 		{
-			if(Vector2DLength(target1Distance) <= 250.0f)
-				m_Owner->SetSpeed(0);
+			if(Vector2DLength(target1Distance) <= 225.0f)
+				m_Owner->SetSpeed(0.0f);
 			return true;
 		}
 		else
@@ -164,7 +164,7 @@ bool CAttackState::Damaged()
 {
 	if(m_Owner)
 	{
-		if(m_Owner->GetHealth() <= 50.0f)
+		if(m_Owner->GetHealth() <= 30.0f)
 		{
 			return true;
 		}

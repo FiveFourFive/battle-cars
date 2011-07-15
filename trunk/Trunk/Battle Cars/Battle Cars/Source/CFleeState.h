@@ -26,10 +26,11 @@ private:
 	// member variables
 	CEnemy* m_Owner;
 	CPlayer* m_Target;
-	vector<PowerUp*> powerUps;
+	bool m_bFindingHealth;
 
 	bool Damaged(void);
 	void Flee(float fElapsedTime);
+	void FindHealth(float fElapsedTime);
 	bool Escaped();
 
 	CFleeState(void){};
@@ -48,11 +49,11 @@ public:
 	//Accessors
 	CEnemy* GetOwner() {return m_Owner;}
 	CPlayer* GetTarget() {return m_Target;}
-	vector<PowerUp*> GetPowerUps() {return powerUps;}
+	bool IsGettingHealth() {return m_bFindingHealth;}
 	//Mutators
 	void SetOwner(CEnemy* pOwner) {m_Owner = pOwner;}
 	void SetTarget(CPlayer* pTarget) {m_Target = pTarget;}
-	void SetPowerUps(vector<PowerUp*> powerUp) {powerUps = powerUp;}
+	void SetFindingHealth(bool health) {m_bFindingHealth = health;}
 };
 
 #endif
