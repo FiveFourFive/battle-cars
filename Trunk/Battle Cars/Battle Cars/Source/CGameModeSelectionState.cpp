@@ -143,10 +143,31 @@ void CGameModeSelectionState::Render(void)
 	RECT temp_render = {0, 0, CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight()};
 	CSGD_Direct3D::GetInstance()->DrawRect( temp_render, 0,0,0);
 
-	m_pPF->Print("Deathmatch",10,100,0.5f,D3DCOLOR_XRGB(255,0,0));
-	m_pPF->Print("Time Trial",10,200,0.5f,D3DCOLOR_XRGB(128,128,128));
-	m_pPF->Print("Collection",10,300,0.5f,D3DCOLOR_XRGB(128,128,128));
-	m_pPF->Print("Tutorial",10,400,0.5f,D3DCOLOR_XRGB(128,128,128));
+	m_pPF->Print("Game Mode Selection", 50,100,1.0f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("Deathmatch",100,200,0.8f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("Time Trial",100,300,0.8f,D3DCOLOR_XRGB(128,128,128));
+	m_pPF->Print("Collection",100,400,0.8f,D3DCOLOR_XRGB(128,128,128));
+	m_pPF->Print("Tutorial",100,500,0.8f,D3DCOLOR_XRGB(128,128,128));
+
+	switch(m_nSelection)
+	{
+	case WS_DM:
+		m_pPF->Print("Deathmatch",100,200,0.8f,D3DCOLOR_XRGB(0,255,0));
+		m_pPF->Print(" --- Fight for a set amount of time in a map of your choosing. The winner", 300,200,0.5f,D3DCOLOR_XRGB(255,255,255));
+		m_pPF->Print("	   is determined based on the number of kills made during the game.",300,230,0.5f,D3DCOLOR_XRGB(255,255,255));
+
+		break;
+	case WS_TT:
+		m_pPF->Print("Time Trial",100,300,0.8f,D3DCOLOR_XRGB(0,255,0));
+		break;
+	case WS_CC:
+		m_pPF->Print("Collection",100,400,0.8f,D3DCOLOR_XRGB(0,255,0));
+		break;
+	case WS_TUT:
+		m_pPF->Print("Tutorial",100,500,0.8f,D3DCOLOR_XRGB(0,255,0));
+		break;
+
+	}
 }
 
 bool CGameModeSelectionState::HandleEnter(void)
@@ -160,18 +181,15 @@ bool CGameModeSelectionState::HandleEnter(void)
 		break;
 	case WS_TT:
 		
-		CGamePlayState::GetInstance()->SetGameMode(CDeathmatchMode::GetInstance());
-		CGame::GetInstance()->AddState(CLevelSelectionState::GetInstance());
+		
 		break;
 	case WS_CC:
 		
-		CGamePlayState::GetInstance()->SetGameMode(CDeathmatchMode::GetInstance());
-		CGame::GetInstance()->AddState(CLevelSelectionState::GetInstance());
+		
 		break;
 	case WS_TUT:
 		
-		CGamePlayState::GetInstance()->SetGameMode(CDeathmatchMode::GetInstance());
-		CGame::GetInstance()->AddState(CLevelSelectionState::GetInstance());
+		
 		break;
 	case WS_EXIT:
 		CGame::GetInstance()->RemoveState(this);
