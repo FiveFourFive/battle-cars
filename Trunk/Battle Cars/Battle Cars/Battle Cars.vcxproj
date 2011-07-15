@@ -185,6 +185,7 @@
     <ClInclude Include="Source\Gamer_Profile.h" />
     <ClInclude Include="Source\IAIBaseState.h" />
     <ClInclude Include="Source\IBaseInterface.h" />
+    <ClInclude Include="Source\IGameModeInterface.h" />
     <ClInclude Include="Source\IGameState.h" />
     <ClInclude Include="Source\IListener.h" />
     <ClInclude Include="Source\ParticleManager.h" />

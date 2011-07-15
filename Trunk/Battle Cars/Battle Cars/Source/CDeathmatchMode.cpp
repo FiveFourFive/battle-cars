@@ -21,6 +21,11 @@ CDeathmatchMode::~CDeathmatchMode(void)
 
 
 }
+CDeathmatchMode* CDeathmatchMode::GetInstance(void)
+{
+	static CDeathmatchMode instance;
+	return &instance;
+}
 
 void CDeathmatchMode::CheckCarStatus(CCar* car)
 {

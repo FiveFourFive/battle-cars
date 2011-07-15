@@ -1,17 +1,20 @@
 #ifndef _CDEATHMATCHMODE_H
 #define _CDEATHMATCHMODE_H
 
+#include "IGameModeInterface.h"
 class CCar;
 
 
-class CDeathmatchMode
+class CDeathmatchMode : public IGameModeInterface
 {
 private:
-
-
-public:
+	
 	CDeathmatchMode(void);
 	~CDeathmatchMode(void);
+	CDeathmatchMode& operator=(const CDeathmatchMode&);
+	CDeathmatchMode(const CDeathmatchMode&);
+public:
+	static CDeathmatchMode* GetInstance(void);
 	void CheckCarStatus(CCar* car);
 
 	void CheckWinLoss(void);

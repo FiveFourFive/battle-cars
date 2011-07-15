@@ -3,6 +3,7 @@
 #define _CGAMEPLAYSTATE_H
 
 #include "IGameState.h"
+#include "IGameModeInterface.h"
 #include "CBase.h"
 
 #include "CObjectFactory.h"
@@ -49,7 +50,7 @@ private:
 	CObjectManager* m_pOM;
 	CObjectFactory<string,CBase>* m_pOF;
 
-	CDeathmatchMode* m_pMode;
+	IGameModeInterface* m_pMode;
 
 	CKeyBinds*				m_pPlayer1KB;
 	CKeyboardKeyBinds*		m_pPlayer1KeyboardKB;
@@ -126,8 +127,10 @@ public:
 	CObjectManager* GetObjectManager() {return m_pOM;}
 	//Mutators
 	void SetCharacters(vector<CPlayer*> players) {characters = players;}
-	CDeathmatchMode* GetMode(void) { return m_pMode; }
+	IGameModeInterface* GetMode(void) { return m_pMode; }
 	int GetTimeLeft(void) { return time; }
+
+	void SetGameMode(IGameModeInterface* mode) { m_pMode = mode; }
 };
 
 
