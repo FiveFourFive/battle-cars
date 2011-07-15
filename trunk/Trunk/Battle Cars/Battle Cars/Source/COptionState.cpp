@@ -7,6 +7,7 @@
 #include "CSGD_TextureManager.h"
 #include "CSGD_FModManager.h"
 #include "CSGD_DirectInput.h"
+#include "CGamePlayState.h"
 #include "CXboxInput.h"
 #include "CKeyBinds.h"
 #include "CKeyBindsState.h"
@@ -394,6 +395,7 @@ void COptionState::Exit(void)
 {
 	//m_pFM->StopSound(m_nBackgroundMusicID);
 	m_pTM->UnloadTexture(m_nFontID);
+	CGamePlayState::GetInstance()->Setvolume();
 	delete m_pPF;
 }
 

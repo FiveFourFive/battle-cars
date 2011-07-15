@@ -6,6 +6,7 @@
 #include "CSGD_DirectInput.h"
 #include "CSGD_Direct3D.h"
 #include "CXboxInput.h"
+#include "CMainMenuState.h"
 #include "CPlayer.h"
 #include "CGamePlayState.h"
 #include "CNumPlayers.h"
@@ -66,7 +67,7 @@ void CCharacterSelection::Exit()
 {
 	m_pTM->UnloadTexture(m_nFontID);
 	delete m_pPF;
-
+	m_pFM->StopSound(CMainMenuState::GetInstance()->GetBackgroundMusicID());
 	/*for( unsigned int i = 0; i < m_vPlayerList.size(); i++)
 	{
 		delete m_vPlayerList[i];

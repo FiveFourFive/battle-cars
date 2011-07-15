@@ -9,7 +9,7 @@
 #include "CXboxInput.h"
 #include "CKeyBinds.h"
 #include "CKeyboardKeyBinds.h"
-enum options{WS_ACCEPT,WS_BACK,WS_SHOOT, WS_CHANGE_WEAPON ,WS_FORWARD,WS_BACKWARD,WS_LEFT,WS_RIGHT,WS_EXIT};
+enum options{WS_SHOOT, WS_CHANGE_WEAPON ,WS_FORWARD,WS_BACKWARD,WS_LEFT,WS_RIGHT,WS_EXIT};
 CKeyBindsState::CKeyBindsState(void)
 {
 	m_pD3D = NULL;
@@ -84,14 +84,6 @@ bool CKeyBindsState::Input(void)
 			
 			switch(m_nSelection)
 			{
-			case WS_ACCEPT:
-				if(m_pKB->GetBack() != XINPUT_GAMEPAD_A)
-				m_pKB->SetAccept(XINPUT_GAMEPAD_A);
-				break;
-			case WS_BACK:
-				if(m_pKB->GetAccept() != XINPUT_GAMEPAD_A)
-				m_pKB->SetBack(XINPUT_GAMEPAD_A);
-				break;
 			case WS_SHOOT:
 				m_pKB->SetShoot(XINPUT_GAMEPAD_A);
 				break;
@@ -105,14 +97,6 @@ bool CKeyBindsState::Input(void)
 		{
 			switch(m_nSelection)
 			{
-			case WS_ACCEPT:
-				if(m_pKB->GetBack() != XINPUT_GAMEPAD_B)
-				m_pKB->SetAccept(XINPUT_GAMEPAD_B);
-				break;
-			case WS_BACK:
-				if(m_pKB->GetAccept() != XINPUT_GAMEPAD_B)
-				m_pKB->SetBack(XINPUT_GAMEPAD_B);
-				break;
 			case WS_SHOOT:
 				m_pKB->SetShoot(XINPUT_GAMEPAD_B);
 				break;
@@ -126,14 +110,7 @@ bool CKeyBindsState::Input(void)
 		{
 			switch(m_nSelection)
 			{
-			case WS_ACCEPT:
-				if(m_pKB->GetBack() != XINPUT_GAMEPAD_Y)
-				m_pKB->SetAccept(XINPUT_GAMEPAD_Y);
-				break;
-			case WS_BACK:
-				if(m_pKB->GetAccept() != XINPUT_GAMEPAD_Y)
-				m_pKB->SetBack(XINPUT_GAMEPAD_Y);
-				break;
+
 			case WS_SHOOT:
 				m_pKB->SetShoot(XINPUT_GAMEPAD_Y);
 				break;
@@ -147,14 +124,6 @@ bool CKeyBindsState::Input(void)
 		{
 			switch(m_nSelection)
 			{
-			case WS_ACCEPT:
-				if(m_pKB->GetBack() != XINPUT_GAMEPAD_A)
-				m_pKB->SetAccept(XINPUT_GAMEPAD_X);
-				break;
-			case WS_BACK:
-				if(m_pKB->GetAccept() != XINPUT_GAMEPAD_A)
-				m_pKB->SetBack(XINPUT_GAMEPAD_X);
-				break;
 			case WS_SHOOT:
 				m_pKB->SetShoot(XINPUT_GAMEPAD_X);
 				break;
@@ -168,14 +137,6 @@ bool CKeyBindsState::Input(void)
 		{
 			switch(m_nSelection)
 			{
-			case WS_ACCEPT:
-				if(m_pKB->GetBack() != XINPUT_GAMEPAD_LEFT_SHOULDER)
-				m_pKB->SetAccept(XINPUT_GAMEPAD_LEFT_SHOULDER);
-				break;
-			case WS_BACK:
-				if(m_pKB->GetAccept() != XINPUT_GAMEPAD_LEFT_SHOULDER)
-				m_pKB->SetBack(XINPUT_GAMEPAD_LEFT_SHOULDER);
-				break;
 			case WS_SHOOT:
 				m_pKB->SetShoot(XINPUT_GAMEPAD_LEFT_SHOULDER);
 				break;
@@ -189,14 +150,6 @@ bool CKeyBindsState::Input(void)
 		{
 			switch(m_nSelection)
 			{
-			case WS_ACCEPT:
-				if(m_pKB->GetBack() != XINPUT_GAMEPAD_RIGHT_SHOULDER)
-				m_pKB->SetAccept(XINPUT_GAMEPAD_RIGHT_SHOULDER);
-				break;
-			case WS_BACK:
-				if(m_pKB->GetAccept() != XINPUT_GAMEPAD_RIGHT_SHOULDER)
-				m_pKB->SetBack(XINPUT_GAMEPAD_RIGHT_SHOULDER);
-				break;
 			case WS_SHOOT:
 				m_pKB->SetShoot(XINPUT_GAMEPAD_RIGHT_SHOULDER);
 				break;
@@ -299,56 +252,7 @@ void CKeyBindsState::Render(void)
 	m_pPF->Print("CHANGE WEAPON", 150,350,0.5f,D3DCOLOR_XRGB(255,0,0));
 		m_pPF->Print("GAMEPAD",370,120,0.5f,D3DCOLOR_XRGB(255,255,255));
 		m_pPF->Print("EXIT",150,400,0.5f,D3DCOLOR_XRGB(255,0,0));
-		switch(m_pKB->GetAccept())
-		{
-		case XINPUT_GAMEPAD_A:
-			m_pPF->Print("A",400,200,0.5f,D3DCOLOR_XRGB(255,255,255));
-			break;
-		case XINPUT_GAMEPAD_X:
-			m_pPF->Print("X",400,200,0.5f,D3DCOLOR_XRGB(255,255,255));
-			break;
-		case XINPUT_GAMEPAD_Y:
-			m_pPF->Print("Y",400,200,0.5f,D3DCOLOR_XRGB(255,255,255));
-			break;
-		case XINPUT_GAMEPAD_B:
-			m_pPF->Print("B",400,200,0.5f,D3DCOLOR_XRGB(255,255,255));
-			break;
-		case XINPUT_GAMEPAD_LEFT_SHOULDER:
-			m_pPF->Print("LEFT BUMPER",400,200,0.5f,D3DCOLOR_XRGB(255,255,255));
-			break;
-		case XINPUT_GAMEPAD_RIGHT_SHOULDER:
-			m_pPF->Print("RIGHT BUMPER",400,200,0.5f,D3DCOLOR_XRGB(255,255,255));
-			break;
-
-		default:
-
-			break;
-		}
-		switch(m_pKB->GetBack())
-		{
-		case XINPUT_GAMEPAD_A:
-			m_pPF->Print("A",400,250,0.5f,D3DCOLOR_XRGB(255,255,255));
-			break;
-		case XINPUT_GAMEPAD_X:
-			m_pPF->Print("X",400,250,0.5f,D3DCOLOR_XRGB(255,255,255));
-			break;
-		case XINPUT_GAMEPAD_Y:
-			m_pPF->Print("Y",400,250,0.5f,D3DCOLOR_XRGB(255,255,255));
-			break;
-		case XINPUT_GAMEPAD_B:
-			m_pPF->Print("B",400,250,0.5f,D3DCOLOR_XRGB(255,255,255));
-			break;
-		case XINPUT_GAMEPAD_LEFT_SHOULDER:
-			m_pPF->Print("LEFT BUMPER",400,250,0.5f,D3DCOLOR_XRGB(255,255,255));
-			break;
-		case XINPUT_GAMEPAD_RIGHT_SHOULDER:
-			m_pPF->Print("RIGHT BUMPER",400,250,0.5f,D3DCOLOR_XRGB(255,255,255));
-			break;
-
-		default:
-
-			break;
-		}
+		
 		switch(m_pKB->GetShoot())
 		{
 		case XINPUT_GAMEPAD_A:
@@ -401,14 +305,6 @@ void CKeyBindsState::Render(void)
 
 	switch(m_nSelection)
 	{
-	case WS_ACCEPT:
-			m_pPF->Print("ACCEPT", 150,200,0.5f,D3DCOLOR_XRGB(0,255,0));
-			
-		break;
-	case WS_BACK:
-		m_pPF->Print("BACK", 150,250,0.5f,D3DCOLOR_XRGB(0,255,0));
-			
-		break;
 	case WS_SHOOT:
 		m_pPF->Print("SHOOT", 150,300,0.5f,D3DCOLOR_XRGB(0,255,0));
 			
@@ -424,8 +320,6 @@ void CKeyBindsState::Render(void)
 	else
 	{
 		m_pPF->Print("KEYBOARD",370,120,0.5f,D3DCOLOR_XRGB(255,255,255));
-			m_pPF->Print("ACCEPT", 150,150,0.5f,D3DCOLOR_XRGB(255,0,0));
-	m_pPF->Print("BACK", 150,200,0.5f,D3DCOLOR_XRGB(255,0,0));
 	m_pPF->Print("SHOOT", 150,250,0.5f,D3DCOLOR_XRGB(255,0,0));
 	m_pPF->Print("CHANGE WEAPON", 150,300,0.5f,D3DCOLOR_XRGB(255,0,0));
 	m_pPF->Print("ACCELERATE",150,350,0.5f,D3DCOLOR_XRGB(255,0,0));
@@ -435,10 +329,6 @@ void CKeyBindsState::Render(void)
 
 		m_pPF->Print("EXIT",150,550,0.5f,D3DCOLOR_XRGB(255,0,0));
 		char buffer[128];
-		strcpy_s(buffer,_countof(buffer),GetKeyBound(m_pKeyboardKB->GetAccept()));
-		m_pPF->Print(buffer,400,150,0.5f,D3DCOLOR_XRGB(255,255,255));
-		strcpy_s(buffer,_countof(buffer),GetKeyBound(m_pKeyboardKB->GetBack()));
-		m_pPF->Print(buffer,400,200,0.5f,D3DCOLOR_XRGB(255,255,255));
 		strcpy_s(buffer,_countof(buffer),GetKeyBound(m_pKeyboardKB->GetShoot()));
 		m_pPF->Print(buffer,400,250,0.5f,D3DCOLOR_XRGB(255,255,255));
 		strcpy_s(buffer,_countof(buffer),GetKeyBound(m_pKeyboardKB->GetChangeWeapon()));
@@ -454,12 +344,6 @@ void CKeyBindsState::Render(void)
 
 	switch(m_nSelection)
 	{
-	case WS_ACCEPT:
-			m_pPF->Print("ACCEPT", 150,150,0.5f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
-		break;
-	case WS_BACK:
-		m_pPF->Print("BACK", 150,200,0.5f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
-		break;
 	case WS_SHOOT:
 		m_pPF->Print("SHOOT", 150,250,0.5f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
 		break;
@@ -1123,20 +1007,6 @@ bool CKeyBindsState::SetKeyBind(int keycode)
 {
 	switch(m_nSelection)
 	{
-	case WS_ACCEPT:
-		if(m_pKeyboardKB->GetBack() != keycode)
-		{
-			m_pKeyboardKB->SetAccept(keycode);
-			return false;
-		}
-		break;
-	case WS_BACK:
-		if(m_pKeyboardKB->GetAccept() != keycode)
-		{
-			m_pKeyboardKB->SetBack(keycode);
-			return false;
-		}
-		break;
 	case WS_SHOOT:
 		m_pKeyboardKB->SetShoot(keycode);
 		return false;
