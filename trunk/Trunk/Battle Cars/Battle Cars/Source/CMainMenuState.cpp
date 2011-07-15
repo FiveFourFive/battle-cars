@@ -13,6 +13,7 @@
 #include "CWinState.h"
 #include "CKeyBinds.h"
 #include "CNumPlayers.h"
+#include "CGameModeSelectionState.h"
 #include "CLevelSelectionState.h"
 
 enum menu {PLAY, OPTIONS, HOW_TO_PLAY, GAMER_PROFILE, HIGH_SCORES, CREDITS, EXIT};
@@ -209,7 +210,7 @@ bool CMainMenuState::HandleEnter(void)
 		switch(m_nSelection)
 		{
 		case PLAY:
-			CGame::GetInstance()->AddState(CLevelSelectionState::GetInstance());
+			CGame::GetInstance()->AddState(CGameModeSelectionState::GetInstance());
 			break;
 		case OPTIONS:
 			CGame::GetInstance()->AddState(COptionState::GetInstance());

@@ -9,7 +9,7 @@
 #include "CObjectManager.h"
 #include "CPlayer.h"
 #include "CCamera.h"
-#include "CDeathmatchMode.h"
+#include "IGameModeInterface.h"
 #include "CGamePlayState.h"
 CObjectManager* CObjectManager::m_pInstance = NULL;
 
@@ -114,7 +114,7 @@ void CObjectManager::CheckCollisions()
 void CObjectManager::CheckStatus(void)
 {
 	void (*HandleCar) (CCar* car);
-	CDeathmatchMode* tempmode = CGamePlayState::GetInstance()->GetMode();
+	IGameModeInterface* tempmode = CGamePlayState::GetInstance()->GetMode();
 	for(size_t i = 0; i < m_vObjectList.size(); i++)
 	{
 		if(m_vObjectList[i]->GetType() == OBJECT_PLAYER || m_vObjectList[i]->GetType() == OBJECT_ENEMY)

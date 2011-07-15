@@ -81,7 +81,7 @@ CGamePlayState* CGamePlayState::GetInstance(void)
 
 void CGamePlayState::Enter(void)
 {
-	m_pMode = new CDeathmatchMode();
+	//m_pMode = new CDeathmatchMode();
 
 
 	RECT lowerhalf = { 200, 500, 600, 540};

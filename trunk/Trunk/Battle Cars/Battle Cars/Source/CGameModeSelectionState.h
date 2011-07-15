@@ -33,7 +33,7 @@ private:
 	CGameModeSelectionState(const CGameModeSelectionState&);
 
 public:
-
+	static CGameModeSelectionState* GetInstance(void);
 	void Enter(void);
 	void Exit(void);
 

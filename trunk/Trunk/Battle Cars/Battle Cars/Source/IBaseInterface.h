@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////
 //	File Name : "IBaseInterface.h"
-//	Author Name : James Brown
-//	Purpose : Interface
+//	Author Name : Wade Shwallon
+//	Purpose : defeine the base interface for all objects
 /////////////////////////////////////////////////////////
 
 #ifndef _IBASEINTERFACE
