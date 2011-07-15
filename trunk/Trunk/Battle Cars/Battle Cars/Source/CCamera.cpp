@@ -5,6 +5,8 @@
 #include "CGame.h"
 #include "CNumPlayers.h"
 #include "COptionState.h"
+#include "CLevel.h"
+#include "CMap.h"
 
 CCamera::CCamera()
 {
@@ -65,4 +67,15 @@ void CCamera::Update(void)
 		this->camPosX = 0;
 	if( this->camPosY < 0 )
 		this->camPosY = 0;
+
+	CMap* map = CLevel::GetInstance()->GetMap();
+
+	if( (this->camPosX + this->GetWidth()) > (map->GetMapWidth() * map->GetPixelWidth()) )
+	{
+		this->camPosX = (map->GetMapWidth() * map->GetPixelWidth()) - this->GetWidth() + this->owner->GetWidth() * 0.5f;
+	}
+	if( (this->camPosY + this->GetHeight()) > map->GetMapHeight() * map->GetPixelHeight() )
+	{
+		this->camPosY = (map->GetMapHeight() * map->GetPixelHeight()) - this->GetHeight() + this->owner->GetHeight() * 0.5f;;
+	}
 }
