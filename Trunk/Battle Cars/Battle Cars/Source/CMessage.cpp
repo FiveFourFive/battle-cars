@@ -80,3 +80,29 @@ CCreateEnemyBulletMessage::CCreateEnemyBulletMessage(CEnemy* pEnemy) : CBaseMess
 {
 	m_pEnemy = pEnemy;
 }
+
+
+CCreateBossMiniSpecial::CCreateBossMiniSpecial(CBoss* pBoss) : CBaseMessage(MSG_CREATE_BOSS_MINI_SPECIAL)
+{
+	m_pBoss = pBoss;
+}
+
+CCreateBossVetteSpecial::CCreateBossVetteSpecial(CBoss* pBoss) : CBaseMessage(MSG_CREATE_BOSS_VETTE_SPECIAL)
+{
+	m_pBoss = pBoss;
+}
+
+CCreateBossHummerSpecial::CCreateBossHummerSpecial(CBoss* pBoss) : CBaseMessage(MSG_CREATE_BOSS_HUMMER_SPECIAL)
+{
+	m_pBoss = pBoss;
+}
+
+CCreateBossTruckSpecial::CCreateBossTruckSpecial(CBoss* pBoss) : CBaseMessage(MSG_CREATE_BOSS_TRUCK_SPECIAL)
+{
+	m_pBoss = pBoss;
+}
+
+CCreateMiniBossSpecial::CCreateMiniBossSpecial(CBoss* pBoss) : CBaseMessage(MSG_CREATE_MINIBOSS_SPECIAL)
+{
+	m_pBoss = pBoss;
+}

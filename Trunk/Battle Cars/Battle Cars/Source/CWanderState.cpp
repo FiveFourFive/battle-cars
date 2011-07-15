@@ -37,7 +37,7 @@ CWanderState* CWanderState::GetInstance()
 
 void CWanderState::Update (float fElapsedTime)
 {
-	m_Owner->SetSpeed (m_Owner->GetSpeed () + 01.0f);
+	m_Owner->SetSpeed (m_Owner->GetSpeed () + 02.0f);
 
 	if (m_Owner->GetSpeed () > 150.0f)
 	{
@@ -104,12 +104,93 @@ void CWanderState::Update (float fElapsedTime)
 	//////if(m_nCounter > INT_MAX - 1)
 	//////	m_nCounter = 0;
 	
+	
+	
 	//Wander
-	Wander(fElapsedTime);
+	if(m_PowerUpTarget)
+	{
+		if(m_PowerUpTarget->IsActive())
+		{
+			switch(m_PowerUpTarget->GetPowerUpType())
+			{
+				case SHIELD_POWERUP:
+					{
+						if(m_Owner->GetMaxShield() *.5f > m_Owner->GetShieldBar())
+							GrabPowerUp(fElapsedTime);
+						else
+						{
+							m_PowerUpTarget = NULL;
+							Wander(fElapsedTime);
+						}
+					}
+					break;
+				case HEALTH_POWERUP:
+					{
+						if(m_Owner->GetMaxHealth() * .7 > m_Owner->GetHealth())
+							GrabPowerUp(fElapsedTime);
+						else
+						{
+							m_PowerUpTarget = NULL;
+							Wander(fElapsedTime);
+						}
+					}
+					break;
+				case WEAPONS_POWERUP:
+					{
+						if(m_Owner->GetSpecialLevel() == 1)
+							GrabPowerUp(fElapsedTime);
+						else
+						{
+							m_PowerUpTarget = NULL;
+							Wander(fElapsedTime);
+						}
+					}
+					break;
+				case SPECIAL_POWERUP:
+					{
+						if(m_Owner->GetMaxPowerUp() * .5f > m_Owner->GetPowerUpBar())
+							GrabPowerUp(fElapsedTime);
+						else
+						{
+							m_PowerUpTarget = NULL;
+							Wander(fElapsedTime);
+						}
+					}
+					break;
+			}
+		}
+		else
+		{
+			m_PowerUpTarget = NULL;
+			Wander(fElapsedTime);
+		}
+		
+	}
+	else if(m_SpeedRampTarget)
+	{
+		UseSpeedRamp(fElapsedTime);
+	}
+	else
+	{
+		Wander(fElapsedTime);
+		m_PowerUpTarget = NULL;
+		m_SpeedRampTarget = NULL;
+	}
 	//Try to find threats
 	if(FindThreat())
+	{
 		m_Owner->ChangeState(CAttackState::GetInstance());
+		m_PowerUpTarget = NULL;
+		m_SpeedRampTarget = NULL;
+	}
+	else
+	{
+		FindPowerUps(fElapsedTime);
+		if(!m_PowerUpTarget)
+			FindSpeedRamp(fElapsedTime);
+	}
 	
+
 	
 }
 
@@ -143,13 +224,14 @@ void CWanderState::Enter ()
 		m_Target1 = CCharacterSelection::GetInstance()->GetPlayer1();
 		m_Target2 = NULL;
 	}
-
+	m_PowerUpTarget = NULL;
+	m_SpeedRampTarget = NULL;
 	m_bHasTargets = false;
 	m_fTargetX = 0.0f;
 	m_fTargetY = 0.0f;
 	m_fRotationAngle = 0.0f;
 	m_fturnLeftOrRight = 0.0f;
-	m_fAggroRadius = 650.0f;
+	m_fAggroRadius = 450.0f;
 }
 
 
@@ -205,13 +287,13 @@ bool CWanderState::FindThreat()
 	tVector2D target1Distance, target2Distance;
 	if(m_Target1)
 	{
-		target1Distance.fX = (m_Target1->GetPosX()+(m_Target1->GetWidth()*.5f))-(m_Owner->GetPosX()+(m_Owner->GetWidth()*.5f));
-		target1Distance.fY = (m_Target1->GetPosY()+(m_Target1->GetHeight()*.5f))-(m_Owner->GetPosX()+(m_Owner->GetHeight()*.5f));
+		target1Distance.fX = (m_Target1->GetPosX()-(m_Owner->GetPosX()));
+		target1Distance.fY = (m_Target1->GetPosY()-(m_Owner->GetPosY()));
 	}
 	if(m_Target2)
 	{
-		target2Distance.fX = (m_Target2->GetPosX()+(m_Target2->GetWidth()*.5f))-(m_Owner->GetPosX()+(m_Owner->GetWidth()*.5f));
-		target2Distance.fY = (m_Target2->GetPosY()+(m_Target2->GetHeight()*.5f))-(m_Owner->GetPosX()+(m_Owner->GetHeight()*.5f));
+		target2Distance.fX = (m_Target2->GetPosX()-(m_Owner->GetPosX()));
+		target2Distance.fY = (m_Target2->GetPosY()-(m_Owner->GetPosY()));
 	
 		if(Vector2DLength(target1Distance) <= m_fAggroRadius || Vector2DLength(target2Distance) <= m_fAggroRadius)
 		{
@@ -243,7 +325,7 @@ void CWanderState::Wander(float fElapsedTime)
 	{
 		
 		tVector2D m_vTargetLocation;
-		m_fTargetX = rand()%10500+100;						// so that it works on every map GetTileWidth()*num of tiles horizontally - 100 (since we are using middle of car for position calculations)
+		m_fTargetX = rand()%1500+100;						// so that it works on every map GetTileWidth()*num of tiles horizontally - 100 (since we are using middle of car for position calculations)
 		m_fTargetY = rand()%1500+100;						// so that it works on every map GetTileHeight()*num of tiles vertically - 100 (since we are using middle of car for position calculations)
 		m_bHasTargets = true;
 
@@ -252,8 +334,8 @@ void CWanderState::Wander(float fElapsedTime)
 	{
 		tVector2D TargetVector;
 
-		TargetVector.fX = m_fTargetX - (m_Owner->GetPosX()+(m_Owner->GetWidth()*.5f));
-		TargetVector.fY = m_fTargetY - (m_Owner->GetPosY() + (m_Owner->GetHeight()*.5f));
+		TargetVector.fX = m_fTargetX - (m_Owner->GetPosX());
+		TargetVector.fY = m_fTargetY - (m_Owner->GetPosY());
 
 		tVector2D currentEnemyDirection = m_Owner->GetDirection();
 	
@@ -333,5 +415,179 @@ void CWanderState::Wander(float fElapsedTime)
 				m_bHasTargets = false;
 		}
 
+	}
+}
+
+bool CWanderState::FindPowerUps(float fElapsedTime)
+{
+	if(m_Owner)
+	{
+		float closestPowerUpDistance = 350.0f;
+		tVector2D tempVector, TargetVector;
+		//Get Distance from all power ups
+		for(unsigned int i = 0; i < m_Owner->GetPowerUps().size(); i++)
+		{
+			tempVector.fX = (m_Owner->GetPowerUps()[i]->GetPosX()) - (m_Owner->GetPosX());
+			tempVector.fY = (m_Owner->GetPowerUps()[i]->GetPosY()) - (m_Owner->GetPosY());
+			if(Vector2DLength(tempVector) < closestPowerUpDistance)
+			{
+				closestPowerUpDistance = Vector2DLength(tempVector);
+				TargetVector = tempVector;
+				m_PowerUpTarget = m_Owner->GetPowerUps()[i];
+			}
+		}
+		if(closestPowerUpDistance == 350.0f)
+		{
+			m_PowerUpTarget = NULL;
+			return false;
+		}
+		else
+			return true;
+	}
+	else
+	{
+		m_PowerUpTarget = NULL;
+		return false;
+	}
+}
+
+void CWanderState::GrabPowerUp(float fElapsedTime)
+{
+	tVector2D TargetVector;
+	TargetVector.fX = (m_PowerUpTarget->GetPosX()) - (m_Owner->GetPosX());
+	TargetVector.fY = (m_PowerUpTarget->GetPosY()) - (m_Owner->GetPosY());
+	tVector2D currentEnemyDirection = m_Owner->GetDirection();
+	float rotationAngle = AngleBetweenVectors(currentEnemyDirection, TargetVector);
+	float turnLeftOrRight = Steering(currentEnemyDirection, TargetVector);
+	if(turnLeftOrRight < 0.0f)
+	{
+		if(rotationAngle - (m_Owner->GetRotationRate() * fElapsedTime) < 0.0f)
+		{
+			m_Owner->SetRotation(m_Owner->GetRotation()-rotationAngle);
+			tVector2D direction;
+			direction.fX = 0.0f;
+			direction.fY = -1.0f;
+			direction = Vector2DRotate(direction, m_Owner->GetRotation());
+			m_Owner->SetDirection(direction);
+			rotationAngle = 0.0f;
+		}
+		else
+		{
+			m_Owner->SetRotation(m_Owner->GetRotation()-(m_Owner->GetRotationRate() * fElapsedTime));
+			tVector2D direction;
+			direction.fX = 0.0f;
+			direction.fY = -1.0f;
+			direction = Vector2DRotate(direction, m_Owner->GetRotation());
+			m_Owner->SetDirection(direction);
+			rotationAngle -= (m_Owner->GetRotationRate() * fElapsedTime);
+		}
+	}
+	else
+	{
+		if(rotationAngle - (m_Owner->GetRotationRate() * fElapsedTime) < 0.0f)
+		{
+			m_Owner->SetRotation(m_Owner->GetRotation()+rotationAngle);
+			tVector2D direction;
+			direction.fX = 0.0f;
+			direction.fY = -1.0f;
+			direction = Vector2DRotate(direction, m_Owner->GetRotation());
+			m_Owner->SetDirection(direction);
+			rotationAngle = 0.0f;
+		}
+		else
+		{
+			m_Owner->SetRotation(m_Owner->GetRotation()+(m_Owner->GetRotationRate() * fElapsedTime));
+			tVector2D direction;
+			direction.fX = 0.0f;
+			direction.fY = -1.0f;
+			direction = Vector2DRotate(direction, m_Owner->GetRotation());
+			m_Owner->SetDirection(direction);
+			rotationAngle -= (m_Owner->GetRotationRate() * fElapsedTime);
+		}
+	}
+}
+
+void CWanderState::FindSpeedRamp(float fElapsedTime)
+{
+	if(!m_Owner->HasCollidedWithSpeedRamp())
+	{
+		float closestSpeedRampDistance = 350.0f;
+		tVector2D tempVector, TargetVector;
+		//Check to see if speed ramps are within range
+		for(unsigned int i = 0; i < m_Owner->GetSpeedRamps().size(); i++)
+		{
+			tempVector.fX = (m_Owner->GetSpeedRamps()[i]->GetPosX()) - (m_Owner->GetPosX());
+			tempVector.fY = (m_Owner->GetSpeedRamps()[i]->GetPosY()) - (m_Owner->GetPosY());
+			if(Vector2DLength(tempVector) < closestSpeedRampDistance)
+			{
+				closestSpeedRampDistance = Vector2DLength(tempVector);
+				TargetVector = tempVector;
+				m_SpeedRampTarget = m_Owner->GetSpeedRamps()[i];
+			}
+		}
+		if(closestSpeedRampDistance == 350.0f)
+		{
+			m_SpeedRampTarget = NULL;
+			return;
+		}
+
+	}
+	else
+		m_SpeedRampTarget = NULL;
+}
+
+void CWanderState::UseSpeedRamp(float fElapsedTime)
+{
+	tVector2D TargetVector;
+	TargetVector.fX = (m_SpeedRampTarget->GetPosX()) - (m_Owner->GetPosX());
+	TargetVector.fY = (m_SpeedRampTarget->GetPosY()) - (m_Owner->GetPosY());
+	tVector2D currentEnemyDirection = m_Owner->GetDirection();
+	float rotationAngle = AngleBetweenVectors(currentEnemyDirection, TargetVector);
+	float turnLeftOrRight = Steering(currentEnemyDirection, TargetVector);
+	if(turnLeftOrRight < 0.0f)
+	{
+		if(rotationAngle - (m_Owner->GetRotationRate() * fElapsedTime) < 0.0f)
+		{
+			m_Owner->SetRotation(m_Owner->GetRotation()-rotationAngle);
+			tVector2D direction;
+			direction.fX = 0.0f;
+			direction.fY = -1.0f;
+			direction = Vector2DRotate(direction, m_Owner->GetRotation());
+			m_Owner->SetDirection(direction);
+			rotationAngle = 0.0f;
+		}
+		else
+		{
+			m_Owner->SetRotation(m_Owner->GetRotation()-(m_Owner->GetRotationRate() * fElapsedTime));
+			tVector2D direction;
+			direction.fX = 0.0f;
+			direction.fY = -1.0f;
+			direction = Vector2DRotate(direction, m_Owner->GetRotation());
+			m_Owner->SetDirection(direction);
+			rotationAngle -= (m_Owner->GetRotationRate() * fElapsedTime);
+		}
+	}
+	else
+	{
+		if(rotationAngle - (m_Owner->GetRotationRate() * fElapsedTime) < 0.0f)
+		{
+			m_Owner->SetRotation(m_Owner->GetRotation()+rotationAngle);
+			tVector2D direction;
+			direction.fX = 0.0f;
+			direction.fY = -1.0f;
+			direction = Vector2DRotate(direction, m_Owner->GetRotation());
+			m_Owner->SetDirection(direction);
+			rotationAngle = 0.0f;
+		}
+		else
+		{
+			m_Owner->SetRotation(m_Owner->GetRotation()+(m_Owner->GetRotationRate() * fElapsedTime));
+			tVector2D direction;
+			direction.fX = 0.0f;
+			direction.fY = -1.0f;
+			direction = Vector2DRotate(direction, m_Owner->GetRotation());
+			m_Owner->SetDirection(direction);
+			rotationAngle -= (m_Owner->GetRotationRate() * fElapsedTime);
+		}
 	}
 }

@@ -35,7 +35,7 @@ CCar::CCar(void)
 
 	SetPosX(350);
 	SetPosY(225);
-	m_nSpecialLevel = 0;
+	m_nSpecialLevel = 1;
 	SetWidth(52);
 	SetHeight(70);
 	m_nCollisionRadius = (float)(GetWidth()/2.0f);

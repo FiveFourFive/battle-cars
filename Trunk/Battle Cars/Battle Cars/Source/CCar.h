@@ -134,6 +134,13 @@ public:
 	void SetIsAlive(bool alive) { m_bIsAlive = alive; }
 	void SetRespawnTimer(float respawn){ m_fRespawnTimer = respawn;}
 	void SetCollisionEffect(bool value){ Collision_effect = value;}
+	void SetCarId(int id) {m_nCarID = id;}
+	void SetRadius(float radius) {m_nCollisionRadius = radius;}
+	void SetCollisionX1(float x) {m_nCollisionX1 = x;}
+	void SetCollisionY1(float y) {m_nCollisionY1 = y;}
+	void SetCollisionX2(float x) {m_nCollisionX2 = x;}
+	void SetCollisionY2(float y) {m_nCollisionY2 = y;}
+
 
 	// plays the crash sound
 	void PlayCrash(void);

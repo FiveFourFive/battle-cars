@@ -14,6 +14,8 @@
 //#include <Windows.h>
 #include "IAIBaseState.h"
 #include "SGD_Math.h"
+#include "CPowerUp.h"
+#include "CSpeedRamp.h"
 class CEnemy;
 class CPlayer;
 
@@ -51,8 +53,15 @@ private:
 	CEnemy* m_Owner;
 	CPlayer* m_Target1;
 	CPlayer* m_Target2;
+	PowerUp* m_PowerUpTarget;
+	CSpeedRamp* m_SpeedRampTarget;
 	float m_fAggroRadius;
 	void Wander(float fElapsedTime);
+	bool FindThreat ();
+	bool FindPowerUps(float fElapsedTime);
+	void GrabPowerUp(float fElapsedTime);
+	void FindSpeedRamp(float fElapsedTime);
+	void UseSpeedRamp(float fElapsedTime);
 
 	CWanderState(void){};
 	~CWanderState(void){};
@@ -71,7 +80,7 @@ public:
 	void SetTarget2(CPlayer* pTarget) {m_Target2 = pTarget;}
 	CPlayer* GetTarget1() {return m_Target1;}
 	CPlayer* GetTarget2() {return m_Target2;}
-	bool FindThreat ();
+	
 };
 
 #endif

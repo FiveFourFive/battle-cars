@@ -611,9 +611,28 @@ void CPlayer::HandleEvent(CEvent* pEvent)
 		{
 			if(GetHealth() < GetMaxHealth())
 			{
-				SetHealth(GetHealth()+20.0f);
-				if(GetHealth() > GetMaxHealth())
+				float diff = GetMaxHealth() - GetHealth();
+				if(diff < 20.0f)
+				{
 					SetHealth(GetMaxHealth());
+					diff = 20.0f - diff;
+					if(GetShieldBar() < GetMaxShield())
+					{
+						SetShieldBar(GetShieldBar()+diff);
+						if(GetShieldBar() > GetMaxShield())
+							SetShieldBar(GetMaxShield());
+					}
+				}
+				else
+				{
+					SetHealth(GetHealth()+20.0f);
+				}
+			}
+			else if(GetShieldBar() < GetMaxShield())
+			{
+				SetShieldBar(GetShieldBar()+20.0f);
+				if(GetShieldBar() > GetMaxShield())
+					SetShieldBar(GetMaxShield());
 			}
 		}
 	}
