@@ -72,7 +72,14 @@ void CPlayer::Update(float fElapsedTime)
 	}
 	else
 		m_pCamera->AttachTo(this,CGame::GetInstance()->GetScreenWidth()*0.5f,CGame::GetInstance()->GetScreenHeight()*0.5f);
+
 	m_pCamera->Update();
+
+	if( GetHealth() <= 0.0f)
+	{
+		SetRespawnTimer(GetRespawnTimer() + fElapsedTime);
+		return;
+	}
 
 	m_fFireTimer += fElapsedTime;
 	static float m_ftimer;
