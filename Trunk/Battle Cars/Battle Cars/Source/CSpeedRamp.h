@@ -8,7 +8,7 @@ class CSpeedRamp : public CBase
 {
 private:
 	tVector2D m_tVelDir;
-
+	float m_fRotation;
 public:
 	CSpeedRamp(void);
 
@@ -16,7 +16,7 @@ public:
 	void Render(CCamera* camera);
 
 	tVector2D GetVelDir(void) { return m_tVelDir; }
-
+	void RotateVel(float rot) { m_tVelDir = Vector2DRotate(m_tVelDir,rot); m_fRotation = rot; }
 	bool CheckCollision(IBaseInterface* pBase);
 };
 

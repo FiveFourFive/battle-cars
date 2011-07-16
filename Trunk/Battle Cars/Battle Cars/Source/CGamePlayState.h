@@ -18,7 +18,7 @@ using namespace std;
 #include "SGD_Math.h"
 
 #include "CLevel.h"
-
+class CObstacle;
 class CSGD_Direct3D;
 class CSGD_DirectInput;
 class CSGD_TextureManager;
@@ -79,6 +79,11 @@ private:
 	PowerUp* power_up_power;
 	CCar* dummy2;
 	CPlayer* player2;
+	CObstacle* crate1;
+	CObstacle* crate2;
+	CObstacle* crate3;
+	CObstacle* barrel1;
+	CObstacle* barrel2;
 
 	int m_nCrateID;
 	int m_nBarrelID;
