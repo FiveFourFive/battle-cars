@@ -51,14 +51,8 @@ bool CLandMine::CheckCollision(IBaseInterface* pBase)
 			//send damage event
 			if(m_nLandMineType == LM_LM)
 			{
-				if(this->GetOwner()->GetType() == OBJECT_BOSS  && pBase->GetType() == OBJECT_ENEMY)
-				{
-				}
-				else
-				{
-					CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
-					CEventSystem::GetInstance()->SendEvent("damage",pBase,this);
-				}
+				CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
+				CEventSystem::GetInstance()->SendEvent("damage",pBase,this);
 			}
 		}
 	}

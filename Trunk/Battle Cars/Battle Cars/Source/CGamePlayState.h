@@ -74,9 +74,11 @@ private:
 	CEnemy* dummy;
 	vector<PowerUp*> power_ups;
 	vector<CSpeedRamp*> ramps;
+	vector<CBoss*> bosses;
+	PowerUp* power_up_power;
 	CCar* dummy2;
 	CPlayer* player2;
-	CBoss* boss;
+
 	// sound
 	int m_nBackgroundMusicID;
 	int m_nCountDown;
@@ -96,8 +98,15 @@ private:
 
 	int score;		// players score;
 	float m_ftimer;	// timer before score is incremented.
-
+	bool m_bBossHasSpawned;
+	float m_fRespawnBossTimer;
 	vector<CPlayer*> characters;
+	bool m_bBossHasDied;
+	bool m_bMiniBossHasSpawned;
+	bool m_bMiniBossHasDied;
+	float m_fRespawnMiniBossTimer;
+	bool m_bTimeTrial;
+	bool m_bCollectionChallenge;
 
 	CGamePlayState(void);
 	~CGamePlayState(void){};
@@ -129,13 +138,17 @@ public:
 	vector<CSpeedRamp*> GetSpeedRamps() {return ramps;}
 	IGameModeInterface* GetMode(void) { return m_pMode; }
 	int GetTimeLeft(void) { return time; }
+	vector<CBoss*> GetBosses() {return bosses;}
 	//Mutators
 	void SetCharacters(vector<CPlayer*> players) {characters = players;}
 	void SetSpeedRamps(vector<CSpeedRamp*> speedRamps) {ramps = speedRamps;}
-
+	void SetBossHasDied(bool died) {m_bBossHasDied = died;}
 	void SetGameMode(IGameModeInterface* mode) { m_pMode = mode; }
 	IGameModeInterface* GetGameMode(){ return m_pMode;}
 	void Setvolume(void);
+	void SetTimeTrial(bool trial) {m_bTimeTrial = trial;}
+	void SetMiniBossHasDied(bool died) {m_bMiniBossHasDied = died;}
+	void SetCollectionChallenge(bool challenge) {m_bCollectionChallenge = challenge;}
 };
 
 

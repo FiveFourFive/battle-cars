@@ -163,8 +163,20 @@ void CGamePlayState::Enter(void)
 
 	
 
-	boss = new CBoss(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
-	m_pOM->AddObject(boss);
+	CBoss* boss = new CBoss(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
+	CBoss* miniboss = new CBoss(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
+	miniboss->SetMiniBoss(true);
+	miniboss->SetHealth(65.0f);
+	miniboss->SetMaxHealth(65.0f);
+	miniboss->SetShieldBar(30.0f);
+	miniboss->SetMaxShield(30.0f);
+	miniboss->SetAcceleration(3.5f);
+	miniboss->SetPosX(rand()%1400+200);
+	miniboss->SetPosY(rand()%1400+200);
+	miniboss->SetCarId(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniBossPlaceHolder.png"));
+	bosses.push_back(boss);
+	bosses.push_back(miniboss);
+	m_pOM->AddObject(miniboss);
 	dummy = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
 	PowerUp* power_up = new PowerUp();
 	power_up->SetPosX(1000.0f);
@@ -293,6 +305,12 @@ void CGamePlayState::Enter(void)
 	m_bCountDown = false;
 	m_fEnlarge = 0.0f;
 	m_bPlaying = false;
+	m_bBossHasSpawned = false;
+	m_bBossHasDied = false;
+	m_bMiniBossHasDied = false;
+	m_bMiniBossHasSpawned = false;
+	m_fRespawnMiniBossTimer = 0.0f;
+	m_fRespawnBossTimer = 0.0f;
 	m_fCountDown = 0.0f;
 
 	Level->SetSpawn (player2);
@@ -317,7 +335,7 @@ void CGamePlayState::Enter(void)
 	m_pPM->LoadEmittor("resource/data/car_exploded.xml");
 
 	
-	time = 120;
+	time = 60;
 	m_fElapsedSecond = 0.0f;
 	score = 0;
 
@@ -344,7 +362,6 @@ void CGamePlayState::Enter(void)
 	m_nMiniMapOverlayIndex=m_pTM->LoadTexture("resource/graphics/HUDS/minimap_overlay.png");
 	m_nMiniMapMiddlelayIndex=m_pTM->LoadTexture("resource/graphics/HUDS/minimap_middlelay.png");
 	m_nMiniMapUnderlayIndex=m_pTM->LoadTexture("resource/graphics/HUDS/minimap_underlay.png");
-
 }
 
 void CGamePlayState::Exit(void)
@@ -356,7 +373,11 @@ void CGamePlayState::Exit(void)
 		characters[i]->Release();
 	}
 	dummy->Release();
-	boss->Release();
+	for(unsigned int i = 0; i < bosses.size(); i++)
+	{
+		bosses[i]->Release();
+	}
+	bosses.clear();
 	for(unsigned int i = 0; i < ramps.size(); i++)
 	{
 		ramps[i]->Release();
@@ -561,6 +582,45 @@ void CGamePlayState::Update(float fElapsedTime)
 			time -= 1;
 		}
 
+		if(m_bTimeTrial)
+		{
+			if(m_bMiniBossHasDied)
+			{
+				m_fRespawnMiniBossTimer += fElapsedTime;
+				if(m_fRespawnMiniBossTimer > 3.0f)
+				{
+					m_bMiniBossHasDied = false;
+					bosses[1] = new CBoss(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
+					bosses[1]->SetMiniBoss(true);
+					bosses[1]->SetHealth(65.0f);
+					bosses[1]->SetMaxHealth(65.0f);
+					bosses[1]->SetShieldBar(30.0f);
+					bosses[1]->SetMaxShield(30.0f);
+					bosses[1]->SetAcceleration(3.5f);
+					bosses[1]->SetPosX(rand()%1400+200);
+					bosses[1]->SetPosY(rand()%1400+200);
+					bosses[1]->SetCarId(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniBossPlaceHolder.png"));
+					m_fRespawnMiniBossTimer = 0.0f;
+					m_pOM->AddObject(bosses[1]);
+				}
+			}
+		}
+		if(time <= 30 && !m_bBossHasSpawned)
+		{
+			m_bBossHasSpawned = true;
+			m_pOM->AddObject(bosses[0]);
+		}
+		if(m_bBossHasDied)
+		{
+			m_fRespawnBossTimer += fElapsedTime;
+			if(m_fRespawnBossTimer >= 3.0f)
+			{
+				m_bBossHasDied = false;
+				bosses[0] = new CBoss(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
+				m_bBossHasSpawned = false;
+				m_fRespawnBossTimer = 0.0f;
+			}
+		}
 		m_pFM->Update();
 		m_pOM->UpdateObjects(fElapsedTime);
 
@@ -1609,8 +1669,8 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			CGamePlayState* pGame = CGamePlayState::GetInstance();
 			//CLandMine* pLandMine = (CLandMine*)pGame->m_pOF->CreateObject("CLandMine");
 			CLandMine* pLandMine = new CLandMine();
-			CLandMine* pLandMine1 = new CLandMine();
-			CLandMine* pLandMine2 = new CLandMine();
+			//CLandMine* pLandMine1 = new CLandMine();
+			//CLandMine* pLandMine2 = new CLandMine();
 			pLandMine->SetDuration(20.0f);
 			pLandMine->SetScale(1.0f);
 			pLandMine->SetOwner(pBTS->GetBoss());
@@ -1700,10 +1760,10 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			{
 				pLandMine->SetPosX(pBTS->GetBoss()->GetPosX()+(pBTS->GetBoss()->GetWidth()*.5f));
 				pLandMine->SetPosY(pBTS->GetBoss()->GetPosY()-(pBTS->GetBoss()->GetHeight()*.5f) - pLandMine->GetHeight());
-				pLandMine1->SetPosX(pLandMine->GetPosX());
+				/*pLandMine1->SetPosX(pLandMine->GetPosX());
 				pLandMine1->SetPosY(pLandMine->GetPosY() + 20.0f + pLandMine->GetHeight());
 				pLandMine2->SetPosX(pLandMine->GetPosX() - 20.0f - pLandMine->GetWidth());
-				pLandMine2->SetPosY(pLandMine->GetPosY());
+				pLandMine2->SetPosY(pLandMine->GetPosY());*/
 			}
 			else if(direction.fX > 0 && direction.fY <=0) // up right
 			{
@@ -1731,6 +1791,25 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			//pLandMine2->Release();
 		}
 		break;
+		case MSG_DESTROY_BOSS:
+			{
+				CDestroyBossMessage* pBTS = (CDestroyBossMessage*)pMsg;
+				CGamePlayState* pGame = CGamePlayState::GetInstance();
+
+				for(unsigned int i = 0; i < pGame->GetBosses().size(); i++)
+				{
+					if(pGame->GetBosses()[i] == pBTS->GetBoss())
+					{
+						pGame->GetBosses()[i] = NULL;
+						pGame->GetObjectManager()->RemoveObject(pGame->GetBosses()[i]);
+						if(i == 0)
+							pGame->SetBossHasDied(true);
+						else if(i == 1)
+							pGame->SetMiniBossHasDied(true);
+					}
+				}
+			}
+			break;
 	}
 }
 
