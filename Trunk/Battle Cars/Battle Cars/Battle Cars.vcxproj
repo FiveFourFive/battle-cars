@@ -113,6 +113,7 @@
     <ClCompile Include="Source\CMessageSystem.cpp" />
     <ClCompile Include="Source\CNumPlayers.cpp" />
     <ClCompile Include="Source\CObjectManager.cpp" />
+    <ClCompile Include="Source\CObstacle.cpp" />
     <ClCompile Include="Source\COptionState.cpp" />
     <ClCompile Include="Source\CPauseMenuState.cpp" />
     <ClCompile Include="Source\CPlayer.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="Source\CNumPlayers.h" />
     <ClInclude Include="Source\CObjectFactory.h" />
     <ClInclude Include="Source\CObjectManager.h" />
+    <ClInclude Include="Source\CObstacle.h" />
     <ClInclude Include="Source\COptionState.h" />
     <ClInclude Include="Source\CPauseMenuState.h" />
     <ClInclude Include="Source\CPlayer.h" />

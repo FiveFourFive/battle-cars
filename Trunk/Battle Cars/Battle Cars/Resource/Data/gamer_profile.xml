@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Gamer_Profiles>
     <Gamer_Profile>ANDYAA
-        <Sounds SFX="46" Background="50" />
+        <Sounds SFX="50" Background="50" />
         <Controller_Keybinds shoot="16384" change_weapon="256" kshoot="57" kaccelerate="200" kbreak="208" kleft="203" kright="205" kchange_weapon="29" />
     </Gamer_Profile>
     <Gamer_Profile>WADEAAAAAAAAAAAAAA
