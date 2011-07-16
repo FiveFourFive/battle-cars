@@ -17,6 +17,9 @@ private:
 	int m_nHealthID;
 	int m_nPistolID;
 	int m_nMissileID;
+
+	float m_fMiniMapPosX;
+	float m_fMiniMapPosY;
 public:
 	CHUD(void);
 	~CHUD(void);
@@ -25,6 +28,9 @@ public:
 	void Render(void);
 
 	void SetOwner(CPlayer* owner) { m_pOwner = owner; }
+
+	float GetMiniMapXPos(){ return m_fMiniMapPosX;}
+	float GetMiniMapYPos(){ return m_fMiniMapPosY;}
 
 };
 

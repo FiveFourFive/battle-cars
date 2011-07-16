@@ -160,23 +160,25 @@ void CGameModeSelectionState::Render(void)
 	{
 	case WS_DM:
 		m_pPF->Print("Deathmatch",100,200,0.8f,D3DCOLOR_XRGB(0,255,0));
-		m_pPF->Print(" --- Fight for a set amount of time in a map of your choosing. The winner", 300,200,0.5f,D3DCOLOR_XRGB(255,255,255));
-		m_pPF->Print("	   is determined based on the number of kills made during the game.",300,230,0.5f,D3DCOLOR_XRGB(255,255,255));
+		m_pPF->Print(" --- Fight for a set amount of time in a map of your choosing. The winner", 300,200,0.5f,D3DCOLOR_XRGB(0,255,0));
+		m_pPF->Print("	   is determined based on the number of kills made during the game.",300,230,0.5f,D3DCOLOR_XRGB(0,255,0));
 
 		break;
 	case WS_TT:
 		m_pPF->Print("Time Trial",100,300,0.8f,D3DCOLOR_XRGB(0,255,0));
-		m_pPF->Print(" --- Fight for your survival, Kill as many enemies until you die ", 300.0f, 300.0f, 0.5f, D3DCOLOR_XRGB(255,255,255));
-		m_pPF->Print("     or until time runs out. You win if you kill at least 20 enemies.", 300.0f, 330.0f, 0.5f, D3DCOLOR_XRGB(255,255,255));
+		m_pPF->Print(" --- Fight for your survival, Kill as many enemies until you die ", 300.0f, 300.0f, 0.5f, D3DCOLOR_XRGB(0,255,0));
+		m_pPF->Print("     or until time runs out. You win if you kill at least 20 enemies.", 300.0f, 330.0f, 0.5f, D3DCOLOR_XRGB(0,255,0));
 
 		break;
 	case WS_CC:
 		m_pPF->Print("Collection",100,400,0.8f,D3DCOLOR_XRGB(0,255,0));
+		m_pPF->Print(" --- Race against an opponent as you try to collect as much cash as you can ", 300.0f, 400.0f, 0.5f, D3DCOLOR_XRGB(0,255,0));
+		m_pPF->Print("     collect the most and win!.", 300.0f, 430.0f, 0.5f, D3DCOLOR_XRGB(0,255,0));
 		break;
 	case WS_TUT:
 		m_pPF->Print("Tutorial",100,500,0.8f,D3DCOLOR_XRGB(0,255,0));
-		m_pPF->Print(" --- New to the game? learn the rules and controls of the game in this", 300.0f, 500.0f, 0.5f, D3DCOLOR_XRGB(255,255,255));
-		m_pPF->Print("     In-depth Tutorial level.", 300.0f, 530.0f, 0.5f, D3DCOLOR_XRGB(255,255,255));
+		m_pPF->Print(" --- New to the game? learn the rules and controls of the game in this", 300.0f, 500.0f, 0.5f, D3DCOLOR_XRGB(0,255,0));
+		m_pPF->Print("     In-depth Tutorial level.", 300.0f, 530.0f, 0.5f, D3DCOLOR_XRGB(0,255,0));
 		break;
 
 	}

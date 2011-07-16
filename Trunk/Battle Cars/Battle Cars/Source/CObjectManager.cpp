@@ -6,11 +6,18 @@
 //	Purpose	:	contains and managse all game objects.
 /////////////////////////////////////////////////
 
+#include <Windows.h>
 #include "CObjectManager.h"
 #include "CPlayer.h"
 #include "CCamera.h"
 #include "IGameModeInterface.h"
 #include "CGamePlayState.h"
+#include "CSGD_Direct3D.h"
+#include "CBase.h"
+#include "CHUD.h"
+#include "CPowerUp.h"
+#include "CCollectable.h"
+
 CObjectManager* CObjectManager::m_pInstance = NULL;
 
 CObjectManager::CObjectManager(void)
@@ -53,9 +60,64 @@ void CObjectManager::UpdateObjects(float fElapsedTime)
 
 void CObjectManager::RenderObjects(CCamera* camera)
 {
+	CSGD_Direct3D* pD3D = CSGD_Direct3D::GetInstance();
+
 	for(size_t i = 0; i < m_vObjectList.size(); i++)
 	{
 		m_vObjectList[i]->Render(camera);
+
+		if( m_vObjectList[i]->GetType() == OBJECT_PLAYER)
+		{
+			CPlayer* player = (CPlayer*)(m_vObjectList[i]);
+			player->GetHudItem()->Render();
+			for( size_t index = 0; index < m_vObjectList.size(); index++)
+			{
+				if( m_vObjectList[index])
+				{
+					if( m_vObjectList[index]->GetType() == OBJECT_BULLET )
+						continue;
+
+					RECT draw_rect;
+					CBase* render_object = (CBase*)m_vObjectList[index];
+					CPlayer* offset_object = (CPlayer*)m_vObjectList[i];
+					draw_rect.left = (render_object->GetPosX()*0.08f) + offset_object->GetHudItem()->GetMiniMapXPos();
+					draw_rect.top = render_object->GetPosY()*0.08f + offset_object->GetHudItem()->GetMiniMapYPos();;
+					draw_rect.right = draw_rect.left + 10;
+					draw_rect.bottom = draw_rect.top + 10;
+
+					// i = THE PLAYER INDEX, index = the rendering objects index
+					if( m_vObjectList[i] == m_vObjectList[index])
+					{
+						pD3D->DrawRect(draw_rect,0,0,255); 
+					}
+					else if( m_vObjectList[index]->GetType() == OBJECT_ENEMY)
+					{
+						pD3D->DrawRect(draw_rect,255,0,0); 
+					}
+					else if( m_vObjectList[index]->GetType() == OBJECT_BOSS)
+					{
+						pD3D->DrawRect(draw_rect,200,0,0); 
+					}
+					else if( m_vObjectList[index]->GetType() == OBJECT_POWERUP )
+					{
+						PowerUp* power = (PowerUp*)(m_vObjectList[index]);
+						if( power->IsActive())
+							pD3D->DrawRect(draw_rect,255,240,0); 
+					}
+					else if( m_vObjectList[index]->GetType() == OBJECT_SPEEDRAMP )
+					{
+						pD3D->DrawRect(draw_rect,255,0,255); 
+					}
+					else if( m_vObjectList[index]->GetType() == OBJECT_COLLECTABLE)
+					{
+						CCollectable* collectable = (CCollectable*)m_vObjectList[index];
+						if( collectable->IsActive())
+							pD3D->DrawRect(draw_rect,0,255,0); 
+					}
+				
+				}
+			}
+		}
 	}
 }
 

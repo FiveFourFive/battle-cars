@@ -351,7 +351,7 @@ bool CCharacterSelection::HandleEnter()
 							m_player2 = m_vPlayerList[CAR_VETTE];
 							m_bPlayer2_turn = false;
 							isAvailable[CAR_VETTE] = false;
-							m_player2->SetWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/flamethrower_icon.png"));
+							m_player2->SetWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/flamerthrower_icon.png"));
 						}
 						else
 							m_pFM->PlaySoundA(m_nIncorrectSelection);

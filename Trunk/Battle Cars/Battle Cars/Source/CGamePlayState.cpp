@@ -48,6 +48,7 @@
 #include "CCollectable.h"
 #include "CCollectionMode.h"
 #include "CCollectState.h"
+#include "CHUD.h"
 
 void LoadCharacters();
 
@@ -750,11 +751,14 @@ void CGamePlayState::Render(void)
 		Level->Render(player2->GetCamera());
 		m_pOM->RenderObjects(player2->GetCamera());
 	}
+
+	
 	if(m_bCollectionChallenge)
 	{
 		char buffer[100];
 		sprintf_s(buffer, "%d", m_nCollectableTotalPlayer);
-		m_pD3D->DrawTextA(buffer, 10, 10);
+		m_pPF->Print(buffer, 10, 10, 1.0f, D3DCOLOR_XRGB(255, 255, 255)); 
+
 	}
 
 	if(!m_bPlaying)
