@@ -74,7 +74,6 @@ private:
 	CEnemy* dummy;
 	vector<PowerUp*> power_ups;
 	vector<CSpeedRamp*> ramps;
-	PowerUp* power_up_power;
 	CCar* dummy2;
 	CPlayer* player2;
 	CBoss* boss;

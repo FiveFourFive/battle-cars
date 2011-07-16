@@ -80,7 +80,11 @@ void CMainMenuState::Exit(void)
 {
 	m_pFM->StopSound(m_nBackgroundMusicID);
 	m_pTM->UnloadTexture(m_nFontID);
-	delete m_pPF;
+	if( m_pPF )
+	{
+		delete m_pPF;
+		m_pPF = NULL;
+	}
 
 }
 
@@ -223,7 +227,7 @@ bool CMainMenuState::HandleEnter(void)
 			CGame::GetInstance()->ChangeState(CGamerProfile::GetInstance());
 			break;
 		case HIGH_SCORES:
-			CGame::GetInstance()->ChangeState(CGamePlayState::GetInstance());
+			//CGame::GetInstance()->ChangeState(CGamePlayState::GetInstance());
 			break;
 		case CREDITS:
 			CGame::GetInstance()->ChangeState(CCreditsScreenState::GetInstance());

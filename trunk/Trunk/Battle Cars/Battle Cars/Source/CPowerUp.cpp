@@ -92,8 +92,7 @@ bool PowerUp::CheckCollision(IBaseInterface* pBase)
 				{
 				if(m_nPtype == WEAPONS_POWERUP)
 				{
-					CCar* car = (CCar*)pBase;
-					CEventSystem::GetInstance()->SendEvent("weapon_level",car);
+					CEventSystem::GetInstance()->SendEvent("weapon_level",pBase);
 				}
 				else if(m_nPtype == SPECIAL_POWERUP)
 				{
@@ -102,6 +101,10 @@ bool PowerUp::CheckCollision(IBaseInterface* pBase)
 				else if(m_nPtype == HEALTH_POWERUP)
 				{
 					CEventSystem::GetInstance()->SendEvent("health_up", pBase);
+				}
+				else if(m_nPtype == SHIELD_POWERUP)
+				{
+					CEventSystem::GetInstance()->SendEvent("powerup_shield", pBase);
 				}
 				m_bActive = false;
 				m_fRespawn = 0.0f;
