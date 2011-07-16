@@ -246,7 +246,14 @@ void CGamePlayState::Enter(void)
 	m_pD3D->Present();
 
 	CSpeedRamp* speedy = new CSpeedRamp();
+	CSpeedRamp* speedy2 = new CSpeedRamp();
+	speedy2->RotateVel(3.14);
+	speedy2->SetPosX(775);
+	speedy->SetPosX(475);
+	speedy->RotateVel(0.0f);
 	speedy->SetImageID(m_pTM->LoadTexture("resource/graphics/speedramp.png"));
+	speedy2->SetImageID(m_pTM->LoadTexture("resource/graphics/speedramp.png"));
+	ramps.push_back(speedy2);
 	ramps.push_back(speedy);
 	dummy->SetSpeedRamps(ramps);
 	//dummy->SetVelX(10);
@@ -255,6 +262,7 @@ void CGamePlayState::Enter(void)
 		m_pOM->AddObject(miniboss);
 		m_pOM->AddObject(dummy2);
 		m_pOM->AddObject(ramps[0]);
+		m_pOM->AddObject(ramps[1]);
 		m_pOM->AddObject(dummy);
 		m_pOM->AddObject(power_ups[0]);
 		m_pOM->AddObject(power_ups[1]);
@@ -391,9 +399,9 @@ void CGamePlayState::Enter(void)
 	m_nBarrelID = m_pTM->LoadTexture("resource/graphics/steeldrum.png");
 
 
-	CObstacle* crate1 = new CObstacle();
-	CObstacle* crate2 = new CObstacle();
-	CObstacle* crate3 = new CObstacle();
+	crate1 = new CObstacle();
+	crate2 = new CObstacle();
+	crate3 = new CObstacle();
 	crate1->SetImageID(m_nCrateID);
 	crate1->SetWidth(10);
 	crate1->SetHeight(10);
@@ -413,8 +421,8 @@ void CGamePlayState::Enter(void)
 	crate2->SetType(OBJECT_OBSTACLE);
 	crate3->SetType(OBJECT_OBSTACLE);
 
-	CObstacle* barrel1 = new CObstacle();
-	CObstacle* barrel2 = new CObstacle();
+	barrel1 = new CObstacle();
+	barrel2 = new CObstacle();
 	barrel1->SetImageID(m_nBarrelID);
 	barrel1->SetWidth(8);
 	barrel1->SetHeight(8);

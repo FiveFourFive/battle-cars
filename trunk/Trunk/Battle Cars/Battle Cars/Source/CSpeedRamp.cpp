@@ -31,7 +31,12 @@ void CSpeedRamp::Render(CCamera* camera)
 	tempdraw.top = (int)(GetPosY() - camera->GetCamY() + (int)camera->GetRenderPosY());
 	tempdraw.right = tempdraw.left + GetWidth();
 	tempdraw.bottom = tempdraw.top + GetHeight();*/
-	CSGD_TextureManager::GetInstance()->Draw(GetImageID(), (int)(GetPosX() - camera->GetCamX() + (int)camera->GetRenderPosX()), (int)(GetPosY() - camera->GetCamY() + (int)camera->GetRenderPosY()));
+	RECT ramp;
+	ramp.left = 0;
+	ramp.top = 0;
+	ramp.right = 128;
+	ramp.bottom = 128;
+	CSGD_TextureManager::GetInstance()->Draw(GetImageID(), (int)(GetPosX() - camera->GetCamX() + (int)camera->GetRenderPosX()), (int)(GetPosY() - camera->GetCamY() + (int)camera->GetRenderPosY()),1.0f,1.0f,&ramp,64,64,m_fRotation);//,(GetPosX()),GetPosY(),m_fRotation);
 	//pD3D->DrawRect(tempdraw,255,0,255);
 }
 
