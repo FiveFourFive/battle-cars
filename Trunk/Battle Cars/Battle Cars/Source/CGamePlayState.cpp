@@ -38,6 +38,7 @@
 #include "CNumPlayers.h"
 #include "CCharacterSelection.h"
 #include "CLevelSelectionState.h"
+#include "CTutorialMode.h"
 #include "CDeathmatchMode.h"
 #include "CKeyboardKeyBinds.h"
 #include "CKeyBinds.h"
@@ -93,20 +94,20 @@ void CGamePlayState::Enter(void)
 
 	m_pD3D	=	CSGD_Direct3D::GetInstance();
 
-	//m_pD3D->Clear(0, 0, 0);
-	//m_pD3D->DeviceBegin();
-	//m_pD3D->SpriteBegin();
+	m_pD3D->Clear(0, 0, 0);
+	m_pD3D->DeviceBegin();
+	m_pD3D->SpriteBegin();
 
 
 	m_pD3D->GetSprite()->Flush();
 	m_pD3D->DrawRect(lowerhalf, 58,58,58);
 	m_pD3D->DrawRect(regular_load, 0, 0, 255);
-	//m_pD3D->GetSprite()->Flush();
+	m_pD3D->GetSprite()->Flush();
 
 
-	//m_pD3D->SpriteEnd();
-	//m_pD3D->DeviceEnd();
-	//m_pD3D->Present();
+	m_pD3D->SpriteEnd();
+	m_pD3D->DeviceEnd();
+	m_pD3D->Present();
 
 	m_pTM	=	CSGD_TextureManager::GetInstance();
 	m_pFM	=	CSGD_FModManager::GetInstance();
@@ -119,34 +120,34 @@ void CGamePlayState::Enter(void)
 	m_pPM	=	ParticleManager::GetInstance();
 	m_pMS->InitMessageSystem (MessageProc);
 
-	//m_pD3D->Clear(0, 0, 0);
-	//m_pD3D->DeviceBegin();
-	//m_pD3D->SpriteBegin();
+	m_pD3D->Clear(0, 0, 0);
+	m_pD3D->DeviceBegin();
+	m_pD3D->SpriteBegin();
 
 	m_pD3D->DrawRect(lowerhalf, 58,58,58);
 	regular_load.right += 25;
 	m_pD3D->DrawRect(regular_load, 0, 0, 255);
 
 
-	//m_pD3D->SpriteEnd();
-	//m_pD3D->DeviceEnd();
-	//m_pD3D->Present();
+	m_pD3D->SpriteEnd();
+	m_pD3D->DeviceEnd();
+	m_pD3D->Present();
 
 	m_pMS->SendMsg (new CCreateLevelMessage());
 	m_pMS->ProcessMessages ();
 
-	//m_pD3D->Clear(0, 0, 0);
-	//m_pD3D->DeviceBegin();
-	//m_pD3D->SpriteBegin();
+	m_pD3D->Clear(0, 0, 0);
+	m_pD3D->DeviceBegin();
+	m_pD3D->SpriteBegin();
 
 	m_pD3D->DrawRect(lowerhalf, 58,58,58);
 	regular_load.right += 100;
 	m_pD3D->DrawRect(regular_load, 0, 0, 255);
 
 
-	//m_pD3D->SpriteEnd();
-	//m_pD3D->DeviceEnd();
-	//m_pD3D->Present();
+	m_pD3D->SpriteEnd();
+	m_pD3D->DeviceEnd();
+	m_pD3D->Present();
 
 	m_pController1 = CGame::GetInstance()->GetController1();
 	m_pController2 = CGame::GetInstance()->GetController2();
@@ -201,31 +202,31 @@ void CGamePlayState::Enter(void)
 	dummy->SetMaxSpeed(200.0f);
 	dummy->EnterState ();
 
-	//m_pD3D->Clear(0, 0, 0);
-	//m_pD3D->DeviceBegin();
-	//m_pD3D->SpriteBegin();
+	m_pD3D->Clear(0, 0, 0);
+	m_pD3D->DeviceBegin();
+	m_pD3D->SpriteBegin();
 
 	m_pD3D->DrawRect(lowerhalf, 58,58,58);
 	regular_load.right += 100;
 	m_pD3D->DrawRect(regular_load, 0, 0, 255);
 
 
-	//m_pD3D->SpriteEnd();
-	//m_pD3D->DeviceEnd();
-	//m_pD3D->Present();
-	//
-	//m_pD3D->Clear(0, 0, 0);
-	//m_pD3D->DeviceBegin();
-	//m_pD3D->SpriteBegin();
+	m_pD3D->SpriteEnd();
+	m_pD3D->DeviceEnd();
+	m_pD3D->Present();
+	
+	m_pD3D->Clear(0, 0, 0);
+	m_pD3D->DeviceBegin();
+	m_pD3D->SpriteBegin();
 
 	m_pD3D->DrawRect(lowerhalf, 58,58,58);
 	regular_load.right += 25;
 	m_pD3D->DrawRect(regular_load, 0, 0, 255);
 
 
-	//m_pD3D->SpriteEnd();
-	//m_pD3D->DeviceEnd();
-	//m_pD3D->Present();
+	m_pD3D->SpriteEnd();
+	m_pD3D->DeviceEnd();
+	m_pD3D->Present();
 
 	CSpeedRamp* speedy = new CSpeedRamp();
 	ramps.push_back(speedy);
@@ -296,9 +297,9 @@ void CGamePlayState::Enter(void)
 
 	Level->SetSpawn (player2);
 
-	//m_pD3D->Clear(0, 0, 0);
-	//m_pD3D->DeviceBegin();
-	//m_pD3D->SpriteBegin();
+	m_pD3D->Clear(0, 0, 0);
+	m_pD3D->DeviceBegin();
+	m_pD3D->SpriteBegin();
 
 
 	m_pD3D->DrawRect(lowerhalf, 58,58,58);
@@ -306,9 +307,9 @@ void CGamePlayState::Enter(void)
 	m_pD3D->DrawRect(regular_load, 0, 0, 255);
 
 
-	//m_pD3D->SpriteEnd();
-	//m_pD3D->DeviceEnd();
-	//m_pD3D->Present();
+	m_pD3D->SpriteEnd();
+	m_pD3D->DeviceEnd();
+	m_pD3D->Present();
 
 	m_pPM->LoadEmittor("resource/data/collision.xml");
 	m_pPM->LoadEmittor("resource/data/missle_flame.xml");
@@ -325,9 +326,9 @@ void CGamePlayState::Enter(void)
 
 	
 
-	//m_pD3D->Clear(0, 0, 0);
-	//m_pD3D->DeviceBegin();
-	//m_pD3D->SpriteBegin();
+	m_pD3D->Clear(0, 0, 0);
+	m_pD3D->DeviceBegin();
+	m_pD3D->SpriteBegin();
 
 
 	m_pD3D->DrawRect(lowerhalf, 58,58,58);
@@ -335,9 +336,9 @@ void CGamePlayState::Enter(void)
 	m_pD3D->DrawRect(regular_load, 0, 0, 255);
 
 
-	//m_pD3D->SpriteEnd();
-	//m_pD3D->DeviceEnd();
-	//m_pD3D->Present();
+	m_pD3D->SpriteEnd();
+	m_pD3D->DeviceEnd();
+	m_pD3D->Present();
 	Setvolume();
 
 	m_nMiniMapOverlayIndex=m_pTM->LoadTexture("resource/graphics/HUDS/minimap_overlay.png");
@@ -437,6 +438,77 @@ bool CGamePlayState::Input()
 		}
 		if(m_bPlaying)
 		{
+			if(m_pMode==CTutorialMode::GetInstance())
+			{
+				if(m_pDI->KeyPressed(DIK_ESCAPE))
+				{
+					((CTutorialMode*)m_pMode)->ToggleSkipTutorial();
+				}
+				if(((CTutorialMode*)m_pMode)->GetCurrMessage()==1)
+				{
+					if(!((CTutorialMode*)m_pMode)->GetTryStart())
+					{
+						if(m_pDI->KeyPressed(DIK_RETURN))
+						{
+							((CTutorialMode*)m_pMode)->SetTryStart(true);
+							((CTutorialMode*)m_pMode)->SetCurrMessage(2);
+						}
+					}
+				}
+				if(((CTutorialMode*)m_pMode)->GetCurrMessage()==2)
+				{
+					if(!((CTutorialMode*)m_pMode)->GetTryMoved())
+					{
+						if(m_pDI->KeyPressed(DIK_UP))
+						{
+							((CTutorialMode*)m_pMode)->SetTryMoved(true);
+							((CTutorialMode*)m_pMode)->SetCurrMessage(3);
+						}
+					}
+				}
+				if(((CTutorialMode*)m_pMode)->GetCurrMessage()==3)
+				{
+					if(!((CTutorialMode*)m_pMode)->GetTryTurn())
+					{
+						if(m_pDI->KeyPressed(DIK_LEFT) || m_pDI->KeyPressed(DIK_RIGHT))
+						{
+							((CTutorialMode*)m_pMode)->SetTryTurn(true);
+							((CTutorialMode*)m_pMode)->SetCurrMessage(4);
+						}
+					}
+				}
+				
+				if(((CTutorialMode*)m_pMode)->GetCurrMessage()==4)
+				{
+					if(!((CTutorialMode*)m_pMode)->GetTryShoot())
+					{
+						if(m_pDI->KeyPressed(DIK_SPACE))
+						{
+							((CTutorialMode*)m_pMode)->SetTryShoot(true);
+							((CTutorialMode*)m_pMode)->SetCurrMessage(5);
+						}
+					}
+				}
+				
+				if(((CTutorialMode*)m_pMode)->GetCurrMessage()==5)
+				{
+					if(!((CTutorialMode*)m_pMode)->GetTryToggleWeapon())
+					{
+						if(m_pDI->KeyPressed(DIK_LCONTROL))
+						{
+							((CTutorialMode*)m_pMode)->SetTryToggleWeapon(true);
+							((CTutorialMode*)m_pMode)->SetCurrMessage(6);
+						}
+					}
+				}
+				if(((CTutorialMode*)m_pMode)->GetCurrMessage()==6)
+				{
+					if(m_pDI->KeyPressed(DIK_RETURN))
+					{
+						((CTutorialMode*)m_pMode)->ToggleSkipTutorial();
+					}
+				}
+			}
 			if(m_pDI->KeyPressed(DIK_M))
 			{
 				CGame::GetInstance()->RemoveState(this);
@@ -551,6 +623,11 @@ void CGamePlayState::Render(void)
 	Level->Render (player->GetCamera ());
 	m_pOM->RenderObjects(player->GetCamera());
 
+	if(m_pMode==CTutorialMode::GetInstance())
+	{
+		m_pPF->Print(CTutorialMode::GetInstance()->GetMessage(0).c_str(),CGame::GetInstance()->GetScreenWidth()/4,0,1.0f,D3DCOLOR_ARGB(255,255,255,255));
+		m_pPF->Print(CTutorialMode::GetInstance()->GetMessage(CTutorialMode::GetInstance()->GetCurrMessage()).c_str(),CGame::GetInstance()->GetScreenWidth()/4,CGame::GetInstance()->GetScreenHeight()/2,1.0f,D3DCOLOR_ARGB(255,255,255,255));
+	}
 	if( CNumPlayers::GetInstance()->GetNumberOfPlayers() == 2)
 	{
 		Level->Render(player2->GetCamera());

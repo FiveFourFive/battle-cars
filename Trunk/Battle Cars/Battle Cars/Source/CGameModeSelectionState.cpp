@@ -1,5 +1,6 @@
 #include "CGameModeSelectionState.h"
 #include "CDeathmatchMode.h"
+#include "CTutorialMode.h"
 #include "CTimeChallengeMode.h"
 #include "CPrintFont.h"
 #include "CSGD_TextureManager.h"
@@ -169,6 +170,8 @@ void CGameModeSelectionState::Render(void)
 		break;
 	case WS_TUT:
 		m_pPF->Print("Tutorial",100,500,0.8f,D3DCOLOR_XRGB(0,255,0));
+		m_pPF->Print(" --- New to the game? learn the rules and controls of the game in this", 300.0f, 500.0f, 0.5f, D3DCOLOR_XRGB(255,255,255));
+		m_pPF->Print("     In-depth Tutorial level.", 300.0f, 530.0f, 0.5f, D3DCOLOR_XRGB(255,255,255));
 		break;
 
 	}
@@ -193,6 +196,8 @@ bool CGameModeSelectionState::HandleEnter(void)
 		
 		break;
 	case WS_TUT:
+		CGamePlayState::GetInstance()->SetGameMode(CTutorialMode::GetInstance());
+		CGame::GetInstance()->AddState(CLevelSelectionState::GetInstance());
 		
 		
 		break;

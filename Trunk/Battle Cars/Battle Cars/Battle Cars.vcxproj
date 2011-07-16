@@ -102,6 +102,7 @@
     <ClCompile Include="Source\CLandMine.cpp" />
     <ClCompile Include="Source\CLevel.cpp" />
     <ClCompile Include="Source\CLevelSelectionState.cpp" />
+    <ClCompile Include="Source\CLoadingState.cpp" />
     <ClCompile Include="Source\CLossState.cpp" />
     <ClCompile Include="Source\CMainMenuState.cpp" />
     <ClCompile Include="Source\CMap.cpp" />
@@ -122,6 +123,7 @@
     <ClCompile Include="Source\CStopWatch.cpp" />
     <ClCompile Include="Source\CTile.cpp" />
     <ClCompile Include="Source\CTimeChallengeMode.cpp" />
+    <ClCompile Include="Source\CTutorialMode.cpp" />
     <ClCompile Include="Source\CWanderState.cpp" />
     <ClCompile Include="Source\CWinState.cpp" />
     <ClCompile Include="Source\CXboxInput.cpp" />
@@ -163,6 +165,7 @@
     <ClInclude Include="Source\CLandMine.h" />
     <ClInclude Include="Source\CLevel.h" />
     <ClInclude Include="Source\CLevelSelectionState.h" />
+    <ClInclude Include="Source\CLoadingState.h" />
     <ClInclude Include="Source\CLossState.h" />
     <ClInclude Include="Source\CMainMenuState.h" />
     <ClInclude Include="Source\CMap.h" />
@@ -184,6 +187,7 @@
     <ClInclude Include="Source\CStopWatch.h" />
     <ClInclude Include="Source\CTile.h" />
     <ClInclude Include="Source\CTimeChallengeMode.h" />
+    <ClInclude Include="Source\CTutorialMode.h" />
     <ClInclude Include="Source\CWanderState.h" />
     <ClInclude Include="Source\CWinState.h" />
     <ClInclude Include="Source\CXboxInput.h" />
