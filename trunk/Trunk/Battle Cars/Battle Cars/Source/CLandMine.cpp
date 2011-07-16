@@ -35,7 +35,7 @@ void CLandMine::Render(CCamera* camera)
 	temppos.top = (LONG)(GetPosY() - camera->GetCamY() + camera->GetRenderPosY());
 	temppos.right = (LONG)(temppos.left + GetWidth());
 	temppos.bottom = (LONG)(temppos.top + GetHeight());
-	CSGD_Direct3D::GetInstance()->DrawRect(temppos,255,255,255);
+	//CSGD_Direct3D::GetInstance()->DrawRect(temppos,255,255,255);
 	GetTextureManager()->Draw(GetImageID(),(int)(GetPosX()-(GetWidth() * .5f)) - (int)camera->GetCamX() + (int)camera->GetRenderPosX(),(int)(GetPosY()-(GetHeight()*.5f)) - (int)camera->GetCamY() + (int)camera->GetRenderPosY(),GetScale(),GetScale());
 }
 
