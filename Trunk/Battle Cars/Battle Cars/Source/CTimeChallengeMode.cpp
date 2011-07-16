@@ -152,5 +152,7 @@ void CTimeChallengeMode::CheckWinLoss()
 		}
 		else
 			CGame::GetInstance()->ChangeState(CLossState::GetInstance());
+
+		m_bGameOver = false;
 	}
 }

@@ -257,13 +257,7 @@ void CCharacterSelection::Render()
 		break;
 	}
 
-	RECT render_rect;
-	render_rect.left = 0;
-	render_rect.top = 0;
-	render_rect.right = render_rect.left + currPlayer->GetWidth();
-	render_rect.bottom = render_rect.top + currPlayer->GetHeight();
-
-	m_pTM->Draw(currPlayer->GetImageID(), 450, 25, 1.0f, 1.0f, &render_rect);
+	m_pTM->Draw(currPlayer->GetImageID(), 650, 25, 1.0f, 1.0f);
 
 	RECT render_health_rect;
 	render_health_rect.left = 450;
@@ -582,14 +576,12 @@ bool CCharacterSelection::LoadCharacters()
 		tVector2D temp = {0,0};
 		character->SetSpeed(0);
 		character->SetType(OBJECT_PLAYER);
-		character->SetWidth(52);
-		character->SetHeight(70);
 		character->SetPosX(350);
 		character->SetPosY(225);
 		character->SetPlayerType(counter);
 		string temp_buffer = "resource/graphics/";
 		temp_buffer += buffer;
-		character->SetImageID(m_pTM->LoadTexture(temp_buffer.c_str(), D3DCOLOR_XRGB(255,255,255))); 
+		character->SetImageID(m_pTM->LoadTexture(temp_buffer.c_str()));
 		counter++;
 		m_vPlayerList.push_back(character);
 		pCharacterRoot = pCharacterRoot->NextSiblingElement("character");
