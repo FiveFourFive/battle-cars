@@ -241,6 +241,7 @@ void CGamePlayState::Enter(void)
 	m_pD3D->Present();
 
 	CSpeedRamp* speedy = new CSpeedRamp();
+	speedy->SetImageID(m_pTM->LoadTexture("resource/graphics/speedramp.png"));
 	ramps.push_back(speedy);
 	dummy->SetSpeedRamps(ramps);
 	//dummy->SetVelX(10);
