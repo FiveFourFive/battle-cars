@@ -36,6 +36,8 @@ CBoss::CBoss(CXboxInput* pController) : CEnemy(pController)
 	this->SetRotationRate(6.28f);
 	SetWidth(52);
 	SetHeight(70);
+	SetImageWidth(82);
+	SetImageHeight(173);
 	SetRadius((float)(GetWidth()/2.0f));
 	SetCollisionX1(GetPosX());
 	SetCollisionY1(GetPosY() - (GetHeight()*0.5f) + (GetWidth()*0.5f));

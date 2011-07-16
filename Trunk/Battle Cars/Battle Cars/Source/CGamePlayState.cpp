@@ -338,7 +338,7 @@ void CGamePlayState::Enter(void)
 	//m_pD3D->SpriteEnd();
 	//m_pD3D->DeviceEnd();
 	//m_pD3D->Present();
-
+	Setvolume();
 
 	m_nMiniMapOverlayIndex=m_pTM->LoadTexture("resource/graphics/HUDS/minimap_overlay.png");
 	m_nMiniMapMiddlelayIndex=m_pTM->LoadTexture("resource/graphics/HUDS/minimap_middlelay.png");
@@ -661,7 +661,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			temp.fY = -1;
 			temp = Vector2DRotate(temp,pCBM->GetPlayer()->GetRotation());
 			Vector2DNormalize(temp);
-			temp = temp * 350;
+			temp = temp * (350+ pCBM->GetPlayer()->GetSpeed());
 
 			pBullet->SetScale(0.5f);
 			pBullet->SetOwner(pCBM->GetPlayer());
@@ -695,7 +695,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			temp.fY = -1;
 			temp = Vector2DRotate(temp,pCBM->GetPlayer()->GetRotation());
 			Vector2DNormalize(temp);
-			temp = temp * 350;
+			temp = temp * (350+ pCBM->GetPlayer()->GetSpeed());
 
 			pBullet->SetScale(0.5f);
 			pBullet->SetOwner(pCBM->GetPlayer());
@@ -812,7 +812,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			temp.fY = -1;
 			temp = Vector2DRotate(temp,pCMS->GetPlayer()->GetRotation()-.5f);
 			Vector2DNormalize(temp);
-			temp = temp * 350;
+			temp = temp * (350+ pCMS->GetPlayer()->GetSpeed());
 			pBullet->SetVelX(temp.fX);
 			pBullet->SetVelY(temp.fY);
 			//
@@ -820,7 +820,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			temp.fY = -1;
 			temp = Vector2DRotate(temp,pCMS->GetPlayer()->GetRotation()-.25f);
 			Vector2DNormalize(temp);
-			temp = temp * 350;
+			temp = temp * (350+ pCMS->GetPlayer()->GetSpeed());
 			pBullet1->SetVelX(temp.fX);
 			pBullet1->SetVelY(temp.fY);
 			//
@@ -828,7 +828,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			temp.fY = -1;
 			temp = Vector2DRotate(temp,pCMS->GetPlayer()->GetRotation());
 			Vector2DNormalize(temp);
-			temp = temp * 350;
+			temp = temp * (350+ pCMS->GetPlayer()->GetSpeed());
 			pBullet2->SetVelX(temp.fX);
 			pBullet2->SetVelY(temp.fY);
 			//
@@ -836,7 +836,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			temp.fY = -1;
 			temp = Vector2DRotate(temp,pCMS->GetPlayer()->GetRotation()+.25f);
 			Vector2DNormalize(temp);
-			temp = temp * 350;
+			temp = temp * (350+ pCMS->GetPlayer()->GetSpeed());
 			pBullet3->SetVelX(temp.fX);
 			pBullet3->SetVelY(temp.fY);
 			//
@@ -844,7 +844,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			temp.fY = -1;
 			temp = Vector2DRotate(temp,pCMS->GetPlayer()->GetRotation()+.5f);
 			Vector2DNormalize(temp);
-			temp = temp * 350;
+			temp = temp * (350+ pCMS->GetPlayer()->GetSpeed());
 			pBullet4->SetVelX(temp.fX);
 			pBullet4->SetVelY(temp.fY);
 
@@ -1060,7 +1060,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			temp.fY = -1;
 			temp = Vector2DRotate(temp,pCVS->GetPlayer()->GetRotation());
 			Vector2DNormalize(temp);
-			temp = temp * 350;
+			temp = temp * (350+ pCVS->GetPlayer()->GetSpeed());
 			pBullet->SetVelX(temp.fX);
 			pBullet->SetVelY(temp.fY);
 
@@ -1068,7 +1068,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			temp.fY = -1;
 			temp = Vector2DRotate(temp,pCVS->GetPlayer()->GetRotation()-.03);
 			Vector2DNormalize(temp);
-			temp = temp * 350;
+			temp = temp * (350+ pCVS->GetPlayer()->GetSpeed());
 			pBullet1->SetVelX(temp.fX);
 			pBullet1->SetVelY(temp.fY);
 
@@ -1076,7 +1076,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			temp.fY = -1;
 			temp = Vector2DRotate(temp,pCVS->GetPlayer()->GetRotation()+.03);
 			Vector2DNormalize(temp);
-			temp = temp * 350;
+			temp = temp * (350+ pCVS->GetPlayer()->GetSpeed());
 			pBullet2->SetVelX(temp.fX);
 			pBullet2->SetVelY(temp.fY);
 
@@ -1084,7 +1084,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			temp.fY = -1;
 			temp = Vector2DRotate(temp,pCVS->GetPlayer()->GetRotation()-.06);
 			Vector2DNormalize(temp);
-			temp = temp * 350;
+			temp = temp * (350+ pCVS->GetPlayer()->GetSpeed());
 			pBullet3->SetVelX(temp.fX);
 			pBullet3->SetVelY(temp.fY);
 
@@ -1092,7 +1092,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			temp.fY = -1;
 			temp = Vector2DRotate(temp,pCVS->GetPlayer()->GetRotation()+.06);
 			Vector2DNormalize(temp);
-			temp = temp * 350;
+			temp = temp * (350+ pCVS->GetPlayer()->GetSpeed());
 			pBullet4->SetVelX(temp.fX);
 			pBullet4->SetVelY(temp.fY);
 
@@ -1136,7 +1136,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			temp.fY = -1;
 			temp = Vector2DRotate(temp,pCHS->GetPlayer()->GetRotation());
 			Vector2DNormalize(temp);
-			temp = temp * 350;
+			temp = temp * (350+ pCHS->GetPlayer()->GetSpeed());
 			pBullet->SetVelX(temp.fX);
 			pBullet->SetVelY(temp.fY);
 			pGame->m_pOM->AddObject(pBullet);
@@ -1198,7 +1198,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			temp.fY = -1;
 			temp = Vector2DRotate(temp,pEBM->GetEnemy()->GetRotation());
 			Vector2DNormalize(temp);
-			temp = temp * 350;
+			temp = temp * (350+ pEBM->GetEnemy()->GetSpeed());
 
 			pBullet->SetScale(0.5f);
 
@@ -1319,7 +1319,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 				temp.fY = -1;
 				temp = Vector2DRotate(temp,pBMS->GetBoss()->GetRotation()-.5f);
 				Vector2DNormalize(temp);
-				temp = temp * 350;
+				temp = temp * (350+ pBMS->GetBoss()->GetSpeed());
 				pBullet->SetVelX(temp.fX);
 				pBullet->SetVelY(temp.fY);
 				//
@@ -1327,7 +1327,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 				temp.fY = -1;
 				temp = Vector2DRotate(temp,pBMS->GetBoss()->GetRotation()-.25f);
 				Vector2DNormalize(temp);
-				temp = temp * 350;
+				temp = temp * (350+ pBMS->GetBoss()->GetSpeed());
 				pBullet1->SetVelX(temp.fX);
 				pBullet1->SetVelY(temp.fY);
 				//
@@ -1335,7 +1335,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 				temp.fY = -1;
 				temp = Vector2DRotate(temp,pBMS->GetBoss()->GetRotation());
 				Vector2DNormalize(temp);
-				temp = temp * 350;
+				temp = temp * (350+ pBMS->GetBoss()->GetSpeed());
 				pBullet2->SetVelX(temp.fX);
 				pBullet2->SetVelY(temp.fY);
 				//
@@ -1343,7 +1343,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 				temp.fY = -1;
 				temp = Vector2DRotate(temp,pBMS->GetBoss()->GetRotation()+.25f);
 				Vector2DNormalize(temp);
-				temp = temp * 350;
+				temp = temp * (350+ pBMS->GetBoss()->GetSpeed());
 				pBullet3->SetVelX(temp.fX);
 				pBullet3->SetVelY(temp.fY);
 				//
@@ -1351,7 +1351,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 				temp.fY = -1;
 				temp = Vector2DRotate(temp,pBMS->GetBoss()->GetRotation()+.5f);
 				Vector2DNormalize(temp);
-				temp = temp * 350;
+				temp = temp * (350+ pBMS->GetBoss()->GetSpeed());
 				pBullet4->SetVelX(temp.fX);
 				pBullet4->SetVelY(temp.fY);
 
@@ -1443,7 +1443,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 				temp.fY = -1;
 				temp = Vector2DRotate(temp,pBVS->GetBoss()->GetRotation());
 				Vector2DNormalize(temp);
-				temp = temp * 350;
+				temp = temp * (350+ pBVS->GetBoss()->GetSpeed());
 				pBullet->SetVelX(temp.fX);
 				pBullet->SetVelY(temp.fY);
 
@@ -1451,7 +1451,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 				temp.fY = -1;
 				temp = Vector2DRotate(temp,pBVS->GetBoss()->GetRotation()-.03);
 				Vector2DNormalize(temp);
-				temp = temp * 350;
+				temp = temp * (350 + pBVS->GetBoss()->GetSpeed());
 				pBullet1->SetVelX(temp.fX);
 				pBullet1->SetVelY(temp.fY);
 
@@ -1459,7 +1459,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 				temp.fY = -1;
 				temp = Vector2DRotate(temp,pBVS->GetBoss()->GetRotation()+.03);
 				Vector2DNormalize(temp);
-				temp = temp * 350;
+				temp = temp * (350 + pBVS->GetBoss()->GetSpeed());
 				pBullet2->SetVelX(temp.fX);
 				pBullet2->SetVelY(temp.fY);
 
@@ -1467,7 +1467,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 				temp.fY = -1;
 				temp = Vector2DRotate(temp,pBVS->GetBoss()->GetRotation()-.06);
 				Vector2DNormalize(temp);
-				temp = temp * 350;
+				temp = temp * (350 + pBVS->GetBoss()->GetSpeed());
 				pBullet3->SetVelX(temp.fX);
 				pBullet3->SetVelY(temp.fY);
 
@@ -1475,7 +1475,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 				temp.fY = -1;
 				temp = Vector2DRotate(temp,pBVS->GetBoss()->GetRotation()+.06);
 				Vector2DNormalize(temp);
-				temp = temp * 350;
+				temp = temp * (350 + pBVS->GetBoss()->GetSpeed());
 				pBullet4->SetVelX(temp.fX);
 				pBullet4->SetVelY(temp.fY);
 
@@ -1519,7 +1519,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			temp.fY = -1;
 			temp = Vector2DRotate(temp,pBHS->GetBoss()->GetRotation());
 			Vector2DNormalize(temp);
-			temp = temp * 350;
+			temp = temp * (350 + pBHS->GetBoss()->GetSpeed());
 			pBullet->SetVelX(temp.fX);
 			pBullet->SetVelY(temp.fY);
 			pGame->m_pOM->AddObject(pBullet);
@@ -1683,7 +1683,10 @@ void CGamePlayState::SortScores(int left, int right)
 
 void CGamePlayState::Setvolume(void)
 {
+	if(m_nCountDownEnd != 0)
 	m_pFM->SetVolume(m_nCountDownEnd,CGame::GetInstance()->getSoundAVolume());
+	if(m_nCountDown != 0)
 	m_pFM->SetVolume(m_nCountDown,CGame::GetInstance()->getSoundAVolume());
+	if(m_nBackgroundMusicID != 0)
 	m_pFM->SetVolume(m_nBackgroundMusicID,CGame::GetInstance()->getSoundBVolume());
 }

@@ -1,5 +1,5 @@
 #include "CGamerProfile.h"
-
+#include <string>
 #include <stdio.h>
 #include "tinyxml.h"
 #include "CGame.h"
@@ -38,11 +38,11 @@ CGamerProfile::CGamerProfile()
 	CurrPos = 200;
 
 	LoadProfiles("resource/data/gamer_profile.xml");
-	for(unsigned int i = 0; i < m_vUserProfiles.size(); i++)
+	/*for(unsigned int i = 0; i < m_vUserProfiles.size(); i++)
 	{
 		m_vUserProfiles[i]->m_pKB = CGame::GetInstance()->GetController1()->GetKB();
 		m_vUserProfiles[i]->m_pKKB = CGame::GetInstance()->GetKeyboardKeyBinds();
-	}
+	}*/
 
 	activeProfile = m_vUserProfiles[0];
 }
@@ -300,10 +300,50 @@ bool CGamerProfile::LoadProfiles(const char* szXmlFileName)
 		Gamer_Profile* temp = new Gamer_Profile();
 
 		temp->m_sUserName = pGamerProfile->GetText();
+		TiXmlElement* Sounds = pGamerProfile->FirstChildElement("Sounds");
+		TiXmlElement* KB = pGamerProfile->FirstChildElement("Controller_Keybinds");
 
+		double sfx;
+		double bg;
+		Sounds->Attribute("SFX",&sfx);
+		Sounds->Attribute("Background",&bg);
+		temp->m_sfx = sfx;
+		temp->m_background = bg;
+		
+		CKeyBinds* tempkb = new CKeyBinds();
+		CKeyboardKeyBinds* tempkkb = new CKeyboardKeyBinds();
+		int shoot;
+		int changeweapon;
+
+		int kshoot;
+		int kchangeweapon;
+		int kforward;
+		int kbackward;
+		int kleft;
+		int kright;
+
+		KB->Attribute("shoot",&shoot);
+		KB->Attribute("change_weapon",&changeweapon);
+		KB->Attribute("kshoot",&kshoot);
+		KB->Attribute("kchange_weapon",&kchangeweapon);
+		KB->Attribute("kforward",&kforward);
+		KB->Attribute("kbackward",&kbackward);
+		KB->Attribute("kleft",&kleft);
+		KB->Attribute("krigt",&kright);
+		tempkb->SetShoot(shoot);
+		tempkb->SetChangeWeapon(changeweapon);
+		tempkkb->SetShoot(kshoot);
+		tempkkb->SetChangeWeapon(kchangeweapon);
+		tempkkb->SetForward(kforward);
+		tempkkb->SetBackward(kbackward);
+		tempkkb->SetLeft(kleft);
+		tempkkb->SetRight(kright);
+		temp->m_pKB = tempkb;
+		temp->m_pKKB = tempkkb;
 		m_vUserProfiles.push_back(temp);
-
 		pGamerProfile = pGamerProfile->NextSiblingElement();
+
+
 	}
 #pragma endregion
 
@@ -353,7 +393,25 @@ bool CGamerProfile::SaveProfiles(const char* szXmlFileName)
 		pKB->SetAttribute("kright",right);
 		pKB->SetAttribute("kchange_weapon", kchange_weapon);
 		
-
+		TiXmlElement* pSounds = new TiXmlElement("Sounds");
+		float sfx;
+		float background;
+		if(!strcmp(GetActiveProfile()->m_sUserName.c_str(),m_vUserProfiles[i]->m_sUserName.c_str()))
+		{
+			sfx = CGame::GetInstance()->getSoundAVolume();
+			background = CGame::GetInstance()->getSoundBVolume();
+			sfx *= 100;
+			background *= 100;
+		}
+		else
+		{
+			sfx = m_vUserProfiles[i]->m_sfx;
+			background = m_vUserProfiles[i]->m_background;
+		}
+		pSounds->SetAttribute("SFX",sfx);
+		pSounds->SetAttribute("Background",background);
+		
+		pProfile->LinkEndChild(pSounds);
 		pProfile->LinkEndChild(pKB);
 		//pProfile->LinkEndChild(pKKB);
 		pRoot->LinkEndChild(pProfile);
