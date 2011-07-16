@@ -26,6 +26,8 @@ CLevelSelectionState::CLevelSelectionState()
 		m_ListofLevels[i] = NULL;
 	}
 
+	m_nBGImageID = -1;
+
 	if( LoadLevel("resource/data/LevelSelectionData.xml") == false)
 		MessageBox(0, "Failed to Load Level Image and Data FileName", 0, 0);
 }
@@ -53,6 +55,7 @@ void CLevelSelectionState::Enter()
 
 	m_pPF = new CPrintFont(m_nFontID);
 
+	m_nBGImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/mainmenu_bg.jpg");
 	m_nSelection = 0;
 
 }
@@ -141,8 +144,7 @@ void CLevelSelectionState::Render()
 {
 	CSGD_Direct3D::GetInstance()->GetSprite()->Flush();
 
-	RECT temp_render = {0, 0, CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight()};
-	CSGD_Direct3D::GetInstance()->DrawRect( temp_render, 0,0,0);
+	m_pTM->Draw(m_nBGImageID, 0, 0, 2.9f, 1.8f);
 
 	for( int i = 0; i < LEVEL_MAX; i++)
 	{
