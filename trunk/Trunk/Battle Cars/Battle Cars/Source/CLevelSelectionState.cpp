@@ -192,10 +192,14 @@ bool CLevelSelectionState::LoadLevel(const char* szXmlFileName)
 			texturefilename += pImageName->GetText();
 			m_ListofLevels[index]->ImageID = m_pTM->LoadTexture(texturefilename.c_str());
 		}
+		else
+			MessageBox(0, "Failed to load image name",0,0);
 
 		TiXmlElement* pDataName = pLevel->FirstChildElement("LevelDataName");
 		if( pDataName != NULL)
 			m_ListofLevels[index]->FileName = pDataName->GetText();
+		else
+			MessageBox(0,"Failed to load data name",0,0);
 
 		index++;
 		pLevel = pLevel->NextSiblingElement();

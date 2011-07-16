@@ -755,8 +755,8 @@ void CGamePlayState::Update(float fElapsedTime)
 		m_pFM->Update();
 		m_pOM->UpdateObjects(fElapsedTime);
 
-		Level->CheckCameraCollision (player->GetCamera ());
-		Level->CheckWorldCollision (player);
+		//Level->CheckCameraCollision (player->GetCamera ());
+		//Level->CheckWorldCollision (player);
 
 		m_pES->ProcessEvents ();
 		m_pPM->UpdateEmittors(fElapsedTime);

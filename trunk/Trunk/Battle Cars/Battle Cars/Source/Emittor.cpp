@@ -35,12 +35,12 @@ Emittor::Emittor()
 
 Emittor::~Emittor()
 {
-	for( unsigned int i = 0; i < m_vParticleList.size(); i++)
+	/*for( unsigned int i = 0; i < m_vParticleList.size(); i++)
 	{
 		delete m_vParticleList[i];
 		m_vParticleList[i] = NULL;
 	}
-	m_vParticleList.clear();
+	m_vParticleList.clear();*/
 }
 
 void Emittor::Update(float fElapsedTime)
