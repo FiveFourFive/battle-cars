@@ -368,7 +368,7 @@ void CGamePlayState::Enter(void)
 	m_pPM->LoadEmittor("resource/data/car_exploded.xml");
 
 	
-	time = 60;
+	time = 300;
 	m_fElapsedSecond = 0.0f;
 	score = 0;
 
@@ -789,7 +789,7 @@ void CGamePlayState::Update(float fElapsedTime)
 				m_pFM->PlaySound(m_nCountDown);
 				m_fEnlarge = 0.0f;
 			}
-			if(m_fCountDown >= 2.0f)
+			if(m_fCountDown >= 5.0f)
 			{
 				m_pFM->PlaySound(m_nCountDownEnd);
 				m_bPlaying = true;

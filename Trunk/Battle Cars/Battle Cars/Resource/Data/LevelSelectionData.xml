@@ -7,11 +7,7 @@
         <Level>
                <LevelImageName>level2.bmp</LevelImageName>
                <LevelDataName>Junkyard.xml</LevelDataName>
-        </Level>
-	<Level>
-		<LevelImageName>level1.bmp</LevelImageName>
-		<LevelDataName>Playable.xml</LevelDataName>
-	</Level>
+        </Level>\
 </Levels>
 
 
