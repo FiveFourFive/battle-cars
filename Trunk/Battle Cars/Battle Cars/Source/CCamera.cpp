@@ -67,11 +67,11 @@ void CCamera::Update(void)
 
 	if( (this->camPosX + this->GetWidth()) > (map->GetMapWidth() * map->GetPixelWidth()) )
 	{
-		this->camPosX = (map->GetMapWidth() * map->GetPixelWidth()) - this->GetWidth() + this->owner->GetWidth() * 0.5f;
+		this->camPosX = (map->GetMapWidth() * map->GetPixelWidth()) - this->GetWidth();
 	}
 	if( (this->camPosY + this->GetHeight()) > map->GetMapHeight() * map->GetPixelHeight() )
 	{
-		this->camPosY = (map->GetMapHeight() * map->GetPixelHeight()) - this->GetHeight() + this->owner->GetHeight() * 0.5f;;
+		this->camPosY = (map->GetMapHeight() * map->GetPixelHeight()) - this->GetHeight();;
 	}
 
 	if( this->camPosX < 0 )
