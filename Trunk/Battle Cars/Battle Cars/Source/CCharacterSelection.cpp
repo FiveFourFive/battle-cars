@@ -9,6 +9,7 @@
 #include "CMainMenuState.h"
 #include "CPlayer.h"
 #include "CGamePlayState.h"
+#include "CLoadingState.h"
 #include "CNumPlayers.h"
 
 #include "SGD_Math.h"
@@ -456,6 +457,7 @@ bool CCharacterSelection::HandleEnter()
 			{
 				CGame::GetInstance()->RemoveState(this);
 				CGame::GetInstance()->ChangeState(CGamePlayState::GetInstance());
+				//CGame::GetInstance()->ChangeState(CLoadingState::GetInstance());
 			}
 		}
 	}
@@ -526,6 +528,7 @@ bool CCharacterSelection::HandleEnter()
 			{
 				CGame::GetInstance()->RemoveState(this);
 				CGame::GetInstance()->ChangeState(CGamePlayState::GetInstance());
+				//CGame::GetInstance()->ChangeState(CLoadingState::GetInstance());
 			}
 		}
 	}

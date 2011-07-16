@@ -71,10 +71,12 @@ void CHUD::Render(void)
 	shield.bottom = shield.top + 30;
 	pD3D->DrawRect(shield,105,105,105);
 
-	power.left =  0 + 90 + pCamera->GetRenderPosX() + (CGame::GetInstance()->GetScreenWidth()*0.05f);
-	power.top = 0 + pCamera->GetHeight() - 50 - pCamera->GetRenderPosY() - (CGame::GetInstance()->GetScreenHeight()*0.05f);
+	m_pTM->Draw(m_nHealthID, 128 + pCamera->GetRenderPosX() + (CGame::GetInstance()->GetScreenWidth()*0.05f),pCamera->GetHeight() - 50 - pCamera->GetRenderPosY() - (CGame::GetInstance()->GetScreenHeight()*0.05f),1.0f,.5f);
+	CSGD_Direct3D::GetInstance()->GetSprite()->Flush();
+	power.left =  0 + 128 + pCamera->GetRenderPosX() + (CGame::GetInstance()->GetScreenWidth()*0.05f);
+	power.top = 8 + pCamera->GetHeight() - 50 - pCamera->GetRenderPosY() - (CGame::GetInstance()->GetScreenHeight()*0.05f);
 	power.right = power.left + (int)((m_pOwner->GetPowerUpBar()/m_pOwner->GetMaxPowerUp()) * 80);
-	power.bottom = power.top + 20;
+	power.bottom = power.top + 14;
 	pD3D->DrawRect(power,0,80,255);
 
 	char scorebuff[32];

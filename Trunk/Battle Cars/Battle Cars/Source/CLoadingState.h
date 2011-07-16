@@ -1,5 +1,4 @@
 #ifndef _CLOADINGSTATE_H
-
 #define _CLOADINGSTATE_H
 
 #include "IGameState.h"
@@ -13,8 +12,12 @@ private:
 	~CLoadingState(void){}
 	CLoadingState(const CLoadingState&);
 	CLoadingState& operator = (const CLoadingState&);
+	
+	float timeStamp;
+	bool HandleEnter(void);
 public:
-	//static CLoadingState* GetInstance();
+	
+	static CLoadingState* GetInstance();
 
 	bool Input(void);
 	void Update(float fElapsedTime);
