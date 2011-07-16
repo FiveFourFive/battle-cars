@@ -29,15 +29,15 @@ CBoss::CBoss(CXboxInput* pController) : CEnemy(pController)
 	this->SetMaxShield(100.0f);
 	this->SetMaxSpeed(175.0f);
 	this->SetMaxPowerUp(100.0f);
-	this->SetPosX(90.0f);
-	this->SetPosY(90.0f);
-	this->SetPlayerType(rand()%CAR_NUM);
+	this->SetPosX(rand()%1400+200);
+	this->SetPosY(rand()%1400+200);
+	this->SetPlayerType(3);//rand()%CAR_NUM);
 	this->SetSpecialLevel(1);
 	this->SetRotationRate(6.28f);
 	SetWidth(52);
 	SetHeight(70);
-	SetImageWidth(82);
-	SetImageHeight(173);
+	SetImageWidth(256);
+	SetImageHeight(256);
 	SetRadius((float)(GetWidth()/2.0f));
 	SetCollisionX1(GetPosX());
 	SetCollisionY1(GetPosY() - (GetHeight()*0.5f) + (GetWidth()*0.5f));
@@ -89,6 +89,8 @@ void CBoss::Update(float fElapsedTime)
 	FireAtTarget(fElapsedTime);
 
 	CCar::Update (fElapsedTime);
+	if(GetHealth() < 0.0f)
+		CMessageSystem::GetInstance()->SendMsg(new CDestroyBossMessage(this));
 }
 
 void CBoss::Render(CCamera* camera)
@@ -133,7 +135,7 @@ void CBoss::HandleEvent(CEvent* pEvent)
 					if(GetIsAlive() == true)
 						tempbullet->GetOwner()->SetKillCount(tempbullet->GetOwner()->GetKillCount() + 1);
 				}
-				if(!m_bIsEnraged)
+				if(!m_bIsEnraged && !m_bIsMiniBoss)
 				{
 					if(GetHealth() < (GetMaxHealth()*.3f))
 					{
@@ -178,7 +180,7 @@ bool CBoss::CheckCollision(IBaseInterface* pBase)
 		float centery2 = tempcar->GetCY2();
 		float myx2 = GetCX2();
 		float myy2 = GetCY2();
-				float distance11 = sqrt(((centerx - myx)*(centerx - myx)) + ((centery - myy)*(centery - myy)));
+		float distance11 = sqrt(((centerx - myx)*(centerx - myx)) + ((centery - myy)*(centery - myy)));
 		float distance21 = sqrt(((centerx2 - myx2)*(centerx2 - myx2)) + ((centery2 - myy2)*(centery2 - myy2)));
 		float distance12 = sqrt(((centerx2 - myx)*(centerx2 - myx)) + ((centery2 - myy)*(centery2 - myy)));
 		float distance22 = sqrt(((centerx - myx2)*(centerx - myx2)) + ((centery - myy2)*(centery - myy2)));
@@ -428,46 +430,36 @@ void CBoss::FireAtTarget(float fElapsedTime)
 	}
 
 	m_fFireTimer += fElapsedTime;
-	if(m_bIsMiniBoss)
+	if(m_fFireTimer > 3.0f)
 	{
-		if(m_fFireTimer > .4f)
+		m_fFireTimer = 0.0f;
+		switch(GetPlayerType())
 		{
-			m_fFireTimer = 0.0f;
-			CMessageSystem::GetInstance()->SendMsg(new CCreateMiniBossSpecial(this));
-		}
-	}
-	else
-	{
-		if(m_fFireTimer > 3.0f)
-		{
-			m_fFireTimer = 0.0f;
-			switch(GetPlayerType())
+		case CAR_MINI:
 			{
-			case CAR_MINI:
-				{
-					CMessageSystem::GetInstance()->SendMsg(new CCreateBossMiniSpecial(this));
-				}
-				break;
-			case CAR_VETTE:
-				{
-					CMessageSystem::GetInstance()->SendMsg(new CCreateBossVetteSpecial(this));
-					m_bFlameThrowerIsOn = true;
-					m_nFireBullets = 20;
-				}
-				break;
-			case CAR_HUMMER:
-				{
-					CMessageSystem::GetInstance()->SendMsg(new CCreateBossHummerSpecial(this));
-					m_bGatlingIsOn = true;
-					m_nIceBullets = 5;
-				}
-				break;
-			case CAR_TRUCK:
-				{
-					CMessageSystem::GetInstance()->SendMsg(new CCreateBossTruckSpecial(this));
-				}
-				break;
+				CMessageSystem::GetInstance()->SendMsg(new CCreateBossMiniSpecial(this));
 			}
+			break;
+		case CAR_VETTE:
+			{
+				CMessageSystem::GetInstance()->SendMsg(new CCreateBossVetteSpecial(this));
+				m_bFlameThrowerIsOn = true;
+				m_nFireBullets = 20;
+			}
+			break;
+		case CAR_HUMMER:
+			{
+				CMessageSystem::GetInstance()->SendMsg(new CCreateBossHummerSpecial(this));
+				m_bGatlingIsOn = true;
+				m_nIceBullets = 5;
+			}
+			break;
+		case CAR_TRUCK:
+			{
+				CMessageSystem::GetInstance()->SendMsg(new CCreateBossTruckSpecial(this));
+			}
+			break;
 		}
 	}
+	
 }

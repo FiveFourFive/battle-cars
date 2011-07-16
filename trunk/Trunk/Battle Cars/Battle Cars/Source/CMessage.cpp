@@ -106,3 +106,8 @@ CCreateMiniBossSpecial::CCreateMiniBossSpecial(CBoss* pBoss) : CBaseMessage(MSG_
 {
 	m_pBoss = pBoss;
 }
+
+CDestroyBossMessage::CDestroyBossMessage(CBoss* pBoss) : CBaseMessage(MSG_DESTROY_BOSS)
+{
+	m_pBoss = pBoss;
+}

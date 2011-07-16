@@ -187,10 +187,12 @@ bool CGameModeSelectionState::HandleEnter(void)
 	case WS_DM:
 		
 		CGamePlayState::GetInstance()->SetGameMode(CDeathmatchMode::GetInstance());
+		CGamePlayState::GetInstance()->SetTimeTrial(false);
 		CGame::GetInstance()->AddState(CLevelSelectionState::GetInstance());
 		break;
 	case WS_TT:
 		CGamePlayState::GetInstance()->SetGameMode(CTimeChallengeMode::GetInstance());
+		CGamePlayState::GetInstance()->SetTimeTrial(true);
 		CGame::GetInstance()->AddState(CLevelSelectionState::GetInstance());
 		
 		break;

@@ -86,7 +86,7 @@ void CHUD::Render(void)
 	{
 
 		sprintf_s(buffer,"%i)%i",i+1,scores[i]->GetKillCount());
-		if(scores[i]->GetType() == OBJECT_PLAYER)
+  		if(scores[i]->GetType() == OBJECT_PLAYER)
 		{
 			color = D3DCOLOR_ARGB(255,0,255,0);
 		}

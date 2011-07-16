@@ -190,7 +190,7 @@ void CWanderState::Update (float fElapsedTime)
 			FindSpeedRamp(fElapsedTime);
 	}
 	
-
+	
 	
 }
 
