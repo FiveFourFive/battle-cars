@@ -37,6 +37,7 @@ class CDeathmatchMode;
 class CKeyboardKeyBinds;
 class CKeyBinds;
 class CBoss;
+class CCollectable;
 
 class CGamePlayState : public IGameState
 {
@@ -107,6 +108,10 @@ private:
 	float m_fRespawnMiniBossTimer;
 	bool m_bTimeTrial;
 	bool m_bCollectionChallenge;
+	int m_nCollectableTotalPlayer;
+	int m_nCollectableTotalComputer;
+	vector<CCollectable*> collectables;
+	CEnemy* collectionChallengeBoss;
 
 	CGamePlayState(void);
 	~CGamePlayState(void){};
@@ -139,6 +144,9 @@ public:
 	IGameModeInterface* GetMode(void) { return m_pMode; }
 	int GetTimeLeft(void) { return time; }
 	vector<CBoss*> GetBosses() {return bosses;}
+	int GetComputerCollectables() {return m_nCollectableTotalComputer;}
+	int GetPlayerCollectables() {return m_nCollectableTotalPlayer;}
+	vector<CCollectable*> GetCollectables() {return collectables;}
 	//Mutators
 	void SetCharacters(vector<CPlayer*> players) {characters = players;}
 	void SetSpeedRamps(vector<CSpeedRamp*> speedRamps) {ramps = speedRamps;}
@@ -149,6 +157,9 @@ public:
 	void SetTimeTrial(bool trial) {m_bTimeTrial = trial;}
 	void SetMiniBossHasDied(bool died) {m_bMiniBossHasDied = died;}
 	void SetCollectionChallenge(bool challenge) {m_bCollectionChallenge = challenge;}
+	void SetComputerCollectables(int collectables) {m_nCollectableTotalComputer = collectables;}
+	void SetPlayerCollectables(int collectables) {m_nCollectableTotalPlayer = collectables;}
+
 };
 
 

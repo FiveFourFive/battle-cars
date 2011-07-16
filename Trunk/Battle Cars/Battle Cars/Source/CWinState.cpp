@@ -69,6 +69,7 @@ void CWinState::Enter(void)
 	m_nBackgroundMusicID = m_pFM->LoadSound("resource/sounds/FeelSoNumb.mp3",SGD_FMOD_LOOPING);
 	m_nMenuSelect = m_pFM->LoadSound("resource/sounds/menuselect.mp3");
 	m_nMenuMove = m_pFM->LoadSound("resource/sounds/menuchange.mp3");
+	m_nBGImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/otherstates.jpg");
 }
 void CWinState::Exit(void)
 {
@@ -149,6 +150,7 @@ void CWinState::Update(float fElapsedTime)
 
 void CWinState::Render(void)
 {
+	m_pTM->Draw(m_nBGImageID, 0, 0, 1.5f, 1.0f);
 	m_pPF->Print("GAME OVER YOU WIN",220,50,1.0f,D3DCOLOR_XRGB(255,0,0));
 	m_pPF->Print("FINAL SCORE: ", 100,150,1.0f,D3DCOLOR_XRGB(0,0,255));
 	char buffer[128];
