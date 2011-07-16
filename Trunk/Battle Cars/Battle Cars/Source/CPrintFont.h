@@ -49,7 +49,10 @@ public:
 		// get rect of letter
 		RECT rLetter = CellAlgorithm(id);
 		// draw to screen
-		m_pTM->Draw(m_nImageID,x,y,scale,scale,&rLetter,0,0,0,color);
+		if(ch=='p' || ch=='j' || ch=='y' || ch=='g')
+			m_pTM->Draw(m_nImageID,x,y+3,scale,scale,&rLetter,0,0,0,color);
+		else
+			m_pTM->Draw(m_nImageID,x,y,scale,scale,&rLetter,0,0,0,color);
 		x += (int)(m_nCharWidth * scale);
 		}					
 	}
