@@ -16,6 +16,7 @@
 #include "CGameModeSelectionState.h"
 #include "CLevelSelectionState.h"
 #include "CCreditsScreenState.h"
+#include "ParticleManager.h"
 
 enum menu {PLAY, OPTIONS, HOW_TO_PLAY, GAMER_PROFILE, HIGH_SCORES, CREDITS, EXIT};
 
@@ -61,7 +62,11 @@ void CMainMenuState::Enter(void)
 	m_pController1 = CGame::GetInstance()->GetController1();
 	m_pController2 = CGame::GetInstance()->GetController2();
 
-
+	
+	//ParticleManager::GetInstance()->LoadEmittor("resource/data/collision.xml");
+	//ParticleManager::GetInstance()->LoadEmittor("resource/data/missle_flame.xml");
+	//ParticleManager::GetInstance()->LoadEmittor("resource/data/explosion.xml");
+	//ParticleManager::GetInstance()->LoadEmittor("resource/data/car_exploded.xml");
 	m_nFontID = m_pTM->LoadTexture("resource/graphics/BC_Font.png",D3DCOLOR_XRGB(0, 0, 0));
 	m_pPF = new CPrintFont(m_nFontID);
 

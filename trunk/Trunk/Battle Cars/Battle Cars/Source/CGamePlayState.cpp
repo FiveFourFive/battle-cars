@@ -156,6 +156,7 @@ void CGamePlayState::Enter(void)
 
 	m_pController1 = CGame::GetInstance()->GetController1();
 	m_pController2 = CGame::GetInstance()->GetController2();
+
 	m_pPF = new CPrintFont(m_pTM->LoadTexture("resource/graphics/BC_Font.png",D3DCOLOR_XRGB(0, 0, 0)));
 
 
@@ -167,7 +168,7 @@ void CGamePlayState::Enter(void)
 	CGame::GetInstance()->ResetInputDelay();
 
 	
-
+	
 	CBoss* boss = new CBoss(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
 	CBoss* miniboss = new CBoss(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
 	miniboss->SetMiniBoss(true);
@@ -332,7 +333,7 @@ void CGamePlayState::Enter(void)
 	
 
 	
-
+	
 	m_bCountDown = false;
 	m_fEnlarge = 0.0f;
 	m_bPlaying = false;
