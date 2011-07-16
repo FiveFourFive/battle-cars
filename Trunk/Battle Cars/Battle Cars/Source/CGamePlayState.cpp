@@ -478,6 +478,11 @@ void CGamePlayState::Enter(void)
 
 void CGamePlayState::Exit(void)
 {
+	crate1->Release();
+	crate2->Release();
+	crate3->Release();
+	barrel1->Release();
+	barrel2->Release();
 	for(unsigned int i = 0; i < collectables.size(); i++)
 	{
 		collectables[i]->Release();

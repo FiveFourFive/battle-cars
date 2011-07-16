@@ -184,7 +184,7 @@ void CCar::Render(CCamera* camera)
 	tempcircle1.right = tempcircle1.left + (int)m_nCollisionRadius;
 	tempcircle1.bottom = tempcircle1.top + (int)m_nCollisionRadius;
 
-	pD3D->DrawRect(tempcircle1,255,255,255);
+	//pD3D->DrawRect(tempcircle1,255,255,255);
 
 	RECT tempcircle2;
 	tempcircle2.left = m_nCollisionX2 - camera->GetCamX() + camera->GetRenderPosX();
@@ -192,7 +192,7 @@ void CCar::Render(CCamera* camera)
 	tempcircle2.right = tempcircle2.left + m_nCollisionRadius;
 	tempcircle2.bottom = tempcircle2.top + m_nCollisionRadius;
 
-	pD3D->DrawRect(tempcircle2,0,0,255);
+	//pD3D->DrawRect(tempcircle2,0,0,255);
 	// end collision testing
 
 
