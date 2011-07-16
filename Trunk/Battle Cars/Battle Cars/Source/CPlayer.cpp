@@ -12,12 +12,15 @@
 #include "CMessageSystem.h"
 #include "CKeyBinds.h"
 #include "CMainMenuState.h"
+#include "CKeyboardKeyBinds.h"
 #include "CNumPlayers.h"
 #include "COptionState.h"
 #include <math.h>
 #include "CHUD.h"
 #include "ParticleManager.h"
 #include "Emittor.h"
+#include "Gamer_Profile.h"
+#include "CGamerProfile.h"
 
 CPlayer::CPlayer(CXboxInput* pController)
 {
@@ -119,7 +122,7 @@ void CPlayer::Update(float fElapsedTime)
 		BYTE lTrig = xState.Gamepad.bLeftTrigger;
 		float x = xState.Gamepad.sThumbLX;
 		float y = xState.Gamepad.sThumbLY;
-		CKeyBinds* tempkeys = m_pController1->GetKB();
+		CKeyBinds* tempkeys = CGamerProfile::GetInstance()->GetActiveProfile()->m_pKB;
 		float firerate;
 		if(GetSelectedWeapon() == WEAPON_PISTOL)
 			firerate = GetFireDelay();
@@ -192,7 +195,7 @@ void CPlayer::Update(float fElapsedTime)
 				CPauseMenuState::GetInstance()->SetController(m_pController1);
 				CGame::GetInstance()->ResetInputDelay();
 			}
-			if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_LEFT_SHOULDER )
+			if(xState.Gamepad.wButtons & tempkeys->GetChangeWeapon() )
 			{
 				IncrementWeapon();
 				if(GetSelectedWeapon() > 2)
@@ -253,8 +256,9 @@ void CPlayer::Update(float fElapsedTime)
 	}
 	else
 	{
-		
-			if(m_pDI->KeyDown(DIK_UP))
+		CKeyboardKeyBinds* tempkeys = CGamerProfile::GetInstance()->GetActiveProfile()->m_pKKB;
+
+		if(m_pDI->KeyDown(tempkeys->Getforward()))
 			{
 				SetAccelerating(true);
 				if(GetSpeed() < GetMaxSpeed())
@@ -264,14 +268,14 @@ void CPlayer::Update(float fElapsedTime)
 				SetAccelerating(false);
 
 		
-			if(m_pDI->KeyDown(DIK_DOWN))
+		if(m_pDI->KeyDown(tempkeys->Getbackward()))
 			{
 				if(GetSpeed() > (-0.5f * GetMaxSpeed()))
 					SetSpeed(GetSpeed() - (GetAcceleration() * fElapsedTime));
 			}
 
 
-		if(m_pDI->KeyDown(DIK_LEFT))
+		if(m_pDI->KeyDown(tempkeys->GetLeft()))
 		{
 			
 			SetRotation(GetRotation() - (GetRotationRate() * fElapsedTime));
@@ -284,7 +288,7 @@ void CPlayer::Update(float fElapsedTime)
 			Rotate(GetRotation());
 		}
 
-		if(m_pDI->KeyDown(DIK_RIGHT))
+		if(m_pDI->KeyDown(tempkeys->GetRight()))
 		{
 			SetRotation(GetRotation() + (GetRotationRate() * fElapsedTime));
 			tVector2D tempdir = GetDirection();
@@ -296,7 +300,7 @@ void CPlayer::Update(float fElapsedTime)
 			Rotate(GetRotation());
 		}
 		
-		if(m_pDI->KeyDown(DIK_SPACE))
+		if(m_pDI->KeyDown(tempkeys->GetShoot()))
 		{
 			float firerate;
 			if(GetSelectedWeapon() == WEAPON_PISTOL)
@@ -361,7 +365,7 @@ void CPlayer::Update(float fElapsedTime)
 				}
 			}
 		}
-		if(m_pDI->KeyPressed(DIK_LCONTROL))
+		if(m_pDI->KeyPressed(tempkeys->GetChangeWeapon()))
 		{
 			IncrementWeapon();
 				if(GetSelectedWeapon() > 2)

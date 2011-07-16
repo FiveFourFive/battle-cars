@@ -6,6 +6,8 @@
 #include "CSGD_TextureManager.h"
 #include "CSGD_FModManager.h"
 #include "CSGD_DirectInput.h"
+#include "CGamerProfile.h"
+#include "Gamer_Profile.h"
 #include "CXboxInput.h"
 #include "CKeyBinds.h"
 #include "CKeyboardKeyBinds.h"
@@ -49,9 +51,9 @@ void CKeyBindsState::Enter(void)
 	m_nSelected = 0;
 	if(m_pController)
 	{
-		m_pKB = m_pController->GetKB();
+		m_pKB = CGamerProfile::GetInstance()->GetActiveProfile()->m_pKB;
 	}
-	m_pKeyboardKB = CGame::GetInstance()->GetKeyboardKeyBinds();
+	m_pKeyboardKB = CGamerProfile::GetInstance()->GetActiveProfile()->m_pKKB;
 	if(CGame::GetInstance()->ControllerInput())
 		m_nMaxOptions = 2;
 	else
@@ -190,7 +192,8 @@ bool CKeyBindsState::Input(void)
 		if(m_pDI->KeyPressed(DIK_RETURN))
 		{
 			m_nSelected = 255;
-			m_bSelected = true;
+			if(m_nSelection != WS_EXIT)
+				m_bSelected = true;
 		}
 		
 	if(m_pDI->KeyPressed(DIK_ESCAPE) && !m_bSelected)
@@ -240,16 +243,14 @@ void CKeyBindsState::Render(void)
 	m_pD3D->DrawRect(temp,0,0,0);//
 	
 	m_pPF->Print("KEY BINDINGS",220,50,1.0f,D3DCOLOR_XRGB(200, 0, 0));
-
-
+	
+	 
 	m_pPF->Print("INPUT DEVICE",150,120,0.5f,D3DCOLOR_XRGB(200, 0, 0));	
 
 	if(CGame::GetInstance()->ControllerInput())
 	{
-		m_pPF->Print("ACCEPT", 150,200,0.5f,D3DCOLOR_XRGB(255,0,0));
-	m_pPF->Print("BACK", 150,250,0.5f,D3DCOLOR_XRGB(255,0,0));
-	m_pPF->Print("SHOOT", 150,300,0.5f,D3DCOLOR_XRGB(255,0,0));
-	m_pPF->Print("CHANGE WEAPON", 150,350,0.5f,D3DCOLOR_XRGB(255,0,0));
+		m_pPF->Print("SHOOT", 150,300,0.5f,D3DCOLOR_XRGB(255,0,0));
+		m_pPF->Print("CHANGE WEAPON", 150,350,0.5f,D3DCOLOR_XRGB(255,0,0));
 		m_pPF->Print("GAMEPAD",370,120,0.5f,D3DCOLOR_XRGB(255,255,255));
 		m_pPF->Print("EXIT",150,400,0.5f,D3DCOLOR_XRGB(255,0,0));
 		
@@ -312,7 +313,7 @@ void CKeyBindsState::Render(void)
 	case WS_CHANGE_WEAPON:
 		m_pPF->Print("CHANGE WEAPON", 150,350,0.5f,D3DCOLOR_XRGB(0,255,0));
 		break;
-	case 4:
+	case 2:
 		m_pPF->Print("EXIT", 150,400,0.5f,D3DCOLOR_XRGB(0,255,0));
 		break;
 	}
@@ -375,14 +376,16 @@ void CKeyBindsState::Exit(void)
 {
 	m_pTM->UnloadTexture(m_nFontID);
 	delete m_pPF;
-	CGame::GetInstance()->SetKB(m_pKeyboardKB);
+	CGamerProfile::GetInstance()->GetActiveProfile()->m_pKKB = m_pKeyboardKB;
+	CGamerProfile::GetInstance()->GetActiveProfile()->m_pKB = m_pKB;
+	//CGame::GetInstance()->SetKB(m_pKeyboardKB);
 }
 
 bool CKeyBindsState::HandleEnter(void)
 {
 	if(CGame::GetInstance()->ControllerInput())
 	{
-		if(m_nSelection == 4)
+		if(m_nSelection == 2)
 		{
 			CGame::GetInstance()->RemoveState(this);
 			m_pFM->PlaySound(m_nMenuSelect);

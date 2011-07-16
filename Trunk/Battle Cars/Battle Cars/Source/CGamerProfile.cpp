@@ -326,10 +326,10 @@ bool CGamerProfile::LoadProfiles(const char* szXmlFileName)
 		KB->Attribute("change_weapon",&changeweapon);
 		KB->Attribute("kshoot",&kshoot);
 		KB->Attribute("kchange_weapon",&kchangeweapon);
-		KB->Attribute("kforward",&kforward);
-		KB->Attribute("kbackward",&kbackward);
+		KB->Attribute("kaccelerate",&kforward);
+		KB->Attribute("kbreak",&kbackward);
 		KB->Attribute("kleft",&kleft);
-		KB->Attribute("krigt",&kright);
+		KB->Attribute("kright",&kright);
 		tempkb->SetShoot(shoot);
 		tempkb->SetChangeWeapon(changeweapon);
 		tempkkb->SetShoot(kshoot);
