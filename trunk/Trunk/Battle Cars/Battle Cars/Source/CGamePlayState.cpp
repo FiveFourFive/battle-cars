@@ -730,6 +730,7 @@ void CGamePlayState::Update(float fElapsedTime)
 					bosses[1]->SetAcceleration(3.5f);
 					bosses[1]->SetPosX(rand()%1400+200);
 					bosses[1]->SetPosY(rand()%1400+200);
+					bosses[1]->SetSpecialLevel(1);
 					bosses[1]->SetCarId(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniBossPlaceHolder.png"));
 					m_fRespawnMiniBossTimer = 0.0f;
 					m_pOM->AddObject(bosses[1]);
