@@ -22,6 +22,7 @@ COptionState::COptionState(void)
 	m_pFM = NULL;
 
 	m_bVertical = true;
+	m_nBGImageID = -1;
 }
 
 COptionState::~COptionState()
@@ -51,6 +52,8 @@ void COptionState::Enter(void)
 	m_nMenuMove = m_pFM->LoadSound("resource/sounds/menuchange.mp3");
 	m_nSoundA = m_pFM->LoadSound("resource/sounds/bullet1.mp3");
 	m_nSoundB = CMainMenuState::GetInstance()->GetBackgroundMusicID();
+
+	m_nBGImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/optionstate.jpg");
 	
 	//m_pFM->PlaySound(m_nBackgroundMusicID);
 
@@ -323,14 +326,8 @@ void COptionState::Update(float fElapsedTime)
 }
 
 void COptionState::Render(void)
-{								 //
-	RECT temp;					 ////
-	temp.left = 0;				 //////
-	temp.top = 0;				 // replace this with background image
-	temp.right = 800;			 ////////
-	temp.bottom = 600;			 //////
-	m_pD3D->GetSprite()->Flush();////
-	m_pD3D->DrawRect(temp,0,0,0);//
+{								 
+	m_pTM->Draw(m_nBGImageID, 0, 0, 1.5f, 1.8f);
 	
 	m_pPF->Print("OPTIONS",220,50,1.0f,D3DCOLOR_XRGB(200, 0, 0));
 

@@ -20,6 +20,8 @@ CGameModeSelectionState::CGameModeSelectionState(void)
 	m_pPF  = NULL;
 	m_pFM  = NULL;
 	m_pDI  = NULL;
+
+	m_nBGImageID = -1;
 }
 
 CGameModeSelectionState::~CGameModeSelectionState(void)
@@ -44,6 +46,8 @@ void CGameModeSelectionState::Enter(void)
 	
 	m_nFontID = m_pTM->LoadTexture("resource/graphics/BC_Font.png",D3DCOLOR_XRGB(0, 0, 0));
 	m_pPF = new CPrintFont(m_nFontID);
+
+	m_nBGImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/mainmenu_bg.jpg");
 }
 
 void CGameModeSelectionState::Exit(void)
@@ -142,8 +146,7 @@ void CGameModeSelectionState::Update(float fElapsedTIme)
 void CGameModeSelectionState::Render(void)
 {
 	CSGD_Direct3D::GetInstance()->GetSprite()->Flush();
-	RECT temp_render = {0, 0, CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight()};
-	CSGD_Direct3D::GetInstance()->DrawRect( temp_render, 0,0,0);
+	m_pTM->Draw(m_nBGImageID, 0,0,2.9f, 1.8f);
 
 	m_pPF->Print("Game Mode Selection", 50,100,1.0f,D3DCOLOR_XRGB(255,0,0));
 	m_pPF->Print("Deathmatch",100,200,0.8f,D3DCOLOR_XRGB(255,0,0));

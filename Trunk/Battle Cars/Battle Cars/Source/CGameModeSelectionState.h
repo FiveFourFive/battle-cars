@@ -22,6 +22,7 @@ private:
 	CSGD_FModManager*		m_pFM;
 	CSGD_DirectInput*		m_pDI;
 
+	int m_nBGImageID;
 	int	m_nFontID;
 	int m_nSelection;
 	int m_nMenuSelect;

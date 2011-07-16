@@ -26,6 +26,7 @@ private:
 
 	bool m_bVertical;
 
+	int m_nBGImageID;
 	int m_nBackgroundMusicID;
 	int m_nFontID;
 	int m_nSelection;

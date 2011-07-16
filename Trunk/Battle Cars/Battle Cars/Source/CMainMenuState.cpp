@@ -28,6 +28,8 @@ CMainMenuState::CMainMenuState(void)
 	m_pController1 = NULL;
 	m_pController2 = NULL;
 
+	m_nBGImageID = -1;
+
 }
 CMainMenuState::~CMainMenuState(void)
 {
@@ -73,6 +75,7 @@ void CMainMenuState::Enter(void)
 	//m_pFM->SetVolume(m_nMenuSelect,CGame::GetInstance()->getSoundAVolume());
 	//m_pFM->SetVolume(m_nMenuMove,CGame::GetInstance()->getSoundAVolume());
 	m_pFM->PlaySound(m_nBackgroundMusicID);
+	m_nBGImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/mainmenu_bg.jpg");
 
 }
 
@@ -80,6 +83,7 @@ void CMainMenuState::Exit(void)
 {
 	m_pFM->StopSound(m_nBackgroundMusicID);
 	m_pTM->UnloadTexture(m_nFontID);
+	m_pTM->UnloadTexture(m_nBGImageID);
 	if( m_pPF )
 	{
 		delete m_pPF;
@@ -172,6 +176,8 @@ void CMainMenuState::Update(float fElapsedTime)
 
 void CMainMenuState::Render(void)
 {
+
+	m_pTM->Draw(m_nBGImageID, 0,0, 2.9f, 1.8f);
 	
 	m_pPF->Print("BATTLE CARS",220,50,1.0f,D3DCOLOR_XRGB(200, 0, 0));
 	m_pPF->Print("MAYHEM AND DESTRUCTION",50,100,1.0f,D3DCOLOR_XRGB(200, 0, 0));
