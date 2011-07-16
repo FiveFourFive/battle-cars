@@ -38,9 +38,15 @@ void CCollectionMode::CheckWinLoss(void)
 	if(CGamePlayState::GetInstance()->GetComputerCollectables() + CGamePlayState::GetInstance()->GetPlayerCollectables() == 50)
 	{
 		if(CGamePlayState::GetInstance()->GetPlayerCollectables() > CGamePlayState::GetInstance()->GetComputerCollectables())
+		{
+			CWinState::GetInstance()->SetWinner(CGamePlayState::GetInstance()->GetPlayer1());
 			CGame::GetInstance()->ChangeState(CWinState::GetInstance());
+		}
 		else
+		{
+			
 			CGame::GetInstance()->ChangeState(CLossState::GetInstance());
+		}
 	}
 
 }

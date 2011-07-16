@@ -4,6 +4,7 @@
 #include "CEventSystem.h"
 #include "CEvent.h"
 #include "CCar.h"
+#include "CSGD_TextureManager.h"
 PowerUp::PowerUp()
 {
 	m_nType = SHIELD_POWERUP;
@@ -13,6 +14,7 @@ PowerUp::PowerUp()
 	m_fRespawn = 0.0f;
 	m_fRespawnDelay = 5.0f;
 	m_bActive = true;
+	SetImageID(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/healthup.png"));
 }
 
 PowerUp::~PowerUp()
@@ -39,30 +41,25 @@ void PowerUp::Render(CCamera* camera)
 	{
 		CSGD_Direct3D* m_pD3D = CSGD_Direct3D::GetInstance();
 
-		RECT temp_render_rect = { (int)(GetPosX() - camera->GetCamX() + (int)(camera->GetRenderPosX())), (int)(GetPosY() - camera->GetCamY() + (int)(camera->GetRenderPosY())), 0, 0};
-		temp_render_rect.right = temp_render_rect.left + 40;
-		temp_render_rect.bottom = temp_render_rect.top + 40;
-
 		if( GetPowerUpType() == SPECIAL_POWERUP)
 		{
-			m_pD3D->DrawRect(temp_render_rect, 0, 0, 255);
-			m_pD3D->DrawTextA("Special_Power_Up", (int)(GetPosX() - camera->GetCamX() + (int)(camera->GetRenderPosX())), (int)(GetPosY() - camera->GetCamY() + (int)(camera->GetRenderPosY())), 255,255,255);
+			CSGD_TextureManager::GetInstance()->Draw(GetImageID(), (int)(GetPosX() - camera->GetCamX() + (int)(camera->GetRenderPosX())), 
+				(int)(GetPosY() - camera->GetCamY() + (int)(camera->GetRenderPosY())));
 		}
 		else if( GetPowerUpType() == SHIELD_POWERUP)
 		{
-			m_pD3D->DrawRect(temp_render_rect, 128, 128, 128);
-			m_pD3D->DrawTextA("Shield_Power_Up", (int)(GetPosX() - camera->GetCamX() + (int)(camera->GetRenderPosX())), (int)(GetPosY() - camera->GetCamY() + (int)(camera->GetRenderPosY())), 255,255,255);
+			CSGD_TextureManager::GetInstance()->Draw(GetImageID(), (int)(GetPosX() - camera->GetCamX() + (int)(camera->GetRenderPosX())), 
+			(int)(GetPosY() - camera->GetCamY() + (int)(camera->GetRenderPosY())));
 		}
 		else if( GetPowerUpType() == HEALTH_POWERUP)
 		{
-			m_pD3D->DrawRect(temp_render_rect, 0, 255, 0);
-			m_pD3D->DrawTextA("Health_Power_Up", (int)(GetPosX() - camera->GetCamX() + (int)(camera->GetRenderPosX())), (int)(GetPosY() - camera->GetCamY() + (int)(camera->GetRenderPosY())), 255,255,255);
+			CSGD_TextureManager::GetInstance()->Draw(GetImageID(), (int)(GetPosX() - camera->GetCamX() + (int)(camera->GetRenderPosX())), 
+			(int)(GetPosY() - camera->GetCamY() + (int)(camera->GetRenderPosY())));
 		}
 		else if( GetPowerUpType() == WEAPONS_POWERUP)
 		{
-			m_pD3D->DrawRect(temp_render_rect, 255, 255, 0);
-			m_pD3D->DrawTextA("Weapons_Power_Up", (int)(GetPosX() - camera->GetCamX() + (int)(camera->GetRenderPosX())), (int)(GetPosY() - camera->GetCamY() + (int)(camera->GetRenderPosY())), 255,255,255);
-
+			CSGD_TextureManager::GetInstance()->Draw(GetImageID(), (int)(GetPosX() - camera->GetCamX() + (int)(camera->GetRenderPosX())), 
+			(int)(GetPosY() - camera->GetCamY() + (int)(camera->GetRenderPosY())));
 		}
 
 	}

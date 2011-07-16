@@ -147,6 +147,7 @@ public:
 	int GetComputerCollectables() {return m_nCollectableTotalComputer;}
 	int GetPlayerCollectables() {return m_nCollectableTotalPlayer;}
 	vector<CCollectable*> GetCollectables() {return collectables;}
+	CEnemy* GetCollectionBoss() {return collectionChallengeBoss;}
 	//Mutators
 	void SetCharacters(vector<CPlayer*> players) {characters = players;}
 	void SetSpeedRamps(vector<CSpeedRamp*> speedRamps) {ramps = speedRamps;}
