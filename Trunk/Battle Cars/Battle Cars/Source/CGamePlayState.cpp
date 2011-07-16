@@ -280,7 +280,14 @@ void CGamePlayState::Enter(void)
 	power_ups[2]->SetType(OBJECT_POWERUP);
 	power_ups[2]->SetPowerType(SPECIAL_POWERUP);
 
-	m_pOM->AddObject(power_up_power);
+	power_up = new PowerUp();
+	power_ups.push_back(power_up);
+	power_ups[3]->SetPosX(player->GetPosX() + 300 );
+	power_ups[3]->SetPosY(player->GetPosY() );
+	power_ups[3]->SetType(OBJECT_POWERUP);
+	power_ups[3]->SetPowerType(SHIELD_POWERUP);
+
+	m_pOM->AddObject(power_ups[3]);
 
 	m_bCountDown = false;
 	m_fEnlarge = 0.0f;

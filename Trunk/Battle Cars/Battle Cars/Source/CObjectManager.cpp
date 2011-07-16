@@ -117,7 +117,7 @@ void CObjectManager::CheckStatus(void)
 	IGameModeInterface* tempmode = (IGameModeInterface*)CGamePlayState::GetInstance()->GetMode();
 	for(size_t i = 0; i < m_vObjectList.size(); i++)
 	{
-		if(m_vObjectList[i]->GetType() == OBJECT_PLAYER || m_vObjectList[i]->GetType() == OBJECT_ENEMY)
+		if(m_vObjectList[i]->GetType() == OBJECT_PLAYER || m_vObjectList[i]->GetType() == OBJECT_ENEMY || m_vObjectList[i]->GetType() == OBJECT_BOSS)
 		{
 			CCar* tempcar = (CCar*)m_vObjectList[i];
 			tempmode->CheckCarStatus(tempcar);
