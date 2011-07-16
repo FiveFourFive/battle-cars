@@ -48,8 +48,10 @@ void CHUD::Render(void)
 
 	m_pTM->Draw(m_nPistolID,(CGame::GetInstance()->GetScreenWidth()*0.05f) + pCamera->GetRenderPosX(), pCamera->GetHeight() - 100 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY());
 
-	minimap.left = 0 + pCamera->GetWidth() - 150 - (CGame::GetInstance()->GetScreenWidth()*0.05f) + pCamera->GetRenderPosX();
-	minimap.top = 0 + pCamera->GetHeight() - 150 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY();
+	m_fMiniMapPosX = 0 + pCamera->GetWidth() - 150 - (CGame::GetInstance()->GetScreenWidth()*0.05f) + pCamera->GetRenderPosX();
+	m_fMiniMapPosY = 0 + pCamera->GetHeight() - 150 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY();
+	minimap.left = m_fMiniMapPosX;
+	minimap.top = m_fMiniMapPosY;
 	minimap.right = minimap.left + 150;
 	minimap.bottom = minimap.top + 150;
 	m_pTM->Draw(m_nMiniMapID,minimap.left-64,minimap.top-64,1.0f,1.0f);

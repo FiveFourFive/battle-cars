@@ -404,7 +404,7 @@ void CPlayer::Render(CCamera* camera)
 	char buffer[128];
 	sprintf_s(buffer,"%i",GetSpecialLevel());
 	pD3D->DrawText(buffer,10,10,255,255,255);
-	m_pHUD->Render();
+	
 	
 }
 

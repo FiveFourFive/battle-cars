@@ -46,6 +46,8 @@ public:
 	void SetWeaponIcon(int icon){m_nWeaponImageIndex=icon;}
 	int GetWeaponIcon(){return m_nWeaponImageIndex;}
 
+	CHUD* GetHudItem(){ return m_pHUD;}
+
 	CCamera* GetCamera(void) { return m_pCamera; }
 
 	int GetPlayerNum(void) { return m_nPlayerNum; }
