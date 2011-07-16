@@ -18,6 +18,8 @@ CCreditsScreenState::CCreditsScreenState()
 	m_pFM			= NULL;
 	m_pDI			= NULL;
 	m_pController1	= NULL;
+
+	m_nImageID = -1;
 }
 
 CCreditsScreenState::~CCreditsScreenState()
@@ -46,11 +48,18 @@ void CCreditsScreenState::Enter()
 
 	m_pPF = new CPrintFont(m_nFontID);
 	m_nFontID = m_pTM->LoadTexture("resource/graphics/BC_Font.png",D3DCOLOR_XRGB(0, 0, 0));
+	
+	m_nImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/mainmenu_bg.jpg");
+	m_nSoundID = m_pFM->LoadSound("resource/sounds/neoncity.mp3");
+
+	m_pFM->PlaySoundA(m_nSoundID);
 
 }
 
 void CCreditsScreenState::Exit()
 {
+	m_pFM->StopSound(m_nSoundID);
+	m_pFM->UnloadSound(m_nSoundID);
 	delete m_pPF;
 }
 
@@ -98,6 +107,7 @@ void CCreditsScreenState::Update(float fElapsedTime)
 
 void CCreditsScreenState::Render()
 {
+	m_pTM->Draw(m_nImageID, 0, 0, 2.9f, 1.8f);
 	m_pPF->Print("Battle Cars: Mayhem and Destruction", CGame::GetInstance()->GetScreenWidth()*0.5f - 328, y[0], 0.8f, D3DCOLOR_XRGB(0,255,0));
 	m_pPF->Print("Sleepless Burrito Slayers Team Members:", CGame::GetInstance()->GetScreenWidth()*0.1f, y[1], 0.8f, D3DCOLOR_XRGB(0,255,0));
 	m_pPF->Print("Andy Madruga", CGame::GetInstance()->GetScreenWidth()* 0.1f  + 64, y[2], 0.8f, D3DCOLOR_XRGB(0,255,0));
@@ -108,11 +118,7 @@ void CCreditsScreenState::Render()
 	m_pPF->Print("Associate Producer:", CGame::GetInstance()->GetScreenWidth()*0.5f - 328, y[7], 0.8f, D3DCOLOR_XRGB(0,255,0));
 	m_pPF->Print("Sean Hathaway", CGame::GetInstance()->GetScreenWidth()*0.5f - 264, y[8], 0.8f, D3DCOLOR_XRGB(0,255,0));
 	m_pPF->Print("Executive Producer", CGame::GetInstance()->GetScreenWidth()*0.5f - 328, y[9], 0.8f, D3DCOLOR_XRGB(0,255,0));
-	m_pPF->Print("John Jacob Jingle HeimerSchmidtz", CGame::GetInstance()->GetScreenWidth()*0.5f - 264, y[10], 0.8f, D3DCOLOR_XRGB(0,255,0));
-
-
-
-
+	m_pPF->Print("John O'Leske", CGame::GetInstance()->GetScreenWidth()*0.5f - 264, y[10], 0.8f, D3DCOLOR_XRGB(0,255,0));
 
 
 }

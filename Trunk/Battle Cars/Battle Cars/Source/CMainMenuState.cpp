@@ -83,7 +83,6 @@ void CMainMenuState::Exit(void)
 {
 	m_pFM->StopSound(m_nBackgroundMusicID);
 	m_pTM->UnloadTexture(m_nFontID);
-	m_pTM->UnloadTexture(m_nBGImageID);
 	if( m_pPF )
 	{
 		delete m_pPF;

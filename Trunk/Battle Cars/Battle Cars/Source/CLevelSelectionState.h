@@ -32,6 +32,8 @@ private:
 	int m_nMenuSelect;
 	int m_nMenuMove;
 
+	int m_nBGImageID;
+
 	SLevel* m_ListofLevels[LEVEL_MAX];
 
 	CLevelSelectionState();
