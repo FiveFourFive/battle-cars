@@ -41,6 +41,8 @@ private:
 	int m_nSelectedWeapon;			// the currently selected weapon (0-2) 
 	tVector2D m_tDirection;			// the forward direction that speed is applied to
 	tVector2D m_tVelocity;			// outside forces that effect which way the overall velocity of the car is
+	int m_nImageWidth;
+	int m_nImageHeight;
 	tVector2D m_tOverallVelocity;
 	float m_fCollisionDelay;
 	int m_nBulletImageID;
@@ -97,6 +99,8 @@ public:
 	bool GetIsAlive(void) { return m_bIsAlive; }
 	float GetRespawnTimer(){ return m_fRespawnTimer;}
 	bool GetCollisionEffect(){ return Collision_effect; }
+	int GetImageWidth(void) { return m_nImageWidth; }
+	int GetImageHeight(void) { return m_nImageHeight; }
 	//setters
 	void SetOverallVelocity(tVector2D vel) { m_tOverallVelocity = vel; }
 	void SetSpecialLevel(int level) { m_nSpecialLevel = level; }
@@ -140,6 +144,8 @@ public:
 	void SetCollisionY1(float y) {m_nCollisionY1 = y;}
 	void SetCollisionX2(float x) {m_nCollisionX2 = x;}
 	void SetCollisionY2(float y) {m_nCollisionY2 = y;}
+	void SetImageWidth(int width) { m_nImageWidth = width; }
+	void SetImageHeight(int height) { m_nImageHeight = height; }
 
 
 	// plays the crash sound

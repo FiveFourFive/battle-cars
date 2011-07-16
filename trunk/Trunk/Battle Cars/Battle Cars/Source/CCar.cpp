@@ -38,6 +38,8 @@ CCar::CCar(void)
 	m_nSpecialLevel = 1;
 	SetWidth(52);
 	SetHeight(70);
+	SetImageWidth(256);
+	SetImageHeight(256);
 	m_nCollisionRadius = (float)(GetWidth()/2.0f);
 	m_nCollisionX1 = GetPosX();
 	m_nCollisionY1 = GetPosY() - (GetHeight()*0.5f) + (GetWidth()*0.5f);
@@ -155,7 +157,7 @@ void CCar::Render(CCamera* camera)
 	tempcar.bottom = (LONG)(tempcar.top + GetHeight());
 	
 
-	m_pTM->Draw(m_nCarID,(int)GetPosX()-(GetWidth()/2)- (int)camera->GetCamX() + (int)camera->GetRenderPosX(),(int)GetPosY()-(GetHeight()/2)- (int)camera->GetCamY() + (int)camera->GetRenderPosY(),0.4f,0.4f,NULL,128,128,GetRotation());
+	m_pTM->Draw(m_nCarID,(int)GetPosX()-(GetWidth()/2)- (int)camera->GetCamX() + (int)camera->GetRenderPosX(),(int)GetPosY()-(GetHeight()/2)- (int)camera->GetCamY() + (int)camera->GetRenderPosY(),0.4f,0.4f,NULL,GetImageWidth()/2,GetImageHeight()/2,GetRotation());
 	//pD3D->DrawRect(tempcar,255,0,0);
 	//pD3D->DrawText("BEEP", (int)(GetPosX()- camera->GetCamX() + 10), (int)(GetPosY()- camera->GetCamY() + 35),255,255,255);
 	//pD3D->DrawLine((int)(GetPosX()- camera->GetCamX() + camera->GetRenderPosX()), (int)(GetPosY()- camera->GetCamY()+ camera->GetRenderPosY()), (int)(GetPosX()- camera->GetCamX() + camera->GetRenderPosX() + GetVelX()), (int)(GetPosY()- camera->GetCamY() + camera->GetRenderPosY() + GetVelY()),255,255,255);

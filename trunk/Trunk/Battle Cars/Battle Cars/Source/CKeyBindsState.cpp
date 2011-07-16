@@ -53,17 +53,17 @@ void CKeyBindsState::Enter(void)
 	}
 	m_pKeyboardKB = CGame::GetInstance()->GetKeyboardKeyBinds();
 	if(CGame::GetInstance()->ControllerInput())
-		m_nMaxOptions = 4;
+		m_nMaxOptions = 2;
 	else
-		m_nMaxOptions = 8;
+		m_nMaxOptions = 6;
 }
 
 bool CKeyBindsState::Input(void)
 {
 	if(CGame::GetInstance()->ControllerInput())
-		m_nMaxOptions = 4;
+		m_nMaxOptions = 2;
 	else
-		m_nMaxOptions = 8;
+		m_nMaxOptions = 6;
 	if(CGame::GetInstance()->ControllerInput())
 	{
 		//m_pController1->ReadInputState();
