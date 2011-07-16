@@ -285,6 +285,10 @@ void CGamePlayState::Enter(void)
 		power_ups[3]->SetType(OBJECT_POWERUP);
 		power_ups[3]->SetPowerType(SHIELD_POWERUP);
 		m_pOM->AddObject(power_ups[3]);
+		power_ups[0]->SetImageID(m_pTM->LoadTexture("resource/graphics/healthup.png")); 
+		power_ups[1]->SetImageID(m_pTM->LoadTexture("resource/graphics/weaponup.png"));
+		power_ups[2]->SetImageID(m_pTM->LoadTexture("resource/graphics/specialup.png"));
+		power_ups[3]->SetImageID(m_pTM->LoadTexture("resource/graphics/armorup.png"));
 	}
 	else
 	{
