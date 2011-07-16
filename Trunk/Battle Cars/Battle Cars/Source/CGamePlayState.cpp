@@ -257,7 +257,6 @@ void CGamePlayState::Enter(void)
 		m_pOM->AddObject(power_ups[0]);
 		m_pOM->AddObject(power_ups[1]);
 		m_pOM->AddObject(power_ups[2]);
-		m_pOM->AddObject(power_ups[3]);
 		characters = CCharacterSelection::GetInstance()->GetList();
 		player = CCharacterSelection::GetInstance()->GetPlayer1();
 		if(CNumPlayers::GetInstance()->GetNumberOfPlayers() > 1)
@@ -278,6 +277,13 @@ void CGamePlayState::Enter(void)
 				player2index = rand()%4;
 			player2 = characters[player2index];
 		}
+		power_up = new PowerUp();
+		power_ups.push_back(power_up);
+		power_ups[3]->SetPosX(player->GetPosX() + 300 );
+		power_ups[3]->SetPosY(player->GetPosY() );
+		power_ups[3]->SetType(OBJECT_POWERUP);
+		power_ups[3]->SetPowerType(SHIELD_POWERUP);
+		m_pOM->AddObject(power_ups[3]);
 	}
 	else
 	{
@@ -309,12 +315,7 @@ void CGamePlayState::Enter(void)
 	power_ups[2]->SetType(OBJECT_POWERUP);
 	power_ups[2]->SetPowerType(SPECIAL_POWERUP);
 
-	power_up = new PowerUp();
-	power_ups.push_back(power_up);
-	power_ups[3]->SetPosX(player->GetPosX() + 300 );
-	power_ups[3]->SetPosY(player->GetPosY() );
-	power_ups[3]->SetType(OBJECT_POWERUP);
-	power_ups[3]->SetPowerType(SHIELD_POWERUP);
+	
 
 	
 
