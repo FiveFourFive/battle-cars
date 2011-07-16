@@ -506,8 +506,8 @@ void CGamePlayState::Exit(void)
 		collectionChallengeBoss->Release();
 		collectionChallengeBoss = NULL;
 	}
-	m_pPM->ShutDownParticleManager();
-	m_pPM = NULL;
+	//m_pPM->ShutDownParticleManager();
+	//m_pPM = NULL;
 	m_lScores.clear();
 	for(unsigned int i = 0; i < power_ups.size(); i++)
 	{
