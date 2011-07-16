@@ -114,7 +114,7 @@ void CCreditsScreenState::Render()
 	m_pPF->Print("Wade Shwallon", CGame::GetInstance()->GetScreenWidth()*0.1f + 64, y[3], 0.8f, D3DCOLOR_XRGB(0,255,0));
 	m_pPF->Print("Joshua Fields", CGame::GetInstance()->GetScreenWidth()*0.1f + 64, y[4], 0.8f, D3DCOLOR_XRGB(0,255,0));
 	m_pPF->Print("John Rostick", CGame::GetInstance()->GetScreenWidth()* 0.1f  + 64, y[5], 0.8f, D3DCOLOR_XRGB(0,255,0));
-	m_pPF->Print("Daniel Khan", CGame::GetInstance()->GetScreenWidth()*  0.1f   + 64, y[6], 0.8f, D3DCOLOR_XRGB(0,255,0));
+	m_pPF->Print("Daniel Kahn", CGame::GetInstance()->GetScreenWidth()*  0.1f   + 64, y[6], 0.8f, D3DCOLOR_XRGB(0,255,0));
 	m_pPF->Print("Associate Producer:", CGame::GetInstance()->GetScreenWidth()*0.5f - 328, y[7], 0.8f, D3DCOLOR_XRGB(0,255,0));
 	m_pPF->Print("Sean Hathaway", CGame::GetInstance()->GetScreenWidth()*0.5f - 264, y[8], 0.8f, D3DCOLOR_XRGB(0,255,0));
 	m_pPF->Print("Executive Producer", CGame::GetInstance()->GetScreenWidth()*0.5f - 328, y[9], 0.8f, D3DCOLOR_XRGB(0,255,0));
