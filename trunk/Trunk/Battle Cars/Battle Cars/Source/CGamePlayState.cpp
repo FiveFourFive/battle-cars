@@ -45,6 +45,9 @@
 #include "CGamerProfile.h"
 #include "Gamer_Profile.h"
 #include "CBoss.h"
+#include "CCollectable.h"
+#include "CCollectionMode.h"
+#include "CCollectState.h"
 
 void LoadCharacters();
 
@@ -176,7 +179,7 @@ void CGamePlayState::Enter(void)
 	miniboss->SetCarId(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniBossPlaceHolder.png"));
 	bosses.push_back(boss);
 	bosses.push_back(miniboss);
-	m_pOM->AddObject(miniboss);
+
 	dummy = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
 	PowerUp* power_up = new PowerUp();
 	power_up->SetPosX(1000.0f);
@@ -245,45 +248,57 @@ void CGamePlayState::Enter(void)
 	ramps.push_back(speedy);
 	dummy->SetSpeedRamps(ramps);
 	//dummy->SetVelX(10);
-	m_pOM->AddObject(dummy2);
-	m_pOM->AddObject(ramps[0]);
-	m_pOM->AddObject(dummy);
-	m_pOM->AddObject(power_ups[0]);
-	m_pOM->AddObject(power_ups[1]);
-	m_pOM->AddObject(power_ups[2]);
-	characters = CCharacterSelection::GetInstance()->GetList();
-	player = CCharacterSelection::GetInstance()->GetPlayer1();
-	if(CNumPlayers::GetInstance()->GetNumberOfPlayers() > 1)
+	if(!m_bCollectionChallenge)
 	{
-		player2 = CCharacterSelection::GetInstance()->GetPlayer2();
-		m_pOM->AddObject(player2);
+		m_pOM->AddObject(miniboss);
+		m_pOM->AddObject(dummy2);
+		m_pOM->AddObject(ramps[0]);
+		m_pOM->AddObject(dummy);
+		m_pOM->AddObject(power_ups[0]);
+		m_pOM->AddObject(power_ups[1]);
+		m_pOM->AddObject(power_ups[2]);
+		m_pOM->AddObject(power_ups[3]);
+		characters = CCharacterSelection::GetInstance()->GetList();
+		player = CCharacterSelection::GetInstance()->GetPlayer1();
+		if(CNumPlayers::GetInstance()->GetNumberOfPlayers() > 1)
+		{
+			player2 = CCharacterSelection::GetInstance()->GetPlayer2();
+			m_pOM->AddObject(player2);
+			player2->SetPosX(400);
+			player2->Rotate(0.0f);
+			player2->SetPosX(500);
+			player2->SetPosY(400);
+			player2->Rotate(0);
+			player2->SetController(m_pController2);
+		}
+		else
+		{
+			int player2index = rand()%4;
+			while(player2index == CCharacterSelection::GetInstance()->GetPlayer1()->GetPlayerType())
+				player2index = rand()%4;
+			player2 = characters[player2index];
+		}
 	}
 	else
 	{
-		int player2index = rand()%4;
-		while(player2index == CCharacterSelection::GetInstance()->GetPlayer1()->GetPlayerType())
-			player2index = rand()%4;
-		player2 = characters[player2index];
+		player = CCharacterSelection::GetInstance()->GetPlayer1();
 	}
-	player2->SetPosX(400);
+	
 	player->Rotate(0.0f);
-	player2->Rotate(0.0f);
-	player2->SetPosX(500);
-	player2->SetPosY(400);
+	
 	player->SetPlayerNum(1);
 	player->SetType(OBJECT_PLAYER);
 	player->Rotate(0);
-	player2->Rotate(0);
-	player2->SetController(m_pController2);
+	
 
 
 
 	player->SetPosX(400);
 	player->SetPosY(400);
 
-
-
 	m_pOM->AddObject(player);
+
+
 	power_ups[1]->SetPosX(player->GetPosX() + 200);
 	power_ups[1]->SetPosY(player->GetPosY() + 200);
 	power_ups[1]->SetType(OBJECT_POWERUP);
@@ -301,7 +316,7 @@ void CGamePlayState::Enter(void)
 	power_ups[3]->SetType(OBJECT_POWERUP);
 	power_ups[3]->SetPowerType(SHIELD_POWERUP);
 
-	m_pOM->AddObject(power_ups[3]);
+	
 
 	m_bCountDown = false;
 	m_fEnlarge = 0.0f;
@@ -313,6 +328,8 @@ void CGamePlayState::Enter(void)
 	m_fRespawnMiniBossTimer = 0.0f;
 	m_fRespawnBossTimer = 0.0f;
 	m_fCountDown = 0.0f;
+	m_nCollectableTotalComputer = 0;
+	m_nCollectableTotalPlayer = 0;
 
 	Level->SetSpawn (player2);
 
@@ -363,10 +380,39 @@ void CGamePlayState::Enter(void)
 	m_nMiniMapOverlayIndex=m_pTM->LoadTexture("resource/graphics/HUDS/minimap_overlay.png");
 	m_nMiniMapMiddlelayIndex=m_pTM->LoadTexture("resource/graphics/HUDS/minimap_middlelay.png");
 	m_nMiniMapUnderlayIndex=m_pTM->LoadTexture("resource/graphics/HUDS/minimap_underlay.png");
+	if(m_bCollectionChallenge)
+	{
+		//Create the collectables
+		for(int i = 0; i < 50; i++)
+		{
+			CCollectable* collectable = new CCollectable();
+			collectables.push_back(collectable);
+			m_pOM->AddObject(collectable);
+		}
+		CCollectionMode::GetInstance()->SetCollectables(collectables);
+		collectionChallengeBoss = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController()); 
+		m_pOM->AddObject(collectionChallengeBoss);
+		collectionChallengeBoss->SetPosX(500.0f);
+		collectionChallengeBoss->SetPosY(500.0f);
+		collectionChallengeBoss->SetSpeed(0.0f);
+		collectionChallengeBoss->SetMaxSpeed(200.0f);
+		collectionChallengeBoss->SetAcceleration(10.0f);
+		collectionChallengeBoss->SetHealth(150.0f);
+		collectionChallengeBoss->SetMaxHealth(150.0f);
+		collectionChallengeBoss->SetCarId(m_pTM->LoadTexture("resource/graphics/BattleCars_MiniBossPlaceHolder.png"));
+		collectionChallengeBoss->ChangeState(CCollectState::GetInstance());
+	}
+	else
+		collectionChallengeBoss = NULL;
 }
 
 void CGamePlayState::Exit(void)
 {
+	for(unsigned int i = 0; i < collectables.size(); i++)
+	{
+		collectables[i]->Release();
+	}
+	collectables.clear();
 	for(unsigned int i = 0; i < characters.size(); i++)
 	{
 		if(characters[i]->GetPlayerNum() == 1)
@@ -385,6 +431,11 @@ void CGamePlayState::Exit(void)
 	}
 	ramps.clear();
 	dummy2->Release();
+	if(collectionChallengeBoss)
+	{
+		collectionChallengeBoss->Release();
+		collectionChallengeBoss = NULL;
+	}
 	m_pPM->ShutDownParticleManager();
 	m_pPM = NULL;
 	m_lScores.clear();
@@ -559,17 +610,21 @@ void CGamePlayState::Update(float fElapsedTime)
 	{
 		player->GetCamera()->SetRenderPosX(0);
 		player->GetCamera()->SetRenderPosY(0);
-
-		player2->GetCamera()->SetRenderPosX(CGame::GetInstance()->GetScreenWidth() * 0.5f);
-		player2->GetCamera()->SetRenderPosY(0);
+		if(CNumPlayers::GetInstance()->GetNumberOfPlayers() > 1)
+		{
+			player2->GetCamera()->SetRenderPosX(CGame::GetInstance()->GetScreenWidth() * 0.5f);
+			player2->GetCamera()->SetRenderPosY(0);
+		}
 	}
 	else
 	{
 		player->GetCamera()->SetRenderPosX(0);
 		player->GetCamera()->SetRenderPosY(0);
-
-		player2->GetCamera()->SetRenderPosX(0);
-		player2->GetCamera()->SetRenderPosY(CGame::GetInstance()->GetScreenHeight()*0.5f);
+		if(CNumPlayers::GetInstance()->GetNumberOfPlayers() > 1)
+		{
+			player2->GetCamera()->SetRenderPosX(0);
+			player2->GetCamera()->SetRenderPosY(CGame::GetInstance()->GetScreenHeight()*0.5f);
+		}
 	}
 
 	if(m_bPlaying)
@@ -583,7 +638,7 @@ void CGamePlayState::Update(float fElapsedTime)
 			time -= 1;
 		}
 
-		if(m_bTimeTrial)
+		if(!m_bCollectionChallenge)
 		{
 			if(m_bMiniBossHasDied)
 			{
@@ -605,21 +660,21 @@ void CGamePlayState::Update(float fElapsedTime)
 					m_pOM->AddObject(bosses[1]);
 				}
 			}
-		}
-		if(time <= 30 && !m_bBossHasSpawned)
-		{
-			m_bBossHasSpawned = true;
-			m_pOM->AddObject(bosses[0]);
-		}
-		if(m_bBossHasDied)
-		{
-			m_fRespawnBossTimer += fElapsedTime;
-			if(m_fRespawnBossTimer >= 3.0f)
+			if(time <= 30 && !m_bBossHasSpawned)
 			{
-				m_bBossHasDied = false;
-				bosses[0] = new CBoss(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
-				m_bBossHasSpawned = false;
-				m_fRespawnBossTimer = 0.0f;
+				m_bBossHasSpawned = true;
+				m_pOM->AddObject(bosses[0]);
+			}
+			if(m_bBossHasDied)
+			{
+				m_fRespawnBossTimer += fElapsedTime;
+				if(m_fRespawnBossTimer >= 3.0f)
+				{
+					m_bBossHasDied = false;
+					bosses[0] = new CBoss(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
+					m_bBossHasSpawned = false;
+					m_fRespawnBossTimer = 0.0f;
+				}
 			}
 		}
 		m_pFM->Update();
@@ -694,7 +749,13 @@ void CGamePlayState::Render(void)
 		Level->Render(player2->GetCamera());
 		m_pOM->RenderObjects(player2->GetCamera());
 	}
-	
+	if(m_bCollectionChallenge)
+	{
+		char buffer[100];
+		sprintf_s(buffer, "%d", m_nCollectableTotalPlayer);
+		m_pD3D->DrawTextA(buffer, 10, 10);
+	}
+
 	if(!m_bPlaying)
 	{
 		char buffer[32];

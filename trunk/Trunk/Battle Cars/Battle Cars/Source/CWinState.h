@@ -34,6 +34,7 @@ private:
 	float m_fDelay;
 	int m_nNumSlots;
 	int m_nSlot;
+	int m_nBGImageID;
 
 	CPlayer* m_pWinner;
 

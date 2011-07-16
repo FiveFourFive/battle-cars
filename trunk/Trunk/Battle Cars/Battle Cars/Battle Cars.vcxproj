@@ -85,6 +85,9 @@
     <ClCompile Include="Source\CCar.cpp" />
     <ClCompile Include="Source\CCellAnimation.cpp" />
     <ClCompile Include="Source\CCharacterSelection.cpp" />
+    <ClCompile Include="Source\CCollectable.cpp" />
+    <ClCompile Include="Source\CCollectionMode.cpp" />
+    <ClCompile Include="Source\CCollectState.cpp" />
     <ClCompile Include="Source\CCreditScreenState.cpp" />
     <ClCompile Include="Source\CDeathmatchMode.cpp" />
     <ClCompile Include="Source\CEnemy.cpp" />
@@ -147,6 +150,9 @@
     <ClInclude Include="Source\CCar.h" />
     <ClInclude Include="Source\CCellAnimation.h" />
     <ClInclude Include="Source\CCharacterSelection.h" />
+    <ClInclude Include="Source\CCollectable.h" />
+    <ClInclude Include="Source\CCollectionMode.h" />
+    <ClInclude Include="Source\CCollectState.h" />
     <ClInclude Include="Source\CCreditsScreenState.h" />
     <ClInclude Include="Source\CDeathmatchMode.h" />
     <ClInclude Include="Source\CEnemy.h" />

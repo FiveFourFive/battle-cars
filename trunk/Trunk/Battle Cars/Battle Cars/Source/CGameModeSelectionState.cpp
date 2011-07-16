@@ -13,6 +13,8 @@
 #include "CLevelSelectionState.h"
 #include "CNumPlayers.h"
 #include "CGame.h"
+#include "CCollectionMode.h"
+
 enum options{WS_DM,WS_TT,WS_CC, WS_TUT,WS_EXIT};
 CGameModeSelectionState::CGameModeSelectionState(void)
 {
@@ -151,8 +153,8 @@ void CGameModeSelectionState::Render(void)
 	m_pPF->Print("Game Mode Selection", 50,100,1.0f,D3DCOLOR_XRGB(255,0,0));
 	m_pPF->Print("Deathmatch",100,200,0.8f,D3DCOLOR_XRGB(255,0,0));
 	m_pPF->Print("Time Trial",100,300,0.8f,D3DCOLOR_XRGB(255,0,0));
-	m_pPF->Print("Collection",100,400,0.8f,D3DCOLOR_XRGB(128,128,128));
-	m_pPF->Print("Tutorial",100,500,0.8f,D3DCOLOR_XRGB(128,128,128));
+	m_pPF->Print("Collection",100,400,0.8f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("Tutorial",100,500,0.8f,D3DCOLOR_XRGB(255,0,0));
 
 	switch(m_nSelection)
 	{
@@ -188,16 +190,21 @@ bool CGameModeSelectionState::HandleEnter(void)
 		
 		CGamePlayState::GetInstance()->SetGameMode(CDeathmatchMode::GetInstance());
 		CGamePlayState::GetInstance()->SetTimeTrial(false);
+		CGamePlayState::GetInstance()->SetCollectionChallenge(false);
 		CGame::GetInstance()->AddState(CLevelSelectionState::GetInstance());
 		break;
 	case WS_TT:
 		CGamePlayState::GetInstance()->SetGameMode(CTimeChallengeMode::GetInstance());
 		CGamePlayState::GetInstance()->SetTimeTrial(true);
+		CGamePlayState::GetInstance()->SetCollectionChallenge(false);
 		CGame::GetInstance()->AddState(CLevelSelectionState::GetInstance());
 		
 		break;
 	case WS_CC:
-		
+		CGamePlayState::GetInstance()->SetGameMode(CCollectionMode::GetInstance());
+		CGamePlayState::GetInstance()->SetTimeTrial(false);
+		CGamePlayState::GetInstance()->SetCollectionChallenge(true);
+		CGame::GetInstance()->AddState(CLevelSelectionState::GetInstance());
 		
 		break;
 	case WS_TUT:
