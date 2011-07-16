@@ -31,7 +31,7 @@ void CTimeChallengeMode::CheckCarStatus(CCar* car)
 {
 	if(car->GetHealth() <= 0)
 	{
-		if( car == (CCar*)CCharacterSelection::GetInstance()->GetPlayer1() || CGamePlayState::GetInstance()->GetTimeLeft() <= 0 || CCharacterSelection::GetInstance()->GetPlayer1()->GetKillCount() >= 1)
+		if( car == (CCar*)CCharacterSelection::GetInstance()->GetPlayer1() || CGamePlayState::GetInstance()->GetTimeLeft() <= 0 || CCharacterSelection::GetInstance()->GetPlayer1()->GetKillCount() >= 20)
 			m_bGameOver = true;
 
 		ParticleManager* pPM = ParticleManager::GetInstance();
@@ -133,7 +133,7 @@ void CTimeChallengeMode::CheckWinLoss()
 		if(scores->back()->GetType() == OBJECT_PLAYER)
 		{
 			CPlayer* tempplayer = (CPlayer*)scores->back();
-			if( tempplayer->GetKillCount() >= 1)
+			if( tempplayer->GetKillCount() >= 20)
 				CWinState::GetInstance()->SetWinner(tempplayer);
 			else
 			{
