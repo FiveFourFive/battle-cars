@@ -9,7 +9,7 @@
 
 #include "IBaseInterface.h"
 #include <string>
-enum type{OBJECT_BASE, OBJECT_BULLET, OBJECT_PLAYER, OBJECT_ENEMY, OBJECT_BOSS, OBJECT_SPEEDRAMP,OBJECT_POWERUP, OBJECT_COLLECTABLE, OBJECT_CAMERA};
+enum type{OBJECT_BASE, OBJECT_BULLET, OBJECT_PLAYER, OBJECT_ENEMY, OBJECT_BOSS, OBJECT_SPEEDRAMP,OBJECT_POWERUP,OBJECT_COLLECTABLE,OBJECT_OBSTACLE, OBJECT_CAMERA};
 
 class CCamera;
 
@@ -90,7 +90,7 @@ public:
 	}
 
 	virtual RECT GetRect();
-
+	void InBounds(void);
 	virtual bool CheckCollision(IBaseInterface* pBase);
 };
 

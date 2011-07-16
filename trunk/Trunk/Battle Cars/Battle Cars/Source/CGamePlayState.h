@@ -80,6 +80,9 @@ private:
 	CCar* dummy2;
 	CPlayer* player2;
 
+	int m_nCrateID;
+	int m_nBarrelID;
+
 	// sound
 	int m_nBackgroundMusicID;
 	int m_nCountDown;

@@ -45,6 +45,7 @@
 #include "CGamerProfile.h"
 #include "Gamer_Profile.h"
 #include "CBoss.h"
+#include "CObstacle.h"
 #include "CCollectable.h"
 #include "CCollectionMode.h"
 #include "CCollectState.h"
@@ -382,6 +383,61 @@ void CGamePlayState::Enter(void)
 	m_pD3D->DeviceEnd();
 	m_pD3D->Present();
 	Setvolume();
+
+
+	//// game obstacles //////
+	
+	m_nCrateID = m_pTM->LoadTexture("resource/graphics/crate.png");
+	m_nBarrelID = m_pTM->LoadTexture("resource/graphics/steeldrum.png");
+
+
+	CObstacle* crate1 = new CObstacle();
+	CObstacle* crate2 = new CObstacle();
+	CObstacle* crate3 = new CObstacle();
+	crate1->SetImageID(m_nCrateID);
+	crate1->SetWidth(10);
+	crate1->SetHeight(10);
+	crate1->SetPosX(400);
+	crate1->SetPosY(100);
+	crate2->SetImageID(m_nCrateID);
+	crate2->SetWidth(10);
+	crate2->SetHeight(10);
+	crate2->SetPosX(23);
+	crate2->SetPosY(45);
+	crate3->SetImageID(m_nCrateID);
+	crate3->SetWidth(10);
+	crate3->SetHeight(10);
+	crate3->SetPosX(200);
+	crate3->SetPosY(700);
+	crate1->SetType(OBJECT_OBSTACLE);
+	crate2->SetType(OBJECT_OBSTACLE);
+	crate3->SetType(OBJECT_OBSTACLE);
+
+	CObstacle* barrel1 = new CObstacle();
+	CObstacle* barrel2 = new CObstacle();
+	barrel1->SetImageID(m_nBarrelID);
+	barrel1->SetWidth(8);
+	barrel1->SetHeight(8);
+	barrel1->SetPosX(350);
+	barrel1->SetPosY(340);
+	barrel2->SetImageID(m_nBarrelID);
+	barrel2->SetWidth(8);
+	barrel2->SetHeight(8);
+	barrel2->SetPosX(800);
+	barrel2->SetPosY(399);
+	barrel1->SetType(OBJECT_OBSTACLE);
+	barrel2->SetType(OBJECT_OBSTACLE);
+
+
+	m_pOM->AddObject(crate1);
+	m_pOM->AddObject(crate2);
+	m_pOM->AddObject(crate3);
+	m_pOM->AddObject(barrel1);
+	m_pOM->AddObject(barrel2);
+
+	//// game obstacles /////
+
+
 
 	m_nMiniMapOverlayIndex=m_pTM->LoadTexture("resource/graphics/HUDS/minimap_overlay.png");
 	m_nMiniMapMiddlelayIndex=m_pTM->LoadTexture("resource/graphics/HUDS/minimap_middlelay.png");

@@ -5,10 +5,14 @@
 /////////////////////////////////////////////////////////
 
 #include "CBase.h"
-//#include "SGD Wrappers\CSGD_TextureManager.h"
+#include "CSGD_TextureManager.h"
 //#include "SGD Wrappers\CSGD_FModManager.h"
 #include "CGame.h"
+#include "CCamera.h"
 #include "CSGD_Direct3D.h"
+#include "CMap.h"
+#include "CLevel.h"
+#include "CGamePlayState.h"
 
 CBase::CBase()
 {
@@ -36,13 +40,12 @@ void CBase::Update(float fElapsedTime)
 
 void CBase::Render(CCamera* camera)
 {
-	//	CSGD_TextureManager::GetInstance()->Draw(GetImageID(),
-	//												(int)GetPosX(), (int)GetPosY());
+	CSGD_TextureManager::GetInstance()->Draw(GetImageID(),(int)GetPosX()-camera->GetCamX(), (int)GetPosY()-camera->GetCamY(),1.0f,1.0f);
 }
 
 RECT CBase::GetRect()
 {
-	RECT tempRect = { (LONG)GetPosX(), (LONG)GetPosY(), (LONG)(GetPosX() + GetWidth()), (LONG)(GetPosY() + GetHeight()) };
+	RECT tempRect = { (LONG)GetPosX() - (GetWidth()/2), (LONG)GetPosY() - (GetHeight()/2), (LONG)(GetPosX() + GetWidth()), (LONG)(GetPosY() + GetHeight()) };
 	return tempRect;
 }
 
@@ -51,7 +54,15 @@ bool CBase::CheckCollision(IBaseInterface* pBase)
 	RECT intersection;
 
 	if(IntersectRect(&intersection, &GetRect(), &pBase->GetRect()))
+	{
+		
+		if(pBase->GetType() == OBJECT_PLAYER || pBase->GetType() == OBJECT_ENEMY || pBase->GetType() == OBJECT_BOSS)
+		{
+
+		}
+		
 		return true;
+	}
 	return false;
 }
 
@@ -62,4 +73,29 @@ void CBase::SetName(char* name)
 char* CBase::GetName()
 {
 	return m_nName;
+}
+
+void CBase::InBounds(void)
+{
+	if(GetPosX() - (int)(GetWidth()*0.5f) <= 0)
+	{
+		SetPosX(GetWidth()*0.5f);
+	}
+	if(GetPosY() - (int)(GetHeight() * 0.5f) <= 0)
+	{
+		SetPosY(GetHeight() * 0.5f);
+	}
+	CLevel* level = CGamePlayState::GetInstance()->GetLevel();
+	CMap* map = level->GetMap();
+	int mapheight = map->GetPixelHeight() * map->GetMapHeight();
+	int mapwidth = map->GetPixelWidth() * map->GetMapWidth();
+	if(GetPosX() >= mapwidth)
+	{
+		SetPosX(mapwidth);
+
+	}
+	if(GetPosY() >= mapheight)
+	{
+		SetPosY(mapheight);
+	}
 }
