@@ -31,7 +31,7 @@ CBoss::CBoss(CXboxInput* pController) : CEnemy(pController)
 	this->SetMaxPowerUp(100.0f);
 	this->SetPosX(rand()%1400+200);
 	this->SetPosY(rand()%1400+200);
-	this->SetPlayerType(3);//rand()%CAR_NUM);
+	this->SetPlayerType(rand()%CAR_NUM);
 	this->SetSpecialLevel(1);
 	this->SetRotationRate(6.28f);
 	SetWidth(52);
@@ -169,7 +169,7 @@ bool CBoss::CheckCollision(IBaseInterface* pBase)
 {
 	if(this == pBase)
 		return false;
-	if(pBase->GetType() == OBJECT_ENEMY || pBase->GetType() == OBJECT_PLAYER)
+	if(pBase->GetType() == OBJECT_ENEMY || pBase->GetType() == OBJECT_PLAYER || pBase->GetType() == OBJECT_BOSS)
 	{
 		CCar* tempcar = (CCar*)pBase;
 		float centerx = tempcar->GetCX1();
