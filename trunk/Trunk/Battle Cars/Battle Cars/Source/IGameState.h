@@ -1,10 +1,3 @@
-
-/////////////////////////////////////////////////////////
-//	File Name : "IGameState.h"
-//	Author Name : James Brown & Jesus Smith
-//	Purpose : One State to rule them all
-/////////////////////////////////////////////////////////
-
 #ifndef _IGAMESTATE
 #define _IGAMESTATE
 
