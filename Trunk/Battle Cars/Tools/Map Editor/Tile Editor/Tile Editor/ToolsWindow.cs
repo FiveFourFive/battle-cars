@@ -68,6 +68,14 @@ namespace Tile_Editor
             }
         }
 
+        Size imageSize;
+
+        public Size ImageSize
+        {
+            get { return imageSize; }
+            set { imageSize = value; }
+        }
+
         //Size mapSize;
 
         public Size MapSize
@@ -297,6 +305,14 @@ namespace Tile_Editor
 
         private void PixelWidth_ValueChanged(object sender, EventArgs e)
         {
+            Size size = new Size();
+
+            size.Width = imageSize.Width / (int)PixelWidth.Value;
+            size.Height = TileSize.Height;
+
+            if (size.Width > 0 && size.Height > 0)
+                TileSize = size;
+
             if (PixelWidthChange != null)
             {
                 PixelWidthChange(this, EventArgs.Empty);
@@ -305,6 +321,13 @@ namespace Tile_Editor
 
         private void PixelHeight_ValueChanged(object sender, EventArgs e)
         {
+            Size size = new Size();
+            size.Width = TileSize.Width;
+            size.Height = imageSize.Height / (int)PixelHeight.Value;
+
+            if (size.Width > 0 && size.Height > 0)
+                TileSize = size;
+
             if (PixelHeightChange != null)
             {
                 PixelHeightChange(this, EventArgs.Empty);

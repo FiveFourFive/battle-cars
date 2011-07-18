@@ -66,8 +66,10 @@
             this.CollisionListBox = new System.Windows.Forms.ListBox();
             this.CollisionRemove = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.CollisionName = new System.Windows.Forms.TextBox();
             this.CollisionYPos = new System.Windows.Forms.NumericUpDown();
             this.CollisionXPos = new System.Windows.Forms.NumericUpDown();
             this.CollisionAdd = new System.Windows.Forms.Button();
@@ -98,8 +100,6 @@
             this.SpawnYPos = new System.Windows.Forms.NumericUpDown();
             this.SpawnXPos = new System.Windows.Forms.NumericUpDown();
             this.SpawnAdd = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.CollisionName = new System.Windows.Forms.TextBox();
             this.Spawns.SuspendLayout();
             this.ToolsTab.SuspendLayout();
             this.ToolsPage.SuspendLayout();
@@ -317,26 +317,46 @@
             // 
             this.PixelWidth.Location = new System.Drawing.Point(64, 30);
             this.PixelWidth.Maximum = new decimal(new int[] {
-            10000,
+            1000,
+            0,
+            0,
+            0});
+            this.PixelWidth.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
             this.PixelWidth.Name = "PixelWidth";
             this.PixelWidth.Size = new System.Drawing.Size(120, 20);
             this.PixelWidth.TabIndex = 1;
+            this.PixelWidth.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.PixelWidth.ValueChanged += new System.EventHandler(this.PixelWidth_ValueChanged);
             // 
             // PixelHeight
             // 
             this.PixelHeight.Location = new System.Drawing.Point(64, 56);
             this.PixelHeight.Maximum = new decimal(new int[] {
-            10000,
+            1000,
+            0,
+            0,
+            0});
+            this.PixelHeight.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
             this.PixelHeight.Name = "PixelHeight";
             this.PixelHeight.Size = new System.Drawing.Size(120, 20);
             this.PixelHeight.TabIndex = 3;
+            this.PixelHeight.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.PixelHeight.ValueChanged += new System.EventHandler(this.PixelHeight_ValueChanged);
             // 
             // label6
@@ -394,26 +414,46 @@
             // 
             this.MapWidth.Location = new System.Drawing.Point(64, 72);
             this.MapWidth.Maximum = new decimal(new int[] {
-            10000,
+            1000,
+            0,
+            0,
+            0});
+            this.MapWidth.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
             this.MapWidth.Name = "MapWidth";
             this.MapWidth.Size = new System.Drawing.Size(120, 20);
             this.MapWidth.TabIndex = 1;
+            this.MapWidth.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.MapWidth.ValueChanged += new System.EventHandler(this.MapWidth_ValueChanged);
             // 
             // MapHeight
             // 
             this.MapHeight.Location = new System.Drawing.Point(64, 98);
             this.MapHeight.Maximum = new decimal(new int[] {
-            10000,
+            1000,
+            0,
+            0,
+            0});
+            this.MapHeight.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
             this.MapHeight.Name = "MapHeight";
             this.MapHeight.Size = new System.Drawing.Size(120, 20);
             this.MapHeight.TabIndex = 3;
+            this.MapHeight.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.MapHeight.ValueChanged += new System.EventHandler(this.MapHeight_ValueChanged);
             // 
             // label2
@@ -451,26 +491,46 @@
             // 
             this.TilesWidth.Location = new System.Drawing.Point(64, 30);
             this.TilesWidth.Maximum = new decimal(new int[] {
-            10000,
+            1000,
+            0,
+            0,
+            0});
+            this.TilesWidth.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
             this.TilesWidth.Name = "TilesWidth";
             this.TilesWidth.Size = new System.Drawing.Size(120, 20);
             this.TilesWidth.TabIndex = 1;
+            this.TilesWidth.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.TilesWidth.ValueChanged += new System.EventHandler(this.TilesWidth_ValueChanged);
             // 
             // TilesHeight
             // 
             this.TilesHeight.Location = new System.Drawing.Point(64, 56);
             this.TilesHeight.Maximum = new decimal(new int[] {
-            10000,
+            1000,
+            0,
+            0,
+            0});
+            this.TilesHeight.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
             this.TilesHeight.Name = "TilesHeight";
             this.TilesHeight.Size = new System.Drawing.Size(120, 20);
             this.TilesHeight.TabIndex = 3;
+            this.TilesHeight.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.TilesHeight.ValueChanged += new System.EventHandler(this.TilesHeight_ValueChanged);
             // 
             // label4
@@ -550,6 +610,15 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Collision Info";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 101);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(35, 13);
+            this.label8.TabIndex = 5;
+            this.label8.Text = "Name";
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -567,6 +636,14 @@
             this.label10.Size = new System.Drawing.Size(54, 13);
             this.label10.TabIndex = 3;
             this.label10.Text = "X Position";
+            // 
+            // CollisionName
+            // 
+            this.CollisionName.Location = new System.Drawing.Point(65, 98);
+            this.CollisionName.Name = "CollisionName";
+            this.CollisionName.Size = new System.Drawing.Size(100, 20);
+            this.CollisionName.TabIndex = 2;
+            this.CollisionName.Text = "NoName";
             // 
             // CollisionYPos
             // 
@@ -886,23 +963,6 @@
             this.SpawnAdd.Text = "Add";
             this.SpawnAdd.UseVisualStyleBackColor = true;
             this.SpawnAdd.Click += new System.EventHandler(this.SpawnAdd_Click);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 101);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(35, 13);
-            this.label8.TabIndex = 5;
-            this.label8.Text = "Name";
-            // 
-            // CollisionName
-            // 
-            this.CollisionName.Location = new System.Drawing.Point(65, 98);
-            this.CollisionName.Name = "CollisionName";
-            this.CollisionName.Size = new System.Drawing.Size(100, 20);
-            this.CollisionName.TabIndex = 2;
-            this.CollisionName.Text = "NoName";
             // 
             // ToolsWindow
             // 

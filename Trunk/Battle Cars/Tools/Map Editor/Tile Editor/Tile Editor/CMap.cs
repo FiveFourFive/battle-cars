@@ -64,6 +64,14 @@ namespace Tile_Editor
             set { tileSelected = value; }
         }
 
+        Point endSelected;
+
+        public Point EndSelected
+        {
+            get { return endSelected; }
+            set { endSelected = value; }
+        }
+
         Size pixelSize; // How many pixels is each cell 
 
         public Size PixelSize

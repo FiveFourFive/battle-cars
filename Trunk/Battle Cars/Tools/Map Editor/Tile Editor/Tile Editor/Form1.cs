@@ -42,6 +42,8 @@ namespace Tile_Editor
 
         Point MousePoint;
 
+        Point ScrollOffset = Point.Empty;
+
         public MapEditor()
         {
             InitializeComponent();
@@ -81,11 +83,20 @@ namespace Tile_Editor
             levelMap.CollisionList = new CTile[LevelSize.Height, LevelSize.Width];
 
             levelMap.TileSelected = new Point(0, 0);
+            levelMap.EndSelected = new Point(0, 0);
             levelMap.TileSize = new Size(4, 4);
 
             levelMap.PixelSize = new Size(32, 32);
 
-            MainMapPanel.AutoScrollMinSize = new Size(levelMap.MapSize.Width * levelMap.PixelSize.Width, levelMap.MapSize.Height * levelMap.PixelSize.Height);
+            //MainMapPanel.AutoScrollMinSize = new Size(levelMap.MapSize.Width * levelMap.PixelSize.Width, levelMap.MapSize.Height * levelMap.PixelSize.Height);
+
+            vScrollBar1.Minimum = 0;
+            hScrollBar1.Minimum = 0;
+            hScrollBar1.Maximum = levelMap.MapSize.Width * levelMap.PixelSize.Width;
+            vScrollBar1.Maximum = levelMap.MapSize.Height * levelMap.PixelSize.Height;
+
+            ScrollOffset.X = 0;
+            ScrollOffset.Y = 0;
 
             levelMap.MapName = "Untitled";
 
@@ -144,6 +155,7 @@ namespace Tile_Editor
                 toolsWindow.PixelHeightChange += new EventHandler(PixelHeightChange);
                 toolsWindow.MapNameChange += new EventHandler(MapNameChange);
 
+                toolsWindow.ImageSize = new Size(TM.GetTextureWidth(levelMap.TileBitmap), TM.GetTextureHeight(levelMap.TileBitmap));
                 toolsWindow.MapName = levelMap.MapName;
                 toolsWindow.MapSize = levelMap.MapSize;
                 toolsWindow.TileSize = levelMap.TileSize;
@@ -183,7 +195,13 @@ namespace Tile_Editor
 
             OldMapSize = levelMap.MapSize;
             levelMap.MapSize = new Size(tool.MapSize.Width, levelMap.MapSize.Height);
-            MainMapPanel.AutoScrollMinSize = new Size(levelMap.MapSize.Width * levelMap.PixelSize.Width, levelMap.MapSize.Height * levelMap.PixelSize.Height);
+
+            vScrollBar1.Minimum = 0;
+            hScrollBar1.Minimum = 0;
+            hScrollBar1.Maximum = levelMap.MapSize.Width * levelMap.PixelSize.Width;
+            vScrollBar1.Maximum = levelMap.MapSize.Height * levelMap.PixelSize.Height;
+
+            //MainMapPanel.AutoScrollMinSize = new Size(levelMap.MapSize.Width * levelMap.PixelSize.Width, levelMap.MapSize.Height * levelMap.PixelSize.Height);
             MapRest();
         }
 
@@ -193,7 +211,12 @@ namespace Tile_Editor
 
             OldMapSize = levelMap.MapSize;
             levelMap.MapSize = new Size(levelMap.MapSize.Width, tool.MapSize.Height);
-            MainMapPanel.AutoScrollMinSize = new Size(levelMap.MapSize.Width * levelMap.PixelSize.Width, levelMap.MapSize.Height * levelMap.PixelSize.Height);
+            vScrollBar1.Minimum = 0;
+            hScrollBar1.Minimum = 0;
+            hScrollBar1.Maximum = levelMap.MapSize.Width * levelMap.PixelSize.Width;
+            vScrollBar1.Maximum = levelMap.MapSize.Height * levelMap.PixelSize.Height;
+
+            //MainMapPanel.AutoScrollMinSize = new Size(levelMap.MapSize.Width * levelMap.PixelSize.Width, levelMap.MapSize.Height * levelMap.PixelSize.Height);
             MapRest();
         }
 
@@ -223,7 +246,13 @@ namespace Tile_Editor
         {
             ToolsWindow tool = (ToolsWindow)sender;
             levelMap.PixelSize = new Size(tool.PixelSize.Width, levelMap.PixelSize.Height);
-            MainMapPanel.AutoScrollMinSize = new Size(levelMap.MapSize.Width * levelMap.PixelSize.Width, levelMap.MapSize.Height * levelMap.PixelSize.Height);
+
+            vScrollBar1.Minimum = 0;
+            hScrollBar1.Minimum = 0;
+            hScrollBar1.Maximum = levelMap.MapSize.Width * levelMap.PixelSize.Width;
+            vScrollBar1.Maximum = levelMap.MapSize.Height * levelMap.PixelSize.Height;
+
+            //MainMapPanel.AutoScrollMinSize = new Size(levelMap.MapSize.Width * levelMap.PixelSize.Width, levelMap.MapSize.Height * levelMap.PixelSize.Height);
             if (tileWindow != null)
             {
                 tileWindow.PixelSize = new Size(tool.PixelSize.Width, levelMap.PixelSize.Height);
@@ -235,7 +264,13 @@ namespace Tile_Editor
         {
             ToolsWindow tool = (ToolsWindow)sender;
             levelMap.PixelSize = new Size(levelMap.PixelSize.Width, tool.PixelSize.Height);
-            MainMapPanel.AutoScrollMinSize = new Size(levelMap.MapSize.Width * levelMap.PixelSize.Width, levelMap.MapSize.Height * levelMap.PixelSize.Height);
+
+            vScrollBar1.Minimum = 0;
+            hScrollBar1.Minimum = 0;
+            vScrollBar1.Maximum = levelMap.MapSize.Height * levelMap.PixelSize.Height;
+            hScrollBar1.Maximum = levelMap.MapSize.Width * levelMap.PixelSize.Width;
+
+           // MainMapPanel.AutoScrollMinSize = new Size(levelMap.MapSize.Width * levelMap.PixelSize.Width, levelMap.MapSize.Height * levelMap.PixelSize.Height);
             if (tileWindow != null)
             {
                 tileWindow.PixelSize = new Size(levelMap.PixelSize.Width, tool.PixelSize.Height);
@@ -275,6 +310,7 @@ namespace Tile_Editor
 
                 tileWindow.TileBitmap = levelMap.TileBitmap;
                 tileWindow.PixelSize = levelMap.PixelSize;
+                tileWindow.EndSelection = levelMap.EndSelected;
                 tileWindow.TileSelected = levelMap.TileSelected;
                 tileWindow.TileSize = levelMap.TileSize;
                 tileWindow.ShowGrid = gridShow;
@@ -293,13 +329,8 @@ namespace Tile_Editor
         {
             Point offset = Point.Empty;
 
-            offset.X += MainMapPanel.AutoScrollPosition.X;
-            offset.Y += MainMapPanel.AutoScrollPosition.Y;
-
-            //Point Position = Point.Empty;
-
-            //Position.X += MainMapPanel.AutoScrollPosition.X;
-            //Position.Y += MainMapPanel.AutoScrollPosition.Y;
+            offset.X -= ScrollOffset.X;
+            offset.Y -= ScrollOffset.Y;
 
             if (tileWindow != null)
             {
@@ -311,10 +342,6 @@ namespace Tile_Editor
             D3D.Clear(MainMapPanel, 255, 255, 255);
             D3D.DeviceBegin();
             D3D.LineBegin();
-
-            //int StartIndex = (( (MainMapPanel.DisplayRectangle.Top*-1) / levelMap.PixelSize.Height) * levelMap.MapSize.Width) + ((MainMapPanel.Left *-1) / levelMap.MapSize.Width);
-            //int EndIndex = ((MainMapPanel.DisplayRectangle.Bottom / levelMap.PixelSize.Height) * levelMap.MapSize.Width) + (MainMapPanel.Right / levelMap.MapSize.Width);
-
             
             if (gridShow)
             {
@@ -342,6 +369,27 @@ namespace Tile_Editor
 
                         tileRect.Size = new Size(levelMap.PixelSize.Width, levelMap.PixelSize.Height);
 
+                        //Size size = new Size();
+                        //if (levelMap.EndSelected.X == levelMap.TileSelected.X)
+                        //{
+                        //    size.Width = levelMap.PixelSize.Width;
+                        //}
+                        //else
+                        //{
+                        //    int difference = levelMap.EndSelected.X - levelMap.TileSelected.X;
+                        //    size.Width = difference * levelMap.PixelSize.Width + levelMap.PixelSize.Width;
+                        //}
+
+                        //if (levelMap.EndSelected.Y == levelMap.TileSelected.Y)
+                        //{
+                        //    size.Height = levelMap.PixelSize.Height;
+                        //}
+                        //else
+                        //{
+                        //    int difference = levelMap.EndSelected.Y - levelMap.TileSelected.Y;
+                        //    size.Height = difference * levelMap.PixelSize.Height + levelMap.PixelSize.Height;
+                        //}
+
                         Point TilePos = new Point(levelMap.TileList[Ypos, Xpos].XYIndex.X * levelMap.PixelSize.Width, levelMap.TileList[Ypos, Xpos].XYIndex.Y * levelMap.PixelSize.Height);
 
                         TM.Draw(levelMap.TileBitmap, TilePos.X + offset.X, TilePos.Y + offset.Y, 1.0f, 1.0f, tileRect, 0, 0, 0, 0);
@@ -356,8 +404,30 @@ namespace Tile_Editor
                 tileRect.Location = new Point(levelMap.TileSelected.X * levelMap.PixelSize.Width,
                                               levelMap.TileSelected.Y * levelMap.PixelSize.Height);
 
-                tileRect.Size = new Size(levelMap.PixelSize.Width, levelMap.PixelSize.Height);
+                tileRect.Size = new Size();
 
+                Size size = new Size();
+                if (levelMap.EndSelected.X == levelMap.TileSelected.X)
+                {
+                    size.Width = levelMap.PixelSize.Width;
+                }
+                else
+                {
+                    int difference = levelMap.EndSelected.X - levelMap.TileSelected.X;
+                    size.Width = difference * levelMap.PixelSize.Width + levelMap.PixelSize.Width;
+                }
+
+                if (levelMap.EndSelected.Y == levelMap.TileSelected.Y)
+                {
+                    size.Height = levelMap.PixelSize.Height;
+                }
+                else
+                {
+                    int difference = levelMap.EndSelected.Y - levelMap.TileSelected.Y;
+                    size.Height = difference * levelMap.PixelSize.Height + levelMap.PixelSize.Height;
+                }
+
+                tileRect.Size = size;
                 Point TilePos = new Point(GhostPoint.X * levelMap.PixelSize.Width, GhostPoint.Y * levelMap.PixelSize.Height);
 
                 Color col = Color.FromArgb(135, 255, 255, 255);
@@ -385,9 +455,6 @@ namespace Tile_Editor
             DrawBox(levelMap.MapSize, levelMap.SpawnList, levelMap.PixelSize, offset, "S", new Point(6, 2), levelMap.SpawnColor);
             DrawBox(levelMap.MapSize, levelMap.EventList, levelMap.PixelSize, offset, "E", new Point(3, 6), levelMap.EventColor);
 
-
-            
-
             D3D.LineEnd();
             D3D.DeviceEnd();
 
@@ -413,11 +480,7 @@ namespace Tile_Editor
 
                         D3D.DrawLine(List[Ypos, Xpos].XYIndex.X * PixelSize.Width + PositionOffset.X, (List[Ypos, Xpos].XYIndex.Y + 1) * PixelSize.Height + PositionOffset.Y,
                                     ((List[Ypos, Xpos].XYIndex.X) * PixelSize.Width) + PixelSize.Width + PositionOffset.X, (List[Ypos, Xpos].XYIndex.Y + 1) * PixelSize.Height + PositionOffset.Y, color.R, color.G, color.B); // bottom side
-
-                        //D3D.DrawText(Text, List[Ypos, Xpos].XYIndex.X * PixelSize.Width + PositionOffset.X + TextLocation.X,
-                        //                   List[Ypos, Xpos].XYIndex.Y * PixelSize.Height + PositionOffset.Y + TextLocation.Y, color.R, color.G, color.B);
                     }
-
                 }
             }
         }
@@ -426,91 +489,90 @@ namespace Tile_Editor
         {
             Point offset = e.Location;
 
-            offset.X -= MainMapPanel.AutoScrollPosition.X;
-            offset.Y -= MainMapPanel.AutoScrollPosition.Y;
+            offset.X += ScrollOffset.X;
+            offset.Y += ScrollOffset.Y;
 
-            MousePoint = offset;
+            Point Pos = Point.Empty;
+            Pos.X = (int)offset.X / levelMap.PixelSize.Width;
+            Pos.Y = (int)offset.Y / levelMap.PixelSize.Height;
+
+            if (Pos.X >= levelMap.MapSize.Width || Pos.Y >= levelMap.MapSize.Height || Pos.X < 0 || Pos.Y < 0)
+            {
+                return;
+            }
 
             if (ToolSelection == Tools.TOOL_ERASER)
             {
-                for (int YPos = 0; YPos < levelMap.MapSize.Height; YPos++)
+                levelMap.TileList[Pos.Y, Pos.X].PickedTile = Point.Empty;
+                levelMap.TileList[Pos.Y, Pos.X].Type = (TileType)(-1);
+                levelMap.TileList[Pos.Y, Pos.X].XYIndex = new Point(-1, -1);
+
+                levelMap.SpawnList[Pos.Y, Pos.X].PickedTile = Point.Empty;
+                levelMap.SpawnList[Pos.Y, Pos.X].Type = (TileType)(-1);
+                levelMap.SpawnList[Pos.Y, Pos.X].XYIndex = new Point(-1, -1);
+
+                levelMap.CollisionList[Pos.Y, Pos.X].PickedTile = Point.Empty;
+                levelMap.CollisionList[Pos.Y, Pos.X].Type = (TileType)(-1);
+                levelMap.CollisionList[Pos.Y, Pos.X].XYIndex = new Point(-1, -1);
+
+                levelMap.EventList[Pos.Y, Pos.X].PickedTile = Point.Empty;
+                levelMap.EventList[Pos.Y, Pos.X].Type = (TileType)(-1);
+                levelMap.EventList[Pos.Y, Pos.X].XYIndex = new Point(-1, -1);
+            }
+
+            int XDifference = levelMap.EndSelected.X - levelMap.TileSelected.X;
+            int YDifference = levelMap.EndSelected.Y - levelMap.TileSelected.Y;
+
+            for (int yPos = 0; yPos <= YDifference; yPos++)
+            {
+                for (int xPos = 0; xPos <= XDifference; xPos++)
                 {
-                    for (int XPos = 0; XPos < levelMap.MapSize.Width; XPos++)
+                    if (Pos.X + xPos >= levelMap.MapSize.Width || Pos.Y + yPos >= levelMap.MapSize.Height)
                     {
-                        if (offset.X > levelMap.PixelSize.Width * XPos && offset.Y > levelMap.PixelSize.Height * YPos && offset.X < levelMap.PixelSize.Width * (XPos + 1) && offset.Y < levelMap.PixelSize.Height * (YPos + 1))
-                        {
-                            levelMap.TileList[YPos, XPos].PickedTile = Point.Empty;
-                            levelMap.TileList[YPos, XPos].Type = (TileType)(-1);
-                            levelMap.TileList[YPos, XPos].XYIndex = new Point(-1, -1);
+                        return;
+                    }
 
-                            levelMap.SpawnList[YPos, XPos].PickedTile = Point.Empty;
-                            levelMap.SpawnList[YPos, XPos].Type = (TileType)(-1);
-                            levelMap.SpawnList[YPos, XPos].XYIndex = new Point(-1, -1);
+                    if (ToolSelection == Tools.TOOL_BRUSH)
+                    {
+                        levelMap.TileList[Pos.Y + yPos, Pos.X + xPos].XYIndex = new Point(Pos.X + xPos, Pos.Y + yPos);
+                        levelMap.TileList[Pos.Y + yPos, Pos.X + xPos].PickedTile = new Point (levelMap.TileSelected.X + xPos, levelMap.TileSelected.Y + yPos );
+                        levelMap.TileList[Pos.Y + yPos, Pos.X + xPos].Type = TileType.TYPE_TILE;
+                    }
 
-                            levelMap.CollisionList[YPos, XPos].PickedTile = Point.Empty;
-                            levelMap.CollisionList[YPos, XPos].Type = (TileType)(-1);
-                            levelMap.CollisionList[YPos, XPos].XYIndex = new Point(-1, -1);
+                    if (ToolSelection == Tools.TOOL_SPAWN)
+                    {
+                        levelMap.SpawnList[Pos.Y + yPos, Pos.X + xPos].XYIndex = new Point(Pos.X + xPos, Pos.Y + yPos);
+                        levelMap.SpawnList[Pos.Y + yPos, Pos.X + xPos].Name = "NoName";
+                        levelMap.SpawnList[Pos.Y + yPos, Pos.X + xPos].Type = ToolSpawnType;
+                    }
 
-                            levelMap.EventList[YPos, XPos].PickedTile = Point.Empty;
-                            levelMap.EventList[YPos, XPos].Type = (TileType)(-1);
-                            levelMap.EventList[YPos, XPos].XYIndex = new Point(-1, -1);
+                    if (ToolSelection == Tools.TOOL_COLLISION)
+                    {
+                        levelMap.CollisionList[Pos.Y + yPos, Pos.X + xPos].XYIndex = new Point(Pos.X + xPos, Pos.Y + yPos);
+                        levelMap.CollisionList[Pos.Y + yPos, Pos.X + xPos].Name = "NoName";
+                        levelMap.CollisionList[Pos.Y + yPos, Pos.X + xPos].Type = TileType.TYPE_COLLISION;
+                    }
 
-                        }
-
+                    if (ToolSelection == Tools.TOOL_EVENT)
+                    {
+                        levelMap.EventList[Pos.Y + yPos, Pos.X + xPos].XYIndex = new Point(Pos.X + xPos, Pos.Y + yPos);
+                        levelMap.EventList[Pos.Y + yPos, Pos.X + xPos].Name = "NoName";
+                        levelMap.EventList[Pos.Y + yPos, Pos.X + xPos].Type = TileType.TYPE_EVENT;
                     }
                 }
             }
 
-
-            for (int YPos = 0; YPos < levelMap.MapSize.Height; YPos++)
+            if (XDifference == 0 && YDifference == 0)
             {
-                for (int XPos = 0; XPos < levelMap.MapSize.Width; XPos++)
+                if (ToolSelection == Tools.TOOL_FILL)
                 {
-                    if (offset.X > levelMap.PixelSize.Width * XPos && offset.Y > levelMap.PixelSize.Height * YPos && offset.X < levelMap.PixelSize.Width * (XPos + 1) && offset.Y < levelMap.PixelSize.Height * (YPos + 1))
-                    {
-                        Point TilePos = Point.Empty;
-                        TilePos.X = (int)levelMap.PixelSize.Width * XPos;
-                        TilePos.Y = (int)levelMap.PixelSize.Height * YPos;
-
-                        if (ToolSelection == Tools.TOOL_BRUSH)
-                        {
-                            levelMap.TileList[YPos, XPos].XYIndex = new Point(XPos, YPos);
-                            levelMap.TileList[YPos, XPos].PickedTile = levelMap.TileSelected;
-                            levelMap.TileList[YPos, XPos].Type = TileType.TYPE_TILE;
-                        }
-
-                        if (ToolSelection == Tools.TOOL_SPAWN)
-                        {
-                            levelMap.SpawnList[YPos, XPos].XYIndex = new Point(XPos, YPos);
-                            levelMap.SpawnList[YPos, XPos].Name = "NoName";
-                            levelMap.SpawnList[YPos, XPos].Type = ToolSpawnType;
-                        }
-
-                        if (ToolSelection == Tools.TOOL_COLLISION)
-                        {
-                            levelMap.CollisionList[YPos, XPos].XYIndex = new Point(XPos, YPos);
-                            levelMap.CollisionList[YPos, XPos].Name = "NoName";
-                            levelMap.CollisionList[YPos, XPos].Type = TileType.TYPE_COLLISION;
-                        }
-
-                        if (ToolSelection == Tools.TOOL_EVENT)
-                        {
-                            levelMap.EventList[YPos, XPos].XYIndex = new Point(XPos, YPos);
-                            levelMap.EventList[YPos, XPos].Name = "NoName";
-                            levelMap.EventList[YPos, XPos].Type = TileType.TYPE_EVENT;
-                        }
-
-                        if (ToolSelection == Tools.TOOL_FILL)
-                        {
-                            FillArea(new Point (XPos, YPos), levelMap.TileSelected);
-                        }
-
-                        if (toolsWindow != null)
-                        {
-                            toolsWindow.LoadLists();
-                        }
-                    }
+                    FillArea(new Point(Pos.X, Pos.Y), levelMap.TileSelected);
                 }
+            }
+
+            if (toolsWindow != null)
+            {
+                toolsWindow.LoadLists();
             }
         }
 
@@ -624,121 +686,93 @@ namespace Tile_Editor
             Size position = Size.Empty;
             Point offset = e.Location;
 
-            offset.X -= MainMapPanel.AutoScrollPosition.X;
-            offset.Y -= MainMapPanel.AutoScrollPosition.Y;
+            offset.X += ScrollOffset.X;
+            offset.Y += ScrollOffset.Y;
 
-            MousePoint = offset;
+            Point Pos = Point.Empty;
+            Pos.X = (int)offset.X / levelMap.PixelSize.Width;
+            Pos.Y = (int)offset.Y / levelMap.PixelSize.Height;
+
+            
 
             // Creates a ghost for the users to see which tile they are using or which tile they are erasing
             if (ToolSelection == Tools.TOOL_BRUSH || ToolSelection == Tools.TOOL_ERASER)
             {
-                for (int YPos = 0; YPos < levelMap.MapSize.Height; YPos++)
-                {
-                    for (int XPos = 0; XPos < levelMap.MapSize.Width; XPos++)
-                    {
-                        if (offset.X > levelMap.PixelSize.Width * XPos && offset.Y > levelMap.PixelSize.Height * YPos && offset.X < levelMap.PixelSize.Width * (XPos + 1) && offset.Y < levelMap.PixelSize.Height * (YPos + 1))
-                        {
-                            Point TilePos = Point.Empty;
-                            TilePos.X = (int)levelMap.PixelSize.Width * XPos;
-                            TilePos.Y = (int)levelMap.PixelSize.Height * YPos;
-
-                            GhostPoint = TilePos;
-                        }
-
-                    }
-                }
-
-                //Point tilepos = Point.Empty;
-
-                //tilepos.X = (offset.X - MainMapPanel.AutoScrollPosition.X) / levelMap.PixelSize.Width;
-                //tilepos.Y = (offset.Y - MainMapPanel.AutoScrollPosition.Y) / levelMap.PixelSize.Height;
-
-                //GhostPoint = tilepos;
+                GhostPoint = Pos;
             }
 
-            OnMouseDown(e);
+            if (Pos.X >= levelMap.MapSize.Width || Pos.Y >= levelMap.MapSize.Height || Pos.X < 0 || Pos.Y < 0)
+            {
+                return;
+            }
+
+            //OnMouseDown(e);
 
             if (e.Button == MouseButtons.Left)
             {
-                for (int YPos = 0; YPos < levelMap.MapSize.Height; YPos++)
+                int XDifference = levelMap.EndSelected.X - levelMap.TileSelected.X;
+                int YDifference = levelMap.EndSelected.Y - levelMap.TileSelected.Y;
+
+                for (int yPos = 0; yPos <= YDifference; yPos++)
                 {
-                    for (int XPos = 0; XPos < levelMap.MapSize.Width; XPos++)
+                    for (int xPos = 0; xPos <= XDifference; xPos++)
                     {
-                        if (offset.X > levelMap.PixelSize.Width * XPos && offset.Y > levelMap.PixelSize.Height * YPos && offset.X < levelMap.PixelSize.Width * (XPos + 1) && offset.Y < levelMap.PixelSize.Height * (YPos + 1))
+                        if (Pos.X + xPos >= levelMap.MapSize.Width || Pos.Y + yPos >= levelMap.MapSize.Height)
                         {
-                            Point TilePos = Point.Empty;
-                            TilePos.X = (int)levelMap.PixelSize.Width * XPos;
-                            TilePos.Y = (int)levelMap.PixelSize.Height * YPos;
+                            return;
+                        }
 
-                            Rectangle tilePosition = Rectangle.Empty;
-                            tilePosition.Location = new Point(TilePos.X, TilePos.Y); // position on map
-                            tilePosition.Size = new Size(levelMap.PixelSize.Width, levelMap.PixelSize.Height); // distance from position on map
+                        if (ToolSelection == Tools.TOOL_BRUSH)
+                        {
+                            levelMap.TileList[Pos.Y + yPos, Pos.X + xPos].XYIndex = new Point(Pos.X + xPos, Pos.Y + yPos);
+                            levelMap.TileList[Pos.Y + yPos, Pos.X + xPos].PickedTile = new Point(levelMap.TileSelected.X + xPos, levelMap.TileSelected.Y + yPos);
+                            levelMap.TileList[Pos.Y + yPos, Pos.X + xPos].Type = TileType.TYPE_TILE;
+                        }
 
-                            if (ToolSelection == Tools.TOOL_BRUSH)
-                            {
-                                levelMap.TileList[YPos, XPos].XYIndex = new Point(XPos, YPos);
-                                //levelMap.TileList[YPos, XPos].Position = tilePosition;
-                                levelMap.TileList[YPos, XPos].PickedTile = levelMap.TileSelected;
-                                levelMap.TileList[YPos, XPos].Type = TileType.TYPE_TILE;
-                            }
+                        if (ToolSelection == Tools.TOOL_SPAWN)
+                        {
+                            levelMap.SpawnList[Pos.Y + yPos, Pos.X + xPos].XYIndex = new Point(Pos.X + xPos, Pos.Y + yPos);
+                            levelMap.SpawnList[Pos.Y + yPos, Pos.X + xPos].Name = "NoName";
+                            levelMap.SpawnList[Pos.Y + yPos, Pos.X + xPos].Type = ToolSpawnType;
+                        }
 
-                            if (ToolSelection == Tools.TOOL_SPAWN)
-                            {
-                                levelMap.SpawnList[YPos, XPos].XYIndex = new Point(XPos, YPos);
-                                //levelMap.SpawnList[YPos, XPos].Position = tilePosition;
-                                levelMap.SpawnList[YPos, XPos].Name = "NoName";
-                                levelMap.SpawnList[YPos, XPos].Type = ToolSpawnType;
-                            }
+                        if (ToolSelection == Tools.TOOL_COLLISION)
+                        {
+                            levelMap.CollisionList[Pos.Y + yPos, Pos.X + xPos].XYIndex = new Point(Pos.X + xPos, Pos.Y + yPos);
+                            levelMap.CollisionList[Pos.Y + yPos, Pos.X + xPos].Name = "NoName";
+                            levelMap.CollisionList[Pos.Y + yPos, Pos.X + xPos].Type = TileType.TYPE_COLLISION;
+                        }
 
-                            if (ToolSelection == Tools.TOOL_COLLISION)
-                            {
-                                levelMap.CollisionList[YPos, XPos].XYIndex = new Point(XPos, YPos);
-                                //levelMap.CollisionList[YPos, XPos].Position = tilePosition;
-                                levelMap.CollisionList[YPos, XPos].Name = "NoName";
-                                levelMap.CollisionList[YPos, XPos].Type = TileType.TYPE_COLLISION;
-                            }
-
-                            if (ToolSelection == Tools.TOOL_EVENT)
-                            {
-                                levelMap.EventList[YPos, XPos].XYIndex = new Point(XPos, YPos);
-                                //levelMap.EventList[YPos, XPos].Position = tilePosition;
-                                levelMap.EventList[YPos, XPos].Name = "NoName";
-                                levelMap.EventList[YPos, XPos].Type = TileType.TYPE_EVENT;
-                            }
+                        if (ToolSelection == Tools.TOOL_EVENT)
+                        {
+                            levelMap.EventList[Pos.Y + yPos, Pos.X + xPos].XYIndex = new Point(Pos.X + xPos, Pos.Y + yPos);
+                            levelMap.EventList[Pos.Y + yPos, Pos.X + xPos].Name = "NoName";
+                            levelMap.EventList[Pos.Y + yPos, Pos.X + xPos].Type = TileType.TYPE_EVENT;
                         }
                     }
                 }
 
                 if (ToolSelection == Tools.TOOL_ERASER)
                 {
-                    for (int YPos = 0; YPos < levelMap.MapSize.Height; YPos++)
-                    {
-                        for (int XPos = 0; XPos < levelMap.MapSize.Width; XPos++)
-                        {
-                            if (offset.X > levelMap.PixelSize.Width * XPos && offset.Y > levelMap.PixelSize.Height * YPos && offset.X < levelMap.PixelSize.Width * (XPos + 1) && offset.Y < levelMap.PixelSize.Height * (YPos + 1))
-                            {
-                                levelMap.TileList[YPos, XPos].Position = Rectangle.Empty;
-                                levelMap.TileList[YPos, XPos].PickedTile = Point.Empty;
-                                levelMap.TileList[YPos, XPos].Type = (TileType)(-1);
-                                levelMap.TileList[YPos, XPos].XYIndex = new Point(-1, -1);
+                    levelMap.TileList[Pos.Y, Pos.X].Position = Rectangle.Empty;
+                    levelMap.TileList[Pos.Y, Pos.X].PickedTile = Point.Empty;
+                    levelMap.TileList[Pos.Y, Pos.X].Type = (TileType)(-1);
+                    levelMap.TileList[Pos.Y, Pos.X].XYIndex = new Point(-1, -1);
 
-                                levelMap.SpawnList[YPos, XPos].Position = Rectangle.Empty;
-                                levelMap.SpawnList[YPos, XPos].PickedTile = Point.Empty;
-                                levelMap.SpawnList[YPos, XPos].Type = (TileType)(-1);
-                                levelMap.SpawnList[YPos, XPos].XYIndex = new Point(-1, -1);
+                    levelMap.SpawnList[Pos.Y, Pos.X].Position = Rectangle.Empty;
+                    levelMap.SpawnList[Pos.Y, Pos.X].PickedTile = Point.Empty;
+                    levelMap.SpawnList[Pos.Y, Pos.X].Type = (TileType)(-1);
+                    levelMap.SpawnList[Pos.Y, Pos.X].XYIndex = new Point(-1, -1);
 
-                                levelMap.CollisionList[YPos, XPos].Position = Rectangle.Empty;
-                                levelMap.CollisionList[YPos, XPos].PickedTile = Point.Empty;
-                                levelMap.CollisionList[YPos, XPos].Type = (TileType)(-1);
-                                levelMap.CollisionList[YPos, XPos].XYIndex = new Point(-1, -1);
+                    levelMap.CollisionList[Pos.Y, Pos.X].Position = Rectangle.Empty;
+                    levelMap.CollisionList[Pos.Y, Pos.X].PickedTile = Point.Empty;
+                    levelMap.CollisionList[Pos.Y, Pos.X].Type = (TileType)(-1);
+                    levelMap.CollisionList[Pos.Y, Pos.X].XYIndex = new Point(-1, -1);
 
-                                levelMap.EventList[YPos, XPos].Position = Rectangle.Empty;
-                                levelMap.EventList[YPos, XPos].PickedTile = Point.Empty;
-                                levelMap.EventList[YPos, XPos].Type = (TileType)(-1);
-                                levelMap.EventList[YPos, XPos].XYIndex = new Point(-1, -1);
-                            }
-                        }
-                    }
+                    levelMap.EventList[Pos.Y, Pos.X].Position = Rectangle.Empty;
+                    levelMap.EventList[Pos.Y, Pos.X].PickedTile = Point.Empty;
+                    levelMap.EventList[Pos.Y, Pos.X].Type = (TileType)(-1);
+                    levelMap.EventList[Pos.Y, Pos.X].XYIndex = new Point(-1, -1);
                 }
 
                 if (toolsWindow != null)
@@ -768,6 +802,7 @@ namespace Tile_Editor
             TileWindow tile = (TileWindow)sender;
 
             levelMap.TileSelected = tile.TileSelected;
+            levelMap.EndSelected = tile.EndSelection;
         }
 
         private void MapRest()
@@ -995,20 +1030,11 @@ namespace Tile_Editor
 
             levelMap.TileSize = new Size(int.Parse(xTilesInfo.Attribute("Width").Value), int.Parse(xTilesInfo.Attribute("Height").Value));
 
-            //XElement xBitmapName = xTilesInfo.Element ("BitmapName");
-
-            //TM.ReleaseTexture(levelMap.TileBitmap);
-
-            //levelMap.TileBitmap = TM.LoadTexture(path + xBitmapName.Value, 0);
-
-            //if (levelMap.TileBitmap == -1)
+            MessageBox.Show("Could not find tile set please find the tile set or find a new tile set.", "Load Fail.", MessageBoxButtons.OK);
+            loadTileSet();
+            if (tileWindow != null)
             {
-                MessageBox.Show("Could not find tile set please find the tile set or find a new tile set.", "Load Fail.", MessageBoxButtons.OK);
-                loadTileSet();
-                if (tileWindow != null)
-                {
-                    tileWindow.Render();
-                }
+                tileWindow.Render();
             }
 
             XElement xTiles = xTilesInfo.Element("Tiles");
@@ -1380,9 +1406,26 @@ namespace Tile_Editor
             {
                 levelMap.TileBitmap = TM.LoadTexture(dlg.FileName, 0);
 
+                int textureHeight = TM.GetTextureHeight(levelMap.TileBitmap);
+                int textureWidth = TM.GetTextureWidth(levelMap.TileBitmap);
+
+                Size tilesize = new Size();
+                tilesize.Width = textureWidth / levelMap.PixelSize.Width;
+                tilesize.Height = textureHeight / levelMap.PixelSize.Height;
+
+                levelMap.TileSize = tilesize;
+
                 if (tileWindow != null)
                 {
+                    tileWindow.TileSize = levelMap.TileSize;
                     tileWindow.TileBitmap = levelMap.TileBitmap;
+                    tileWindow.SetAutorScroll();
+                }
+
+                if (toolsWindow != null)
+                {
+                    toolsWindow.ImageSize = new Size(textureWidth, textureHeight);
+                    toolsWindow.TileSize = levelMap.TileSize;
                 }
             }
         }
@@ -1395,6 +1438,16 @@ namespace Tile_Editor
 
                 help.Show();
             }
+        }
+
+        private void hScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        {
+            ScrollOffset.X = e.NewValue;
+        }
+
+        private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        {
+            ScrollOffset.Y = e.NewValue;
         }
     }
 }

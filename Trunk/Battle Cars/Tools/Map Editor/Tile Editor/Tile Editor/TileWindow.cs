@@ -17,17 +17,26 @@ namespace Tile_Editor
 
         public event EventHandler TileClicked;
 
+        Point ScrollOffset;
+
+        public TileWindow()
+        {
+            InitializeComponent();
+
+            ScrollOffset.X = 0;
+            ScrollOffset.Y = 0;
+            vScrollBar1.Value = 0;
+            hScrollBar1.Value = 0;
+            vScrollBar1.Maximum = tileSize.Height * pixelSize.Height;
+            hScrollBar1.Maximum = tileSize.Width * pixelSize.Width;
+        }
+
         public void Render()
         {
             Point offset = Point.Empty;
 
-            offset.X += TilePanel.AutoScrollPosition.X;
-            offset.Y += TilePanel.AutoScrollPosition.Y;
-
-            Point Position = Point.Empty;
-
-            Position.X += TilePanel.AutoScrollPosition.X;
-            Position.Y += TilePanel.AutoScrollPosition.Y;
+            offset.X -= ScrollOffset.X;
+            offset.Y -= ScrollOffset.Y;
 
             D3D.ChangeDisplayParam(TilePanel, false);
 
@@ -46,25 +55,25 @@ namespace Tile_Editor
             {
                 for (int Xindex = 0; Xindex <= tileSize.Width; Xindex++)
                 {
-                    D3D.DrawLine(Xindex * pixelSize.Width + Position.X, Position.Y, Xindex * pixelSize.Width + Position.X, tileSize.Height * pixelSize.Height + Position.Y, 255, 0, 0);
+                    D3D.DrawLine(Xindex * pixelSize.Width + offset.X, offset.Y, Xindex * pixelSize.Width + offset.X, tileSize.Height * pixelSize.Height + offset.Y, 255, 0, 0);
                 }
                 for (int Yindex = 0; Yindex <= tileSize.Height; Yindex++)
                 {
-                    D3D.DrawLine(Position.X, Yindex * pixelSize.Height + Position.Y, tileSize.Width * pixelSize.Width + Position.X, Yindex * pixelSize.Height + Position.Y, 255, 0, 0);
+                    D3D.DrawLine(offset.X, Yindex * pixelSize.Height + offset.Y, tileSize.Width * pixelSize.Width + offset.X, Yindex * pixelSize.Height + offset.Y, 255, 0, 0);
                 }
             }
 
-            D3D.DrawLine(tileSelected.X * pixelSize.Width + Position.X, tileSelected.Y * pixelSize.Height + Position.Y,
-                        tileSelected.X * pixelSize.Width + Position.X, (tileSelected.Y * pixelSize.Height) + pixelSize.Height + Position.Y, 0, 255, 0); // left side
+            D3D.DrawLine((tileSelected.X * pixelSize.Width) + offset.X, (tileSelected.Y * pixelSize.Height) + offset.Y,
+                        (tileSelected.X * pixelSize.Width) + offset.X, (endSelection.Y * pixelSize.Height) + pixelSize.Height + offset.Y, 0, 255, 0); // left side
 
-            D3D.DrawLine(tileSelected.X * pixelSize.Width + Position.X, tileSelected.Y * pixelSize.Height + Position.Y,
-                        (tileSelected.X * pixelSize.Width) + pixelSize.Width + Position.X, tileSelected.Y * pixelSize.Height + Position.Y, 0, 255, 0); // top side
+            D3D.DrawLine((tileSelected.X * pixelSize.Width) + offset.X, (tileSelected.Y * pixelSize.Height) + offset.Y,
+                        (endSelection.X * pixelSize.Width) + pixelSize.Width + offset.X, (tileSelected.Y * pixelSize.Height) + offset.Y, 0, 255, 0); // top side
 
-            D3D.DrawLine((tileSelected.X + 1) * pixelSize.Width + Position.X, tileSelected.Y * pixelSize.Height + Position.Y,
-                        (tileSelected.X + 1) * pixelSize.Width + Position.X, (tileSelected.Y + 1) * pixelSize.Height + Position.Y, 0, 255, 0); //right side
+            D3D.DrawLine((endSelection.X * pixelSize.Width) + pixelSize.Width + offset.X, tileSelected.Y * pixelSize.Height + offset.Y,
+                        (endSelection.X * pixelSize.Width) + pixelSize.Width + offset.X, (endSelection.Y * pixelSize.Height) + pixelSize.Height + offset.Y, 0, 255, 0); //right side
 
-            D3D.DrawLine(tileSelected.X * pixelSize.Width + Position.X, (tileSelected.Y + 1) * pixelSize.Height + Position.Y,
-                        ((tileSelected.X) * pixelSize.Width) + pixelSize.Width + Position.X, (tileSelected.Y + 1) * pixelSize.Height + Position.Y, 0, 255, 0);
+            D3D.DrawLine((tileSelected.X * pixelSize.Width) + offset.X, (endSelection.Y * pixelSize.Height) + pixelSize.Height + offset.Y,
+                        (endSelection.X * pixelSize.Width) + pixelSize.Width + offset.X, (endSelection.Y * pixelSize.Height) + pixelSize.Height + offset.Y, 0, 255, 0);//bottom side
 
             D3D.LineEnd();
             D3D.DeviceEnd();
@@ -72,10 +81,23 @@ namespace Tile_Editor
             D3D.Present(TilePanel);
         }
 
-        public TileWindow()
+        Tools selectedTool;
+
+        public Tools SelectedTool
         {
-            InitializeComponent();
+            get { return selectedTool; }
+            set { selectedTool = value; }
         }
+
+        bool FirstSelected = false;
+        Point endSelection;
+
+        public Point EndSelection
+        {
+            get { return endSelection; }
+            set { endSelection = value; }
+        }
+
 
         bool gridShow;
 
@@ -117,46 +139,99 @@ namespace Tile_Editor
             set { tileBitmap = value; }
         }
 
-        //Panel screenSize;
-
-        //public Panel ScreenSize
-        //{
-        //    set { screenSize = value; }
-        //}
-
         public void SetAutorScroll()
         {
-            TilePanel.AutoScrollMinSize = new Size (tileSize.Width * pixelSize.Width, tileSize.Height * pixelSize.Height);
+            vScrollBar1.Value = 0;
+            hScrollBar1.Value = 0;
+            vScrollBar1.Maximum = tileSize.Height * pixelSize.Height;
+            hScrollBar1.Maximum = tileSize.Width * pixelSize.Width;
         }
 
         private void PicBox_MouseClick(object sender, MouseEventArgs e)
         {
-            Size position = Size.Empty;
-            Point offset = e.Location;
-
-            offset.X -= TilePanel.AutoScrollPosition.X;
-            offset.Y -= TilePanel.AutoScrollPosition.Y;
-
-
-            for (int ypos = 0; ypos < tileSize.Height; ypos++)
+            if (FirstSelected == false)
             {
-                for (int xpos = 0; xpos < tileSize.Width; xpos++)
-                {
-                    if (offset.X > pixelSize.Width * xpos && offset.Y > pixelSize.Height * ypos && offset.X < pixelSize.Width * (xpos + 1) && offset.Y < pixelSize.Height * (ypos + 1))
-                    {
-                        Point selectedPos = Point.Empty;
-                        selectedPos.X = xpos;//(int)pixelSize.Width * xpos;
-                        selectedPos.Y = ypos;//(int)pixelSize.Height * ypos;
+                Point position = Point.Empty;
+                Point offset = e.Location;
 
-                        tileSelected = selectedPos;
-                    }
+                offset.X += ScrollOffset.X;
+                offset.Y += ScrollOffset.Y;
+
+                position.X = offset.X / pixelSize.Width;
+                position.Y = offset.Y / pixelSize.Height;
+
+                if (position.X >= tileSize.Width || position.Y >= tileSize.Height || position.X < 0 || position.Y < 0)
+                    return;
+
+                tileSelected = position;
+                endSelection = tileSelected;
+
+                if (TileClicked != null)
+                {
+                    TileClicked(this, EventArgs.Empty);
                 }
             }
+        }
 
-            if (TileClicked != null)
+        private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        {
+            ScrollOffset.Y = e.NewValue;
+        }
+
+        private void hScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        {
+            ScrollOffset.X = e.NewValue;
+        }
+
+        private void TilePanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point position = Point.Empty;
+            Point offset = e.Location;
+
+            offset.X += ScrollOffset.X;
+            offset.Y += ScrollOffset.Y;
+
+            if (e.Button == MouseButtons.Left)
             {
-                TileClicked(this, EventArgs.Empty);
+                if (FirstSelected == false)
+                {
+                    FirstSelected = true;
+                    position.X = offset.X / pixelSize.Width;
+                    position.Y = offset.Y / pixelSize.Height;
+
+                    if (position.X >= tileSize.Width || position.Y >= tileSize.Height || position.X < 0 || position.Y < 0)
+                        return;
+
+
+                    tileSelected = position;
+                    endSelection = tileSelected;
+
+                    if (TileClicked != null)
+                    {
+                        TileClicked(this, EventArgs.Empty);
+                    }
+
+                    return;
+                }
+
+                position.X = offset.X / pixelSize.Width;
+                position.Y = offset.Y / pixelSize.Height;
+
+                if (position.X >= tileSize.Width || position.Y >= tileSize.Height || position.X < 0 || position.Y < 0)
+                    return;
+
+                endSelection = position;
+
+                if (TileClicked != null)
+                {
+                    TileClicked(this, EventArgs.Empty);
+                }
             }
+        }
+
+        private void TilePanel_MouseUp(object sender, MouseEventArgs e)
+        {
+            FirstSelected = false;
         }
     }
 }
