@@ -37,13 +37,11 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.worldSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tileWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.collisionWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.eventsWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.spawnsWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMapPanel = new System.Windows.Forms.Panel();
+            this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
+            this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -56,7 +54,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(646, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(849, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -111,11 +109,7 @@
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolsWindowToolStripMenuItem,
-            this.worldSettingsToolStripMenuItem,
-            this.tileWindowToolStripMenuItem,
-            this.collisionWindowToolStripMenuItem,
-            this.eventsWindowToolStripMenuItem,
-            this.spawnsWindowToolStripMenuItem});
+            this.tileWindowToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
@@ -127,36 +121,12 @@
             this.toolsWindowToolStripMenuItem.Text = "Tools Window";
             this.toolsWindowToolStripMenuItem.Click += new System.EventHandler(this.toolsWindowToolStripMenuItem_Click);
             // 
-            // worldSettingsToolStripMenuItem
-            // 
-            this.worldSettingsToolStripMenuItem.Name = "worldSettingsToolStripMenuItem";
-            this.worldSettingsToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
-            this.worldSettingsToolStripMenuItem.Text = "World Settings";
-            // 
             // tileWindowToolStripMenuItem
             // 
             this.tileWindowToolStripMenuItem.Name = "tileWindowToolStripMenuItem";
             this.tileWindowToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.tileWindowToolStripMenuItem.Text = "Tile Window";
             this.tileWindowToolStripMenuItem.Click += new System.EventHandler(this.tileWindowToolStripMenuItem_Click);
-            // 
-            // collisionWindowToolStripMenuItem
-            // 
-            this.collisionWindowToolStripMenuItem.Name = "collisionWindowToolStripMenuItem";
-            this.collisionWindowToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
-            this.collisionWindowToolStripMenuItem.Text = "Collisions Window";
-            // 
-            // eventsWindowToolStripMenuItem
-            // 
-            this.eventsWindowToolStripMenuItem.Name = "eventsWindowToolStripMenuItem";
-            this.eventsWindowToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
-            this.eventsWindowToolStripMenuItem.Text = "Events Window";
-            // 
-            // spawnsWindowToolStripMenuItem
-            // 
-            this.spawnsWindowToolStripMenuItem.Name = "spawnsWindowToolStripMenuItem";
-            this.spawnsWindowToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
-            this.spawnsWindowToolStripMenuItem.Text = "Spawns Window";
             // 
             // helpToolStripMenuItem
             // 
@@ -171,16 +141,36 @@
             this.MainMapPanel.Location = new System.Drawing.Point(0, 24);
             this.MainMapPanel.MinimumSize = new System.Drawing.Size(1, 1);
             this.MainMapPanel.Name = "MainMapPanel";
-            this.MainMapPanel.Size = new System.Drawing.Size(646, 532);
+            this.MainMapPanel.Size = new System.Drawing.Size(849, 708);
             this.MainMapPanel.TabIndex = 1;
             this.MainMapPanel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MainMapPanel_MouseClick);
             this.MainMapPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainMapPanel_MouseMove);
+            // 
+            // vScrollBar1
+            // 
+            this.vScrollBar1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.vScrollBar1.Location = new System.Drawing.Point(832, 24);
+            this.vScrollBar1.Name = "vScrollBar1";
+            this.vScrollBar1.Size = new System.Drawing.Size(17, 708);
+            this.vScrollBar1.TabIndex = 1;
+            this.vScrollBar1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.vScrollBar1_Scroll);
+            // 
+            // hScrollBar1
+            // 
+            this.hScrollBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.hScrollBar1.Location = new System.Drawing.Point(0, 714);
+            this.hScrollBar1.Name = "hScrollBar1";
+            this.hScrollBar1.Size = new System.Drawing.Size(832, 18);
+            this.hScrollBar1.TabIndex = 0;
+            this.hScrollBar1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.hScrollBar1_Scroll);
             // 
             // MapEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(646, 556);
+            this.ClientSize = new System.Drawing.Size(849, 732);
+            this.Controls.Add(this.hScrollBar1);
+            this.Controls.Add(this.vScrollBar1);
             this.Controls.Add(this.MainMapPanel);
             this.Controls.Add(this.menuStrip1);
             this.Name = "MapEditor";
@@ -203,15 +193,13 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsWindowToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem worldSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tileWindowToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem collisionWindowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem eventsWindowToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem spawnsWindowToolStripMenuItem;
         private System.Windows.Forms.Panel MainMapPanel;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem loadTileSetToolStripMenuItem;
+        private System.Windows.Forms.HScrollBar hScrollBar1;
+        private System.Windows.Forms.VScrollBar vScrollBar1;
     }
 }
 
