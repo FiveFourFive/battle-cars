@@ -8,14 +8,6 @@ namespace Tile_Editor
 {
     public class CTile
     {
-        Rectangle position;
-
-        public Rectangle Position
-        {
-            get { return position; }
-            set { position = value; }
-        }
-
         Point picked;
 
         public Point PickedTile
@@ -50,11 +42,7 @@ namespace Tile_Editor
 
         public override string ToString()
         {
-            string toStringName = name;
-
-            toStringName += " ";
-           // toStringName += 
-            return toStringName;
+            return name;
         }
     }
 }
