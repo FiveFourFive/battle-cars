@@ -85,8 +85,8 @@ void Emittor::Update(float fElapsedTime)
 				else
 				{
 					CCar* car = (CCar*)base;
-					m_vParticleList[i]->position.fX += car->GetVelX() * 0.5f;
-					m_vParticleList[i]->position.fY += car->GetVelY() * 0.5f;
+					m_vParticleList[i]->position.fX += car->GetVelX();
+					m_vParticleList[i]->position.fY += car->GetVelY();
 				}
 			}
 
@@ -155,7 +155,7 @@ void Emittor::Render(CCamera* camera)
 		{
 			
 			// Renders each individual particle.
-			pTM->Draw(m_nTextureID, (int)m_vParticleList[i]->position.fX - (int)(pTM->GetTextureWidth(this->GetTextureID())*0.5f) - (int)camera->GetCamX() + (int)camera->GetRenderPosX(), (int)m_vParticleList[i]->position.fY - (int)(pTM->GetTextureHeight(this->GetTextureID())*0.5f) - (int)camera->GetCamY()+ (int)camera->GetRenderPosY(), m_vParticleList[i]->scaleX, m_vParticleList[i]->scaleY,
+			pTM->Draw(m_nTextureID, (int)m_vParticleList[i]->position.fX - (int)camera->GetCamX() + (int)camera->GetRenderPosX(), (int)m_vParticleList[i]->position.fY - (int)camera->GetCamY()+ (int)camera->GetRenderPosY(), m_vParticleList[i]->scaleX, m_vParticleList[i]->scaleY,
 				NULL, (float)pTM->GetTextureWidth(this->GetTextureID())*0.5f, (float)pTM->GetTextureHeight(this->GetTextureID()) *0.5f, m_vParticleList[i]->rotation, m_vParticleList[i]->color);
 		}
 	}
@@ -164,6 +164,20 @@ void Emittor::Render(CCamera* camera)
 
 	CSGD_Direct3D::GetInstance()->GetDirect3DDevice()->SetRenderState(D3DRS_SRCBLEND, temp_source);
 	CSGD_Direct3D::GetInstance()->GetDirect3DDevice()->SetRenderState(D3DRS_DESTBLEND, temp_destination);
+}
+
+void Emittor::ClearParticleList()
+{
+	for( int i = 0; i < m_vParticleList.size(); i++)
+	{
+		if( m_vParticleList[i])
+		{
+			delete m_vParticleList[i];
+			m_vParticleList[i] = NULL;
+		}
+	}
+
+	m_vParticleList.clear();
 }
 
 void Emittor::UpdateColor(int i)

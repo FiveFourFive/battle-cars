@@ -19,6 +19,8 @@ CBullet::CBullet(void)
 	m_fBlastRadius = 0.0f;
 	m_fSlowRate = 0.0f;
 	trace_particle = -1;
+
+	//SetOwner(NULL);
 }
 
 void CBullet::Update(float fElapsedTime)
@@ -30,7 +32,7 @@ void CBullet::Update(float fElapsedTime)
 	ParticleManager* pPM = ParticleManager::GetInstance();
 
 	if( trace_particle > -1 )
-		pPM->AttachToBasePosition(this, pPM->GetEmittor(trace_particle), GetWidth()*0.5f, GetHeight()*0.5f);
+		pPM->AttachToBasePosition(this, pPM->GetActiveEmittor(trace_particle), GetWidth()*0.5f, GetHeight()*0.5f);
 
 	if(m_fCurLife >= m_fMaxLife)
 	{

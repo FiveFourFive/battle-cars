@@ -9,7 +9,8 @@ class CBase;
 class CCamera;
 
 enum emittor_types{ COLLISION_EMITTOR, MISSLE_EMITTOR, EXPLOSION_SMOKE_EMITTOR, EXPLOSION_FIREBURST1_EMITTOR,
-	EXPLOSION_FIREBURST2_EMITTOR, EXPLOSION_FIREBURST3_EMITTOR, EXPLOSION_FLAME_EMITTOR, AFTEREXPLOSION_SMOKE_EMITTOR, AFTEREXPLOSION_FLAME_EMITTOR, TOTAL_EMITTOR};
+	EXPLOSION_FIREBURST2_EMITTOR, EXPLOSION_FIREBURST3_EMITTOR, EXPLOSION_FLAME_EMITTOR, AFTEREXPLOSION_SMOKE_EMITTOR, AFTEREXPLOSION_FLAME_EMITTOR,
+	FLAMETHROWER_EMITTOR, TOTAL_EMITTOR};
 
 class ParticleManager
 {
@@ -20,6 +21,7 @@ private:
 	vector< Emittor*> m_ActiveEmittors;	// Active Emittors currently being used.
 
 	int Count;
+	int ActiveCount;
 
 	// Constructor
 	ParticleManager();
@@ -113,6 +115,8 @@ public:
 	void ShutDownParticleManager();
 
 	Emittor* GetEmittor(int id);
+	Emittor* GetActiveEmittor(int id);
+
 };
 
 #endif

@@ -49,8 +49,12 @@ CPlayer::CPlayer(CXboxInput* pController)
 	m_fIcyBullets = 0.0f;
 	m_fFlames = 0.0f;
 
+	SetFlameThrowerEmittorID(-1);
+
 	CEventSystem::GetInstance()->RegisterClient("collision", this);
 	SetCollisionEffect(false);
+
+	isSet = false;
 
 }
 CPlayer::~CPlayer(void)
@@ -83,23 +87,69 @@ void CPlayer::Update(float fElapsedTime)
 	if( GetHealth() <= 0.0f)
 	{
 		SetRespawnTimer(GetRespawnTimer() + fElapsedTime);
+		if( GetFlameThrowerEmittorID() > -1)
+		{
+			ParticleManager::GetInstance()->GetActiveEmittor(GetFlameThrowerEmittorID())->SetTimeToDie(0.0f);
+		}
+		m_bIsFlameThrowerOn = false;
+		SetFlameThrowerEmittorID(-1);
 		return;
 	}
+
 
 	m_fFireTimer += fElapsedTime;
 	static float m_ftimer;
 	m_ftimer += fElapsedTime;
 	if(m_bIsFlameThrowerOn)
 	{
+		ParticleManager* PM = ParticleManager::GetInstance();
+		Emittor* flame_thrower = NULL;
+
+		if( !isSet )
+		{
+				isSet = true;
+
+				
+				 flame_thrower = PM->CreateEffect(PM->GetEmittor(FLAMETHROWER_EMITTOR), GetPosX(), GetPosY());
+
+				if( flame_thrower )
+				{
+					SetFlameThrowerEmittorID( flame_thrower->GetID());
+					flame_thrower->SetTimeToDie(2.0f);
+				}
+
+		}
+
+		if( flame_thrower == NULL )
+		{
+			flame_thrower = PM->GetActiveEmittor(GetFlameThrowerEmittorID());
+		}
+
+		if( flame_thrower )
+		{
+			tVector2D temp;
+			temp.fX = 0;
+			temp.fY = -1;
+			temp = Vector2DRotate(temp,GetRotation());
+			Vector2DNormalize(temp);
+			temp = temp * (350+ GetSpeed());
+			flame_thrower->SetAcceleration(temp.fX, temp.fY);
+
+			PM->AttachToBasePosition(this, flame_thrower,0, 0);
+		}
+
 		m_fFlames = m_fFlames - fElapsedTime;
 		if(m_fFlames > 0.0f)
 		{
-			PlayBullet();		
+			//PlayBullet();		
 			CMessageSystem::GetInstance()->SendMsg(new CCreateVetteSpecialMessage(this));
 			m_fFireTimer = 0.0f;
 		}
 		else
+		{
 			m_bIsFlameThrowerOn = false;
+			isSet = false;
+		}
 	}
 	else if(m_bIsIcyGatlingOn)
 	{
@@ -404,8 +454,15 @@ void CPlayer::Render(CCamera* camera)
 	char buffer[128];
 	sprintf_s(buffer,"%i",GetSpecialLevel());
 	pD3D->DrawText(buffer,10,10,255,255,255);
-	
-	
+	pD3D->GetSprite()->Flush();
+
+	RECT temp_rect;
+
+	temp_rect.left = GetPosX() - camera->GetCamX() + camera->GetRenderPosX();
+	temp_rect.top = GetPosY() - camera->GetCamY() + camera->GetRenderPosY();
+	temp_rect.right = temp_rect.left + 10;
+	temp_rect.bottom = temp_rect.top + 10;
+	pD3D->DrawRect(temp_rect, 128,128,128);
 }
 
 bool CPlayer::CheckCollision(IBaseInterface* pBase)
