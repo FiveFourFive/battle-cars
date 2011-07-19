@@ -479,6 +479,12 @@ void CGamePlayState::Enter(void)
 
 void CGamePlayState::Exit(void)
 {
+	barrel1->Release();
+	barrel2->Release();
+	crate1->Release();
+	crate2->Release();
+	crate3->Release();
+
 	for(unsigned int i = 0; i < collectables.size(); i++)
 	{
 		collectables[i]->Release();
@@ -507,8 +513,8 @@ void CGamePlayState::Exit(void)
 		collectionChallengeBoss->Release();
 		collectionChallengeBoss = NULL;
 	}
-	//m_pPM->ShutDownParticleManager();
-	//m_pPM = NULL;
+	m_pPM->ShutDownParticleManager();
+	m_pPM = NULL;
 	m_lScores.clear();
 	for(unsigned int i = 0; i < power_ups.size(); i++)
 	{
@@ -1424,6 +1430,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			CGamePlayState* pGame = CGamePlayState::GetInstance();
 			if(tempbullet->GetBulletType() == PROJECTILE_BULLET)
 			{
+ 				CGamePlayState::GetInstance()->m_pPM->GetEmittor(tempbullet->GetTracerEmittor())->SetBase(NULL);
 				pGame->m_pOM->RemoveObject(tempbullet);
 			}
 			else if(tempbullet->GetBulletType() == PROJECTILE_MISSILE || tempbullet->GetBulletType() == PROJECTILE_MINI_MISSILE)

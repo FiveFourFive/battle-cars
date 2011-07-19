@@ -4,6 +4,7 @@ CObstacle::CObstacle(void)
 {
 	m_vCollisionVel.fX = 0;
 	m_vCollisionVel.fY = 0;
+
 }
 
 CObstacle::~CObstacle(void)
@@ -32,7 +33,7 @@ bool CObstacle::CheckCollision(IBaseInterface* pBase)
 
 	if(IntersectRect(&intersection,&this->GetRect(),&pBase->GetRect()))
 	{
-		if(pBase->GetType() == OBJECT_ENEMY || pBase->GetType() == OBJECT_PLAYER || pBase->GetType() == OBJECT_BOSS || pBase->GetType() == OBJECT_OBSTACLE)
+		if(pBase->GetType() == OBJECT_ENEMY || pBase->GetType() == OBJECT_PLAYER || pBase->GetType() == OBJECT_BOSS)
 		{
 			tVector2D myvel = m_vCollisionVel;
 			CCar* tempcar = (CCar*)pBase;

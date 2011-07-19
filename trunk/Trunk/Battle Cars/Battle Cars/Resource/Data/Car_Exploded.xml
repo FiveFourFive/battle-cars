@@ -2,7 +2,7 @@
 <Emittors>
   <Emittor>
     <Name>Smoke</Name>
-    <NumberofParticles>200.00000</NumberofParticles>
+    <NumberofParticles>50.00000</NumberofParticles>
     <MinLifeSpan>0.5</MinLifeSpan>
     <MaxLifeSpan>1</MaxLifeSpan>
     <StartColor A="255" R="95" G="95" B="95" />

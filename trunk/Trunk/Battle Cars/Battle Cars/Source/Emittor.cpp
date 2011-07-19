@@ -3,6 +3,7 @@
 #include "CCamera.h"
 #include "CSGD_TextureManager.h"
 #include "CBullet.h"
+#include "CCar.h"
 
 namespace temp_variables
 {
@@ -37,8 +38,11 @@ Emittor::~Emittor()
 {
 	for( unsigned int i = 0; i < m_vParticleList.size(); i++)
 	{
-		delete m_vParticleList[i];
-		m_vParticleList[i] = NULL;
+		if( m_vParticleList[i] != NULL)
+		{
+			delete m_vParticleList[i];
+			m_vParticleList[i] = NULL;
+		}
 	}
 	m_vParticleList.clear();
 }
@@ -67,9 +71,24 @@ void Emittor::Update(float fElapsedTime)
 
 			}
 
-				m_vParticleList[i]->position.fX += (m_vParticleList[i]->velocity.fX + (acceleration.fX * fElapsedTime));
-				m_vParticleList[i]->position.fY += (m_vParticleList[i]->velocity.fY + (acceleration.fY * fElapsedTime));
-                
+			m_vParticleList[i]->position.fX += (m_vParticleList[i]->velocity.fX + (acceleration.fX * fElapsedTime));
+			m_vParticleList[i]->position.fY += (m_vParticleList[i]->velocity.fY + (acceleration.fY * fElapsedTime));
+            
+			if( base )
+			{
+				if( base->GetType() == OBJECT_BULLET )
+				{
+					CBullet* bullet = (CBullet*)base;
+					m_vParticleList[i]->position.fX += -(bullet->GetVelX() * 0.01f);
+					m_vParticleList[i]->position.fY += -(bullet->GetVelY() * 0.01f);
+				}
+				else
+				{
+					CCar* car = (CCar*)base;
+					m_vParticleList[i]->position.fX += car->GetVelX() * 0.5f;
+					m_vParticleList[i]->position.fY += car->GetVelY() * 0.5f;
+				}
+			}
 
 			m_vParticleList[i]->currLife += fElapsedTime;
 			m_vParticleList[i]->colorfade_timer += fElapsedTime;
@@ -213,7 +232,11 @@ void Emittor::UpdateScale(int i)
 
 void Emittor::SetBase(CBase* base)
 {
-	this->base = base;;
+	if( this != NULL)
+	{
+		if( this->base != NULL)
+			this->base = base;
+	}
 }
 
 void Emittor::InitializeEmittor()

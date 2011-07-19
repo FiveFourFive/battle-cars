@@ -64,6 +64,9 @@ void CGame::Initialize(HWND hWnd, HINSTANCE hInstance, int nScreenWidth, int nSc
 	m_pFM	=	CSGD_FModManager::GetInstance();
 	m_pDI	=	CSGD_DirectInput::GetInstance();
 
+	this->hWnd = hWnd;
+	isWindowedMode = bIsWindowed;
+
 	// Controllers
 	m_pController1 = new CXboxInput(1);
 	m_pController2 = new CXboxInput(2);
@@ -209,6 +212,13 @@ void CGame::RemoveState(IGameState* state)
 
 }
 
+void CGame::ClearStates()
+{
+	while( m_vGameStates.size() > 0)
+	{
+		RemoveState(m_vGameStates.back());
+	}
+}
 
 void CGame::Shutdown()
 {

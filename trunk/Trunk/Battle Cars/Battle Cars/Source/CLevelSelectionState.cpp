@@ -49,6 +49,7 @@ CLevelSelectionState* CLevelSelectionState::GetInstance()
 
 void CLevelSelectionState::Enter()
 {
+
 	m_nMenuSelect = m_pFM->LoadSound("resource/sounds/menuselect.mp3");
 	m_nMenuMove = m_pFM->LoadSound("resource/sounds/menuchange.mp3");
 	m_nFontID = m_pTM->LoadTexture("resource/graphics/BC_Font.png",D3DCOLOR_XRGB(0, 0, 0));
@@ -58,6 +59,12 @@ void CLevelSelectionState::Enter()
 	m_nBGImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/mainmenu_bg.jpg");
 	m_nSelection = 0;
 
+	color = D3DCOLOR_ARGB(255,255,255,255);
+	isSet = false;
+	m_nCurrentFrame = 0;
+
+	for( int i = 0; i < 3; i++)
+		m_nMovieID[i]=-1;
 }
 
 void CLevelSelectionState::Exit()
@@ -89,6 +96,7 @@ bool CLevelSelectionState::Input()
 				CGame::GetInstance()->ResetThumbDelay();
 				if(x < 8000 && x > -8000 && y > 16000|| xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP)
 				{
+					isSet = false;
 					m_nSelection--;
 					m_pFM->PlaySound(m_nMenuMove);
 					if(m_nSelection < 0)
@@ -96,6 +104,7 @@ bool CLevelSelectionState::Input()
 				}
 				else if(x < 8000 && x > -8000 && y < -16000|| xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN)
 				{
+					isSet = false;
 					m_nSelection++;
 					m_pFM->PlaySound(m_nMenuMove);
 					if(m_nSelection >= LEVEL_MAX)
@@ -117,14 +126,16 @@ bool CLevelSelectionState::Input()
 
 		if(m_pDI->KeyPressed(DIK_UP))
 		{
-				m_nSelection--;
-				m_pFM->PlaySound(m_nMenuMove);
-				if(m_nSelection < 0)
-					m_nSelection = LEVEL_MAX - 1;
+			isSet = false;
+			m_nSelection--;
+			m_pFM->PlaySound(m_nMenuMove);
+			if(m_nSelection < 0)
+				m_nSelection = LEVEL_MAX - 1;
 		}
 
 		if(m_pDI->KeyPressed(DIK_DOWN))
 		{
+			isSet = false;
 			m_nSelection++;
 			m_pFM->PlaySound(m_nMenuMove);
 			if(m_nSelection >= LEVEL_MAX)
@@ -137,7 +148,31 @@ bool CLevelSelectionState::Input()
 
 void CLevelSelectionState::Update(float fElapsedTime)
 {
+	LoadVideo();
+
+	m_fMovieTimer += fElapsedTime;
+	if( m_fMovieTimer >= 6.0f )
+	{
+		m_fMovieTimer = 0.0f;
+		m_nCurrentFrame++;
+		if( m_nCurrentFrame > 2 )
+			m_nCurrentFrame = 0;
+	}
+
+	if( m_fMovieTimer < 3.0f )
+	{
+		unsigned char Alpha = ((255 - 0) * (m_fMovieTimer / 3.0f));
+		color = D3DCOLOR_ARGB(Alpha, 255,255,255);
+	}
+	else if( m_fMovieTimer > 3.0f)
+	{
+		unsigned char Alpha = 255 - ((255 - 0) * (m_fMovieTimer / 3.0f));
+		if( Alpha == 0 )
+			Alpha = 255;
+		color = D3DCOLOR_ARGB(Alpha, 255,255,255);
+	}
 	m_pFM->Update();
+
 }
 
 void CLevelSelectionState::Render()
@@ -155,9 +190,10 @@ void CLevelSelectionState::Render()
 		else
 		{
 			m_pPF->Print(m_ListofLevels[i]->FileName.c_str(), 10, (i + 1) * 50, 0.5f, D3DCOLOR_XRGB(0, 255, 0));
-			m_pTM->Draw(m_ListofLevels[i]->ImageID, 200, 250, 1.0f, 1.0f);
+			m_pTM->Draw(m_nMovieID[m_nCurrentFrame], 200, 250, 0.5f, 0.5f, NULL,0, 0, 0, color);
 		}
 	}
+
 
 }
 
@@ -165,6 +201,12 @@ bool CLevelSelectionState::HandleEnter()
 {
 	CGame::GetInstance()->ChangeState(CNumPlayers::GetInstance());
 	return true;
+}
+
+
+void CLevelSelectionState::CleanUp()
+{
+
 }
 
 bool CLevelSelectionState::LoadLevel(const char* szXmlFileName)
@@ -184,16 +226,6 @@ bool CLevelSelectionState::LoadLevel(const char* szXmlFileName)
 	while(pLevel != NULL)
 	{
 		m_ListofLevels[index] = new SLevel();
-		std::string texturefilename = "resource/graphics/";
-
-		TiXmlElement* pImageName = pLevel->FirstChildElement("LevelImageName");
-		if( pImageName != NULL)
-		{
-			texturefilename += pImageName->GetText();
-			m_ListofLevels[index]->ImageID = m_pTM->LoadTexture(texturefilename.c_str());
-		}
-		else
-			MessageBox(0, "Failed to load image name",0,0);
 
 		TiXmlElement* pDataName = pLevel->FirstChildElement("LevelDataName");
 		if( pDataName != NULL)
@@ -206,4 +238,42 @@ bool CLevelSelectionState::LoadLevel(const char* szXmlFileName)
 	}
 
 	return true;
+}
+
+void CLevelSelectionState::LoadVideo()
+{
+	if( !isSet )
+	{
+		isSet = true;
+		m_fMovieTimer = 0.0f;
+		m_nCurrentFrame = 0;
+
+		for( int i = 0; i < 3; i++)
+		{
+			if( m_nMovieID[i] != -1 )
+			{
+				m_pTM->UnloadTexture(m_nMovieID[i]);
+				m_nMovieID[i] = -1;
+			}
+		}
+
+		switch(m_nSelection)
+		{
+		case LEVEL_ONE:
+			{
+				m_nMovieID[0] = m_pTM->LoadTexture("resource/videos/level1/1.bmp", D3DCOLOR_ARGB(255,255,255,255));
+				m_nMovieID[1] = m_pTM->LoadTexture("resource/videos/level1/2.bmp", D3DCOLOR_ARGB(255,255,255,255));
+				m_nMovieID[2] = m_pTM->LoadTexture("resource/videos/level1/3.bmp", D3DCOLOR_ARGB(255,255,255,255));
+
+			}
+			break;
+		case LEVEL_TWO:
+			{
+				m_nMovieID[0] = m_pTM->LoadTexture("resource/videos/level2/1.bmp", D3DCOLOR_ARGB(255,0,255,255));
+				m_nMovieID[1] = m_pTM->LoadTexture("resource/videos/level2/2.bmp", D3DCOLOR_ARGB(255,0,255,255));
+				m_nMovieID[2] = m_pTM->LoadTexture("resource/videos/level2/3.bmp", D3DCOLOR_ARGB(255,0,255,255));
+			}
+			break;
+		}
+	}
 }

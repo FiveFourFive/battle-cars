@@ -228,6 +228,15 @@
     <ClCompile Include="Source\CObstacle.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CCollectable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CCollectionMode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CCollectState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\CStopWatch.h">
@@ -430,6 +439,15 @@
     </ClInclude>
     <ClInclude Include="Source\CObstacle.h">
       <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CCollectable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CCollectionMode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CCollectState.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

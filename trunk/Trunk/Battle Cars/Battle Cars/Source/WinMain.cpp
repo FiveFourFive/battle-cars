@@ -177,7 +177,7 @@ BOOL RegisterWindowClass(HINSTANCE hInstance)
 
 	//	First fill in the window class structure
 	winClassEx.cbSize			= sizeof(winClassEx);
-	winClassEx.style			= CS_DBLCLKS | CS_OWNDC | CS_HREDRAW | CS_VREDRAW;
+	winClassEx.style			= CS_DBLCLKS | CS_OWNDC | CS_HREDRAW | CS_VREDRAW ;
 	winClassEx.lpfnWndProc		= WindowProc;
 	winClassEx.cbClsExtra		= 0;
 	winClassEx.cbWndExtra		= 0;
