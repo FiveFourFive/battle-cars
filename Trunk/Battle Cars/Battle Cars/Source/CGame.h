@@ -79,7 +79,7 @@ public:
 	void ChangeState(IGameState* state);
 	void AddState(IGameState* state);
 	void RemoveState(IGameState* state);
-	void ClearStates();
+	void ClearStates(IGameState* state);
 
 	CXboxInput* GetController1(void) { return m_pController1; }
 	CXboxInput* GetController2(void) { return m_pController2; }

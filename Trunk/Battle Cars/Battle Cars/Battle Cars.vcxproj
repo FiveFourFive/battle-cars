@@ -99,6 +99,7 @@
     <ClCompile Include="Source\CGameModeSelectionState.cpp" />
     <ClCompile Include="Source\CGamePlayState.cpp" />
     <ClCompile Include="Source\CGamerProfile.cpp" />
+    <ClCompile Include="Source\CHighScoreState.cpp" />
     <ClCompile Include="Source\CHowToPlayState.cpp" />
     <ClCompile Include="Source\CHUD.cpp" />
     <ClCompile Include="Source\CKeyBinds.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="Source\CGameModeSelectionState.h" />
     <ClInclude Include="Source\CGamePlayState.h" />
     <ClInclude Include="Source\CGamerProfile.h" />
+    <ClInclude Include="Source\CHighScoreState.h" />
     <ClInclude Include="Source\CHowToPlayState.h" />
     <ClInclude Include="Source\CHUD.h" />
     <ClInclude Include="Source\CKeyBinds.h" />

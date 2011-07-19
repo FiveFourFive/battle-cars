@@ -6,6 +6,7 @@
 #include "CPlayer.h"
 #include "CEnemy.h"
 #include "CCar.h"
+#include "CObstacle.h"
 
 CLandMine::CLandMine() : CBullet()
 {
@@ -54,6 +55,32 @@ bool CLandMine::CheckCollision(IBaseInterface* pBase)
 				CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
 				CEventSystem::GetInstance()->SendEvent("damage",pBase,this);
 			}
+		}
+		else if(pBase->GetType() == OBJECT_OBSTACLE)
+		{
+			CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
+			CObstacle* tempobs = (CObstacle*)pBase;
+			tVector2D obsvel = tempobs->GetVel();
+			
+			RECT obsrect = tempobs->GetRect();
+			RECT myrect = this->GetRect();
+			if(obsrect.left > myrect.right)
+			{
+				obsvel.fX = ((rand() % 40) + 15) * -1.0f;
+			}
+			else
+			{
+				obsvel.fX = ((rand() % 40) + 15);
+			}
+			if(obsrect.bottom > myrect.top)
+			{
+				obsvel.fY = ((rand() % 40) + 15) * -1.0f;
+			}
+			else
+			{
+				obsvel.fY = ((rand() % 40) + 15);
+			}
+			tempobs->SetVel(obsvel);
 		}
 	}
 	return false;

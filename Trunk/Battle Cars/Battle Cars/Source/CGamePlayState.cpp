@@ -369,7 +369,7 @@ void CGamePlayState::Enter(void)
 	m_pPM->LoadEmittor("resource/data/car_exploded.xml");
 
 	
-	time = 300;
+	time = 5;
 	m_fElapsedSecond = 0.0f;
 	score = 0;
 
@@ -475,6 +475,8 @@ void CGamePlayState::Enter(void)
 	}
 	else
 		collectionChallengeBoss = NULL;
+
+	player->SetKillCount(55);
 }
 
 void CGamePlayState::Exit(void)
@@ -484,7 +486,9 @@ void CGamePlayState::Exit(void)
 	crate1->Release();
 	crate2->Release();
 	crate3->Release();
-
+	m_pFM->UnloadSound(m_nBackgroundMusicID);
+	m_pFM->UnloadSound(m_nCountDown);
+	m_pFM->UnloadSound(m_nCountDownEnd);
 	for(unsigned int i = 0; i < collectables.size(); i++)
 	{
 		collectables[i]->Release();

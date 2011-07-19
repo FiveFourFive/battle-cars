@@ -46,6 +46,9 @@
     <Filter Include="AI States">
       <UniqueIdentifier>{250dde4f-ae48-4a1b-8f46-29f90e06f5d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="My Amplifier Results">
+      <UniqueIdentifier>{1f1105c7-fa32-4d6d-9e02-3098b353f2aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\WinMain.cpp">
@@ -236,6 +239,9 @@
     </ClCompile>
     <ClCompile Include="Source\CCollectState.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CHighScoreState.cpp">
+      <Filter>Game States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -448,6 +454,9 @@
     </ClInclude>
     <ClInclude Include="Source\CCollectState.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CHighScoreState.h">
+      <Filter>Game States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
