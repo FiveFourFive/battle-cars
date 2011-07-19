@@ -19,6 +19,15 @@ namespace Tile_Editor
 
         Point ScrollOffset;
 
+        Tools currentTool;
+
+        public Tools CurrentTool
+        {
+            get { return currentTool; }
+            set { currentTool = value; }
+        }
+
+
         public TileWindow()
         {
             InitializeComponent();
@@ -214,13 +223,16 @@ namespace Tile_Editor
                     return;
                 }
 
-                position.X = offset.X / pixelSize.Width;
-                position.Y = offset.Y / pixelSize.Height;
+                if (currentTool == Tools.TOOL_SELECTION)
+                {
+                    position.X = offset.X / pixelSize.Width;
+                    position.Y = offset.Y / pixelSize.Height;
 
-                if (position.X >= tileSize.Width || position.Y >= tileSize.Height || position.X < 0 || position.Y < 0)
-                    return;
+                    if (position.X >= tileSize.Width || position.Y >= tileSize.Height || position.X < 0 || position.Y < 0)
+                        return;
 
-                endSelection = position;
+                    endSelection = position;
+                }
 
                 if (TileClicked != null)
                 {

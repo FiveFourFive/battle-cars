@@ -24,22 +24,6 @@ namespace Tile_Editor
             set { eventList = value; }
         }
 
-        CTile[,] collisionList; // the list of collision rects for the map
-
-        public CTile[,] CollisionList
-        {
-            get { return collisionList; }
-            set { collisionList = value; }
-        }
-
-        CTile[,] spawnList; // the list of spawns for the map
-
-        public CTile[,] SpawnList
-        {
-            get { return spawnList; }
-            set { spawnList = value; }
-        }
-
         Size mapSize; // How big the map array is
 
         public Size MapSize
