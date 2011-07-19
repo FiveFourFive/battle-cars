@@ -54,6 +54,8 @@ private:
 	//Screen stuffs
 	int						m_ScreenWidth;
 	int						m_ScreenHeight;
+	HWND					hWnd;
+	bool					isWindowedMode;
 
 	int						m_nScore;
 
@@ -77,6 +79,7 @@ public:
 	void ChangeState(IGameState* state);
 	void AddState(IGameState* state);
 	void RemoveState(IGameState* state);
+	void ClearStates();
 
 	CXboxInput* GetController1(void) { return m_pController1; }
 	CXboxInput* GetController2(void) { return m_pController2; }
@@ -107,6 +110,8 @@ public:
 	void SetScore(int score) { m_nScore = score; }
 	int GetScore() { return m_nScore; }
 
+	HWND GetHWND(){ return hWnd;}
+	bool GetIsWindowed(){ return isWindowedMode;}
 
 	// Clean Up
 	void Shutdown();	

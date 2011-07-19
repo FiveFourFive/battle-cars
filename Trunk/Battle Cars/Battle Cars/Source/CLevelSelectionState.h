@@ -2,6 +2,7 @@
 #define LEVEL_H_
 
 #include "IGameState.h"
+#include "CSGD_Direct3D.h"
 
 #include <string>
 
@@ -15,7 +16,6 @@ enum {LEVEL_ONE, LEVEL_TWO, LEVEL_MAX};
 
 struct SLevel
 {
-	int ImageID;
 	std::string FileName;
 };
 
@@ -31,6 +31,12 @@ private:
 	int m_nSelection;
 	int m_nMenuSelect;
 	int m_nMenuMove;
+	
+	int m_nMovieID[3];		// The image ID's for the video being played
+	float m_fMovieTimer;	// The timer until the movie image changes.
+	D3DCOLOR color;			// The fading color value.
+	bool isSet;				// Tell whether to load video or not.
+	int m_nCurrentFrame;	// Current video frame to render.
 
 	int m_nBGImageID;
 
@@ -50,6 +56,8 @@ public:
 	void Update(float fElapsedTime);
 	void Render(void);
 	bool HandleEnter(void);
+	void CleanUp(void);
+	void LoadVideo();
 
 	///////////////////////////////////////////////////
 	// Loads the level filename and the level's image
