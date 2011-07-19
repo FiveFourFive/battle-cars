@@ -31,6 +31,9 @@ private:
 	float m_fFlames;
 	RECT m_CollisionRECT;
 
+	int m_nFlameThrower;		// The Emittor ID to the flamethrower particle effect.
+	bool isSet;					// Is the emittor Set?
+
 	int m_nPlayerNum;
 
 public:
@@ -52,6 +55,9 @@ public:
 
 	int GetPlayerNum(void) { return m_nPlayerNum; }
 	void SetPlayerNum(int num) { m_nPlayerNum = num; }
+
+	int GetFlameThrowerEmittorID(){ return m_nFlameThrower; }
+	void SetFlameThrowerEmittorID(int value){ m_nFlameThrower = value;}
 
 
 	bool CheckCollision(IBaseInterface* pBase);

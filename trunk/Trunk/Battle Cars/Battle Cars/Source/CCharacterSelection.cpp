@@ -66,6 +66,7 @@ void CCharacterSelection::Enter()
 
 void CCharacterSelection::Exit()
 {
+	m_pFM->UnloadSound(m_nIncorrectSelection);
 	m_pTM->UnloadTexture(m_nFontID);
 	delete m_pPF;
 	m_pFM->StopSound(CMainMenuState::GetInstance()->GetBackgroundMusicID());

@@ -183,7 +183,7 @@ public:
 	void SetIsBursting(bool value){ m_isBursting = value;}
 
 	void ResetElapsedEmitterTime() { m_fCurrLife = 0.0f;}
-	void ClearParticleList(){ m_vParticleList.clear();}
+	void ClearParticleList();
 	void AddToParticleList(Particle* particle){ m_vParticleList.push_back(particle);}
 
 	////////////////////////////////////////////////////////////////////////

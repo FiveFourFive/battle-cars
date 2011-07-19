@@ -260,7 +260,7 @@ void CGamePlayState::Enter(void)
 	//dummy->SetVelX(10);
 	if(!m_bCollectionChallenge)
 	{
-		m_pOM->AddObject(miniboss);
+		//m_pOM->AddObject(miniboss);
 		m_pOM->AddObject(dummy2);
 		m_pOM->AddObject(ramps[0]);
 		m_pOM->AddObject(ramps[1]);
@@ -367,6 +367,7 @@ void CGamePlayState::Enter(void)
 	m_pPM->LoadEmittor("resource/data/missle_flame.xml");
 	m_pPM->LoadEmittor("resource/data/explosion.xml");
 	m_pPM->LoadEmittor("resource/data/car_exploded.xml");
+	m_pPM->LoadEmittor("resource/data/FlameThrower.xml");
 
 	
 	time = 5;
@@ -739,13 +740,13 @@ void CGamePlayState::Update(float fElapsedTime)
 					bosses[1]->SetSpecialLevel(1);
 					bosses[1]->SetCarId(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniBossPlaceHolder.png"));
 					m_fRespawnMiniBossTimer = 0.0f;
-					m_pOM->AddObject(bosses[1]);
+					//m_pOM->AddObject(bosses[1]);
 				}
 			}
 			if(time <= 30 && !m_bBossHasSpawned)
 			{
 				m_bBossHasSpawned = true;
-				m_pOM->AddObject(bosses[0]);
+				//m_pOM->AddObject(bosses[0]);
 			}
 			if(m_bBossHasDied)
 			{
@@ -1274,6 +1275,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 		break;
 		case MSG_CREATE_VETTE_SPECIAL:
 		{
+			
 			CCreateVetteSpecialMessage* pCVS = (CCreateVetteSpecialMessage*)pMsg;
 			CGamePlayState* pGame = CGamePlayState::GetInstance();
 			float spreadrange;
@@ -1380,8 +1382,6 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet4->SetVelX(temp.fX);
 			pBullet4->SetVelY(temp.fY);
 
-
-
 			pGame->m_pOM->AddObject(pBullet);
 			pGame->m_pOM->AddObject(pBullet1);
 			pGame->m_pOM->AddObject(pBullet2);
@@ -1393,6 +1393,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet2->Release();
 			pBullet3->Release();
 			pBullet4->Release();
+			
 
 		}
 		break;

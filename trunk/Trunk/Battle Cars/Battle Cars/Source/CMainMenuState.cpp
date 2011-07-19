@@ -88,6 +88,7 @@ void CMainMenuState::Enter(void)
 void CMainMenuState::Exit(void)
 {
 	m_pFM->StopSound(m_nBackgroundMusicID);
+	m_pFM->UnloadSound(m_nBackgroundMusicID);
 	m_pTM->UnloadTexture(m_nFontID);
 	if( m_pPF )
 	{

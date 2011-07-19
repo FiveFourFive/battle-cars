@@ -2,15 +2,17 @@
 #include "Emittor.h"
 #include "CBase.h"
 #include "CSGD_TextureManager.h"
-
+#include "CCamera.h"
 #include <stdio.h>
 #include "tinyxml.h"
+#include "CSGD_Direct3D.h"
 
 ParticleManager* ParticleManager::instance = NULL;
 
 ParticleManager::ParticleManager()
 {
 	Count = 0;
+	ActiveCount = 0;
 }
 
 ParticleManager::~ParticleManager()
@@ -39,6 +41,17 @@ void ParticleManager::UpdateEmittors(float fElapsedTime)
 	if( this == NULL)
 		return;
 
+	//for( unsigned int i = 0; i < m_GameEmittors.size(); i++)
+	//{
+	//	if( m_GameEmittors[i] )
+	//		
+	//		if( m_GameEmittors[i]->GetCurrentLife() >= m_GameEmittors[i]->GetTimeToDie())
+	//		{
+	//			m_GameEmittors.erase(m_GameEmittors.begin() + i, m_GameEmittors.begin() + i+1);
+	//			
+	//		}
+	//}
+
 	for( unsigned int i = 0; i < m_ActiveEmittors.size(); i++)
 	{
 		if( m_ActiveEmittors[i])
@@ -49,27 +62,28 @@ void ParticleManager::UpdateEmittors(float fElapsedTime)
 			{
 				delete m_ActiveEmittors[i];
 				m_ActiveEmittors.erase(m_ActiveEmittors.begin() + i, m_ActiveEmittors.begin() + i + 1);
+				ActiveCount--;
 			}
 		}
 	}
 
-	for( unsigned int i = 0; i < m_GameEmittors.size(); i++)
-	{
-		if( m_GameEmittors[i] )
-			
-			if( m_GameEmittors[i]->GetCurrentLife() >= m_GameEmittors[i]->GetTimeToDie())
-			{
-				m_GameEmittors.erase(m_GameEmittors.begin() + i, m_GameEmittors.begin() + i+1);
-				Count--;
-			}
-	}
 }
 
 void ParticleManager::RenderEmittors(CCamera* camera)
 {
+	CSGD_Direct3D*D3D = CSGD_Direct3D::GetInstance();
+
 	for( unsigned int i = 0; i < m_ActiveEmittors.size(); i++)
 	{
 		m_ActiveEmittors[i]->Render(camera);
+
+		RECT temp_rect;
+		temp_rect.left = m_ActiveEmittors[i]->GetPosition().fX - camera->GetCamX() + camera->GetRenderPosX();
+		temp_rect.top = m_ActiveEmittors[i]->GetPosition().fY - camera->GetCamY() + camera->GetRenderPosY();
+		temp_rect.right = temp_rect.left + 20;
+		temp_rect.bottom = temp_rect.top + 20;
+		D3D->DrawRect(temp_rect, 128,255,128);
+		
 	}
 }
 
@@ -336,11 +350,14 @@ void ParticleManager::ShutDownParticleManager()
 	}
 	m_GameEmittors.clear();
 
-	/*for( unsigned int i = 0; i < m_ActiveEmittors.size(); i++)
+	for( unsigned int i = 0; i < m_ActiveEmittors.size(); i++)
 	{
 		if( m_ActiveEmittors[i] != NULL)
+		{
 			delete m_ActiveEmittors[i];
-	}*/
+			m_ActiveEmittors[i] = NULL;
+		}
+	}
 	m_ActiveEmittors.clear();
 	
 	if( Count != 0)
@@ -354,6 +371,17 @@ Emittor* ParticleManager::GetEmittor(int id)
 	{
 		if( m_GameEmittors[i]->GetID() == id)
 			return m_GameEmittors[i];
+	}
+
+	return NULL;
+}
+
+Emittor* ParticleManager::GetActiveEmittor( int id)
+{
+	for( unsigned int i = 0; i < m_ActiveEmittors.size(); i++)
+	{
+		if( m_ActiveEmittors[i]->GetID() == id)
+			return m_ActiveEmittors[i];
 	}
 
 	return NULL;
@@ -383,11 +411,10 @@ Emittor* ParticleManager::CreateEffect( Emittor* temp_emittor, float posX, float
 	new_emittor->SetTextureID(temp_emittor->GetTextureID());
 	new_emittor->SetIsDead(false);
 	new_emittor->SetIsBursting(temp_emittor->IsBursting());
-	Count++;
 	new_emittor->SetBase(NULL);
-	new_emittor->SetID(Count);
-	m_ActiveEmittors.push_back(new_emittor);
-	m_GameEmittors.push_back(new_emittor);
+	new_emittor->SetID(ActiveCount);
+	ActiveCount++;
+	
 
 	new_emittor->ClearParticleList();
 
@@ -420,6 +447,7 @@ Emittor* ParticleManager::CreateEffect( Emittor* temp_emittor, float posX, float
 
 			new_emittor->AddToParticleList(temp);
         }
+	m_ActiveEmittors.push_back(new_emittor);
 
 	return new_emittor;
 }
