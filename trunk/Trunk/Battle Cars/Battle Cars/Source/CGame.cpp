@@ -212,12 +212,14 @@ void CGame::RemoveState(IGameState* state)
 
 }
 
-void CGame::ClearStates()
+void CGame::ClearStates(IGameState* state)
 {
-	while( m_vGameStates.size() > 0)
+	int numstates = m_vGameStates.size();
+	for(int i = 0; i < numstates; i++)
 	{
-		RemoveState(m_vGameStates.back());
+		RemoveState(NULL);
 	}
+	AddState(state);
 }
 
 void CGame::Shutdown()

@@ -47,17 +47,20 @@ bool CObstacle::CheckCollision(IBaseInterface* pBase)
 		}
 		else if(pBase->GetType() == OBJECT_OBSTACLE)
 		{
+			if(pBase != this)
+			{
 			tVector2D myvel = m_vCollisionVel;
 			CObstacle* tempobs = (CObstacle*)pBase;
 			tVector2D hisvel = tempobs->GetVel();
 
-			myvel = myvel + (hisvel * 0.3f);
-			hisvel = hisvel + (myvel * 0.3f);
+			myvel = (hisvel * 0.3f);
+			hisvel = (myvel * 0.3f);
 
 			SetVel(myvel);
 			tempobs->SetVel(hisvel);
 
 			return true;
+			}
 		}
 
 

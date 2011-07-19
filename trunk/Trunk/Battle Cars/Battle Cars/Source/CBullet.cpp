@@ -10,7 +10,7 @@
 #include "CEventSystem.h"
 #include "Emittor.h"
 #include "ParticleManager.h"
-
+#include "CObstacle.h"
 CBullet::CBullet(void)
 {
 	m_pTM = CSGD_TextureManager::GetInstance();
@@ -99,6 +99,15 @@ bool CBullet::CheckCollision(IBaseInterface* pBase)
 			}
 			else
 				return false;
+		}
+		else if(pBase->GetType() == OBJECT_OBSTACLE)
+		{
+			CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
+			CObstacle* tempobs = (CObstacle*)pBase;
+			tVector2D obsvel = tempobs->GetVel();
+			obsvel.fX = this->GetVelX() * 0.4f;
+			obsvel.fY = this->GetVelY() * 0.4f;
+			tempobs->SetVel(obsvel);
 		}
 	}
 	return false;

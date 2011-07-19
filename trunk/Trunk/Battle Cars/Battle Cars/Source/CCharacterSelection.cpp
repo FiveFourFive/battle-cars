@@ -455,8 +455,8 @@ bool CCharacterSelection::HandleEnter()
 		{
 			if( m_nSelection == CAR_NUM)
 			{
-				CGame::GetInstance()->ClearStates();
-				CGame::GetInstance()->AddState(CGamePlayState::GetInstance());
+				CGame::GetInstance()->ClearStates(CGamePlayState::GetInstance());
+				//CGame::GetInstance()->AddState(CGamePlayState::GetInstance());
 				//CGame::GetInstance()->ChangeState(CLoadingState::GetInstance());
 			}
 		}
@@ -526,8 +526,8 @@ bool CCharacterSelection::HandleEnter()
 		{
 			if( m_nSelection == CAR_NUM)
 			{
-				CGame::GetInstance()->ClearStates();
-				CGame::GetInstance()->AddState(CGamePlayState::GetInstance());
+				CGame::GetInstance()->ClearStates(CGamePlayState::GetInstance());
+				//CGame::GetInstance()->AddState(CGamePlayState::GetInstance());
 				//CGame::GetInstance()->ChangeState(CLoadingState::GetInstance());
 			}
 		}

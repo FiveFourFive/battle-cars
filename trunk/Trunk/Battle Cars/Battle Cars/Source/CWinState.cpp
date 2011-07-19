@@ -15,7 +15,9 @@
 #include "CCar.h"
 #include "CPlayer.h"
 #include <vector>
-
+#include "CHighScoreState.h"
+#include "CGamerProfile.h"
+#include "Gamer_Profile.h"
 
 CWinState::CWinState(void)
 {
@@ -70,6 +72,22 @@ void CWinState::Enter(void)
 	m_nMenuSelect = m_pFM->LoadSound("resource/sounds/menuselect.mp3");
 	m_nMenuMove = m_pFM->LoadSound("resource/sounds/menuchange.mp3");
 	m_nBGImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/otherstates.jpg");
+
+	int playerscore = CGame::GetInstance()->GetScore();
+	CHighscoreState::GetInstance()->LoadScores();
+	
+	HighScore addme;
+
+	Gamer_Profile* tempprofile = CGamerProfile::GetInstance()->GetActiveProfile();
+	string name = tempprofile->GetUserNameA();
+	char* buffer = new char[38];
+	strcpy_s(buffer,38,name.c_str());
+
+	addme.name = buffer;
+	addme.score = CGame::GetInstance()->GetScore();
+	CHighscoreState::GetInstance()->AddScore(addme);
+
+	CHighscoreState::GetInstance()->SaveScores();
 }
 void CWinState::Exit(void)
 {
@@ -192,6 +210,7 @@ void CWinState::Render(void)
 bool CWinState::HandleEnter(void)
 {
 		m_pFM->PlaySound(m_nMenuSelect);
-		CGame::GetInstance()->ChangeState(CMainMenuState::GetInstance());
+		CGame::GetInstance()->ChangeState(CHighscoreState::GetInstance());
+		//CGame::GetInstance()->ChangeState(CMainMenuState::GetInstance());
 	return true;
 }

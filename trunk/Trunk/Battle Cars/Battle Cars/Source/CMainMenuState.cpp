@@ -17,6 +17,7 @@
 #include "CLevelSelectionState.h"
 #include "CCreditsScreenState.h"
 #include "ParticleManager.h"
+#include "CHighScoreState.h"
 
 enum menu {PLAY, OPTIONS, HOW_TO_PLAY, GAMER_PROFILE, HIGH_SCORES, CREDITS, EXIT};
 
@@ -237,7 +238,7 @@ bool CMainMenuState::HandleEnter(void)
 			CGame::GetInstance()->ChangeState(CGamerProfile::GetInstance());
 			break;
 		case HIGH_SCORES:
-			//CGame::GetInstance()->ChangeState(CGamePlayState::GetInstance());
+			CGame::GetInstance()->ChangeState(CHighscoreState::GetInstance());
 			break;
 		case CREDITS:
 			CGame::GetInstance()->ChangeState(CCreditsScreenState::GetInstance());
