@@ -161,12 +161,12 @@ void CLevelSelectionState::Update(float fElapsedTime)
 
 	if( m_fMovieTimer < 3.0f )
 	{
-		unsigned char Alpha = ((255 - 0) * (m_fMovieTimer / 3.0f));
+		unsigned char Alpha = unsigned char(((255 - 0) * (m_fMovieTimer / 3.0f)));
 		color = D3DCOLOR_ARGB(Alpha, 255,255,255);
 	}
 	else if( m_fMovieTimer > 3.0f)
 	{
-		unsigned char Alpha = 255 - ((255 - 0) * (m_fMovieTimer / 3.0f));
+		unsigned char Alpha = unsigned char(255 - ((255 - 0) * (m_fMovieTimer / 3.0f)));
 		if( Alpha == 0 )
 			Alpha = 255;
 		color = D3DCOLOR_ARGB(Alpha, 255,255,255);

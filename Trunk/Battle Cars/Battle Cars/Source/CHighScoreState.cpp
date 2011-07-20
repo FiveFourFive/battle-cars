@@ -128,7 +128,7 @@ void CHighscoreState::Render(void)
 		string scores = buffer;
 		string periods;
 		
-		for(int j = 0; j < 20-name.size() - ((i+1)/10); j++)
+		for(unsigned int j = 0; j < 20-name.size() - ((i+1)/10); j++)
 		{
 			periods += ".";
 		}

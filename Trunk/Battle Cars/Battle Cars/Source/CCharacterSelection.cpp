@@ -586,6 +586,7 @@ bool CCharacterSelection::LoadCharacters()
 		string temp_buffer = "resource/graphics/";
 		temp_buffer += buffer;
 		character->SetImageID(m_pTM->LoadTexture(temp_buffer.c_str()));
+		character->SetCarId(character->GetImageID());
 		counter++;
 		m_vPlayerList.push_back(character);
 		pCharacterRoot = pCharacterRoot->NextSiblingElement("character");

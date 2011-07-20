@@ -307,8 +307,8 @@ bool CGamerProfile::LoadProfiles(const char* szXmlFileName)
 		double bg;
 		Sounds->Attribute("SFX",&sfx);
 		Sounds->Attribute("Background",&bg);
-		temp->m_sfx = sfx;
-		temp->m_background = bg;
+		temp->m_sfx = (float)sfx/100.0f;
+		temp->m_background = (float)bg/100.0f;
 		
 		CKeyBinds* tempkb = new CKeyBinds();
 		CKeyboardKeyBinds* tempkkb = new CKeyboardKeyBinds();
@@ -407,10 +407,11 @@ bool CGamerProfile::SaveProfiles(const char* szXmlFileName)
 		{
 			sfx = m_vUserProfiles[i]->m_sfx;
 			background = m_vUserProfiles[i]->m_background;
+			sfx *= 100;
+			background *= 100;
 		}
 		pSounds->SetAttribute("SFX",sfx);
 		pSounds->SetAttribute("Background",background);
-		
 		pProfile->LinkEndChild(pSounds);
 		pProfile->LinkEndChild(pKB);
 		//pProfile->LinkEndChild(pKKB);

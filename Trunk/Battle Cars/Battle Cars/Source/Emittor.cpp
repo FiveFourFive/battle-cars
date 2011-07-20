@@ -168,7 +168,7 @@ void Emittor::Render(CCamera* camera)
 
 void Emittor::ClearParticleList()
 {
-	for( int i = 0; i < m_vParticleList.size(); i++)
+	for(unsigned int i = 0; i < m_vParticleList.size(); i++)
 	{
 		if( m_vParticleList[i])
 		{
