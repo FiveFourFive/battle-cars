@@ -346,7 +346,7 @@ void CGamePlayState::Enter(void)
 	m_nCollectableTotalComputer = 0;
 	m_nCollectableTotalPlayer = 0;
 
-	Level->SetSpawn (player2);
+	Level->SetCarSpawn (player2);
 
 	m_pD3D->Clear(0, 0, 0);
 	m_pD3D->DeviceBegin();
@@ -437,6 +437,31 @@ void CGamePlayState::Enter(void)
 	barrel1->SetType(OBJECT_OBSTACLE);
 	barrel2->SetType(OBJECT_OBSTACLE);
 
+	Level->SetCarSpawn (this->player);
+
+	Level->SetCarSpawn (this->dummy);
+	Level->SetCarSpawn (this->dummy2);
+
+	if (this->player2 != NULL)
+	{
+		Level->SetCarSpawn (this->player2);
+	}
+
+	for (int i = 0; i < this->power_ups.size (); i++)
+	{
+		Level->SetPowerUpSpawn (power_ups[i]);
+	}
+
+	for (int i = 0; i < this->ramps.size (); i++)
+	{
+		Level->SetSpeedRampSpawn (ramps[i]);
+	}
+
+	Level->SetObsticleSpawn (crate1);
+	Level->SetObsticleSpawn (crate2);
+	Level->SetObsticleSpawn (crate3);
+	Level->SetObsticleSpawn (barrel1);
+	Level->SetObsticleSpawn (barrel2);
 
 	m_pOM->AddObject(crate1);
 	m_pOM->AddObject(crate2);
@@ -668,7 +693,7 @@ bool CGamePlayState::Input()
 				CGame::GetInstance()->RemoveState(this);
 				CGame::GetInstance()->AddState(CMainMenuState::GetInstance());
 			}
-			if(m_pDI->KeyPressed(DIK_P))
+			if(m_pDI->KeyPressed(DIK_ESCAPE))
 			{
 				CGame::GetInstance()->AddState(CPauseMenuState::GetInstance());
 			}

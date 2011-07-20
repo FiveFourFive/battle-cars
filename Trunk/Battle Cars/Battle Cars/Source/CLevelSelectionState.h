@@ -12,7 +12,7 @@ class CSGD_FModManager;
 class CSGD_DirectInput;
 class CXboxInput;
 
-enum {LEVEL_ONE, LEVEL_TWO, LEVEL_MAX};
+enum {LEVEL_ONE, LEVEL_TWO, LEVEL_THREE, LEVEL_MAX};
 
 struct SLevel
 {

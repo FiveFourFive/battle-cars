@@ -113,8 +113,8 @@ void CTimeChallengeMode::CheckCarStatus(CCar* car)
 			int width_index = CLevel::GetInstance()->GetMap()->GetMapWidth() * CLevel::GetInstance()->GetMap()->GetPixelWidth();
 			int height_index = CLevel::GetInstance()->GetMap()->GetMapHeight() * CLevel::GetInstance()->GetMap()->GetPixelHeight();
 
-			car->SetPosX(float(rand() % width_index + 100));
-			car->SetPosY(float(rand() % height_index + 100));
+			car->SetPosX (car->GetSpawnPosX ());
+			car->SetPosY (car->GetSpawnPosY ());
 			car->SetHealth(car->GetMaxHealth());
 			car->SetShieldBar(car->GetMaxShield());
 			car->SetPowerUpBar(0);

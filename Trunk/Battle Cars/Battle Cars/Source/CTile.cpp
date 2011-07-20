@@ -13,21 +13,19 @@ CTile::CTile ()
 {
 	SetXPos (0);
 	SetYPos (0);
-	//SetWidth (0);
-	//SetHeight (0);
-	SetIndex (-1);
+	SetXPicked (-1);
+	SetYPicked (-1);
 	SetName ("NoName");
 	SetType (-1);
 	SetInUse (false);
 }
 
-CTile::CTile (int XPos, int YPos, int Width, int Height, int Index, const char* Name, int type)
+CTile::CTile (int XPos, int YPos, int XPicked, int YPicked, int Index, const char* Name, int type)
 {
 	SetXPos (XPos);
 	SetYPos (YPos);
-	//SetWidth (Width);
-	//SetHeight (Height);
-	SetIndex (Index);
+	SetXPicked (XPicked);
+	SetYPicked (YPicked);
 	SetName (Name);
 	SetType (type);
 }

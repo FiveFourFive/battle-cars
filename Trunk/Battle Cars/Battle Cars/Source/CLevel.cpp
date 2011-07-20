@@ -87,23 +87,11 @@ bool CLevel::Load (const char* filename)
 
 		LevelMap->LoadTiles (pTileLocation->GetText());
 
-		TiXmlElement* pCollisionLocation = pTileLocation->NextSiblingElement ("CollisionLocation");
-		if (pCollisionLocation)
+		TiXmlElement* pEventsLocation = pTileLocation->NextSiblingElement ("EventLocation");
+		if (pEventsLocation)
 		{
-			LevelMap->LoadCollisions (pCollisionLocation->GetText());
-
-			TiXmlElement* pEventsLocation = pCollisionLocation->NextSiblingElement ("EventLocation");
-			if (pEventsLocation)
-			{
-				LevelMap->LoadEvents (pEventsLocation->GetText());
-
-				TiXmlElement* pSpawnLocation = pEventsLocation->NextSiblingElement ("SpawnLocation");
-				if (pSpawnLocation)
-				{
-					LevelMap->LoadSpawns (pSpawnLocation->GetText());
-				}
-			}
-		}		
+			LevelMap->LoadEvents (pEventsLocation->GetText());
+		}	
 	}
 
 	return true;
@@ -111,91 +99,112 @@ bool CLevel::Load (const char* filename)
 	
 void CLevel::Render (CCamera* camera)
 {
-	CTile* Tiles = LevelMap->GetTileList ();
+	CTile** Tiles = LevelMap->GetTileList ();
 	RECT screen = camera->GetRect();
 
-	int StartIndex = ((screen.top / LevelMap->GetPixelHeight()) * LevelMap->GetMapWidth ()) + (screen.left / LevelMap->GetPixelWidth());
-	int EndIndex = ((screen.bottom / LevelMap->GetPixelHeight()) * LevelMap->GetMapWidth()) + (screen.right / LevelMap->GetPixelWidth());
-	
-	if (StartIndex < 0)
-		StartIndex = 0;
+	int XBegin = 0, YBegin = 0, XEnd = 0, YEnd;
 
-	int i = (int)camera->GetRenderPosX() / LevelMap->GetPixelWidth();
-	int count = (int)camera->GetRenderPosX() / LevelMap->GetPixelWidth();
-	int j = (int)camera->GetRenderPosY() / LevelMap->GetPixelHeight();
-	float temp_var = camera->GetRenderPosY() / LevelMap->GetPixelHeight();
-	if( temp_var - j > 0.5)
-		j++;
+	XBegin = (screen.left / LevelMap->GetPixelWidth());
+	YBegin = (screen.top / LevelMap->GetPixelHeight());
+	XEnd = (screen.right / LevelMap->GetPixelWidth());
+	YEnd = (screen.bottom / LevelMap->GetPixelHeight());
 
-
-	for (int Index = StartIndex; Index < EndIndex; Index++, i++)
+	if (XBegin - 1 >= 0)
 	{
-		int TileXPos = Tiles[Index].GetIndex() % LevelMap->GetMapWidth();
-		int TileYPos = Tiles[Index].GetIndex() / LevelMap->GetMapHeight();
+		XBegin = XBegin - 1;
+	}
 
-		/*
-		if (TileXPos *  LevelMap->GetPixelWidth() > screen.right || TileYPos * LevelMap->GetPixelHeight() > screen.bottom
-			|| TileXPos *  LevelMap->GetPixelWidth() < screen.left || TileYPos * LevelMap->GetPixelHeight() < screen.top )
+	if (YBegin - 1 >= 0)
+	{
+		YBegin = YBegin - 1;
+	}
+
+	if (XEnd + 1 <= LevelMap->GetMapWidth ())
+	{
+		XEnd = XEnd + 1;
+	}
+
+	if (YEnd + 1 <= LevelMap->GetMapHeight ())
+	{
+		YEnd = YEnd + 1;
+	}
+
+	for (int YPos = YBegin; YPos < YEnd; YPos++)
+	{
+		for (int XPos = XBegin; XPos < XEnd; XPos++)
 		{
-			continue;
-		}*/
+			int TileXPos = Tiles[YPos][XPos].GetXPos();
+			int TileYPos = Tiles[YPos][XPos].GetYPos();
 
-		int PickedXPos = Tiles[Index].GetXPos();
-		int PickedYPos = Tiles[Index].GetYPos();
+			int PickedXPos = Tiles[YPos][XPos].GetXPicked();
+			int PickedYPos = Tiles[YPos][XPos].GetYPicked();
 
-		RECT TileSelection;
-		TileSelection.left = PickedXPos * LevelMap->GetPixelWidth();
-		TileSelection.top = PickedYPos * LevelMap->GetPixelHeight();
-		TileSelection.right = TileSelection.left + LevelMap->GetPixelWidth();
-		TileSelection.bottom = TileSelection.top + LevelMap->GetPixelHeight ();
-
-		if( i == count + (LevelMap->GetMapWidth()))
-		{
-			i = (int)camera->GetRenderPosX() / LevelMap->GetPixelWidth();
-			j++;
+			RECT TileSelection;
+			TileSelection.left = PickedXPos * LevelMap->GetPixelWidth();
+			TileSelection.top = PickedYPos * LevelMap->GetPixelHeight();
+			TileSelection.right = TileSelection.left + LevelMap->GetPixelWidth();
+			TileSelection.bottom = TileSelection.top + LevelMap->GetPixelHeight ();
+				
+			m_pTM->Draw (LevelMap->GetTileImageID (), (int)((TileXPos *  LevelMap->GetPixelWidth()) - camera->GetCamX () + camera->GetRenderPosX ()), 
+													  (int)((TileYPos * LevelMap->GetPixelHeight()) - camera->GetCamY () + camera->GetRenderPosY ()), 1.0f, 1.0f, &TileSelection);
 		}
 		
-		m_pTM->Draw (LevelMap->GetTileImageID (), /*TileXPos*/ i *  LevelMap->GetPixelWidth(),/*TileYPos */j * LevelMap->GetPixelHeight(), 1.0f, 1.0f, &TileSelection);
 	}
 
 	CSGD_Direct3D::GetInstance ()->GetSprite()->Flush ();
 }
 
 
-bool CLevel::CheckWorldCollision (CBase* pBase)
+bool CLevel::CheckPlayerCollision (CBase* pBase, CCamera* camera)
 {
 	RECT intersection;
+	CTile** Events = LevelMap->GetEventsList();
 
-	int StartIndex = ((((CPlayer*)pBase)->GetCamera ()->GetRect().top / LevelMap->GetPixelHeight()) * LevelMap->GetMapWidth ()) + (((CPlayer*)pBase)->GetCamera ()->GetRect().left / LevelMap->GetPixelWidth());
-	int EndIndex = ((((CPlayer*)pBase)->GetCamera ()->GetRect().bottom / LevelMap->GetPixelHeight()) * LevelMap->GetMapWidth()) + (((CPlayer*)pBase)->GetCamera ()->GetRect().right / LevelMap->GetPixelWidth());
+	int XBegin = 0, YBegin = 0, XEnd = 0, YEnd;
 
-	if (StartIndex < 0)
-		StartIndex = 0;
+	XBegin = (camera->GetRect ().left / LevelMap->GetPixelWidth());
+	YBegin = (camera->GetRect ().top / LevelMap->GetPixelHeight());
+	XEnd = (camera->GetRect ().right / LevelMap->GetPixelWidth());
+	YEnd = (camera->GetRect ().bottom / LevelMap->GetPixelHeight());
 
-	CTile* collisionList = LevelMap->GetCollisionList();
-
-	for (int Index = StartIndex; Index < EndIndex; Index++)
+	if (XBegin - 1 >= 0)
 	{
-		if (pBase->GetType () == OBJECT_PLAYER)
-		{
-			if(IntersectRect(&intersection, &LevelMap->GetCollisionRect(Index), &pBase->GetRect()))
-			{
-				/*if (intersection.right - intersection.left < intersection.bottom - intersection.top && LevelMap->GetCollisionRect(Index).left < pBase->GetRect ().left)
-				{*/
-					((CPlayer*)pBase)->SetCollisionRect (LevelMap->GetCollisionRect(Index));
-					m_pES->SendEvent (LevelMap->GetCollisionList()[Index].GetName (), pBase);
-				/*}else if (intersection.right - intersection.left < intersection.bottom - intersection.top && LevelMap->GetCollisionRect(Index).right > pBase->GetRect ().right)
-				{
-					m_pES->SendEvent (LevelMap->GetCollisionList()[Index].GetName (), pBase);
-				}else if (intersection.bottom - intersection.top < intersection.right - intersection.left && LevelMap->GetCollisionRect(Index).top < pBase->GetRect ().top)
-				{
-					m_pES->SendEvent (LevelMap->GetCollisionList()[Index].GetName (), pBase);
-				}else if (intersection.bottom - intersection.top < intersection.right - intersection.left && LevelMap->GetCollisionRect(Index).bottom > pBase->GetRect ().bottom)
-				{
-					m_pES->SendEvent (LevelMap->GetCollisionList()[Index].GetName (), pBase);
-				}*/
+		XBegin = XBegin - 1;
+	}
 
-				return true;
+	if (YBegin - 1 >= 0)
+	{
+		YBegin = YBegin - 1;
+	}
+
+	if (XEnd + 1 <= LevelMap->GetMapWidth ())
+	{
+		XEnd = XEnd + 1;
+	}
+
+	if (YEnd + 1 <= LevelMap->GetMapHeight ())
+	{
+		YEnd = YEnd + 1;
+	}
+
+	for (int YPos = YBegin; YPos < YEnd; YPos++)
+	{
+		for (int XPos = XBegin; XPos < XEnd; XPos++)
+		{
+			if (pBase->GetType () == OBJECT_PLAYER && (LevelMap->GetEventsList ())[YPos][XPos].GetType () != -1)
+			{
+				std::string name = (LevelMap->GetEventsList ())[YPos][XPos].GetName ();
+				if (name == "WallCollision")
+				{
+					if(IntersectRect(&intersection, &LevelMap->GetCollisionRect(XPos, YPos), &pBase->GetRect()))
+					{
+						((CPlayer*)pBase)->SetWallCollisionRect (intersection);
+						((CPlayer*)pBase)->SetWallRect (LevelMap->GetCollisionRect(XPos, YPos));
+						m_pES->SendEvent ((LevelMap->GetEventsList ())[YPos][XPos].GetName (), pBase);
+
+						return true;
+					}
+				}
 			}
 		}
 	}
@@ -206,92 +215,183 @@ bool CLevel::CheckWorldCollision (CBase* pBase)
 bool CLevel::CheckCameraCollision (CCamera* camera)
 {
 	RECT intersection;
+	CTile** Events = LevelMap->GetEventsList();
 
-	int StartIndex = ((camera->GetRect().top / LevelMap->GetPixelHeight()) * LevelMap->GetMapWidth ()) + (camera->GetRect().left / LevelMap->GetPixelWidth());
-	int EndIndex = ((camera->GetRect().bottom / LevelMap->GetPixelHeight()) * LevelMap->GetMapWidth()) + (camera->GetRect().right / LevelMap->GetPixelWidth());
+	int XBegin = 0, YBegin = 0, XEnd = 0, YEnd;
 
-	if (StartIndex < 0)
-		StartIndex = 0;
+	XBegin = (camera->GetRect ().left / LevelMap->GetPixelWidth());
+	YBegin = (camera->GetRect ().top / LevelMap->GetPixelHeight());
+	XEnd = (camera->GetRect ().right / LevelMap->GetPixelWidth());
+	YEnd = (camera->GetRect ().bottom / LevelMap->GetPixelHeight());
 
-	CTile* collisionList = LevelMap->GetCollisionList();
-
-	for (int Index = StartIndex; Index < EndIndex; Index++)
+	if (XBegin - 1 >= 0)
 	{
-		//if (collisionList[Index].GetName ()) look for CAMERACOLLISION
-		{
-			if(IntersectRect(&intersection, &LevelMap->GetCollisionRect(Index), &camera->GetRect()))
-			{
-				((CPlayer*)camera->GetOwner ())->SetCollisionRect (LevelMap->GetCollisionRect(Index));
-				m_pES->SendEvent (LevelMap->GetCollisionList()[Index].GetName (), camera->GetOwner ());
-
-				/*RECT collisionrect = LevelMap->GetCollisionRect(Index);
-				RECT camerarect = camera->GetRect ();
-
-				if (intersection.right - intersection.left <= intersection.bottom - intersection.top && LevelMap->GetCollisionRect(Index).left < camera->GetRect ().left)
-				{
-					m_pES->SendEvent (LevelMap->GetCollisionList()[Index].GetName (), camera);
-				}else if (intersection.right - intersection.left <= intersection.bottom - intersection.top && LevelMap->GetCollisionRect(Index).right > camera->GetRect ().right)
-				{
-					m_pES->SendEvent (LevelMap->GetCollisionList()[Index].GetName (), camera);
-				}else if (intersection.bottom - intersection.top <= intersection.right - intersection.left && LevelMap->GetCollisionRect(Index).top < camera->GetRect ().top)
-				{
-					m_pES->SendEvent (LevelMap->GetCollisionList()[Index].GetName (), camera);
-				}else if (intersection.bottom - intersection.top <= intersection.right - intersection.left && LevelMap->GetCollisionRect(Index).bottom > camera->GetRect ().bottom)
-				{
-					m_pES->SendEvent (LevelMap->GetCollisionList()[Index].GetName (), camera);
-				}*/
-
-				return true;
-			}
-		}
+		XBegin = XBegin - 1;
 	}
 
+	if (YBegin - 1 >= 0)
+	{
+		YBegin = YBegin - 1;
+	}
+
+	if (XEnd + 1 <= LevelMap->GetMapWidth ())
+	{
+		XEnd = XEnd + 1;
+	}
+
+	if (YEnd + 1 <= LevelMap->GetMapHeight ())
+	{
+		YEnd = YEnd + 1;
+	}
+
+	for (int YPos = YBegin; YPos < YEnd; YPos++)
+	{
+		for (int XPos = XBegin; XPos < XEnd; XPos++)
+		{
+			if ( (LevelMap->GetEventsList ())[YPos][XPos].GetType () != -1)
+			{
+				std::string name = (LevelMap->GetEventsList ())[YPos][XPos].GetName ();
+				if (name == "CameraCollision")
+				{
+					if(IntersectRect(&intersection, &LevelMap->GetCollisionRect(XPos, YPos), &camera->GetRect()))
+					{
+						m_pES->SendEvent ((LevelMap->GetEventsList ())[YPos][XPos].GetName (), camera);
+
+						return true;
+					}
+				}
+			}
+
+		}
+
+	}
 	return false;
 }
 
-void CLevel::SetSpawn (CBase* pBase)
+void CLevel::SetCarSpawn (CBase* pBase)
 {
-	CTile* spawnList = LevelMap->GetSpawnList ();
+	CTile** Events = LevelMap->GetEventsList();
 
-	for (int i = 0; i <  LevelMap->GetTotalIndexSize(); i++)
+	for (int YPos = 0; YPos < LevelMap->GetMapHeight(); YPos++)
 	{
-		if (!spawnList[i].InUse () && spawnList[i].GetType () != -1) // && type;
+		for (int XPos = 0; XPos < LevelMap->GetMapWidth(); XPos++)
 		{
-			pBase->SetPosX ((float)((spawnList[i].GetIndex () % LevelMap->GetMapWidth()) * LevelMap->GetPixelWidth()));
-			pBase->SetPosY ((float)((spawnList[i].GetIndex () / LevelMap->GetMapHeight()) * LevelMap->GetPixelHeight()));
+			if ( (LevelMap->GetEventsList ())[YPos][XPos].GetType () != -1)
+			{
+				std::string name = (LevelMap->GetEventsList ())[YPos][XPos].GetName ();
+				if (name == "PlayerSpawn")
+				{
+					if((LevelMap->GetEventsList ())[YPos][XPos].InUse () == false)
+					{
+						pBase->SetPosX (XPos * LevelMap->GetPixelWidth ());
+						pBase->SetPosY (YPos * LevelMap->GetPixelHeight ());
+						pBase->SetSpawnPosX (pBase->GetPosX ());
+						pBase->SetSpawnPosY (pBase->GetPosY ());
+						(LevelMap->GetEventsList ())[YPos][XPos].SetInUse (true);
+						return;
+					}
+				}
+			}
+		}
+	}
+}
 
-			spawnList->SetInUse (true);
+void CLevel::SetSpeedRampSpawn (CBase* pBase)
+{
+	CTile** Events = LevelMap->GetEventsList();
 
-			return;
+	for (int YPos = 0; YPos < LevelMap->GetMapHeight(); YPos++)
+	{
+		for (int XPos = 0; XPos < LevelMap->GetMapWidth(); XPos++)
+		{
+			if ( (LevelMap->GetEventsList ())[YPos][XPos].GetType () != -1)
+			{
+				std::string name = (LevelMap->GetEventsList ())[YPos][XPos].GetName ();
+				if (name == "SpeedRampSpawn" && (LevelMap->GetEventsList ())[YPos][XPos].InUse () == false)
+				{
+					pBase->SetPosX (XPos * LevelMap->GetPixelWidth ());
+					pBase->SetPosY (YPos * LevelMap->GetPixelHeight ());
+					(LevelMap->GetEventsList ())[YPos][XPos].SetInUse (true);
+					return;
+				}
+			}
+		}
+	}
+}
+
+void CLevel::SetPowerUpSpawn (CBase* pBase)
+{
+	CTile** Events = LevelMap->GetEventsList();
+
+	for (int YPos = 0; YPos < LevelMap->GetMapHeight(); YPos++)
+	{
+		for (int XPos = 0; XPos < LevelMap->GetMapWidth(); XPos++)
+		{
+			if ( (LevelMap->GetEventsList ())[YPos][XPos].GetType () != -1)
+			{
+				std::string name = (LevelMap->GetEventsList ())[YPos][XPos].GetName ();
+				if (name == "PowerUpSpawn" && (LevelMap->GetEventsList ())[YPos][XPos].InUse () == false)
+				{
+					pBase->SetPosX (XPos * LevelMap->GetPixelWidth ());
+					pBase->SetPosY (YPos * LevelMap->GetPixelHeight ());
+					(LevelMap->GetEventsList ())[YPos][XPos].SetInUse (true);
+					return;
+				}
+			}
+		}
+	}
+}
+
+void CLevel::SetObsticleSpawn (CBase* pBase)
+{
+	CTile** Events = LevelMap->GetEventsList();
+
+	for (int YPos = 0; YPos < LevelMap->GetMapHeight(); YPos++)
+	{
+		for (int XPos = 0; XPos < LevelMap->GetMapWidth(); XPos++)
+		{
+			if ( (LevelMap->GetEventsList ())[YPos][XPos].GetType () != -1)
+			{
+				std::string name = (LevelMap->GetEventsList ())[YPos][XPos].GetName ();
+				if (name == "ObsticleSpawn" && (LevelMap->GetEventsList ())[YPos][XPos].InUse () == false)
+				{
+					pBase->SetPosX (XPos * LevelMap->GetPixelWidth ());
+					pBase->SetPosY (YPos * LevelMap->GetPixelHeight ());
+					pBase->SetSpawnPosX (pBase->GetPosX ());
+					pBase->SetSpawnPosY (pBase->GetPosY ());
+					(LevelMap->GetEventsList ())[YPos][XPos].SetInUse (true);
+					return;
+				}
+			}
 		}
 	}
 }
 
 bool CLevel::CheckEnemyCollision (CBase* pBase)
 {
-	int StartIndex = (int)(((((CEnemy*)pBase)->GetViewRadius () / LevelMap->GetPixelHeight()) * LevelMap->GetMapWidth ()) + (((CEnemy*)pBase)->GetViewRadius () / LevelMap->GetPixelWidth()));
-	int EndIndex = (int)(((((CEnemy*)pBase)->GetViewRadius () / LevelMap->GetPixelHeight()) * LevelMap->GetMapWidth()) + (((CEnemy*)pBase)->GetViewRadius () / LevelMap->GetPixelWidth()));
+	//int StartIndex = (int)(((((CEnemy*)pBase)->GetViewRadius () / LevelMap->GetPixelHeight()) * LevelMap->GetMapWidth ()) + (((CEnemy*)pBase)->GetViewRadius () / LevelMap->GetPixelWidth()));
+	//int EndIndex = (int)(((((CEnemy*)pBase)->GetViewRadius () / LevelMap->GetPixelHeight()) * LevelMap->GetMapWidth()) + (((CEnemy*)pBase)->GetViewRadius () / LevelMap->GetPixelWidth()));
 
-	if (StartIndex < 0)
-		StartIndex = 0;
+	//if (StartIndex < 0)
+	//	StartIndex = 0;
 
-	for (int i = StartIndex; i <  EndIndex; i++)
-	{
-		if (pBase->GetType () == OBJECT_ENEMY)
-		{
-			//check if collision rect is in enemies radius;
-			//if(IntersectRect(&intersection, &LevelMap->GetCollisionRect(Index), &pBase->GetRect()))
-			{
-					((CEnemy*)pBase)->AddCollisionRect (LevelMap->GetCollisionRect(i));
-					//m_pES->SendEvent (LevelMap->GetCollisionList()[i].GetName (), pBase);
-			}
-		}
-	}
+	//for (int i = StartIndex; i <  EndIndex; i++)
+	//{
+	//	if (pBase->GetType () == OBJECT_ENEMY)
+	//	{
+	//		//check if collision rect is in enemies radius;
+	//		//if(IntersectRect(&intersection, &LevelMap->GetCollisionRect(Index), &pBase->GetRect()))
+	//		{
+	//				((CEnemy*)pBase)->AddCollisionRect (LevelMap->GetCollisionRect(i));
+	//				//m_pES->SendEvent (LevelMap->GetCollisionList()[i].GetName (), pBase);
+	//		}
+	//	}
+	//}
 
-	if (((CEnemy*)pBase)->GetCollisionRects ().size () > 0)
-	{
-		return true;
-	}
+	//if (((CEnemy*)pBase)->GetCollisionRects ().size () > 0)
+	//{
+	//	return true;
+	//}
 	
 	return false;
 }
