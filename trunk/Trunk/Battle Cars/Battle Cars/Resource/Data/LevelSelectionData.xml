@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Levels>
         <Level>
-               <LevelImageName>level1.bmp</LevelImageName>
                <LevelDataName>testmap.xml</LevelDataName>
        </Level>
         <Level>
-               <LevelImageName>level2.bmp</LevelImageName>
                <LevelDataName>Junkyard.xml</LevelDataName>
-        </Level>\
+        </Level>
+	<Level>
+               <LevelDataName>Test.xml</LevelDataName>
+        </Level>
 </Levels>
 
 

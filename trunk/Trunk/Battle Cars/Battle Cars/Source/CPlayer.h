@@ -29,7 +29,8 @@ private:
 	bool m_bIsIcyGatlingOn;
 	float m_fIcyBullets;
 	float m_fFlames;
-	RECT m_CollisionRECT;
+	RECT m_rectWall;
+	RECT m_rectWallCollision;
 
 	int m_nFlameThrower;		// The Emittor ID to the flamethrower particle effect.
 	bool isSet;					// Is the emittor Set?
@@ -44,8 +45,13 @@ public:
 
 	void SetController(CXboxInput* pController) { m_pController1 = pController; }
 	CXboxInput* GetController(void) {return m_pController1; }
-	void SetCollisionRect (RECT collision) {m_CollisionRECT = collision;}
-	RECT GetCollisionRect () { return m_CollisionRECT;}
+
+	void SetWallRect (RECT collision) {m_rectWall = collision;}
+	RECT GetWallRect () { return m_rectWall;}
+
+	void SetWallCollisionRect (RECT collision) {m_rectWallCollision = collision;}
+	RECT GetWallCollisionRect () { return m_rectWallCollision;}
+
 	void SetWeaponIcon(int icon){m_nWeaponImageIndex=icon;}
 	int GetWeaponIcon(){return m_nWeaponImageIndex;}
 

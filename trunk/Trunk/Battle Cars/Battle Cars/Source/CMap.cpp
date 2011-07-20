@@ -27,16 +27,20 @@ CMap::CMap ()
 
 CMap::~CMap ()
 {
-	
+	for (int i = 0; i < m_nMapHeight; i++)
+	{
+		delete[] m_pTiles[i];
+	}
 	delete[] m_pTiles;
-	delete[] m_pCollisions;
+
+	for (int i = 0; i < m_nMapHeight; i++)
+	{
+		delete[] m_pEvents[i];
+	}
 	delete[] m_pEvents;
-	delete[] m_pSpawns;
 
 	m_pTiles = NULL;
-	m_pCollisions = NULL;
 	m_pEvents = NULL;
-	m_pSpawns = NULL;
 }
 
 bool CMap::LoadMap (const char* filename)
@@ -83,8 +87,13 @@ bool CMap::LoadTiles (const char* filename)
 
 	//int Index = (1 * m_nTileWidth) + 1;
 
-	m_pTiles		= new CTile[m_nMapHeight * m_nMapWidth];
-	
+	m_pTiles		= new CTile*[m_nMapHeight];
+
+	for (int index = 0; index < m_nMapHeight; index++)
+	{
+		m_pTiles[index] = new CTile[m_nMapWidth];
+	}
+
 	TiXmlElement* pTiles = pRoot->FirstChildElement ("Tiles");
 	int i = 0;
 
@@ -93,138 +102,34 @@ bool CMap::LoadTiles (const char* filename)
 		TiXmlElement* pTile = pTiles->FirstChildElement ("Tile");
 		
 
+		int xpos = 0, ypos = 0;
 		while (pTile)
 		{
 			CTile t;
 
-			pTile->Attribute ("PickedY", &height);
-			pTile->Attribute ("PickedX", &width);
+			pTile->Attribute ("PickedY", &ypos);
+			pTile->Attribute ("PickedX", &xpos);
 
-			t.SetXPos (width);
-			t.SetYPos (height);
+			t.SetXPicked (xpos);
+			t.SetYPicked (ypos);
 
-			pTile->Attribute ("YPos", &height);
-			pTile->Attribute ("XPos", &width);
+			pTile->Attribute ("YPos", &ypos);
+			pTile->Attribute ("XPos", &xpos);
 
-			t.SetIndex ((height * m_nMapWidth) + width);
+			t.SetXPos (xpos);
+			t.SetYPos (ypos);
 
 			int type;
 			pTile->Attribute ("Type", &type);
 
 			t.SetType (type);
 
-			m_pTiles[t.GetIndex ()] = t;
+			m_pTiles[ypos][xpos] = t;
 
 			pTile = pTile->NextSiblingElement ();
 			i++;
 		}
 	}
-
-	return true;
-}
-
-bool CMap::LoadCollisions (const char* filename)
-{
-	
-	TiXmlDocument doc;
-	std::string path = "Resource/Data/";
-	char buffer[32];
-	sprintf_s(buffer,32, "level%i/", CLevelSelectionState::GetInstance()->GetSelection() + 1);
-	path += buffer;
-
-	std::string filepath = path + filename;
-
-	if (doc.LoadFile (filepath.c_str()) == false)
-		return false;
-
-	TiXmlElement* pRoot = doc.RootElement ();
-
-	if (!pRoot)
-		return false;
-
-	m_pCollisions	= new CTile[m_nMapHeight * m_nMapWidth];
-	
-
-		TiXmlElement* pTile = pRoot->FirstChildElement ("Collision");
-
-		int width, height;
-
-		while (pTile)
-		{
-			CTile c;
-
-			pTile->Attribute ("YPos", &height);
-			pTile->Attribute ("XPos", &width);
-
-			c.SetIndex ((height * m_nMapWidth) + width);
-
-			int type;
-			pTile->Attribute ("Type", &type);
-
-			c.SetType (type);
-
-			if (type != -1)
-			{
-				c.SetName (pTile->GetText ());
-			}
-
-			m_pCollisions[c.GetIndex ()] = c;
-
-			pTile = pTile->NextSiblingElement ();
-		}
-
-	return true;
-}
-
-bool CMap::LoadSpawns (const char* filename)
-{
-	
-	TiXmlDocument doc;
-	std::string path = "Resource/Data/";
-	char buffer[32];
-	sprintf_s(buffer,32, "level%i/", CLevelSelectionState::GetInstance()->GetSelection() + 1);
-	path += buffer;
-
-	std::string filepath = path + filename;
-
-	if (doc.LoadFile (filepath.c_str()) == false)
-		return false;
-
-	TiXmlElement* pRoot = doc.RootElement ();
-
-	if (!pRoot)
-		return false;
-
-	m_pSpawns		= new CTile[m_nMapHeight * m_nMapWidth];
-	
-
-		TiXmlElement* pTile = pRoot->FirstChildElement ("Spawn");
-
-		int width, height;
-
-		while (pTile)
-		{
-			CTile c;
-
-			pTile->Attribute ("YPos", &height);
-			pTile->Attribute ("XPos", &width);
-
-			c.SetIndex ((height * m_nMapWidth) + width);
-
-			int type;
-			pTile->Attribute ("Type", &type);
-
-			c.SetType (type);
-
-			if (type != -1)
-			{
-				c.SetName (pTile->GetText ());
-			}
-
-			m_pSpawns[c.GetIndex ()] = c;
-
-			pTile = pTile->NextSiblingElement ();
-		}
 
 	return true;
 }
@@ -247,21 +152,27 @@ bool CMap::LoadEvents (const char* filename)
 	if (!pRoot)
 		return false;
 
-	m_pEvents		= new CTile[m_nMapHeight * m_nMapWidth];
+	m_pEvents		= new CTile*[m_nMapHeight];
+
+	for (int index = 0; index < m_nMapHeight; index++)
+	{
+		m_pEvents[index] = new CTile[m_nMapWidth];
+	}
 	
 
-		TiXmlElement* pTile = pRoot->FirstChildElement ("Spawn");
+		TiXmlElement* pTile = pRoot->FirstChildElement ("Event");
 
-		int width, height;
+		int xpos = 0, ypos = 0;
 
 		while (pTile)
 		{
 			CTile c;
 
-			pTile->Attribute ("YPos", &height);
-			pTile->Attribute ("XPos", &width);
+			pTile->Attribute ("YPos", &ypos);
+			pTile->Attribute ("XPos", &xpos);
 
-			c.SetIndex ((height * m_nMapWidth) + width);
+			c.SetXPos (xpos);
+			c.SetYPos (ypos);
 
 			int type;
 			pTile->Attribute ("Type", &type);
@@ -273,7 +184,7 @@ bool CMap::LoadEvents (const char* filename)
 				c.SetName (pTile->GetText ());
 			}
 
-			m_pSpawns[c.GetIndex ()] = c;
+			m_pEvents[ypos][xpos] = c;
 
 			pTile = pTile->NextSiblingElement ();
 		}
@@ -281,11 +192,10 @@ bool CMap::LoadEvents (const char* filename)
 	return true;
 }
 
-RECT CMap::GetCollisionRect (int IndexID)
+RECT CMap::GetCollisionRect (int XPos, int YPos)
 {
-	////////////fix so its using the indes
-	RECT temp = {(m_pCollisions[IndexID].GetIndex() % GetMapWidth()) * GetPixelWidth() , (m_pCollisions[IndexID].GetIndex() / GetMapHeight()) * GetPixelHeight(), 
-		(m_pCollisions[IndexID].GetIndex() % GetMapWidth()) * GetPixelWidth() + m_nPixelWidth, (m_pCollisions[IndexID].GetIndex() / GetMapHeight()) * GetPixelHeight() + m_nPixelHeight};
+	RECT temp = {(m_pEvents[YPos][XPos].GetXPos() * GetPixelWidth()) , (m_pEvents[YPos][XPos].GetYPos()) * GetPixelHeight(), 
+		(m_pEvents[YPos][XPos].GetXPos() * GetPixelWidth()) + m_nPixelWidth, (m_pEvents[YPos][XPos].GetYPos() * GetPixelHeight()) + m_nPixelHeight};
 
 	return temp;
 }

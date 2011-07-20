@@ -27,6 +27,9 @@ private:
 	float m_nPosX;
 	float m_nPosY;
 
+	float m_fSpawnPosX;
+	float m_fSpawnPosY;
+
 	// Image
 	int m_nImageID;
 	int m_nExplosionID;
@@ -52,6 +55,9 @@ public:
 	////////////////////////////////////////////////////////
 	float GetPosX()	{return m_nPosX;}
 	float GetPosY()	{return m_nPosY;}
+	float GetSpawnPosX()	{return m_fSpawnPosX;}
+	float GetSpawnPosY()	{return m_fSpawnPosY;}
+
 	int GetImageID(){return m_nImageID;}
 	int GetType() { return m_nType; }
 	int GetWidth()	{return m_nWidth;}
@@ -66,6 +72,9 @@ public:
 	void SetRespawnDelay(float delay) { m_nRespawnDelay = delay; }
 	void SetPosX(float nPosX) {m_nPosX = nPosX;}
 	void SetPosY(float nPosY) {m_nPosY = nPosY;}
+	void SetSpawnPosX(float nPosX) {m_fSpawnPosX = nPosX;}
+	void SetSpawnPosY(float nPosY) {m_fSpawnPosY = nPosY;}
+
 	void SetImageID(int nImageID) {m_nImageID = nImageID;}
 	void SetWidth(int nWidth)	{m_nWidth = nWidth;}
 	void SetHeight(int nHeight)	{m_nHeight = nHeight;}

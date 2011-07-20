@@ -41,11 +41,14 @@ public:
 	void Render (CCamera* camera);
 	//void Update (float fElapsedTime);
 
-	bool CheckWorldCollision (CBase* pBase);
+	bool CheckPlayerCollision (CBase* pBase, CCamera* camera);
 	bool CheckCameraCollision (CCamera* camera);
 	bool CheckEnemyCollision (CBase* pBase);
 
-	void SetSpawn (CBase* pBase);
+	void SetCarSpawn (CBase* pBase);
+	void SetSpeedRampSpawn (CBase* pBase);
+	void SetPowerUpSpawn (CBase* pBase);
+	void SetObsticleSpawn (CBase* pBase);
 
 	CMap* GetMap(void) { return LevelMap; }
 };

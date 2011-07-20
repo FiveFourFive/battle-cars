@@ -21,6 +21,7 @@
 #include "Emittor.h"
 #include "Gamer_Profile.h"
 #include "CGamerProfile.h"
+#include "CLevel.h"
 
 CPlayer::CPlayer(CXboxInput* pController)
 {
@@ -38,7 +39,7 @@ CPlayer::CPlayer(CXboxInput* pController)
 	m_pES = CEventSystem::GetInstance ();
 	CKeyBinds* tempkeys = m_pController1->GetKB();
 	//tempkeys->SetShootAccept(XINPUT_GAMEPAD_Y);
-	m_pES->RegisterClient ("CameraCollision", this);
+	m_pES->RegisterClient ("WallCollision", this);
 	m_pES->RegisterClient("powerup_power", this);
 	m_pES->RegisterClient("powerup_shield", this);
 	m_pES->RegisterClient("collision", this);
@@ -59,7 +60,7 @@ CPlayer::CPlayer(CXboxInput* pController)
 }
 CPlayer::~CPlayer(void)
 {
-	m_pES->UnregisterClient ("CameraCollision", this);
+	m_pES->UnregisterClient ("WallCollision", this);
 	m_pES->UnregisterClient("powerup_power",this);
 	m_pES->UnregisterClient("health_up", this);
 	m_pES->UnregisterClient("collision", this);
@@ -436,6 +437,9 @@ void CPlayer::Update(float fElapsedTime)
 		}
 	}
 
+	
+	CLevel::GetInstance ()->CheckPlayerCollision (this, this->GetCamera ());
+
 	SetCollisionDelay(GetCollisionDelay() + fElapsedTime);
 	if(GetCollisionDelay() >= 0.2)
 	{
@@ -621,11 +625,42 @@ void CPlayer::HandleEvent(CEvent* pEvent)
 	CPlayer* temp_player = (CPlayer*)pEvent->GetParam();
 	if (this == temp_player)
 	{
-		if (pEvent->GetEventID () == "CameraCollision")
+		if (pEvent->GetEventID () == "WallCollision")
 		{
-			int abc = 0;
-			abc = 20;
-			//m_pMS->SendMsg (new CDestroyBulletMessage(this));
+			RECT playersrect = GetRect();
+			if ((m_rectWallCollision.bottom - m_rectWallCollision.top) < (m_rectWallCollision.right - m_rectWallCollision.left)) // top or bottom
+			{
+				if (GetRect().bottom > m_rectWall.bottom) // top
+				{
+					SetVelX (0.0f);
+					SetVelY (0.0f);
+					SetPosY (m_rectWall.bottom + (GetHeight () / 2) + 0);
+				}
+
+				if (GetRect().top < m_rectWall.top) // bottom
+				{
+					SetVelX (0.0f);
+					SetVelY (0.0f);
+					SetPosY (m_rectWall.top - (GetHeight () / 2) - 0);
+				}
+			}
+
+			if ((m_rectWallCollision.bottom - m_rectWallCollision.top) > (m_rectWallCollision.right - m_rectWallCollision.left)) // left or right
+			{
+				if (GetRect().left < m_rectWall.left) // right
+				{
+					SetVelX (0.0f);
+					SetVelY (0.0f);
+					SetPosX (m_rectWall.left - (GetWidth() /2) - 0);
+				}
+
+				if (GetRect().right > m_rectWall.right) // left
+				{
+					SetVelX (0.0f);
+					SetVelY (0.0f);
+					SetPosX (m_rectWall.right + (GetWidth() / 2) + 0);
+				}
+			}
 		}
 		else if(pEvent->GetEventID() == "damage")
 		{

@@ -19,128 +19,67 @@ void CEventSystem::RegisterClient(EVENTID eventID, IListener* pClient)
 {
 	if (!pClient || AlreadyRegistered(eventID, pClient))	
 		return;
-	/*m_ClientDatabase.Insert (eventID, pClient);*/
 
+	m_mmClientsData.insert( make_pair(eventID, pClient) );
 }
 
 void CEventSystem::UnregisterClient(EVENTID eventID, IListener *pClient)
 {
-	/*pair<multimap<EVENTID, IListener*>::iterator,
+	pair<multimap<EVENTID, IListener*>::iterator,
 		 multimap<EVENTID, IListener*>::iterator> range;
 
-	range = m_ClientDatabase.equal_range(eventID);
+	range = m_mmClientsData.equal_range(eventID);
 
 	for(multimap<EVENTID, IListener*>::iterator mmIter = range.first;
 					mmIter != range.second; mmIter++)
 	{
 		if((*mmIter).second == pClient)
 		{
-			mmIter = m_ClientDatabase.erase(mmIter);
-			break;
-		}
-	}*/
-
-	for (size_t index = 0; index < m_ClientEvents.size (); index++)
-	{
-		if (m_ClientEvents[index] == eventID && m_Clients[index] == pClient)
-		{
-			m_ClientEvents.erase (m_ClientEvents.begin () + index);
-			m_Clients.erase (m_Clients.begin () + index);
+			mmIter = m_mmClientsData.erase(mmIter);
 			break;
 		}
 	}
-	//m_ClientEvents.push_back (eventID);
-	//m_Clients.push_back (pClient);
-
-	/*for (int index = 0; index < m_ClientDatabase.GetListAmount(); index++)
-	{
-		if (*(m_ClientDatabase.second (index)) == pClient)
-		{
-			m_ClientDatabase.Earse (pClient);
-			break;
-		}
-	}*/
 }
 
 
 void CEventSystem::UnregisterClientAll(IListener *pClient)
 {
-	/*multimap<std::string, IListener*>::iterator mmIter = m_ClientDatabase.begin();
+	multimap<std::string, IListener*>::iterator mmIter = m_mmClientsData.begin();
 
-	while(mmIter !=m_ClientDatabase.end())
+	while(mmIter !=m_mmClientsData.end())
 	{
 		if((*mmIter).second == pClient)
 		{
-			mmIter = m_ClientDatabase.erase(mmIter);
+			mmIter = m_mmClientsData.erase(mmIter);
 		}
 		else
 			mmIter++;
-	}*/
-
-	for (size_t index = 0; index < m_ClientEvents.size (); index++)
-	{
-		if (m_Clients[index] == pClient)
-		{
-			m_ClientEvents.erase (m_ClientEvents.begin () + index);
-			m_Clients.erase (m_Clients.begin () + index);
-			index --;
-		}
 	}
-
-	/*m_ClientEvents.push_back (eventID);
-	m_Clients.push_back (pClient);*/
-
-	/*for (int index = 0; index < m_ClientDatabase.GetListAmount(); index++)
-	{
-		if (*(m_ClientDatabase.second (index)) == pClient)
-		{
-			m_ClientDatabase.Earse (pClient);
-			index--;
-		}
-	}*/
 }
 
 
 void CEventSystem::DispatchEvent(CEvent *pEvent)
 {
-
-	/*pair<multimap<EVENTID, IListener*>::iterator,
+	pair<multimap<EVENTID, IListener*>::iterator,
 		 multimap<EVENTID, IListener*>::iterator> range;
 
-	range = m_ClientDatabase.equal_range(pEvent->GetEventID());
-
+	range = m_mmClientsData.equal_range(pEvent->GetEventID());
 
 	for(multimap<EVENTID, IListener*>::iterator mmIter = range.first;
 					mmIter != range.second; mmIter++)
 	{
 		(*mmIter).second->HandleEvent(pEvent);
-	}*/
-
-	for (size_t index = 0; index < m_Clients.size (); index++)
-	{
-		(*(m_Clients.begin () + index))->HandleEvent (pEvent);
 	}
-
-	/*m_ClientEvents.push_back (eventID);
-	m_Clients.push_back (pClient)*/;
-
-	/*ClientDatabase<EVENTID, IListener*>* range = m_ClientDatabase.Equal_Range (pEvent->GetEventID ());
-
-	for (int index = 0; index < m_ClientDatabase.GetListAmount(); index++)
-	{
-		(*m_ClientDatabase.second (index))->HandleEvent (pEvent);
-	}*/
 }
 
 bool CEventSystem::AlreadyRegistered(EVENTID eventID, IListener* pClient)
 {
-	bool IsRegistered = false;
-	bool IsClientRegistered = false;
+	bool bIsAlreadyRegistered = false;
 
-	/*pair<multimap<EVENTID, IListener*>::iterator,
+	pair<multimap<EVENTID, IListener*>::iterator,
 		 multimap<EVENTID, IListener*>::iterator> range;
 
-	range = m_ClientDatabase.equal_range(eventID);
+	range = m_mmClientsData.equal_range(eventID);
 
 	for(multimap<EVENTID, IListener*>::iterator mmIter = range.first;
 					mmIter != range.second; mmIter++)
@@ -150,34 +89,9 @@ bool CEventSystem::AlreadyRegistered(EVENTID eventID, IListener* pClient)
 			bIsAlreadyRegistered = true;
 			break;
 		}
-	}*/
-
-	
-
-	for( size_t i = 0; i < m_Clients.size(); i++)
-	{
-		if((*(m_Clients.begin () + i)) == pClient)
-		{
-			IsClientRegistered = true;
-
-			for (size_t index = 0; index < m_ClientEvents.size (); index++)
-			{
-				if ((*(m_ClientEvents.begin () + index)) == eventID)
-				{
-					IsRegistered = true;
-					break;
-				}
-			}
-		}
 	}
 
-	if( !IsRegistered )
-		m_ClientEvents.push_back (eventID);
-
-	if( !IsClientRegistered )
-		m_Clients.push_back (pClient);
-
-	return IsRegistered;
+	return bIsAlreadyRegistered;
 }
 
 
@@ -185,26 +99,24 @@ void CEventSystem::SendEvent(EVENTID eventID, void* pData, void* pData2)
 {
 	CEvent newEvent(eventID, pData, pData2);
 
-	m_CurrentEvents.push_back(newEvent);
+	m_lCurrentEvents.push_back(newEvent);
 }
 
 void CEventSystem::ProcessEvents(void)
 {
-	while(m_CurrentEvents.size())
+	while(m_lCurrentEvents.size())
 	{
-		DispatchEvent(&m_CurrentEvents.front());
-		m_CurrentEvents.pop_front();
+		DispatchEvent(&m_lCurrentEvents.front());
+		m_lCurrentEvents.pop_front();
 	}
 }
 
 void CEventSystem::ClearEvents(void)
 {
-	m_CurrentEvents.clear();
+	m_lCurrentEvents.clear();
 }
 
 void CEventSystem::ShutdownEventSystem(void)
 {
-	//m_ClientDatabase.Clear();
-	m_ClientEvents.clear ();
-	m_Clients.clear ();
+	m_mmClientsData.clear();
 }

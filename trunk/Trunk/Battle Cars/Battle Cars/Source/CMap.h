@@ -21,9 +21,9 @@ class CEvents;
 class CMap
 {
 private:
-	CTile*	m_pTiles;
+	CTile**	m_pTiles;
 	CTile*	m_pCollisions;
-	CTile*	m_pEvents;
+	CTile**	m_pEvents;
 	CTile*	m_pSpawns;
 
 	int m_nMapWidth; // array width of the map
@@ -47,9 +47,9 @@ public:
 	bool LoadEvents (const char* filename);
 
 	//Accessors
-	CTile* GetTileList () {return m_pTiles;}
+	CTile** GetTileList () {return m_pTiles;}
 	CTile* GetCollisionList () {return m_pCollisions;}
-	CTile* GetEventsList () {return m_pEvents;}
+	CTile** GetEventsList () {return m_pEvents;}
 	CTile* GetSpawnList () {return m_pSpawns;}
 	int GetMapWidth () {return m_nMapWidth;}
 	int GetMapHeight () {return m_nMapHeight;}
@@ -62,9 +62,9 @@ public:
 	const char* GetMapName () {return m_stMapName.c_str();}
 
 	//Mutators
-	void SetTileList (CTile* TileList) {m_pTiles = TileList;}
+	void SetTileList (CTile** TileList) {m_pTiles = TileList;}
 	void SetCollisionList (CTile* CollisionList) {m_pCollisions = CollisionList;}
-	void SetEventList (CTile* EventsList) {m_pEvents = EventsList;}
+	void SetEventList (CTile** EventsList) {m_pEvents = EventsList;}
 	void SetSpawnList (CTile* SpawnList) {m_pSpawns = SpawnList;}
 	void SetMapWidth (int Width) {m_nMapWidth = Width;}
 	void SetMapHeight (int Height) {m_nMapHeight = Height;}
@@ -75,7 +75,7 @@ public:
 	void SetTileImageID (int ID) {m_nTileImageID = ID;}
 	void SetMapName (const char* Name) {m_stMapName = Name;}
 
-	RECT GetCollisionRect (int IndexID);
+	RECT GetCollisionRect (int XPos, int YPos);
 };
 
 #endif
