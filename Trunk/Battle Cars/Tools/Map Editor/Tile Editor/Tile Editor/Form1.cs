@@ -41,8 +41,6 @@ namespace Tile_Editor
         Tools ToolSelection = Tools.TOOL_SELECTION;
         TileType ToolEventType = TileType.TYPE_PLAYER;
 
-        Point MousePoint;
-
         Point ScrollOffset = Point.Empty;
 
         public MapEditor()
@@ -55,10 +53,10 @@ namespace Tile_Editor
             MainPath = Environment.CurrentDirectory;
 
             string path = MainPath;
-            path += "/Resource/Images/Simple Tile Set.png";
+            path += "/Resource/Images/SimpleTileSet.png";
 
             BitMapPath = MainPath + "/Resource/Images/";
-            TileBitmapFile = "tilesetpok.bmp";
+            TileBitmapFile = "SimpleTileSet.png";
 
             levelMap.TileBitmap = TM.LoadTexture(path, 0);
 
@@ -116,14 +114,6 @@ namespace Tile_Editor
 
             CreateToolWindow();
             CreateTileWindow();
-            if (help == null)
-            {
-                help = new HelpWindow();
-
-                help.TopLevel = true;
-                help.TopMost = true;
-                help.Show();
-            }
         }
 
         private void CreateToolWindow()
@@ -133,7 +123,6 @@ namespace Tile_Editor
                 toolsWindow = new ToolsWindow();
                 toolsWindow.ToolClicked += new EventHandler(Tool_Clicked);
                 toolsWindow.FormClosed += new FormClosedEventHandler(Tool_FormClosed);
-                toolsWindow.EventListChange += new EventHandler(EventListChange);
                 toolsWindow.MapWidthChange += new EventHandler(MapWidthChange);
                 toolsWindow.MapHeightChange += new EventHandler(MapHeightChange);
                 toolsWindow.TileWidthChange += new EventHandler(TileWidthChange);
@@ -338,14 +327,25 @@ namespace Tile_Editor
             D3D.Clear(MainMapPanel, 255, 255, 255);
             D3D.DeviceBegin();
             D3D.LineBegin();
-            
+
+            int XBegin = ((offset.X*-1) / levelMap.PixelSize.Width);
+            int YBegin = ((offset.Y*-1) / levelMap.PixelSize.Height);
+            int XEnd = ((offset.X * -1) + MainMapPanel.Width) / levelMap.PixelSize.Width;
+            int YEnd = ((offset.Y * -1) + MainMapPanel.Height) / levelMap.PixelSize.Height;
+
+            if (XEnd >= levelMap.MapSize.Width)
+                XEnd = levelMap.MapSize.Width;
+
+            if (YEnd >= levelMap.MapSize.Height)
+                YEnd = levelMap.MapSize.Height;
+
             if (gridShow)
             {
-                for (int Xindex = 0; Xindex <= levelMap.MapSize.Width; Xindex++)
+                for (int Xindex = XBegin; Xindex <= XEnd; Xindex++)
                 {
                     D3D.DrawLine(Xindex * levelMap.PixelSize.Width + offset.X, offset.Y, Xindex * levelMap.PixelSize.Width + offset.X, levelMap.MapSize.Height * levelMap.PixelSize.Height + offset.Y, 255, 0, 0);
                 }
-                for (int Yindex = 0; Yindex <= levelMap.MapSize.Height; Yindex++)
+                for (int Yindex = YBegin; Yindex <= YEnd; Yindex++)
                 {
                     D3D.DrawLine(offset.X, Yindex * levelMap.PixelSize.Height + offset.Y, levelMap.MapSize.Width * levelMap.PixelSize.Width + offset.X, Yindex * levelMap.PixelSize.Height + offset.Y, 255, 0, 0);
                 }
@@ -353,9 +353,9 @@ namespace Tile_Editor
 
             D3D.SpriteBegin();
 
-            for (int Ypos = 0; Ypos < levelMap.MapSize.Height; Ypos++)
+            for (int Ypos = YBegin; Ypos < YEnd; Ypos++)
             {
-                for (int Xpos = 0; Xpos < levelMap.MapSize.Width; Xpos++)
+                for (int Xpos = XBegin; Xpos < XEnd; Xpos++)
                 {
                     if (levelMap.TileList[Ypos, Xpos].Type != (TileType)(-1))
                     {
@@ -420,7 +420,7 @@ namespace Tile_Editor
                 TM.Draw(EraserId, TilePos.X + offset.X, TilePos.Y + offset.Y, 1.0f, 1.0f, tileRect, 0, 0, 0, col.ToArgb());
             }
 
-            D3D.DrawText(MousePoint.ToString (), 100, 200, 255, 0, 0);
+            //D3D.DrawText(MousePoint.ToString (), 100, 200, 255, 0, 0);
 
             D3D.SpriteEnd();
 
@@ -434,9 +434,20 @@ namespace Tile_Editor
 
         private void DrawBox(Size LevelSize, CTile[,] List, Size PixelSize, Point PositionOffset)
         {
-            for (int Ypos = 0; Ypos < LevelSize.Height; Ypos++)
+            int XBegin = ((PositionOffset.X * -1) / levelMap.PixelSize.Width);
+            int YBegin = ((PositionOffset.Y * -1) / levelMap.PixelSize.Height);
+            int XEnd = ((PositionOffset.X * -1) + MainMapPanel.Width) / levelMap.PixelSize.Width;
+            int YEnd = ((PositionOffset.Y * -1) + MainMapPanel.Height) / levelMap.PixelSize.Height;
+
+            if (XEnd >= levelMap.MapSize.Width)
+                XEnd = levelMap.MapSize.Width;
+
+            if (YEnd >= levelMap.MapSize.Height)
+                YEnd = levelMap.MapSize.Height;
+
+            for (int Ypos = YBegin; Ypos < YEnd; Ypos++)
             {
-                for (int Xpos = 0; Xpos < LevelSize.Width; Xpos++)
+                for (int Xpos = XBegin; Xpos < XEnd; Xpos++)
                 {
                     if (List[Ypos, Xpos].Type != (TileType)(-1))
                     {
@@ -562,10 +573,10 @@ namespace Tile_Editor
                 }
             }
 
-            if (toolsWindow != null)
-            {
-                toolsWindow.LoadLists();
-            }
+            //if (toolsWindow != null)
+            //{
+            //    toolsWindow.LoadLists();
+            //}
         }
 
         private void MainMapPanel_MouseMove(object sender, MouseEventArgs e)
@@ -642,10 +653,10 @@ namespace Tile_Editor
                     levelMap.EventList[Pos.Y, Pos.X].Name = "NULL";
                 }
 
-                if (toolsWindow != null)
-                {
-                    toolsWindow.LoadLists();
-                }
+                //if (toolsWindow != null)
+                //{
+                //    toolsWindow.LoadLists();
+                //}
             }
         }
 
@@ -816,7 +827,6 @@ namespace Tile_Editor
                 if (toolsWindow != null)
                 {
                     toolsWindow.EventList = levelMap.EventList;
-                    toolsWindow.LoadLists();
                 }
             }
         }
@@ -866,6 +876,8 @@ namespace Tile_Editor
 
             if (DialogResult.OK == dlg.ShowDialog())
             {
+                SaveBool = false;
+
                 XElement xLevel = XElement.Load(dlg.FileName);
 
                 string[] Splitpath;
@@ -903,9 +915,6 @@ namespace Tile_Editor
                     toolsWindow.PixelSize = levelMap.PixelSize;
                     toolsWindow.TileSize = levelMap.TileSize;
                     toolsWindow.EventList = levelMap.EventList;
-
-                    toolsWindow.LoadLists();
-
                 }
             }
         }
@@ -1006,6 +1015,8 @@ namespace Tile_Editor
 
             if (DialogResult.OK == dlg.ShowDialog())
             {
+                SaveBool = false;
+
                 //save each list first
 
                 string[] Splitpath;
@@ -1159,6 +1170,11 @@ namespace Tile_Editor
 
             if (DialogResult.OK == dlg.ShowDialog())
             {
+                string[] Splitpath;
+                Splitpath = dlg.FileName.Split('\\');
+
+                TileBitmapFile = Splitpath[Splitpath.Length - 1];
+
                 levelMap.TileBitmap = TM.LoadTexture(dlg.FileName, 0);
 
                 int textureHeight = TM.GetTextureHeight(levelMap.TileBitmap);

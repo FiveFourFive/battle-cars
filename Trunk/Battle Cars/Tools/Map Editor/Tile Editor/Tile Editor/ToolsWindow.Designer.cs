@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ToolsWindow));
-            this.SpawnBrush = new System.Windows.Forms.Button();
-            this.CollisionBrush = new System.Windows.Forms.Button();
             this.EventBrush = new System.Windows.Forms.Button();
             this.Fill = new System.Windows.Forms.Button();
             this.Eraser = new System.Windows.Forms.Button();
@@ -48,9 +46,6 @@
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.EventsInfo = new System.Windows.Forms.TabPage();
-            this.UpdateEvent = new System.Windows.Forms.Button();
-            this.EventsListBox = new System.Windows.Forms.ListBox();
-            this.RemoveEvent = new System.Windows.Forms.Button();
             this.EventsGroupBox = new System.Windows.Forms.GroupBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.SpeedRampSpawn = new System.Windows.Forms.RadioButton();
@@ -61,12 +56,7 @@
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.CCollision = new System.Windows.Forms.RadioButton();
             this.WCollision = new System.Windows.Forms.RadioButton();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
             this.EventID = new System.Windows.Forms.TextBox();
-            this.EventY = new System.Windows.Forms.NumericUpDown();
-            this.EventX = new System.Windows.Forms.NumericUpDown();
-            this.AddEvent = new System.Windows.Forms.Button();
             this.SettingsPage = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.PixelWidth = new System.Windows.Forms.NumericUpDown();
@@ -85,53 +75,12 @@
             this.TilesHeight = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.CollisionPage = new System.Windows.Forms.TabPage();
-            this.CollisionUpdate = new System.Windows.Forms.Button();
-            this.CollisionListBox = new System.Windows.Forms.ListBox();
-            this.CollisionRemove = new System.Windows.Forms.Button();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.CollisionName = new System.Windows.Forms.TextBox();
-            this.CollisionYPos = new System.Windows.Forms.NumericUpDown();
-            this.CollisionXPos = new System.Windows.Forms.NumericUpDown();
-            this.CollisionAdd = new System.Windows.Forms.Button();
-            this.EventPage = new System.Windows.Forms.TabPage();
-            this.EventUpdate = new System.Windows.Forms.Button();
-            this.EventListBox = new System.Windows.Forms.ListBox();
-            this.EventRemove = new System.Windows.Forms.Button();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.EventName = new System.Windows.Forms.TextBox();
-            this.EventYPos = new System.Windows.Forms.NumericUpDown();
-            this.EventXPos = new System.Windows.Forms.NumericUpDown();
-            this.EventAdd = new System.Windows.Forms.Button();
-            this.SpawnPage = new System.Windows.Forms.TabPage();
-            this.SpawnUpdate = new System.Windows.Forms.Button();
-            this.SpawnListBox = new System.Windows.Forms.ListBox();
-            this.SpawnRemove = new System.Windows.Forms.Button();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.SpawnSpeed = new System.Windows.Forms.RadioButton();
-            this.SpawnPower = new System.Windows.Forms.RadioButton();
-            this.SpawnPlayer = new System.Windows.Forms.RadioButton();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.SpawnName = new System.Windows.Forms.TextBox();
-            this.SpawnYPos = new System.Windows.Forms.NumericUpDown();
-            this.SpawnXPos = new System.Windows.Forms.NumericUpDown();
-            this.SpawnAdd = new System.Windows.Forms.Button();
             this.ToolsTab.SuspendLayout();
             this.ToolsPage.SuspendLayout();
             this.EventsInfo.SuspendLayout();
             this.EventsGroupBox.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.EventY)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EventX)).BeginInit();
             this.SettingsPage.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PixelWidth)).BeginInit();
@@ -142,39 +91,7 @@
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TilesWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TilesHeight)).BeginInit();
-            this.CollisionPage.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CollisionYPos)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CollisionXPos)).BeginInit();
-            this.EventPage.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.EventYPos)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EventXPos)).BeginInit();
-            this.SpawnPage.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SpawnYPos)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SpawnXPos)).BeginInit();
             this.SuspendLayout();
-            // 
-            // SpawnBrush
-            // 
-            this.SpawnBrush.Image = ((System.Drawing.Image)(resources.GetObject("SpawnBrush.Image")));
-            this.SpawnBrush.Location = new System.Drawing.Point(423, 227);
-            this.SpawnBrush.Name = "SpawnBrush";
-            this.SpawnBrush.Size = new System.Drawing.Size(40, 40);
-            this.SpawnBrush.TabIndex = 7;
-            this.SpawnBrush.UseVisualStyleBackColor = true;
-            this.SpawnBrush.Click += new System.EventHandler(this.SpawnBrush_Click);
-            // 
-            // CollisionBrush
-            // 
-            this.CollisionBrush.Image = ((System.Drawing.Image)(resources.GetObject("CollisionBrush.Image")));
-            this.CollisionBrush.Location = new System.Drawing.Point(359, 227);
-            this.CollisionBrush.Name = "CollisionBrush";
-            this.CollisionBrush.Size = new System.Drawing.Size(40, 40);
-            this.CollisionBrush.TabIndex = 6;
-            this.CollisionBrush.UseVisualStyleBackColor = true;
-            this.CollisionBrush.Click += new System.EventHandler(this.CollisionBrush_Click);
             // 
             // EventBrush
             // 
@@ -242,9 +159,6 @@
             this.ToolsTab.Controls.Add(this.ToolsPage);
             this.ToolsTab.Controls.Add(this.EventsInfo);
             this.ToolsTab.Controls.Add(this.SettingsPage);
-            this.ToolsTab.Controls.Add(this.CollisionPage);
-            this.ToolsTab.Controls.Add(this.EventPage);
-            this.ToolsTab.Controls.Add(this.SpawnPage);
             this.ToolsTab.Location = new System.Drawing.Point(12, 12);
             this.ToolsTab.Name = "ToolsTab";
             this.ToolsTab.SelectedIndex = 0;
@@ -263,9 +177,7 @@
             this.ToolsPage.Controls.Add(this.label20);
             this.ToolsPage.Controls.Add(this.Eraser);
             this.ToolsPage.Controls.Add(this.SelectionTool);
-            this.ToolsPage.Controls.Add(this.SpawnBrush);
             this.ToolsPage.Controls.Add(this.Grid);
-            this.ToolsPage.Controls.Add(this.CollisionBrush);
             this.ToolsPage.Controls.Add(this.Brush);
             this.ToolsPage.Controls.Add(this.EventBrush);
             this.ToolsPage.Controls.Add(this.Fill);
@@ -353,11 +265,7 @@
             // 
             // EventsInfo
             // 
-            this.EventsInfo.Controls.Add(this.UpdateEvent);
-            this.EventsInfo.Controls.Add(this.EventsListBox);
-            this.EventsInfo.Controls.Add(this.RemoveEvent);
             this.EventsInfo.Controls.Add(this.EventsGroupBox);
-            this.EventsInfo.Controls.Add(this.AddEvent);
             this.EventsInfo.Location = new System.Drawing.Point(4, 22);
             this.EventsInfo.Name = "EventsInfo";
             this.EventsInfo.Size = new System.Drawing.Size(498, 347);
@@ -365,48 +273,15 @@
             this.EventsInfo.Text = "Events Info";
             this.EventsInfo.UseVisualStyleBackColor = true;
             // 
-            // UpdateEvent
-            // 
-            this.UpdateEvent.Location = new System.Drawing.Point(218, 276);
-            this.UpdateEvent.Name = "UpdateEvent";
-            this.UpdateEvent.Size = new System.Drawing.Size(75, 23);
-            this.UpdateEvent.TabIndex = 10;
-            this.UpdateEvent.Text = "Update";
-            this.UpdateEvent.UseVisualStyleBackColor = true;
-            this.UpdateEvent.Click += new System.EventHandler(this.UpdateEvent_Click);
-            // 
-            // EventsListBox
-            // 
-            this.EventsListBox.FormattingEnabled = true;
-            this.EventsListBox.Location = new System.Drawing.Point(280, 15);
-            this.EventsListBox.Name = "EventsListBox";
-            this.EventsListBox.Size = new System.Drawing.Size(146, 134);
-            this.EventsListBox.TabIndex = 8;
-            this.EventsListBox.SelectedIndexChanged += new System.EventHandler(this.EventsListBox_SelectedIndexChanged);
-            // 
-            // RemoveEvent
-            // 
-            this.RemoveEvent.Location = new System.Drawing.Point(314, 276);
-            this.RemoveEvent.Name = "RemoveEvent";
-            this.RemoveEvent.Size = new System.Drawing.Size(75, 23);
-            this.RemoveEvent.TabIndex = 7;
-            this.RemoveEvent.Text = "Remove";
-            this.RemoveEvent.UseVisualStyleBackColor = true;
-            this.RemoveEvent.Click += new System.EventHandler(this.RemoveEvent_Click);
-            // 
             // EventsGroupBox
             // 
             this.EventsGroupBox.Controls.Add(this.groupBox9);
             this.EventsGroupBox.Controls.Add(this.label17);
             this.EventsGroupBox.Controls.Add(this.groupBox8);
-            this.EventsGroupBox.Controls.Add(this.label18);
-            this.EventsGroupBox.Controls.Add(this.label19);
             this.EventsGroupBox.Controls.Add(this.EventID);
-            this.EventsGroupBox.Controls.Add(this.EventY);
-            this.EventsGroupBox.Controls.Add(this.EventX);
-            this.EventsGroupBox.Location = new System.Drawing.Point(17, 15);
+            this.EventsGroupBox.Location = new System.Drawing.Point(17, 62);
             this.EventsGroupBox.Name = "EventsGroupBox";
-            this.EventsGroupBox.Size = new System.Drawing.Size(219, 255);
+            this.EventsGroupBox.Size = new System.Drawing.Size(439, 167);
             this.EventsGroupBox.TabIndex = 9;
             this.EventsGroupBox.TabStop = false;
             this.EventsGroupBox.Text = "Event Info";
@@ -417,7 +292,7 @@
             this.groupBox9.Controls.Add(this.PlayerSpawn);
             this.groupBox9.Controls.Add(this.PowerUpSpawn);
             this.groupBox9.Controls.Add(this.ObsticleSpawn);
-            this.groupBox9.Location = new System.Drawing.Point(9, 140);
+            this.groupBox9.Location = new System.Drawing.Point(194, 31);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(201, 65);
             this.groupBox9.TabIndex = 12;
@@ -475,7 +350,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(6, 220);
+            this.label17.Location = new System.Drawing.Point(107, 116);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(49, 13);
             this.label17.TabIndex = 5;
@@ -485,7 +360,7 @@
             // 
             this.groupBox8.Controls.Add(this.CCollision);
             this.groupBox8.Controls.Add(this.WCollision);
-            this.groupBox8.Location = new System.Drawing.Point(9, 86);
+            this.groupBox8.Location = new System.Drawing.Point(9, 31);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(174, 48);
             this.groupBox8.TabIndex = 11;
@@ -516,55 +391,13 @@
             this.WCollision.UseVisualStyleBackColor = true;
             this.WCollision.CheckedChanged += new System.EventHandler(this.WCollision_CheckedChanged);
             // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(6, 62);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(54, 13);
-            this.label18.TabIndex = 4;
-            this.label18.Text = "Y Position";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(6, 36);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(54, 13);
-            this.label19.TabIndex = 3;
-            this.label19.Text = "X Position";
-            // 
             // EventID
             // 
-            this.EventID.Location = new System.Drawing.Point(61, 217);
+            this.EventID.Location = new System.Drawing.Point(162, 113);
             this.EventID.Name = "EventID";
             this.EventID.Size = new System.Drawing.Size(100, 20);
             this.EventID.TabIndex = 2;
             this.EventID.Text = "NULL";
-            // 
-            // EventY
-            // 
-            this.EventY.Location = new System.Drawing.Point(65, 60);
-            this.EventY.Name = "EventY";
-            this.EventY.Size = new System.Drawing.Size(120, 20);
-            this.EventY.TabIndex = 1;
-            // 
-            // EventX
-            // 
-            this.EventX.Location = new System.Drawing.Point(65, 34);
-            this.EventX.Name = "EventX";
-            this.EventX.Size = new System.Drawing.Size(120, 20);
-            this.EventX.TabIndex = 0;
-            // 
-            // AddEvent
-            // 
-            this.AddEvent.Location = new System.Drawing.Point(124, 276);
-            this.AddEvent.Name = "AddEvent";
-            this.AddEvent.Size = new System.Drawing.Size(75, 23);
-            this.AddEvent.TabIndex = 6;
-            this.AddEvent.Text = "Add";
-            this.AddEvent.UseVisualStyleBackColor = true;
-            this.AddEvent.Click += new System.EventHandler(this.AddEvent_Click);
             // 
             // SettingsPage
             // 
@@ -830,419 +663,6 @@
             this.label5.TabIndex = 2;
             this.label5.Text = "Height";
             // 
-            // CollisionPage
-            // 
-            this.CollisionPage.Controls.Add(this.CollisionUpdate);
-            this.CollisionPage.Controls.Add(this.CollisionListBox);
-            this.CollisionPage.Controls.Add(this.CollisionRemove);
-            this.CollisionPage.Controls.Add(this.groupBox4);
-            this.CollisionPage.Controls.Add(this.CollisionAdd);
-            this.CollisionPage.Location = new System.Drawing.Point(4, 22);
-            this.CollisionPage.Name = "CollisionPage";
-            this.CollisionPage.Padding = new System.Windows.Forms.Padding(3);
-            this.CollisionPage.Size = new System.Drawing.Size(498, 347);
-            this.CollisionPage.TabIndex = 2;
-            this.CollisionPage.Text = "Collision Info";
-            this.CollisionPage.UseVisualStyleBackColor = true;
-            // 
-            // CollisionUpdate
-            // 
-            this.CollisionUpdate.Location = new System.Drawing.Point(183, 210);
-            this.CollisionUpdate.Name = "CollisionUpdate";
-            this.CollisionUpdate.Size = new System.Drawing.Size(75, 23);
-            this.CollisionUpdate.TabIndex = 10;
-            this.CollisionUpdate.Text = "Update";
-            this.CollisionUpdate.UseVisualStyleBackColor = true;
-            this.CollisionUpdate.Click += new System.EventHandler(this.CollisionUpdate_Click);
-            // 
-            // CollisionListBox
-            // 
-            this.CollisionListBox.FormattingEnabled = true;
-            this.CollisionListBox.Location = new System.Drawing.Point(302, 20);
-            this.CollisionListBox.Name = "CollisionListBox";
-            this.CollisionListBox.Size = new System.Drawing.Size(146, 134);
-            this.CollisionListBox.TabIndex = 8;
-            this.CollisionListBox.SelectedIndexChanged += new System.EventHandler(this.CollisionListBox_SelectedIndexChanged);
-            // 
-            // CollisionRemove
-            // 
-            this.CollisionRemove.Location = new System.Drawing.Point(276, 210);
-            this.CollisionRemove.Name = "CollisionRemove";
-            this.CollisionRemove.Size = new System.Drawing.Size(75, 23);
-            this.CollisionRemove.TabIndex = 7;
-            this.CollisionRemove.Text = "Remove";
-            this.CollisionRemove.UseVisualStyleBackColor = true;
-            this.CollisionRemove.Click += new System.EventHandler(this.CollisionRemove_Click);
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.label8);
-            this.groupBox4.Controls.Add(this.label9);
-            this.groupBox4.Controls.Add(this.label10);
-            this.groupBox4.Controls.Add(this.CollisionName);
-            this.groupBox4.Controls.Add(this.CollisionYPos);
-            this.groupBox4.Controls.Add(this.CollisionXPos);
-            this.groupBox4.Location = new System.Drawing.Point(25, 20);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(200, 132);
-            this.groupBox4.TabIndex = 9;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Collision Info";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 101);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(35, 13);
-            this.label8.TabIndex = 5;
-            this.label8.Text = "Name";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 62);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(54, 13);
-            this.label9.TabIndex = 4;
-            this.label9.Text = "Y Position";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 36);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(54, 13);
-            this.label10.TabIndex = 3;
-            this.label10.Text = "X Position";
-            // 
-            // CollisionName
-            // 
-            this.CollisionName.Location = new System.Drawing.Point(65, 98);
-            this.CollisionName.Name = "CollisionName";
-            this.CollisionName.Size = new System.Drawing.Size(100, 20);
-            this.CollisionName.TabIndex = 2;
-            this.CollisionName.Text = "NoName";
-            // 
-            // CollisionYPos
-            // 
-            this.CollisionYPos.Location = new System.Drawing.Point(65, 60);
-            this.CollisionYPos.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.CollisionYPos.Name = "CollisionYPos";
-            this.CollisionYPos.Size = new System.Drawing.Size(120, 20);
-            this.CollisionYPos.TabIndex = 1;
-            // 
-            // CollisionXPos
-            // 
-            this.CollisionXPos.Location = new System.Drawing.Point(65, 34);
-            this.CollisionXPos.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.CollisionXPos.Name = "CollisionXPos";
-            this.CollisionXPos.Size = new System.Drawing.Size(120, 20);
-            this.CollisionXPos.TabIndex = 0;
-            // 
-            // CollisionAdd
-            // 
-            this.CollisionAdd.Location = new System.Drawing.Point(90, 210);
-            this.CollisionAdd.Name = "CollisionAdd";
-            this.CollisionAdd.Size = new System.Drawing.Size(75, 23);
-            this.CollisionAdd.TabIndex = 5;
-            this.CollisionAdd.Text = "Add";
-            this.CollisionAdd.UseVisualStyleBackColor = true;
-            this.CollisionAdd.Click += new System.EventHandler(this.CollisionAdd_Click);
-            // 
-            // EventPage
-            // 
-            this.EventPage.Controls.Add(this.EventUpdate);
-            this.EventPage.Controls.Add(this.EventListBox);
-            this.EventPage.Controls.Add(this.EventRemove);
-            this.EventPage.Controls.Add(this.groupBox5);
-            this.EventPage.Controls.Add(this.EventAdd);
-            this.EventPage.Location = new System.Drawing.Point(4, 22);
-            this.EventPage.Name = "EventPage";
-            this.EventPage.Padding = new System.Windows.Forms.Padding(3);
-            this.EventPage.Size = new System.Drawing.Size(498, 347);
-            this.EventPage.TabIndex = 3;
-            this.EventPage.Text = "Event Info";
-            this.EventPage.UseVisualStyleBackColor = true;
-            // 
-            // EventUpdate
-            // 
-            this.EventUpdate.Location = new System.Drawing.Point(205, 213);
-            this.EventUpdate.Name = "EventUpdate";
-            this.EventUpdate.Size = new System.Drawing.Size(75, 23);
-            this.EventUpdate.TabIndex = 5;
-            this.EventUpdate.Text = "Update";
-            this.EventUpdate.UseVisualStyleBackColor = true;
-            this.EventUpdate.Click += new System.EventHandler(this.EventUpdate_Click);
-            // 
-            // EventListBox
-            // 
-            this.EventListBox.FormattingEnabled = true;
-            this.EventListBox.Location = new System.Drawing.Point(301, 28);
-            this.EventListBox.Name = "EventListBox";
-            this.EventListBox.Size = new System.Drawing.Size(146, 134);
-            this.EventListBox.TabIndex = 3;
-            this.EventListBox.SelectedIndexChanged += new System.EventHandler(this.EventListBox_SelectedIndexChanged);
-            // 
-            // EventRemove
-            // 
-            this.EventRemove.Location = new System.Drawing.Point(301, 213);
-            this.EventRemove.Name = "EventRemove";
-            this.EventRemove.Size = new System.Drawing.Size(75, 23);
-            this.EventRemove.TabIndex = 2;
-            this.EventRemove.Text = "Remove";
-            this.EventRemove.UseVisualStyleBackColor = true;
-            this.EventRemove.Click += new System.EventHandler(this.EventRemove_Click);
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.label11);
-            this.groupBox5.Controls.Add(this.label12);
-            this.groupBox5.Controls.Add(this.label13);
-            this.groupBox5.Controls.Add(this.EventName);
-            this.groupBox5.Controls.Add(this.EventYPos);
-            this.groupBox5.Controls.Add(this.EventXPos);
-            this.groupBox5.Location = new System.Drawing.Point(30, 24);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(200, 138);
-            this.groupBox5.TabIndex = 4;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Event Info";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 101);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(35, 13);
-            this.label11.TabIndex = 5;
-            this.label11.Text = "Name";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 62);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(54, 13);
-            this.label12.TabIndex = 4;
-            this.label12.Text = "Y Position";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 36);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(54, 13);
-            this.label13.TabIndex = 3;
-            this.label13.Text = "X Position";
-            // 
-            // EventName
-            // 
-            this.EventName.Location = new System.Drawing.Point(65, 98);
-            this.EventName.Name = "EventName";
-            this.EventName.Size = new System.Drawing.Size(100, 20);
-            this.EventName.TabIndex = 2;
-            this.EventName.Text = "NoName";
-            // 
-            // EventYPos
-            // 
-            this.EventYPos.Location = new System.Drawing.Point(65, 60);
-            this.EventYPos.Name = "EventYPos";
-            this.EventYPos.Size = new System.Drawing.Size(120, 20);
-            this.EventYPos.TabIndex = 1;
-            // 
-            // EventXPos
-            // 
-            this.EventXPos.Location = new System.Drawing.Point(65, 34);
-            this.EventXPos.Name = "EventXPos";
-            this.EventXPos.Size = new System.Drawing.Size(120, 20);
-            this.EventXPos.TabIndex = 0;
-            // 
-            // EventAdd
-            // 
-            this.EventAdd.Location = new System.Drawing.Point(111, 213);
-            this.EventAdd.Name = "EventAdd";
-            this.EventAdd.Size = new System.Drawing.Size(75, 23);
-            this.EventAdd.TabIndex = 0;
-            this.EventAdd.Text = "Add";
-            this.EventAdd.UseVisualStyleBackColor = true;
-            this.EventAdd.Click += new System.EventHandler(this.EventAdd_Click);
-            // 
-            // SpawnPage
-            // 
-            this.SpawnPage.Controls.Add(this.SpawnUpdate);
-            this.SpawnPage.Controls.Add(this.SpawnListBox);
-            this.SpawnPage.Controls.Add(this.SpawnRemove);
-            this.SpawnPage.Controls.Add(this.groupBox6);
-            this.SpawnPage.Controls.Add(this.SpawnAdd);
-            this.SpawnPage.Location = new System.Drawing.Point(4, 22);
-            this.SpawnPage.Name = "SpawnPage";
-            this.SpawnPage.Padding = new System.Windows.Forms.Padding(3);
-            this.SpawnPage.Size = new System.Drawing.Size(498, 347);
-            this.SpawnPage.TabIndex = 4;
-            this.SpawnPage.Text = "Spawn Info";
-            this.SpawnPage.UseVisualStyleBackColor = true;
-            // 
-            // SpawnUpdate
-            // 
-            this.SpawnUpdate.Location = new System.Drawing.Point(224, 264);
-            this.SpawnUpdate.Name = "SpawnUpdate";
-            this.SpawnUpdate.Size = new System.Drawing.Size(75, 23);
-            this.SpawnUpdate.TabIndex = 15;
-            this.SpawnUpdate.Text = "Update";
-            this.SpawnUpdate.UseVisualStyleBackColor = true;
-            this.SpawnUpdate.Click += new System.EventHandler(this.SpawnUpdate_Click);
-            // 
-            // SpawnListBox
-            // 
-            this.SpawnListBox.FormattingEnabled = true;
-            this.SpawnListBox.Location = new System.Drawing.Point(305, 28);
-            this.SpawnListBox.Name = "SpawnListBox";
-            this.SpawnListBox.Size = new System.Drawing.Size(146, 134);
-            this.SpawnListBox.TabIndex = 13;
-            this.SpawnListBox.SelectedIndexChanged += new System.EventHandler(this.SpawnListBox_SelectedIndexChanged);
-            // 
-            // SpawnRemove
-            // 
-            this.SpawnRemove.Location = new System.Drawing.Point(314, 264);
-            this.SpawnRemove.Name = "SpawnRemove";
-            this.SpawnRemove.Size = new System.Drawing.Size(75, 23);
-            this.SpawnRemove.TabIndex = 12;
-            this.SpawnRemove.Text = "Remove";
-            this.SpawnRemove.UseVisualStyleBackColor = true;
-            this.SpawnRemove.Click += new System.EventHandler(this.SpawnRemove_Click);
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.SpawnSpeed);
-            this.groupBox6.Controls.Add(this.SpawnPower);
-            this.groupBox6.Controls.Add(this.SpawnPlayer);
-            this.groupBox6.Controls.Add(this.label14);
-            this.groupBox6.Controls.Add(this.label15);
-            this.groupBox6.Controls.Add(this.label16);
-            this.groupBox6.Controls.Add(this.SpawnName);
-            this.groupBox6.Controls.Add(this.SpawnYPos);
-            this.groupBox6.Controls.Add(this.SpawnXPos);
-            this.groupBox6.Location = new System.Drawing.Point(24, 28);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(200, 218);
-            this.groupBox6.TabIndex = 14;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Spawn Info";
-            // 
-            // SpawnSpeed
-            // 
-            this.SpawnSpeed.AutoSize = true;
-            this.SpawnSpeed.Location = new System.Drawing.Point(6, 76);
-            this.SpawnSpeed.Name = "SpawnSpeed";
-            this.SpawnSpeed.Size = new System.Drawing.Size(123, 17);
-            this.SpawnSpeed.TabIndex = 8;
-            this.SpawnSpeed.TabStop = true;
-            this.SpawnSpeed.Text = "Speed Ramp Spwan";
-            this.SpawnSpeed.UseVisualStyleBackColor = true;
-            this.SpawnSpeed.CheckedChanged += new System.EventHandler(this.SpawnSpeed_CheckedChanged);
-            // 
-            // SpawnPower
-            // 
-            this.SpawnPower.AutoSize = true;
-            this.SpawnPower.Location = new System.Drawing.Point(6, 53);
-            this.SpawnPower.Name = "SpawnPower";
-            this.SpawnPower.Size = new System.Drawing.Size(108, 17);
-            this.SpawnPower.TabIndex = 7;
-            this.SpawnPower.TabStop = true;
-            this.SpawnPower.Text = "Power Up Spwan";
-            this.SpawnPower.UseVisualStyleBackColor = true;
-            this.SpawnPower.CheckedChanged += new System.EventHandler(this.SpawnPower_CheckedChanged);
-            // 
-            // SpawnPlayer
-            // 
-            this.SpawnPlayer.AutoSize = true;
-            this.SpawnPlayer.Location = new System.Drawing.Point(6, 30);
-            this.SpawnPlayer.Name = "SpawnPlayer";
-            this.SpawnPlayer.Size = new System.Drawing.Size(90, 17);
-            this.SpawnPlayer.TabIndex = 6;
-            this.SpawnPlayer.TabStop = true;
-            this.SpawnPlayer.Text = "Player Spwan";
-            this.SpawnPlayer.UseVisualStyleBackColor = true;
-            this.SpawnPlayer.CheckedChanged += new System.EventHandler(this.SpawnPlayer_CheckedChanged);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(3, 183);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(35, 13);
-            this.label14.TabIndex = 5;
-            this.label14.Text = "Name";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(3, 144);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(54, 13);
-            this.label15.TabIndex = 4;
-            this.label15.Text = "Y Position";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(3, 118);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(54, 13);
-            this.label16.TabIndex = 3;
-            this.label16.Text = "X Position";
-            // 
-            // SpawnName
-            // 
-            this.SpawnName.Location = new System.Drawing.Point(62, 180);
-            this.SpawnName.Name = "SpawnName";
-            this.SpawnName.Size = new System.Drawing.Size(100, 20);
-            this.SpawnName.TabIndex = 2;
-            this.SpawnName.Text = "NoName";
-            // 
-            // SpawnYPos
-            // 
-            this.SpawnYPos.Location = new System.Drawing.Point(62, 142);
-            this.SpawnYPos.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.SpawnYPos.Name = "SpawnYPos";
-            this.SpawnYPos.Size = new System.Drawing.Size(120, 20);
-            this.SpawnYPos.TabIndex = 1;
-            // 
-            // SpawnXPos
-            // 
-            this.SpawnXPos.Location = new System.Drawing.Point(62, 116);
-            this.SpawnXPos.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.SpawnXPos.Name = "SpawnXPos";
-            this.SpawnXPos.Size = new System.Drawing.Size(120, 20);
-            this.SpawnXPos.TabIndex = 0;
-            // 
-            // SpawnAdd
-            // 
-            this.SpawnAdd.Location = new System.Drawing.Point(131, 264);
-            this.SpawnAdd.Name = "SpawnAdd";
-            this.SpawnAdd.Size = new System.Drawing.Size(75, 23);
-            this.SpawnAdd.TabIndex = 10;
-            this.SpawnAdd.Text = "Add";
-            this.SpawnAdd.UseVisualStyleBackColor = true;
-            this.SpawnAdd.Click += new System.EventHandler(this.SpawnAdd_Click);
-            // 
             // ToolsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1262,8 +682,6 @@
             this.groupBox9.PerformLayout();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.EventY)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EventX)).EndInit();
             this.SettingsPage.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
@@ -1277,21 +695,6 @@
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TilesWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TilesHeight)).EndInit();
-            this.CollisionPage.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CollisionYPos)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CollisionXPos)).EndInit();
-            this.EventPage.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.EventYPos)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EventXPos)).EndInit();
-            this.SpawnPage.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SpawnYPos)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SpawnXPos)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1304,14 +707,9 @@
         private System.Windows.Forms.Button Eraser;
         private System.Windows.Forms.Button Fill;
         private System.Windows.Forms.Button EventBrush;
-        private System.Windows.Forms.Button CollisionBrush;
-        private System.Windows.Forms.Button SpawnBrush;
         private System.Windows.Forms.TabControl ToolsTab;
         private System.Windows.Forms.TabPage ToolsPage;
         private System.Windows.Forms.TabPage SettingsPage;
-        private System.Windows.Forms.TabPage CollisionPage;
-        private System.Windows.Forms.TabPage EventPage;
-        private System.Windows.Forms.TabPage SpawnPage;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.NumericUpDown PixelWidth;
         private System.Windows.Forms.NumericUpDown PixelHeight;
@@ -1329,62 +727,15 @@
         private System.Windows.Forms.NumericUpDown TilesHeight;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ListBox CollisionListBox;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.NumericUpDown CollisionYPos;
-        private System.Windows.Forms.NumericUpDown CollisionXPos;
-        private System.Windows.Forms.Button CollisionUpdate;
-        private System.Windows.Forms.Button CollisionRemove;
-        private System.Windows.Forms.Button CollisionAdd;
-        private System.Windows.Forms.ListBox EventListBox;
-        private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox EventName;
-        private System.Windows.Forms.NumericUpDown EventYPos;
-        private System.Windows.Forms.NumericUpDown EventXPos;
-        private System.Windows.Forms.Button EventUpdate;
-        private System.Windows.Forms.Button EventRemove;
-        private System.Windows.Forms.Button EventAdd;
-        private System.Windows.Forms.ListBox SpawnListBox;
-        private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.RadioButton SpawnSpeed;
-        private System.Windows.Forms.RadioButton SpawnPower;
-        private System.Windows.Forms.RadioButton SpawnPlayer;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TextBox SpawnName;
-        private System.Windows.Forms.NumericUpDown SpawnYPos;
-        private System.Windows.Forms.NumericUpDown SpawnXPos;
-        private System.Windows.Forms.Button SpawnUpdate;
-        private System.Windows.Forms.Button SpawnRemove;
-        private System.Windows.Forms.Button SpawnAdd;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox CollisionName;
         private System.Windows.Forms.TabPage EventsInfo;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.RadioButton SpeedRampSpawn;
         private System.Windows.Forms.RadioButton PlayerSpawn;
         private System.Windows.Forms.RadioButton PowerUpSpawn;
         private System.Windows.Forms.RadioButton ObsticleSpawn;
-        private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.RadioButton CCollision;
-        private System.Windows.Forms.RadioButton WCollision;
-        private System.Windows.Forms.Button UpdateEvent;
-        private System.Windows.Forms.ListBox EventsListBox;
-        private System.Windows.Forms.Button RemoveEvent;
         private System.Windows.Forms.GroupBox EventsGroupBox;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox EventID;
-        private System.Windows.Forms.NumericUpDown EventY;
-        private System.Windows.Forms.NumericUpDown EventX;
-        private System.Windows.Forms.Button AddEvent;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label23;
@@ -1393,5 +744,8 @@
         private System.Windows.Forms.Button EventEraser;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.RadioButton CCollision;
+        private System.Windows.Forms.RadioButton WCollision;
     }
 }
