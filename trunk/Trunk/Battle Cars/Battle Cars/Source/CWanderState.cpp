@@ -324,7 +324,7 @@ void CWanderState::Wander(float fElapsedTime)
 	if(!m_bHasTargets)
 	{
 		
-		tVector2D m_vTargetLocation;
+		//tVector2D m_vTargetLocation;
 		m_fTargetX = rand()%1500+100;						// so that it works on every map GetTileWidth()*num of tiles horizontally - 100 (since we are using middle of car for position calculations)
 		m_fTargetY = rand()%1500+100;						// so that it works on every map GetTileHeight()*num of tiles vertically - 100 (since we are using middle of car for position calculations)
 		m_bHasTargets = true;

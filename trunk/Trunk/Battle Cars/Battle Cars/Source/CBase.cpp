@@ -40,7 +40,7 @@ void CBase::Update(float fElapsedTime)
 
 void CBase::Render(CCamera* camera)
 {
-	CSGD_TextureManager::GetInstance()->Draw(GetImageID(),(int)GetPosX()-camera->GetCamX(), (int)GetPosY()-camera->GetCamY(),1.0f,1.0f);
+	CSGD_TextureManager::GetInstance()->Draw(GetImageID(),(int)GetPosX()-camera->GetCamX() + camera->GetRenderPosX(), (int)GetPosY()-camera->GetCamY() + camera->GetRenderPosY(),1.0f,1.0f);
 }
 
 RECT CBase::GetRect()
@@ -91,11 +91,11 @@ void CBase::InBounds(void)
 	int mapwidth = map->GetPixelWidth() * map->GetMapWidth();
 	if(GetPosX() >= mapwidth)
 	{
-		SetPosX(mapwidth);
+		SetPosX((float)mapwidth);
 
 	}
 	if(GetPosY() >= mapheight)
 	{
-		SetPosY(mapheight);
+		SetPosY((float)mapheight);
 	}
 }

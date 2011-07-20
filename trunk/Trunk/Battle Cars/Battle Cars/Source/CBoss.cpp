@@ -29,8 +29,8 @@ CBoss::CBoss(CXboxInput* pController) : CEnemy(pController)
 	this->SetMaxShield(100.0f);
 	this->SetMaxSpeed(175.0f);
 	this->SetMaxPowerUp(100.0f);
-	this->SetPosX(rand()%1400+200);
-	this->SetPosY(rand()%1400+200);
+	this->SetPosX(float(rand()%1400+200));
+	this->SetPosY(float(rand()%1400+200));
 	this->SetPlayerType(rand()%CAR_NUM);
 	this->SetSpecialLevel(1);
 	this->SetRotationRate(6.28f);
@@ -245,7 +245,7 @@ bool CBoss::CheckCollision(IBaseInterface* pBase)
 		{
 			SetSpeed(0);
 			CSpeedRamp* tempramp = (CSpeedRamp*)pBase;
-			SetVelocity((tempramp->GetVelDir() * (GetMaxSpeed() + 100) ));
+			SetVelocity((tempramp->GetVelDir() * (GetMaxSpeed() + 200) ));
 			return true;
 		}
 	}

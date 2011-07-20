@@ -27,13 +27,13 @@ RECT CCamera::GetRect()
 	{
 		if( COptionState::GetInstance()->IsVertical() )
 		{
-			m_nWidth = CGame::GetInstance()->GetScreenWidth() * 0.5f;
-			m_nHeight = CGame::GetInstance()->GetScreenHeight();
+			m_nWidth = int(CGame::GetInstance()->GetScreenWidth() * 0.5f);
+			m_nHeight = int(CGame::GetInstance()->GetScreenHeight());
 		}
 		else
 		{
-			m_nWidth = CGame::GetInstance()->GetScreenWidth();
-			m_nHeight = CGame::GetInstance()->GetScreenHeight() * 0.5f;
+			m_nWidth = int(CGame::GetInstance()->GetScreenWidth());
+			m_nHeight = int(CGame::GetInstance()->GetScreenHeight() * 0.5f);
 		}
 
 	}

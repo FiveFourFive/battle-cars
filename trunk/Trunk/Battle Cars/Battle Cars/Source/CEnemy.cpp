@@ -244,7 +244,7 @@ bool CEnemy::CheckCollision(IBaseInterface* pBase)
 		{
 			SetSpeed(0);
 			CSpeedRamp* tempramp = (CSpeedRamp*)pBase;
-			SetVelocity((tempramp->GetVelDir() * (GetMaxSpeed() + 100) ));
+			SetVelocity((tempramp->GetVelDir() * (GetMaxSpeed() + 200) ));
 			m_bHasCollidedWithSpeedRamp = true;
 			return true;
 		}

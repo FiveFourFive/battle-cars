@@ -44,9 +44,9 @@ void CHUD::Render(void)
 	RECT power;
 	RECT minimap;
 
-	m_pTM->Draw(m_nScoreBoardID, (CGame::GetInstance()->GetScreenWidth()*0.05f) + pCamera->GetRenderPosX(), pCamera->GetHeight() - 260 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY());
+	m_pTM->Draw(m_nScoreBoardID, int((CGame::GetInstance()->GetScreenWidth()*0.05f) + pCamera->GetRenderPosX()), int(pCamera->GetHeight() - 260 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY()));
 
-	m_pTM->Draw(m_nPistolID,(CGame::GetInstance()->GetScreenWidth()*0.05f) + pCamera->GetRenderPosX(), pCamera->GetHeight() - 100 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY());
+	m_pTM->Draw(m_nPistolID,int((CGame::GetInstance()->GetScreenWidth()*0.05f) + pCamera->GetRenderPosX()), int(pCamera->GetHeight() - 100 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY()));
 
 	m_fMiniMapPosX = 0 + pCamera->GetWidth() - 150 - (CGame::GetInstance()->GetScreenWidth()*0.05f) + pCamera->GetRenderPosX();
 	m_fMiniMapPosY = 0 + pCamera->GetHeight() - 150 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY();
@@ -57,7 +57,7 @@ void CHUD::Render(void)
 	m_pTM->Draw(m_nMiniMapID,minimap.left-64,minimap.top-64,1.0f,1.0f);
 	pD3D->DrawRect(minimap,255,255,255);
 
-	m_pTM->Draw(m_nHealthID, 128 + pCamera->GetRenderPosX() + (CGame::GetInstance()->GetScreenWidth()*0.05f),pCamera->GetHeight() - 94 - pCamera->GetRenderPosY() - (CGame::GetInstance()->GetScreenHeight()*0.05f));
+	m_pTM->Draw(m_nHealthID, int(128 + pCamera->GetRenderPosX() + (CGame::GetInstance()->GetScreenWidth()*0.05f)),int(pCamera->GetHeight() - 94 - pCamera->GetRenderPosY() - (CGame::GetInstance()->GetScreenHeight()*0.05f)));
 	CSGD_Direct3D::GetInstance()->GetSprite()->Flush();
 	health.left = 0 + 128 + pCamera->GetRenderPosX() + (CGame::GetInstance()->GetScreenWidth()*0.05f);
 	health.top = 0 + pCamera->GetHeight() - 80 - pCamera->GetRenderPosY() - (CGame::GetInstance()->GetScreenHeight()*0.05f);
@@ -71,7 +71,7 @@ void CHUD::Render(void)
 	shield.bottom = shield.top + 30;
 	pD3D->DrawRect(shield,105,105,105);
 
-	m_pTM->Draw(m_nHealthID, 128 + pCamera->GetRenderPosX() + (CGame::GetInstance()->GetScreenWidth()*0.05f),pCamera->GetHeight() - 50 - pCamera->GetRenderPosY() - (CGame::GetInstance()->GetScreenHeight()*0.05f),1.0f,.5f);
+	m_pTM->Draw(m_nHealthID, int(128 + pCamera->GetRenderPosX() + (CGame::GetInstance()->GetScreenWidth()*0.05f)),int(pCamera->GetHeight() - 50 - pCamera->GetRenderPosY() - (CGame::GetInstance()->GetScreenHeight()*0.05f)),1.0f,.5f);
 	CSGD_Direct3D::GetInstance()->GetSprite()->Flush();
 	power.left =  0 + 128 + pCamera->GetRenderPosX() + (CGame::GetInstance()->GetScreenWidth()*0.05f);
 	power.top = 8 + pCamera->GetHeight() - 50 - pCamera->GetRenderPosY() - (CGame::GetInstance()->GetScreenHeight()*0.05f);
@@ -81,12 +81,12 @@ void CHUD::Render(void)
 
 	char scorebuff[32];
 	sprintf_s(scorebuff, "SCORE:%i", m_pOwner->GetKillCount());
-	m_pPF->Print(scorebuff, 0 + (pCamera->GetWidth()*0.5f) - 100 + pCamera->GetRenderPosX(), pCamera->GetHeight() - 30 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY(), 0.75f, D3DCOLOR_XRGB(255,255,255));
+	m_pPF->Print(scorebuff, int(0 + (pCamera->GetWidth()*0.5f) - 100 + pCamera->GetRenderPosX()), int(pCamera->GetHeight() - 30 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY()), 0.75f, D3DCOLOR_XRGB(255,255,255));
 
 	vector<CCar*> scores = CGamePlayState::GetInstance()->GetScores();
 	char buffer[32];
 	DWORD color = 0;
-	for(int i = 0; i < scores.size()-1; i++)
+	for(unsigned int i = 0; i < scores.size()-1; i++)
 	{
 
 		sprintf_s(buffer,"%i)%i",i+1,scores[i]->GetKillCount());
@@ -94,7 +94,7 @@ void CHUD::Render(void)
 		{
 			color = D3DCOLOR_ARGB(255,0,255,0);
 		}
-		m_pPF->Print(buffer,(CGame::GetInstance()->GetScreenWidth()*0.05f) + pCamera->GetRenderPosX(),pCamera->GetHeight() - 240 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY()+(20*i),1.0f,color);
+		m_pPF->Print(buffer,int((CGame::GetInstance()->GetScreenWidth()*0.05f) + pCamera->GetRenderPosX()),int(pCamera->GetHeight() - 240 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY()+(20*i)),1.0f,color);
 
 	}
 }	

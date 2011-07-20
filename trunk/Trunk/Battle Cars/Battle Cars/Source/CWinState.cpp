@@ -33,7 +33,7 @@ CWinState::CWinState(void)
 	m_nNumSlots = 4;
 	m_nSlot = 0;
 	m_fTotalTurns = rand() % 100 + 100;
-	m_fDelay = 0.002;
+	m_fDelay = 0.002f;
 }
 
 CWinState::~CWinState(void)

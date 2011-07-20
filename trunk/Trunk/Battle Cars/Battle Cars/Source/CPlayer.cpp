@@ -31,7 +31,7 @@ CPlayer::CPlayer(CXboxInput* pController)
 	
 
 	SetBulletImageID(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/bullet.png",D3DCOLOR_XRGB(255, 255, 255)));
-	SetMissileImageID(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MissilePlaceholder.png", D3DCOLOR_XRGB(255, 255, 255)));
+	SetMissileImageID(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BC_Missile.png"));
 	m_pCamera = new CCamera();
 	m_pHUD = new CHUD();
 	m_pHUD->SetOwner(this);
@@ -606,7 +606,7 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 		{
 			SetSpeed(0);
 			CSpeedRamp* tempramp = (CSpeedRamp*)pBase;
-			SetVelocity((tempramp->GetVelDir() * (GetMaxSpeed() + 100) ));
+			SetVelocity((tempramp->GetVelDir() * (GetMaxSpeed() + 200) ));
 			//SetSpeed(GetMaxSpeed() + 300.0f);
 			return true;
 		}

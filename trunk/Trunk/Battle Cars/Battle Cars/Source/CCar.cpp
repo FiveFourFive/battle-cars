@@ -158,7 +158,7 @@ void CCar::Render(CCamera* camera)
 	
 
 	m_pTM->Draw(m_nCarID,(int)GetPosX()-(GetWidth()/2)- (int)camera->GetCamX() + (int)camera->GetRenderPosX(),
-		(int)GetPosY()-(GetHeight()/2)- (int)camera->GetCamY() + (int)camera->GetRenderPosY(),0.4f,0.4f,NULL, GetImageWidth()/2,GetImageHeight()/2,GetRotation());
+		(int)GetPosY()-(GetHeight()/2)- (int)camera->GetCamY() + (int)camera->GetRenderPosY(),0.4f,0.4f,NULL, float(GetImageWidth()/2),float(GetImageHeight()/2),GetRotation());
 	//pD3D->DrawRect(tempcar,255,0,0);
 	//pD3D->DrawText("BEEP", (int)(GetPosX()- camera->GetCamX() + 10), (int)(GetPosY()- camera->GetCamY() + 35),255,255,255);
 	//pD3D->DrawLine((int)(GetPosX()- camera->GetCamX() + camera->GetRenderPosX()), (int)(GetPosY()- camera->GetCamY()+ camera->GetRenderPosY()), (int)(GetPosX()- camera->GetCamX() + camera->GetRenderPosX() + GetVelX()), (int)(GetPosY()- camera->GetCamY() + camera->GetRenderPosY() + GetVelY()),255,255,255);
@@ -184,7 +184,7 @@ void CCar::Render(CCamera* camera)
 	tempcircle1.right = tempcircle1.left + (int)m_nCollisionRadius;
 	tempcircle1.bottom = tempcircle1.top + (int)m_nCollisionRadius;
 
-	//pD3D->DrawRect(tempcircle1,255,255,255);
+	pD3D->DrawRect(tempcircle1,255,255,255);
 
 	RECT tempcircle2;
 	tempcircle2.left = m_nCollisionX2 - camera->GetCamX() + camera->GetRenderPosX();
@@ -192,7 +192,14 @@ void CCar::Render(CCamera* camera)
 	tempcircle2.right = tempcircle2.left + m_nCollisionRadius;
 	tempcircle2.bottom = tempcircle2.top + m_nCollisionRadius;
 
-	//pD3D->DrawRect(tempcircle2,0,0,255);
+	pD3D->DrawRect(tempcircle2,0,0,255);
+
+	RECT center;
+	center.left = GetPosX();
+	center.top = GetPosY();
+	center.right = center.left + 10;
+	center.bottom = center.top + 10;
+	pD3D->DrawRect(center,0,0,0);
 	// end collision testing
 
 
@@ -378,13 +385,13 @@ bool CCar::InBounds(float fElapsedTime)
 	int mapwidth = map->GetPixelWidth() * map->GetMapWidth();
 	if(GetPosX() >= mapwidth)
 	{
-		SetPosX(mapwidth);
+		SetPosX((float)mapwidth);
 		Rotate(GetRotation());
 		return false;
 	}
 	if(GetPosY() >= mapheight)
 	{
-		SetPosY(mapheight);
+		SetPosY((float)mapheight);
 		Rotate(GetRotation());
 		return false;
 	}
