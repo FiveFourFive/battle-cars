@@ -701,7 +701,7 @@ bool CKeyBindsState::SendKeyBinds(void)
 }
 char* CKeyBindsState::GetKeyBound(int keycode)
 {
-	char buffer[128];
+	ZeroMemory(buffer,128);
 	switch(keycode)
 	{
 	case DIK_RETURN:

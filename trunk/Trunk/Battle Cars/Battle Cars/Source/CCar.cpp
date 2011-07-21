@@ -195,16 +195,16 @@ void CCar::Render(CCamera* camera)
 	pD3D->DrawRect(tempcircle1,255,255,255);
 
 	RECT tempcircle2;
-	tempcircle2.left = m_nCollisionX2 - camera->GetCamX() + camera->GetRenderPosX();
-	tempcircle2.top = m_nCollisionY2 - camera->GetCamY() + camera->GetRenderPosY();
-	tempcircle2.right = tempcircle2.left + m_nCollisionRadius;
-	tempcircle2.bottom = tempcircle2.top + m_nCollisionRadius;
+	tempcircle2.left =LONG( m_nCollisionX2 - camera->GetCamX() + camera->GetRenderPosX());
+	tempcircle2.top = LONG(m_nCollisionY2 - camera->GetCamY() + camera->GetRenderPosY());
+	tempcircle2.right = LONG(tempcircle2.left + m_nCollisionRadius);
+	tempcircle2.bottom = LONG(tempcircle2.top + m_nCollisionRadius);
 
 	pD3D->DrawRect(tempcircle2,0,0,255);
 
 	RECT center;
-	center.left = GetPosX();
-	center.top = GetPosY();
+	center.left = LONG(GetPosX());
+	center.top = LONG(GetPosY());
 	center.right = center.left + 10;
 	center.bottom = center.top + 10;
 	pD3D->DrawRect(center,0,0,0);

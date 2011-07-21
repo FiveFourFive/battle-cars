@@ -1,6 +1,7 @@
 #include "CObstacle.h"
 #include "CCar.h"
 #include "CLevel.h"
+#include "CSGD_Direct3D.h"
 
 CObstacle::CObstacle(void)
 {
@@ -30,6 +31,10 @@ void CObstacle::Update(float fElapsedTime)
 void CObstacle::Render(CCamera* camera)
 {
 	CBase::Render(camera);
+	RECT obs;
+	obs = GetRect();
+	CSGD_Direct3D::GetInstance()->DrawRect(obs,0,0,0);
+
 }
 
 bool CObstacle::CheckCollision(IBaseInterface* pBase)

@@ -448,12 +448,12 @@ void CGamePlayState::Enter(void)
 		Level->SetCarSpawn (this->player2);
 	}
 
-	for (int i = 0; i < this->power_ups.size (); i++)
+	for (unsigned int i = 0; i < this->power_ups.size (); i++)
 	{
 		Level->SetPowerUpSpawn (power_ups[i]);
 	}
 
-	for (int i = 0; i < this->ramps.size (); i++)
+	for (unsigned int i = 0; i < this->ramps.size (); i++)
 	{
 		Level->SetSpeedRampSpawn (ramps[i]);
 	}
@@ -904,13 +904,13 @@ void CGamePlayState::Render(void)
 	{
 		if( COptionState::GetInstance()->IsVertical())
 		{
-			m_pD3D->DrawLine(CGame::GetInstance()->GetScreenWidth() * 0.5f, 0, CGame::GetInstance()->GetScreenWidth() * 0.5f, CGame::GetInstance()->GetScreenHeight(), 255,0,0);
+			m_pD3D->DrawLine(int(CGame::GetInstance()->GetScreenWidth() * 0.5f), 0, int(CGame::GetInstance()->GetScreenWidth() * 0.5f), CGame::GetInstance()->GetScreenHeight(), 255,0,0);
 			/*player2->GetCamera()->AttachTo(player2, CGame::GetInstance()->GetScreenWidth()*0.25f, CGame::GetInstance()->GetScreenHeight()*0.25f);
 			player->GetCamera()->AttachTo(player, CGame::GetInstance()->GetScreenWidth()*0.25f, CGame::GetInstance()->GetScreenHeight()*0.25f);*/
 		}
 		else
 		{
-			m_pD3D->DrawLine(0, CGame::GetInstance()->GetScreenHeight()*0.5f, CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight()*0.5f, 255,0,0);
+			m_pD3D->DrawLine(0, int(CGame::GetInstance()->GetScreenHeight()*0.5f), CGame::GetInstance()->GetScreenWidth(), int(CGame::GetInstance()->GetScreenHeight()*0.5f), 255,0,0);
 			/*player2->GetCamera()->AttachTo(player2, CGame::GetInstance()->GetScreenWidth()*0.5f, CGame::GetInstance()->GetScreenHeight()*0.5f);
 			player->GetCamera()->AttachTo(player, CGame::GetInstance()->GetScreenWidth()*0.5f, CGame::GetInstance()->GetScreenHeight()*0.5f);*/
 		}
@@ -1379,7 +1379,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 
 			temp.fX = 0;
 			temp.fY = -1;
-			temp = Vector2DRotate(temp,pCVS->GetPlayer()->GetRotation()-.03);
+			temp = Vector2DRotate(temp,pCVS->GetPlayer()->GetRotation()-.03f);
 			Vector2DNormalize(temp);
 			temp = temp * (350+ pCVS->GetPlayer()->GetSpeed());
 			pBullet1->SetVelX(temp.fX);
@@ -1387,7 +1387,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 
 			temp.fX = 0;
 			temp.fY = -1;
-			temp = Vector2DRotate(temp,pCVS->GetPlayer()->GetRotation()+.03);
+			temp = Vector2DRotate(temp,pCVS->GetPlayer()->GetRotation()+.03f);
 			Vector2DNormalize(temp);
 			temp = temp * (350+ pCVS->GetPlayer()->GetSpeed());
 			pBullet2->SetVelX(temp.fX);
@@ -1395,7 +1395,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 
 			temp.fX = 0;
 			temp.fY = -1;
-			temp = Vector2DRotate(temp,pCVS->GetPlayer()->GetRotation()-.06);
+			temp = Vector2DRotate(temp,pCVS->GetPlayer()->GetRotation()-.06f);
 			Vector2DNormalize(temp);
 			temp = temp * (350+ pCVS->GetPlayer()->GetSpeed());
 			pBullet3->SetVelX(temp.fX);
@@ -1403,7 +1403,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 
 			temp.fX = 0;
 			temp.fY = -1;
-			temp = Vector2DRotate(temp,pCVS->GetPlayer()->GetRotation()+.06);
+			temp = Vector2DRotate(temp,pCVS->GetPlayer()->GetRotation()+.06f);
 			Vector2DNormalize(temp);
 			temp = temp * (350+ pCVS->GetPlayer()->GetSpeed());
 			pBullet4->SetVelX(temp.fX);
