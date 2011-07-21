@@ -1,5 +1,7 @@
 #include "CObstacle.h"
 #include "CCar.h"
+#include "CLevel.h"
+
 CObstacle::CObstacle(void)
 {
 	m_vCollisionVel.fX = 0;
@@ -19,6 +21,9 @@ void CObstacle::Update(float fElapsedTime)
 
 	m_vCollisionVel.fX = m_vCollisionVel.fX - (m_vCollisionVel.fX * 0.01f);
 	m_vCollisionVel.fY =m_vCollisionVel.fY - ( m_vCollisionVel.fY * 0.01f);
+
+	CLevel::GetInstance ()->CheckObstacleCollision (this);
+
 	InBounds();
 }
 

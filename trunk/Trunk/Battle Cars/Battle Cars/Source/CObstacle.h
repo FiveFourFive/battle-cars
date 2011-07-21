@@ -10,6 +10,8 @@ class CObstacle : public CBase
 private:
 	tVector2D m_vCollisionVel;
 
+	RECT m_rectWall;
+	RECT m_rectWallCollision;
 
 public:
 	CObstacle(void);
@@ -22,6 +24,8 @@ public:
 	void SetVel(tVector2D vel) { m_vCollisionVel = vel; }
 	tVector2D GetVel(void) { return m_vCollisionVel; }
 
+	void SetWallRect (RECT collision) {m_rectWall = collision;}
+	void SetWallCollisionRect (RECT collision) {m_rectWallCollision = collision;}
 };
 
 

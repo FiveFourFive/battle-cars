@@ -19,6 +19,7 @@
 #include "CBase.h"
 #include "CCamera.h"
 #include "CEnemy.h"
+#include "CObstacle.h"
 
 
 
@@ -157,7 +158,6 @@ void CLevel::Render (CCamera* camera)
 
 bool CLevel::CheckPlayerCollision (CBase* pBase, CCamera* camera)
 {
-	RECT intersection;
 	CTile** Events = LevelMap->GetEventsList();
 
 	int XBegin = 0, YBegin = 0, XEnd = 0, YEnd;
@@ -196,12 +196,46 @@ bool CLevel::CheckPlayerCollision (CBase* pBase, CCamera* camera)
 				std::string name = (LevelMap->GetEventsList ())[YPos][XPos].GetName ();
 				if (name == "WallCollision")
 				{
-					if(IntersectRect(&intersection, &LevelMap->GetCollisionRect(XPos, YPos), &pBase->GetRect()))
-					{
-						((CPlayer*)pBase)->SetWallCollisionRect (intersection);
-						((CPlayer*)pBase)->SetWallRect (LevelMap->GetCollisionRect(XPos, YPos));
-						m_pES->SendEvent ((LevelMap->GetEventsList ())[YPos][XPos].GetName (), pBase);
+					float TopCenterX = ((CPlayer*)pBase)->GetCX1 ();
+					float TopCenterY = ((CPlayer*)pBase)->GetCY1 ();
+					float BottomCenterX = ((CPlayer*)pBase)->GetCX2 ();
+					float BottomCenterY = ((CPlayer*)pBase)->GetCY2 ();
 
+					float radius = ((CPlayer*)pBase)->GetRadius ();
+
+					RECT Wall = LevelMap->GetCollisionRect(XPos, YPos);
+
+					//check the top side of the wall
+					if (BottomCenterY + radius >= Wall.top && BottomCenterY <= Wall.top && (BottomCenterX >= Wall.left && BottomCenterX <= Wall.right))
+					{
+						((CPlayer*)pBase)->SetVelocityY (-1 * (((CPlayer*)pBase)->GetOverallVelocity().fY *1.2f));
+						//((CPlayer*)pBase)->SetPosY (Wall.top - ((CPlayer*)pBase)->GetHeight() / 2 - 1);
+						return true;
+					}
+
+					//check the bottom side of the wall
+					if (TopCenterY - radius <= Wall.bottom && TopCenterY >= Wall.bottom && (TopCenterX >= Wall.left && TopCenterX <= Wall.right))
+					{
+						((CPlayer*)pBase)->SetVelocityY ( -1 * (((CPlayer*)pBase)->GetOverallVelocity().fY *1.2f));
+						//((CPlayer*)pBase)->SetPosY (Wall.bottom + ((CPlayer*)pBase)->GetHeight() / 2 + 1);
+						return true;
+					}
+
+					//check the Left side of the wall
+					if ((BottomCenterX + radius >= Wall.left && BottomCenterX <= Wall.left && (BottomCenterY >= Wall.top && BottomCenterY <= Wall.bottom)) ||
+						(TopCenterX + radius >= Wall.left && TopCenterX <= Wall.left && (TopCenterY >= Wall.top && TopCenterY <= Wall.bottom)))
+					{
+						((CPlayer*)pBase)->SetVelocityX (-1 * (((CPlayer*)pBase)->GetOverallVelocity().fX *1.2f));
+						//((CPlayer*)pBase)->SetPosX (Wall.left - ((CPlayer*)pBase)->GetWidth() / 2 - 1);
+						return true;
+					}
+
+					//check the Right side of the wall
+					if ((BottomCenterX - radius <= Wall.right && BottomCenterX >= Wall.right &&(BottomCenterY >= Wall.top && BottomCenterY <= Wall.bottom)) ||
+						(TopCenterX - radius <= Wall.right && TopCenterX >= Wall.right &&(TopCenterY >= Wall.top && TopCenterY <= Wall.bottom)))
+					{
+						((CPlayer*)pBase)->SetVelocityX (-1 * (((CPlayer*)pBase)->GetOverallVelocity().fX *1.2f ));
+						//((CPlayer*)pBase)->SetPosX (Wall.right + ((CPlayer*)pBase)->GetWidth() / 2 + 1);
 						return true;
 					}
 				}
@@ -268,6 +302,37 @@ bool CLevel::CheckCameraCollision (CCamera* camera)
 	return false;
 }
 
+bool CLevel::CheckObstacleCollision (CBase* pBase)
+{
+	CTile** Events = LevelMap->GetEventsList();
+	RECT intersection;
+
+	for (int YPos = 0; YPos < LevelMap->GetMapHeight(); YPos++)
+	{
+		for (int XPos = 0; XPos < LevelMap->GetMapWidth(); XPos++)
+		{
+			if (pBase->GetType () == OBJECT_PLAYER && (LevelMap->GetEventsList ())[YPos][XPos].GetType () != -1)
+			{
+				std::string name = (LevelMap->GetEventsList ())[YPos][XPos].GetName ();
+				if (name == "WallCollision")
+				{
+					if(IntersectRect(&intersection, &LevelMap->GetCollisionRect(XPos, YPos), &pBase->GetRect()))
+					{
+						((CObstacle*)pBase)->SetWallCollisionRect (intersection);
+						((CObstacle*)pBase)->SetWallRect (LevelMap->GetCollisionRect(XPos, YPos));
+						m_pES->SendEvent ((LevelMap->GetEventsList ())[YPos][XPos].GetName (), pBase);
+
+						return true;
+					}
+				}
+			}
+		}
+	}
+
+	return false;
+}
+
+
 void CLevel::SetCarSpawn (CBase* pBase)
 {
 	CTile** Events = LevelMap->GetEventsList();
@@ -283,8 +348,8 @@ void CLevel::SetCarSpawn (CBase* pBase)
 				{
 					if((LevelMap->GetEventsList ())[YPos][XPos].InUse () == false)
 					{
-						pBase->SetPosX (XPos * LevelMap->GetPixelWidth ());
-						pBase->SetPosY (YPos * LevelMap->GetPixelHeight ());
+						pBase->SetPosX ((float)(XPos * LevelMap->GetPixelWidth ()));
+						pBase->SetPosY ((float)(YPos * LevelMap->GetPixelHeight ()));
 						pBase->SetSpawnPosX (pBase->GetPosX ());
 						pBase->SetSpawnPosY (pBase->GetPosY ());
 						(LevelMap->GetEventsList ())[YPos][XPos].SetInUse (true);
@@ -309,8 +374,8 @@ void CLevel::SetSpeedRampSpawn (CBase* pBase)
 				std::string name = (LevelMap->GetEventsList ())[YPos][XPos].GetName ();
 				if (name == "SpeedRampSpawn" && (LevelMap->GetEventsList ())[YPos][XPos].InUse () == false)
 				{
-					pBase->SetPosX (XPos * LevelMap->GetPixelWidth ());
-					pBase->SetPosY (YPos * LevelMap->GetPixelHeight ());
+					pBase->SetPosX ((float)(XPos * LevelMap->GetPixelWidth ()));
+					pBase->SetPosY ((float)(YPos * LevelMap->GetPixelHeight ()));
 					(LevelMap->GetEventsList ())[YPos][XPos].SetInUse (true);
 					return;
 				}
@@ -332,8 +397,8 @@ void CLevel::SetPowerUpSpawn (CBase* pBase)
 				std::string name = (LevelMap->GetEventsList ())[YPos][XPos].GetName ();
 				if (name == "PowerUpSpawn" && (LevelMap->GetEventsList ())[YPos][XPos].InUse () == false)
 				{
-					pBase->SetPosX (XPos * LevelMap->GetPixelWidth ());
-					pBase->SetPosY (YPos * LevelMap->GetPixelHeight ());
+					pBase->SetPosX ((float)(XPos * LevelMap->GetPixelWidth ()));
+					pBase->SetPosY ((float)(YPos * LevelMap->GetPixelHeight ()));
 					(LevelMap->GetEventsList ())[YPos][XPos].SetInUse (true);
 					return;
 				}
@@ -342,7 +407,7 @@ void CLevel::SetPowerUpSpawn (CBase* pBase)
 	}
 }
 
-void CLevel::SetObsticleSpawn (CBase* pBase)
+void CLevel::SetObstacleSpawn (CBase* pBase)
 {
 	CTile** Events = LevelMap->GetEventsList();
 
@@ -353,10 +418,10 @@ void CLevel::SetObsticleSpawn (CBase* pBase)
 			if ( (LevelMap->GetEventsList ())[YPos][XPos].GetType () != -1)
 			{
 				std::string name = (LevelMap->GetEventsList ())[YPos][XPos].GetName ();
-				if (name == "ObsticleSpawn" && (LevelMap->GetEventsList ())[YPos][XPos].InUse () == false)
+				if (name == "ObstacleSpawn" && (LevelMap->GetEventsList ())[YPos][XPos].InUse () == false)
 				{
-					pBase->SetPosX (XPos * LevelMap->GetPixelWidth ());
-					pBase->SetPosY (YPos * LevelMap->GetPixelHeight ());
+					pBase->SetPosX ((float)(XPos * LevelMap->GetPixelWidth ()));
+					pBase->SetPosY ((float)(YPos * LevelMap->GetPixelHeight ()));
 					pBase->SetSpawnPosX (pBase->GetPosX ());
 					pBase->SetSpawnPosY (pBase->GetPosY ());
 					(LevelMap->GetEventsList ())[YPos][XPos].SetInUse (true);

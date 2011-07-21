@@ -77,6 +77,7 @@ char* CBase::GetName()
 
 void CBase::InBounds(void)
 {
+	
 	if(GetPosX() - (int)(GetWidth()*0.5f) <= 0)
 	{
 		SetPosX(GetWidth()*0.5f);
