@@ -116,6 +116,9 @@ void CDeathmatchMode::CheckCarStatus(CCar* car)
 			car->SetShieldBar(car->GetMaxShield());
 			car->SetPowerUpBar(0);
 			car->SetSpecialLevel(0);
+			car->SetVelX(0);
+			car->SetVelY(0);
+			car->Rotate(0.0f);
 		}
 
 	}
