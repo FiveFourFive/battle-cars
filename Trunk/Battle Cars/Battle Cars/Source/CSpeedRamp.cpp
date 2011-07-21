@@ -25,7 +25,7 @@ void CSpeedRamp::Render(CCamera* camera)
 		GetPosY() - camera->GetCamY() > camera->GetHeight())
 		return;
 
-	RECT tempdraw;
+//	RECT tempdraw;
 	//CSGD_Direct3D* pD3D = CSGD_Direct3D::GetInstance();
 	//tempdraw.left = (int)(GetPosX() - camera->GetCamX() + (int)camera->GetRenderPosX());
 	//tempdraw.top = (int)(GetPosY() - camera->GetCamY() + (int)camera->GetRenderPosY());

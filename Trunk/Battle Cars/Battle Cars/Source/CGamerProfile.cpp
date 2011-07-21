@@ -28,7 +28,7 @@ CGamerProfile::CGamerProfile()
 	editProfile = false;
 
 	PosX = 0;
-	PosX = CGame::GetInstance()->GetScreenWidth() * 0.3f;
+	PosX = int(CGame::GetInstance()->GetScreenWidth() * 0.3f);
 
 	for( int i = 0; i < 4; i++)
 	{
@@ -342,19 +342,19 @@ void CGamerProfile::Render()
 	if( m_nProfileState == LOADSAVE_STATE)
 	{
 		if( m_nEntrySelection == 0 )
-			m_pPF->Print("Save", CGame::GetInstance()->GetScreenWidth() * 0.2f, CGame::GetInstance()->GetScreenHeight()*0.4f, 1.0f, D3DCOLOR_XRGB(0,255,0));
+			m_pPF->Print("Save", int(CGame::GetInstance()->GetScreenWidth() * 0.2f), int(CGame::GetInstance()->GetScreenHeight()*0.4f), 1.0f, D3DCOLOR_XRGB(0,255,0));
 		else
-			m_pPF->Print("Save", CGame::GetInstance()->GetScreenWidth() * 0.2f, CGame::GetInstance()->GetScreenHeight()*0.4f, 0.8f, D3DCOLOR_XRGB(200,0,0));
+			m_pPF->Print("Save", int(CGame::GetInstance()->GetScreenWidth() * 0.2f), int(CGame::GetInstance()->GetScreenHeight()*0.4f), 0.8f, D3DCOLOR_XRGB(200,0,0));
 
 		if( m_nEntrySelection == 1 )
-			m_pPF->Print("Load", CGame::GetInstance()->GetScreenWidth() * 0.4f, CGame::GetInstance()->GetScreenHeight()*0.4f, 1.0f, D3DCOLOR_XRGB(0,255,0));
+			m_pPF->Print("Load", int(CGame::GetInstance()->GetScreenWidth() * 0.4f), int(CGame::GetInstance()->GetScreenHeight()*0.4f), 1.0f, D3DCOLOR_XRGB(0,255,0));
 		else
-			m_pPF->Print("Load", CGame::GetInstance()->GetScreenWidth() * 0.4f, CGame::GetInstance()->GetScreenHeight()*0.4f, 0.8f, D3DCOLOR_XRGB(200,0,0));
+			m_pPF->Print("Load", int(CGame::GetInstance()->GetScreenWidth() * 0.4f), int(CGame::GetInstance()->GetScreenHeight()*0.4f), 0.8f, D3DCOLOR_XRGB(200,0,0));
 
 		if( m_nEntrySelection == 2 )
-			m_pPF->Print("Edit Name", CGame::GetInstance()->GetScreenWidth() * 0.6f, CGame::GetInstance()->GetScreenHeight() * 0.4f, 1.0f, D3DCOLOR_XRGB(0,255,0));
+			m_pPF->Print("Edit Name", int(CGame::GetInstance()->GetScreenWidth() * 0.6f), int(CGame::GetInstance()->GetScreenHeight() * 0.4f), 1.0f, D3DCOLOR_XRGB(0,255,0));
 		else
-			m_pPF->Print("Edit Name", CGame::GetInstance()->GetScreenWidth() * 0.6f, CGame::GetInstance()->GetScreenHeight() * 0.4f, 0.8f, D3DCOLOR_XRGB(200,0,0));
+			m_pPF->Print("Edit Name", int(CGame::GetInstance()->GetScreenWidth() * 0.6f), int(CGame::GetInstance()->GetScreenHeight() * 0.4f), 0.8f, D3DCOLOR_XRGB(200,0,0));
 
 
 	}
@@ -529,8 +529,8 @@ bool CGamerProfile::SaveProfiles(const char* szXmlFileName)
 		sfx = m_vUserProfiles[i]->m_sfx * 100;
 		background = m_vUserProfiles[i]->m_background * 100;
 
-		pSounds->SetAttribute("SFX",sfx);
-		pSounds->SetAttribute("Background",background);
+		pSounds->SetAttribute("SFX",int(sfx));
+		pSounds->SetAttribute("Background",int(background));
 		pProfile->LinkEndChild(pSounds);
 		
 		pRoot->LinkEndChild(pProfile);

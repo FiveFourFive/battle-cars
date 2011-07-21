@@ -282,6 +282,13 @@ void CLevelSelectionState::LoadVideo()
 				m_nMovieID[2] = m_pTM->LoadTexture("resource/videos/level2/3.bmp", D3DCOLOR_ARGB(255,0,255,255));
 			}
 			break;
+			case LEVEL_FOUR:
+			{
+				m_nMovieID[0] = m_pTM->LoadTexture("resource/videos/level2/1.bmp", D3DCOLOR_ARGB(255,0,255,255));
+				m_nMovieID[1] = m_pTM->LoadTexture("resource/videos/level2/2.bmp", D3DCOLOR_ARGB(255,0,255,255));
+				m_nMovieID[2] = m_pTM->LoadTexture("resource/videos/level2/3.bmp", D3DCOLOR_ARGB(255,0,255,255));
+			}
+			break;
 		}
 	}
 }

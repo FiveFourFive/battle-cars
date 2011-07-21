@@ -88,8 +88,8 @@ void CObjectManager::RenderObjects(CCamera* camera)
 					float width_scale = 100 / ((float)CLevel::GetInstance()->GetMap()->GetMapWidth() * (float)CLevel::GetInstance()->GetMap()->GetPixelWidth());
 					float height_scale = 100 / ((float)CLevel::GetInstance()->GetMap()->GetMapHeight() * (float)CLevel::GetInstance()->GetMap()->GetPixelHeight());
 
-					draw_rect.left = (render_object->GetPosX()*width_scale) + offset_object->GetHudItem()->GetMiniMapXPos();
-					draw_rect.top = render_object->GetPosY()*height_scale + offset_object->GetHudItem()->GetMiniMapYPos() + 20;
+					draw_rect.left = LONG((render_object->GetPosX()*width_scale) + offset_object->GetHudItem()->GetMiniMapXPos());
+					draw_rect.top = LONG(render_object->GetPosY()*height_scale + offset_object->GetHudItem()->GetMiniMapYPos() + 20);
 					draw_rect.right = draw_rect.left + 5;
 					draw_rect.bottom = draw_rect.top + 5;
 

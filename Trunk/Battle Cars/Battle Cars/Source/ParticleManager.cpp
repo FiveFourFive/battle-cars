@@ -78,8 +78,8 @@ void ParticleManager::RenderEmittors(CCamera* camera)
 		m_ActiveEmittors[i]->Render(camera);
 
 		RECT temp_rect;
-		temp_rect.left = m_ActiveEmittors[i]->GetPosition().fX - camera->GetCamX() + camera->GetRenderPosX();
-		temp_rect.top = m_ActiveEmittors[i]->GetPosition().fY - camera->GetCamY() + camera->GetRenderPosY();
+		temp_rect.left = LONG(m_ActiveEmittors[i]->GetPosition().fX - camera->GetCamX() + camera->GetRenderPosX());
+		temp_rect.top = LONG(m_ActiveEmittors[i]->GetPosition().fY - camera->GetCamY() + camera->GetRenderPosY());
 		temp_rect.right = temp_rect.left + 20;
 		temp_rect.bottom = temp_rect.top + 20;
 		D3D->DrawRect(temp_rect, 128,255,128);

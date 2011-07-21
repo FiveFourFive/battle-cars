@@ -21,6 +21,7 @@ private:
 	CXboxInput* m_pController;
 	CKeyBinds* m_pKB;
 	CKeyboardKeyBinds* m_pKeyboardKB;
+	char buffer[128];
 	int m_nBackgroundMusicID;
 	int m_nFontID;
 	int m_nSelection;

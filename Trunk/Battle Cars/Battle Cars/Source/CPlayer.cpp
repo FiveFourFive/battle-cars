@@ -471,8 +471,8 @@ void CPlayer::Render(CCamera* camera)
 
 	RECT temp_rect;
 
-	temp_rect.left = GetPosX() - camera->GetCamX() + camera->GetRenderPosX();
-	temp_rect.top = GetPosY() - camera->GetCamY() + camera->GetRenderPosY();
+	temp_rect.left = LONG(GetPosX() - camera->GetCamX() + camera->GetRenderPosX());
+	temp_rect.top = LONG(GetPosY() - camera->GetCamY() + camera->GetRenderPosY());
 	temp_rect.right = temp_rect.left + 10;
 	temp_rect.bottom = temp_rect.top + 10;
 	pD3D->DrawRect(temp_rect, 128,128,128);

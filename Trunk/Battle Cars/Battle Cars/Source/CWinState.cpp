@@ -32,7 +32,7 @@ CWinState::CWinState(void)
 	m_fSlotDelay = 0.0f;
 	m_nNumSlots = 4;
 	m_nSlot = 0;
-	m_fTotalTurns = rand() % 100 + 100;
+	m_fTotalTurns = float(rand() % 100 + 100);
 	m_fDelay = 0.002f;
 }
 
