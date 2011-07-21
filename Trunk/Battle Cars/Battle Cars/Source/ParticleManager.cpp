@@ -387,7 +387,7 @@ Emittor* ParticleManager::GetActiveEmittor( int id)
 	return NULL;
 }
 
-Emittor* ParticleManager::CreateEffect( Emittor* temp_emittor, float posX, float posY)
+Emittor* ParticleManager::CreateEffect( Emittor* temp_emittor, float posX, float posY, float accelX, float accelY)
 {
 	Emittor* new_emittor = new Emittor();
 	new_emittor->SetPosition(posX, posY);
@@ -402,7 +402,12 @@ Emittor* ParticleManager::CreateEffect( Emittor* temp_emittor, float posX, float
 	new_emittor->SetEndScaleY(temp_emittor->GetEndScaleY());
 	new_emittor->SetMinVelocity(temp_emittor->GetMinVelocity().fX, temp_emittor->GetMinVelocity().fY );
 	new_emittor->SetMaxVelocity(temp_emittor->GetMaxVelocity().fX, temp_emittor->GetMaxVelocity().fY );
-	new_emittor->SetAcceleration(temp_emittor->GetAcceleration().fX, temp_emittor->GetAcceleration().fY );
+	
+	if( accelX != 0 && accelY != 0 )
+		new_emittor->SetAcceleration(accelX, accelY );
+	else
+		new_emittor->SetAcceleration(temp_emittor->GetAcceleration().fX, temp_emittor->GetAcceleration().fY);
+
 	new_emittor->SetRotation(temp_emittor->GetRotation());
 	new_emittor->SetSourceBlend(temp_emittor->GetSourceBlend());
 	new_emittor->SetDestinationBlend(temp_emittor->GetDestinationBlend());
@@ -433,6 +438,7 @@ Emittor* ParticleManager::CreateEffect( Emittor* temp_emittor, float posX, float
 			
 			temp->velocity.fX = (RAND_FLOAT(new_emittor->GetMinVelocity().fX,new_emittor->GetMaxVelocity().fX)) * 0.01f;
 			temp->velocity.fY = (RAND_FLOAT(new_emittor->GetMinVelocity().fY, new_emittor->GetMaxVelocity().fY)) * 0.01f;
+			temp->acceleration = new_emittor->GetAcceleration();
 			temp->scaleX = new_emittor->GetStartScaleX();
 			temp->scaleY = new_emittor->GetStartScaleY();
 

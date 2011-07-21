@@ -71,8 +71,8 @@ void Emittor::Update(float fElapsedTime)
 
 			}
 
-			m_vParticleList[i]->position.fX += (m_vParticleList[i]->velocity.fX + (acceleration.fX * fElapsedTime));
-			m_vParticleList[i]->position.fY += (m_vParticleList[i]->velocity.fY + (acceleration.fY * fElapsedTime));
+			m_vParticleList[i]->position.fX += (m_vParticleList[i]->velocity.fX + (m_vParticleList[i]->acceleration.fX * fElapsedTime));
+			m_vParticleList[i]->position.fY += (m_vParticleList[i]->velocity.fY + (m_vParticleList[i]->acceleration.fY * fElapsedTime));
             
 			if( base )
 			{
@@ -120,6 +120,7 @@ void Emittor::Update(float fElapsedTime)
 						m_vParticleList[i]->position = position;
 						m_vParticleList[i]->velocity.fX = (RAND_FLOAT(minVelocity.fX, maxVelocity.fX)) * fElapsedTime;
 						m_vParticleList[i]->velocity.fY = (RAND_FLOAT(minVelocity.fY, maxVelocity.fY)) * fElapsedTime;
+						m_vParticleList[i]->acceleration = acceleration;
 						m_vParticleList[i]->color = m_StartColor;
 						m_vParticleList[i]->scaleX = m_StartScaleX;
 						m_vParticleList[i]->scaleY = m_StartScaleY;
@@ -284,6 +285,7 @@ void Emittor::InitializeEmittor()
 			
 			temp->velocity.fX = (RAND_FLOAT(minVelocity.fX, maxVelocity.fX)) * 0.001f;
 			temp->velocity.fY = (RAND_FLOAT(minVelocity.fY, maxVelocity.fY)) * 0.001f;
+			temp->acceleration = this->acceleration;
 			temp->scaleX = m_StartScaleX;
 			temp->scaleY = m_StartScaleY;
 			temp->rotation = 0.0f;

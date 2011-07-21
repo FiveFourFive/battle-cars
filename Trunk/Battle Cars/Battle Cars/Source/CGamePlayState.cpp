@@ -369,7 +369,7 @@ void CGamePlayState::Enter(void)
 	m_pPM->LoadEmittor("resource/data/FlameThrower.xml");
 
 	
-	time = 45;
+	time = 500;
 	m_fElapsedSecond = 0.0f;
 	score = 0;
 
@@ -1022,13 +1022,13 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pGame->m_pOM->AddObject(pBullet);
 
 			ParticleManager* pPM = ParticleManager::GetInstance(); 
-			Emittor* tempemittor = pPM->CreateEffect(pPM->GetEmittor(MISSLE_EMITTOR), pBullet->GetPosX(), pBullet->GetPosY());
+			Emittor* tempemittor = pPM->CreateEffect(pPM->GetEmittor(MISSLE_EMITTOR), pBullet->GetPosX() - pBullet->GetWidth() * 0.5f, pBullet->GetPosY() - pBullet->GetHeight()*0.5f);
 
 			if( tempemittor)
 			{
 				pBullet->SetTracerEmittor(tempemittor->GetID());
 				tempemittor->SetTimeToDie(pBullet->GetMaxLife());
-				pPM->AttachToBasePosition(pBullet, tempemittor, pBullet->GetWidth()*0.5f, pBullet->GetHeight()*0.5f);
+				pPM->AttachToBasePosition(pBullet, tempemittor, 0, 0);
 
 			}
 

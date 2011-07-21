@@ -15,14 +15,14 @@
 #include "IAIBaseState.h"
 #include "SGD_Math.h"
 class CEnemy;
-class CPlayer;
+class CCar;
 
 class CAttackState : public IAIBaseState
 {
 private:
 	// member variables
 	CEnemy* m_Owner;
-	CPlayer* m_Target;
+	CCar* m_Target;
 	float m_fAggroRadius;
 	float m_fFireRate;
 	float m_fFireTimer;
@@ -45,10 +45,10 @@ public:
 
 	//Accessors
 	CEnemy* GetOwner() {return m_Owner;}
-	CPlayer* GetTarget() {return m_Target;}
+	CCar* GetTarget() {return m_Target;}
 	//Mutators
 	void SetOwner(CEnemy* pOwner) {m_Owner = pOwner;}
-	void SetTarget(CPlayer* pTarget) {m_Target = pTarget;}
+	void SetTarget(CCar* pTarget) {m_Target = pTarget;}
 };
 
 #endif

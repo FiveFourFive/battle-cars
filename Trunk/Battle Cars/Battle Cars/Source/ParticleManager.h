@@ -110,7 +110,7 @@ public:
 	// This will create a new emittor without overriding the default loaded onces.
 	// Purpose is to reuse the effect and create multiple effects without overriding each other.
 	////////////////////////////////////////////////////
-	Emittor* CreateEffect( Emittor* temp_emittor, float posX, float posY);
+	Emittor* CreateEffect( Emittor* temp_emittor, float posX, float posY, float accelX = 0.0f, float accelY = 0.0f);
 
 	void ShutDownParticleManager();
 

@@ -55,7 +55,7 @@ void CAttackState::Update (float fElapsedTime)
 	}
 	if(Damaged())
 	{
-		CFleeState::GetInstance()->SetTarget(m_Target);
+		CFleeState::GetInstance()->SetTarget((CCar*)m_Target);
 		m_Owner->ChangeState(CFleeState::GetInstance());
 	}
 

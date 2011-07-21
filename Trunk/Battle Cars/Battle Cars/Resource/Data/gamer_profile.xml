@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Gamer_Profiles>
-    <Gamer_Profile>ANDYAA
+    <Gamer_Profile>AndyM
+        <Controller_Keybinds shoot="16384" change_weapon="256" kshoot="31" kaccelerate="200" kbreak="208" kleft="203" kright="205" kchange_weapon="20" />
         <Sounds SFX="50" Background="50" />
-        <Controller_Keybinds shoot="16384" change_weapon="256" kshoot="57" kaccelerate="200" kbreak="208" kleft="203" kright="205" kchange_weapon="29" />
     </Gamer_Profile>
-    <Gamer_Profile>WADEA
-        <Sounds SFX="50" Background="50" />
-        <Controller_Keybinds shoot="16384" change_weapon="256" kshoot="57" kaccelerate="200" kbreak="208" kleft="203" kright="205" kchange_weapon="29" />
+    <Gamer_Profile>wADe
+        <Controller_Keybinds shoot="16384" change_weapon="256" kshoot="30" kaccelerate="19" kbreak="30" kleft="205" kright="205" kchange_weapon="20" />
+        <Sounds SFX="30" Background="30" />
     </Gamer_Profile>
-    <Gamer_Profile>JOSHAAAAAA
-        <Sounds SFX="50" Background="50" />
-        <Controller_Keybinds shoot="16384" change_weapon="256" kshoot="57" kaccelerate="200" kbreak="208" kleft="203" kright="205" kchange_weapon="29" />
+    <Gamer_Profile>Sean
+        <Controller_Keybinds shoot="16384" change_weapon="256" kshoot="44" kaccelerate="17" kbreak="31" kleft="30" kright="32" kchange_weapon="45" />
+        <Sounds SFX="36" Background="10" />
     </Gamer_Profile>
 </Gamer_Profiles>

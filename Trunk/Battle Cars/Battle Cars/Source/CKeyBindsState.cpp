@@ -49,10 +49,8 @@ void CKeyBindsState::Enter(void)
 	m_nSoundB = CMainMenuState::GetInstance()->GetBackgroundMusicID();
 	m_nSelection = 0;
 	m_nSelected = 0;
-	if(m_pController)
-	{
-		m_pKB = CGamerProfile::GetInstance()->GetActiveProfile()->m_pKB;
-	}
+
+	m_pKB = CGamerProfile::GetInstance()->GetActiveProfile()->m_pKB;
 	m_pKeyboardKB = CGamerProfile::GetInstance()->GetActiveProfile()->m_pKKB;
 	if(CGame::GetInstance()->ControllerInput())
 		m_nMaxOptions = 2;
