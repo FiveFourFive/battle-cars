@@ -51,7 +51,7 @@
             this.SpeedRampSpawn = new System.Windows.Forms.RadioButton();
             this.PlayerSpawn = new System.Windows.Forms.RadioButton();
             this.PowerUpSpawn = new System.Windows.Forms.RadioButton();
-            this.ObsticleSpawn = new System.Windows.Forms.RadioButton();
+            this.ObstacleSpawn = new System.Windows.Forms.RadioButton();
             this.label17 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.CCollision = new System.Windows.Forms.RadioButton();
@@ -291,7 +291,7 @@
             this.groupBox9.Controls.Add(this.SpeedRampSpawn);
             this.groupBox9.Controls.Add(this.PlayerSpawn);
             this.groupBox9.Controls.Add(this.PowerUpSpawn);
-            this.groupBox9.Controls.Add(this.ObsticleSpawn);
+            this.groupBox9.Controls.Add(this.ObstacleSpawn);
             this.groupBox9.Location = new System.Drawing.Point(194, 31);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(201, 65);
@@ -302,50 +302,54 @@
             // SpeedRampSpawn
             // 
             this.SpeedRampSpawn.AutoSize = true;
+            this.SpeedRampSpawn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.SpeedRampSpawn.Location = new System.Drawing.Point(107, 42);
             this.SpeedRampSpawn.Name = "SpeedRampSpawn";
             this.SpeedRampSpawn.Size = new System.Drawing.Size(87, 17);
             this.SpeedRampSpawn.TabIndex = 11;
             this.SpeedRampSpawn.TabStop = true;
             this.SpeedRampSpawn.Text = "Speed Ramp";
-            this.SpeedRampSpawn.UseVisualStyleBackColor = true;
+            this.SpeedRampSpawn.UseVisualStyleBackColor = false;
             this.SpeedRampSpawn.CheckedChanged += new System.EventHandler(this.SpeedRampSpawn_CheckedChanged_1);
             // 
             // PlayerSpawn
             // 
             this.PlayerSpawn.AutoSize = true;
+            this.PlayerSpawn.BackColor = System.Drawing.Color.Blue;
             this.PlayerSpawn.Location = new System.Drawing.Point(6, 19);
             this.PlayerSpawn.Name = "PlayerSpawn";
             this.PlayerSpawn.Size = new System.Drawing.Size(54, 17);
             this.PlayerSpawn.TabIndex = 7;
             this.PlayerSpawn.TabStop = true;
             this.PlayerSpawn.Text = "Player";
-            this.PlayerSpawn.UseVisualStyleBackColor = true;
+            this.PlayerSpawn.UseVisualStyleBackColor = false;
             this.PlayerSpawn.CheckedChanged += new System.EventHandler(this.PlayerSpawn_CheckedChanged);
             // 
             // PowerUpSpawn
             // 
             this.PowerUpSpawn.AutoSize = true;
+            this.PowerUpSpawn.BackColor = System.Drawing.Color.Red;
             this.PowerUpSpawn.Location = new System.Drawing.Point(107, 19);
             this.PowerUpSpawn.Name = "PowerUpSpawn";
             this.PowerUpSpawn.Size = new System.Drawing.Size(72, 17);
             this.PowerUpSpawn.TabIndex = 9;
             this.PowerUpSpawn.TabStop = true;
             this.PowerUpSpawn.Text = "Power Up";
-            this.PowerUpSpawn.UseVisualStyleBackColor = true;
+            this.PowerUpSpawn.UseVisualStyleBackColor = false;
             this.PowerUpSpawn.CheckedChanged += new System.EventHandler(this.PowerUpSpawn_CheckedChanged_1);
             // 
-            // ObsticleSpawn
+            // ObstacleSpawn
             // 
-            this.ObsticleSpawn.AutoSize = true;
-            this.ObsticleSpawn.Location = new System.Drawing.Point(6, 42);
-            this.ObsticleSpawn.Name = "ObsticleSpawn";
-            this.ObsticleSpawn.Size = new System.Drawing.Size(63, 17);
-            this.ObsticleSpawn.TabIndex = 8;
-            this.ObsticleSpawn.TabStop = true;
-            this.ObsticleSpawn.Text = "Obsticle";
-            this.ObsticleSpawn.UseVisualStyleBackColor = true;
-            this.ObsticleSpawn.CheckedChanged += new System.EventHandler(this.ObsticleSpawn_CheckedChanged);
+            this.ObstacleSpawn.AutoSize = true;
+            this.ObstacleSpawn.BackColor = System.Drawing.Color.Cyan;
+            this.ObstacleSpawn.Location = new System.Drawing.Point(6, 42);
+            this.ObstacleSpawn.Name = "ObstacleSpawn";
+            this.ObstacleSpawn.Size = new System.Drawing.Size(67, 17);
+            this.ObstacleSpawn.TabIndex = 8;
+            this.ObstacleSpawn.TabStop = true;
+            this.ObstacleSpawn.Text = "Obstacle";
+            this.ObstacleSpawn.UseVisualStyleBackColor = false;
+            this.ObstacleSpawn.CheckedChanged += new System.EventHandler(this.ObstacleSpawn_CheckedChanged_1);
             // 
             // label17
             // 
@@ -370,25 +374,27 @@
             // CCollision
             // 
             this.CCollision.AutoSize = true;
+            this.CCollision.BackColor = System.Drawing.Color.Green;
             this.CCollision.Location = new System.Drawing.Point(11, 19);
             this.CCollision.Name = "CCollision";
             this.CCollision.Size = new System.Drawing.Size(61, 17);
             this.CCollision.TabIndex = 10;
             this.CCollision.TabStop = true;
             this.CCollision.Text = "Camera";
-            this.CCollision.UseVisualStyleBackColor = true;
+            this.CCollision.UseVisualStyleBackColor = false;
             this.CCollision.CheckedChanged += new System.EventHandler(this.CCollision_CheckedChanged);
             // 
             // WCollision
             // 
             this.WCollision.AutoSize = true;
+            this.WCollision.BackColor = System.Drawing.Color.Lime;
             this.WCollision.Location = new System.Drawing.Point(88, 19);
             this.WCollision.Name = "WCollision";
             this.WCollision.Size = new System.Drawing.Size(46, 17);
             this.WCollision.TabIndex = 6;
             this.WCollision.TabStop = true;
             this.WCollision.Text = "Wall";
-            this.WCollision.UseVisualStyleBackColor = true;
+            this.WCollision.UseVisualStyleBackColor = false;
             this.WCollision.CheckedChanged += new System.EventHandler(this.WCollision_CheckedChanged);
             // 
             // EventID
@@ -732,7 +738,7 @@
         private System.Windows.Forms.RadioButton SpeedRampSpawn;
         private System.Windows.Forms.RadioButton PlayerSpawn;
         private System.Windows.Forms.RadioButton PowerUpSpawn;
-        private System.Windows.Forms.RadioButton ObsticleSpawn;
+        private System.Windows.Forms.RadioButton ObstacleSpawn;
         private System.Windows.Forms.GroupBox EventsGroupBox;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox EventID;
