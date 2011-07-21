@@ -32,7 +32,7 @@ void CBullet::Update(float fElapsedTime)
 	ParticleManager* pPM = ParticleManager::GetInstance();
 
 	if( trace_particle > -1 )
-		pPM->AttachToBasePosition(this, pPM->GetActiveEmittor(trace_particle), GetWidth()*0.5f, GetHeight()*0.5f);
+		pPM->AttachToBasePosition(this, pPM->GetActiveEmittor(trace_particle));
 
 	if(m_fCurLife >= m_fMaxLife)
 	{
@@ -55,10 +55,11 @@ void CBullet::Render(CCamera* camera)
 	temppos.top = (LONG)(GetPosY() - camera->GetCamY() + camera->GetRenderPosY());
 	temppos.right = (LONG)(temppos.left + GetWidth());
 	temppos.bottom = (LONG)(temppos.top + GetHeight());
-	//CSGD_Direct3D::GetInstance()->DrawRect(temppos,255,255,255);
+	CSGD_Direct3D::GetInstance()->DrawRect(temppos,255,255,255);
 	m_pTM->Draw(GetImageID(),(int)GetPosX() - camera->GetCamX() + camera->GetRenderPosX(),(int)GetPosY() - camera->GetCamY() + camera->GetRenderPosY(),m_fScale,m_fScale, 
 		NULL,64/2, 64/2, GetRotation());
 	//m_pTM->Draw(GetImageID(),(int)GetPosX(),(int)GetPosY(),0.5f,0.5f,NULL,GetPosX()-(GetWidth()),GetPosY()-(GetHeight()),m_fRotation);
+
 }
 
 bool CBullet::CheckCollision(IBaseInterface* pBase)

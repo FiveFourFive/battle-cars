@@ -18,6 +18,7 @@ struct Particle
 {
 	tVector2D position;
 	tVector2D velocity;
+	tVector2D acceleration;
 	D3DCOLOR color;
 
 	float rotation;

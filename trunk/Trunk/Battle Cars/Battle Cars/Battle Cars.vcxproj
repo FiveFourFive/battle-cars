@@ -135,6 +135,7 @@
     <ClCompile Include="Source\CWinState.cpp" />
     <ClCompile Include="Source\CXboxInput.cpp" />
     <ClCompile Include="Source\Emittor.cpp" />
+    <ClCompile Include="Source\Gamer_Profile.cpp" />
     <ClCompile Include="Source\ParticleManager.cpp" />
     <ClCompile Include="Source\SGD_Math.cpp" />
     <ClCompile Include="Source\tinystr.cpp" />

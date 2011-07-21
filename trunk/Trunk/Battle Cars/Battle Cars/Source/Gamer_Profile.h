@@ -1,13 +1,19 @@
 #ifndef GAMER_PROFILE_H_
 #define GAMER_PROFILE_H_
 
-#include <cstring>
+
+#include "CKeyBinds.h"
+#include "CKeyboardKeyBinds.h"
+
+#include <string>
 using namespace std;
-class CKeyBinds;
-class CKeyboardKeyBinds;
+
 class Gamer_Profile
 {
 public:
+	Gamer_Profile();
+	~Gamer_Profile();
+
 	string m_sUserName;
 	CKeyBinds* m_pKB;
 	CKeyboardKeyBinds* m_pKKB;
@@ -17,6 +23,9 @@ public:
 	string GetUserName(){ return m_sUserName;}
 	CKeyBinds* GetControllerBinds(){ return m_pKB;}
 	CKeyboardKeyBinds* GetKeyboardBinds(){ return m_pKKB;}
+
+	Gamer_Profile& operator()(const Gamer_Profile& temp);
+
 };
 
 #endif

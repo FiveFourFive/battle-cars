@@ -18,14 +18,14 @@
 #include <vector>
 using namespace std;
 class CEnemy;
-class CPlayer;
+class CCar;
 
 class CFleeState : public IAIBaseState
 {
 private:
 	// member variables
 	CEnemy* m_Owner;
-	CPlayer* m_Target;
+	CCar* m_Target;
 	bool m_bFindingHealth;
 
 	bool Damaged(void);
@@ -48,11 +48,11 @@ public:
 
 	//Accessors
 	CEnemy* GetOwner() {return m_Owner;}
-	CPlayer* GetTarget() {return m_Target;}
+	CCar* GetTarget() {return m_Target;}
 	bool IsGettingHealth() {return m_bFindingHealth;}
 	//Mutators
 	void SetOwner(CEnemy* pOwner) {m_Owner = pOwner;}
-	void SetTarget(CPlayer* pTarget) {m_Target = pTarget;}
+	void SetTarget(CCar* pTarget) {m_Target = pTarget;}
 	void SetFindingHealth(bool health) {m_bFindingHealth = health;}
 };
 

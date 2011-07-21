@@ -15,6 +15,7 @@
 #include "CSGD_DirectInput.h"
 #include "CXboxInput.h"
 #include "CKeyboardKeyBinds.h"
+#include "CGamerProfile.h"
 //#include <XInput.h>
 CGame::CGame()
 {
@@ -92,6 +93,8 @@ void CGame::Initialize(HWND hWnd, HINSTANCE hInstance, int nScreenWidth, int nSc
 	m_nSoundAVolume = 0.5f;
 	m_nSoundBVolume = 0.5f;
 	m_stopWatch.Start();
+
+	PlayerProfile = CGamerProfile::GetInstance()->GetActiveProfile();
 }
 
 bool CGame::Main()

@@ -19,6 +19,8 @@ class CSGD_FModManager;
 class CSGD_DirectInput;
 class CXboxInput;
 class CKeyboardKeyBinds;
+class Gamer_Profile;
+
 class CGame
 {
 private:
@@ -34,6 +36,8 @@ private:
 	CXboxInput*				m_pController1;
 	CXboxInput*				m_pController2;
 	bool m_bController;
+
+	Gamer_Profile* PlayerProfile;		// the profile the player is using;
 
 	// States
 	IGameState*				m_pGameState;
@@ -112,6 +116,9 @@ public:
 
 	HWND GetHWND(){ return hWnd;}
 	bool GetIsWindowed(){ return isWindowedMode;}
+
+	Gamer_Profile* GetPlayerProfile() { return PlayerProfile;}
+	void SetPlayerProfile(Gamer_Profile* profile){ PlayerProfile = profile;}
 
 	// Clean Up
 	void Shutdown();	

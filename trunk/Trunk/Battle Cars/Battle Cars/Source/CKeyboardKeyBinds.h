@@ -1,5 +1,5 @@
 #ifndef _CKEYBOARDKEYBINDS_H
-#define _CKEYBAORDKEYBINDS_H
+#define _CKEYBOARDKEYBINDS_H
 
 class CKeyboardKeyBinds
 {
