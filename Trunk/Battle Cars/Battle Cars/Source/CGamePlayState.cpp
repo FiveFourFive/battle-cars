@@ -257,6 +257,7 @@ void CGamePlayState::Enter(void)
 	ramps.push_back(speedy2);
 	ramps.push_back(speedy);
 	dummy->SetSpeedRamps(ramps);
+	dummy->SetRotation (0);
 	//dummy->SetVelX(10);
 	if(!m_bCollectionChallenge)
 	{
@@ -369,7 +370,7 @@ void CGamePlayState::Enter(void)
 	m_pPM->LoadEmittor("resource/data/FlameThrower.xml");
 
 	
-	time = 500;
+	time = 1000;
 	m_fElapsedSecond = 0.0f;
 	score = 0;
 
@@ -457,11 +458,11 @@ void CGamePlayState::Enter(void)
 		Level->SetSpeedRampSpawn (ramps[i]);
 	}
 
-	Level->SetObsticleSpawn (crate1);
-	Level->SetObsticleSpawn (crate2);
-	Level->SetObsticleSpawn (crate3);
-	Level->SetObsticleSpawn (barrel1);
-	Level->SetObsticleSpawn (barrel2);
+	Level->SetObstacleSpawn (crate1);
+	Level->SetObstacleSpawn (crate2);
+	Level->SetObstacleSpawn (crate3);
+	Level->SetObstacleSpawn (barrel1);
+	Level->SetObstacleSpawn (barrel2);
 
 	m_pOM->AddObject(crate1);
 	m_pOM->AddObject(crate2);

@@ -107,13 +107,16 @@ public:
 	//setters
 	void SetTurnable(bool turnable) { m_bIsTurnable = turnable; }
 	void SetOverallVelocity(tVector2D vel) { m_tOverallVelocity = vel; }
+
 	void SetSpecialLevel(int level) { m_nSpecialLevel = level; }
 	void SetPowerUpBar(float pbar) { m_fPowerUpBar = pbar; }
 	void SetShieldBar(float sbar) { m_fShieldBar = sbar; }
 	void SetMaxPowerUp(float max) { m_fMaxPowerUp = max; }
 	void SetMaxShield(float max) { m_fMaxShield = max; }
+
 	void SetVelX(float nVelX) {m_fVelX = nVelX;}
 	void SetVelY(float nVelY) {m_fVelY = nVelY;}
+
 	void SetHealth(float health) { m_nHealth = health;}
 	void SetMaxHealth(float maxhp) { m_nMaxHealth = maxhp; }
 	void SetSpeed(float speed) { m_fSpeed = speed; }
@@ -121,7 +124,11 @@ public:
 	void SetRotation(float rot) { m_fRotation = rot; }
 	void SetRotationRate(float rotrate) { m_fRotationRate = rotrate; }
 	void SetDirection(tVector2D vec) { m_tDirection = vec; }
+
 	void SetVelocity(tVector2D vec) { m_tVelocity = vec; }
+	void SetVelocityX (float velocityx) {m_tVelocity.fX = velocityx;}
+	void SetVelocityY (float velocityy) {m_tVelocity.fY = velocityy;}
+
 	void SetMaxSpeed(float maxspeed) { m_fMaxSpeed = maxspeed; }
 	void SetKillCount(int killcount) { m_nKillCount = killcount; }
 	void SetFireDelay(float delay) { m_fFireDelay = delay; }

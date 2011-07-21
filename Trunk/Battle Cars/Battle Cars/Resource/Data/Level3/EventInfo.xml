@@ -236,7 +236,7 @@
   <Event XPos="31" YPos="3" Type="24">WallCollision</Event>
   <Event XPos="32" YPos="3" Type="24">WallCollision</Event>
   <Event XPos="33" YPos="3" Type="24">WallCollision</Event>
-  <Event XPos="34" YPos="3" Type="24">WallCollision</Event>
+  <Event XPos="34" YPos="3" Type="68">WallCollision</Event>
   <Event XPos="35" YPos="3" Type="24">WallCollision</Event>
   <Event XPos="36" YPos="3" Type="24">WallCollision</Event>
   <Event XPos="37" YPos="3" Type="24">WallCollision</Event>
@@ -406,13 +406,10 @@
   <Event XPos="199" YPos="4" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="5" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="5" Type="24">WallCollision</Event>
-  <Event XPos="16" YPos="5" Type="24">ObsticleSpawn</Event>
   <Event XPos="196" YPos="5" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="5" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="6" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="6" Type="24">WallCollision</Event>
-  <Event XPos="6" YPos="6" Type="24">PowerUpSpawn</Event>
-  <Event XPos="26" YPos="6" Type="24">PowerUpSpawn</Event>
   <Event XPos="196" YPos="6" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="6" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="7" Type="24">CameraCollision</Event>
@@ -421,6 +418,7 @@
   <Event XPos="199" YPos="7" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="8" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="8" Type="24">WallCollision</Event>
+  <Event XPos="15" YPos="8" Type="76">PlayerSpawn</Event>
   <Event XPos="196" YPos="8" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="8" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="9" Type="24">CameraCollision</Event>
@@ -433,9 +431,8 @@
   <Event XPos="199" YPos="10" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="11" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="11" Type="24">WallCollision</Event>
-  <Event XPos="14" YPos="11" Type="24">PlayerSpawn</Event>
-  <Event XPos="22" YPos="11" Type="24">PlayerSpawn</Event>
-  <Event XPos="30" YPos="11" Type="24">PlayerSpawn</Event>
+  <Event XPos="55" YPos="11" Type="76">PowerUpSpawn</Event>
+  <Event XPos="70" YPos="11" Type="76">PlayerSpawn</Event>
   <Event XPos="196" YPos="11" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="11" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="12" Type="24">CameraCollision</Event>
@@ -456,8 +453,6 @@
   <Event XPos="199" YPos="15" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="16" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="16" Type="24">WallCollision</Event>
-  <Event XPos="21" YPos="16" Type="24">ObsticleSpawn</Event>
-  <Event XPos="40" YPos="16" Type="24">SpeedRampSpawn</Event>
   <Event XPos="196" YPos="16" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="16" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="17" Type="24">CameraCollision</Event>
@@ -474,16 +469,15 @@
   <Event XPos="199" YPos="19" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="20" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="20" Type="24">WallCollision</Event>
+  <Event XPos="143" YPos="20" Type="76">ObstacleSpawn</Event>
   <Event XPos="196" YPos="20" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="20" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="21" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="21" Type="24">WallCollision</Event>
-  <Event XPos="12" YPos="21" Type="24">PowerUpSpawn</Event>
   <Event XPos="196" YPos="21" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="21" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="22" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="22" Type="24">WallCollision</Event>
-  <Event XPos="31" YPos="22" Type="24">PowerUpSpawn</Event>
   <Event XPos="196" YPos="22" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="22" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="23" Type="24">CameraCollision</Event>
@@ -496,18 +490,16 @@
   <Event XPos="199" YPos="24" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="25" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="25" Type="24">WallCollision</Event>
-  <Event XPos="6" YPos="25" Type="24">ObsticleSpawn</Event>
   <Event XPos="196" YPos="25" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="25" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="26" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="26" Type="24">WallCollision</Event>
-  <Event XPos="15" YPos="26" Type="24">ObsticleSpawn</Event>
+  <Event XPos="24" YPos="26" Type="76">PowerUpSpawn</Event>
+  <Event XPos="59" YPos="26" Type="76">ObstacleSpawn</Event>
   <Event XPos="196" YPos="26" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="26" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="27" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="27" Type="24">WallCollision</Event>
-  <Event XPos="23" YPos="27" Type="24">SpeedRampSpawn</Event>
-  <Event XPos="42" YPos="27" Type="24">PlayerSpawn</Event>
   <Event XPos="196" YPos="27" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="27" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="28" Type="24">CameraCollision</Event>
@@ -516,6 +508,7 @@
   <Event XPos="199" YPos="28" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="29" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="29" Type="24">WallCollision</Event>
+  <Event XPos="36" YPos="29" Type="76">ObstacleSpawn</Event>
   <Event XPos="196" YPos="29" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="29" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="30" Type="24">CameraCollision</Event>
@@ -528,11 +521,11 @@
   <Event XPos="199" YPos="31" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="32" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="32" Type="24">WallCollision</Event>
-  <Event XPos="27" YPos="32" Type="24">SpeedRampSpawn</Event>
   <Event XPos="196" YPos="32" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="32" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="33" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="33" Type="24">WallCollision</Event>
+  <Event XPos="50" YPos="33" Type="76">SpeedRampSpawn</Event>
   <Event XPos="196" YPos="33" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="33" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="34" Type="24">CameraCollision</Event>
@@ -597,6 +590,8 @@
   <Event XPos="199" YPos="48" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="49" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="49" Type="24">WallCollision</Event>
+  <Event XPos="93" YPos="49" Type="76">ObstacleSpawn</Event>
+  <Event XPos="117" YPos="49" Type="76">SpeedRampSpawn</Event>
   <Event XPos="196" YPos="49" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="49" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="50" Type="24">CameraCollision</Event>
@@ -657,6 +652,7 @@
   <Event XPos="199" YPos="63" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="64" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="64" Type="24">WallCollision</Event>
+  <Event XPos="162" YPos="64" Type="76">PlayerSpawn</Event>
   <Event XPos="196" YPos="64" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="64" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="65" Type="24">CameraCollision</Event>
@@ -669,6 +665,7 @@
   <Event XPos="199" YPos="66" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="67" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="67" Type="24">WallCollision</Event>
+  <Event XPos="16" YPos="67" Type="76">PowerUpSpawn</Event>
   <Event XPos="196" YPos="67" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="67" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="68" Type="24">CameraCollision</Event>
@@ -693,6 +690,7 @@
   <Event XPos="199" YPos="72" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="73" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="73" Type="24">WallCollision</Event>
+  <Event XPos="35" YPos="73" Type="76">SpeedRampSpawn</Event>
   <Event XPos="196" YPos="73" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="73" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="74" Type="24">CameraCollision</Event>
@@ -745,6 +743,7 @@
   <Event XPos="199" YPos="85" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="86" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="86" Type="24">WallCollision</Event>
+  <Event XPos="179" YPos="86" Type="76">PowerUpSpawn</Event>
   <Event XPos="196" YPos="86" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="86" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="87" Type="24">CameraCollision</Event>
@@ -753,6 +752,7 @@
   <Event XPos="199" YPos="87" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="88" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="88" Type="24">WallCollision</Event>
+  <Event XPos="81" YPos="88" Type="76">ObstacleSpawn</Event>
   <Event XPos="196" YPos="88" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="88" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="89" Type="24">CameraCollision</Event>
@@ -765,6 +765,7 @@
   <Event XPos="199" YPos="90" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="91" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="91" Type="24">WallCollision</Event>
+  <Event XPos="101" YPos="91" Type="76">PlayerSpawn</Event>
   <Event XPos="196" YPos="91" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="91" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="92" Type="24">CameraCollision</Event>
@@ -797,6 +798,7 @@
   <Event XPos="199" YPos="98" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="99" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="99" Type="24">WallCollision</Event>
+  <Event XPos="126" YPos="99" Type="76">SpeedRampSpawn</Event>
   <Event XPos="196" YPos="99" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="99" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="100" Type="24">CameraCollision</Event>
@@ -813,6 +815,7 @@
   <Event XPos="199" YPos="102" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="103" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="103" Type="24">WallCollision</Event>
+  <Event XPos="69" YPos="103" Type="76">PowerUpSpawn</Event>
   <Event XPos="196" YPos="103" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="103" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="104" Type="24">CameraCollision</Event>
@@ -833,10 +836,12 @@
   <Event XPos="199" YPos="107" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="108" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="108" Type="24">WallCollision</Event>
+  <Event XPos="116" YPos="108" Type="76">PowerUpSpawn</Event>
   <Event XPos="196" YPos="108" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="108" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="109" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="109" Type="24">WallCollision</Event>
+  <Event XPos="141" YPos="109" Type="76">ObstacleSpawn</Event>
   <Event XPos="196" YPos="109" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="109" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="110" Type="24">CameraCollision</Event>
@@ -909,6 +914,7 @@
   <Event XPos="199" YPos="126" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="127" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="127" Type="24">WallCollision</Event>
+  <Event XPos="38" YPos="127" Type="76">PlayerSpawn</Event>
   <Event XPos="196" YPos="127" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="127" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="128" Type="24">CameraCollision</Event>
@@ -945,7 +951,6 @@
   <Event XPos="199" YPos="135" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="136" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="136" Type="24">WallCollision</Event>
-  <Event XPos="14" YPos="136" Type="24">ObsticleSpawn</Event>
   <Event XPos="196" YPos="136" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="136" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="137" Type="24">CameraCollision</Event>
@@ -962,6 +967,7 @@
   <Event XPos="199" YPos="139" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="140" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="140" Type="24">WallCollision</Event>
+  <Event XPos="169" YPos="140" Type="76">SpeedRampSpawn</Event>
   <Event XPos="196" YPos="140" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="140" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="141" Type="24">CameraCollision</Event>
@@ -982,6 +988,7 @@
   <Event XPos="199" YPos="144" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="145" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="145" Type="24">WallCollision</Event>
+  <Event XPos="182" YPos="145" Type="76">PlayerSpawn</Event>
   <Event XPos="196" YPos="145" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="145" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="146" Type="24">CameraCollision</Event>
@@ -998,6 +1005,7 @@
   <Event XPos="199" YPos="148" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="149" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="149" Type="24">WallCollision</Event>
+  <Event XPos="36" YPos="149" Type="76">SpeedRampSpawn</Event>
   <Event XPos="196" YPos="149" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="149" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="150" Type="24">CameraCollision</Event>
@@ -1046,6 +1054,7 @@
   <Event XPos="199" YPos="160" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="161" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="161" Type="24">WallCollision</Event>
+  <Event XPos="98" YPos="161" Type="76">SpeedRampSpawn</Event>
   <Event XPos="196" YPos="161" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="161" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="162" Type="24">CameraCollision</Event>
@@ -1070,6 +1079,7 @@
   <Event XPos="199" YPos="166" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="167" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="167" Type="24">WallCollision</Event>
+  <Event XPos="22" YPos="167" Type="76">PowerUpSpawn</Event>
   <Event XPos="196" YPos="167" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="167" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="168" Type="24">CameraCollision</Event>
@@ -1134,6 +1144,7 @@
   <Event XPos="199" YPos="182" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="183" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="183" Type="24">WallCollision</Event>
+  <Event XPos="64" YPos="183" Type="76">PowerUpSpawn</Event>
   <Event XPos="196" YPos="183" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="183" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="184" Type="24">CameraCollision</Event>
@@ -1150,6 +1161,7 @@
   <Event XPos="199" YPos="186" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="187" Type="24">CameraCollision</Event>
   <Event XPos="3" YPos="187" Type="24">WallCollision</Event>
+  <Event XPos="161" YPos="187" Type="76">PowerUpSpawn</Event>
   <Event XPos="196" YPos="187" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="187" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="188" Type="24">CameraCollision</Event>
@@ -1241,31 +1253,31 @@
   <Event XPos="56" YPos="196" Type="24">WallCollision</Event>
   <Event XPos="57" YPos="196" Type="24">WallCollision</Event>
   <Event XPos="58" YPos="196" Type="24">WallCollision</Event>
-  <Event XPos="59" YPos="196" Type="24">WallCollision</Event>
-  <Event XPos="60" YPos="196" Type="24">WallCollision</Event>
+  <Event XPos="59" YPos="196" Type="76">WallCollision</Event>
+  <Event XPos="60" YPos="196" Type="76">WallCollision</Event>
   <Event XPos="61" YPos="196" Type="24">WallCollision</Event>
   <Event XPos="62" YPos="196" Type="24">WallCollision</Event>
   <Event XPos="63" YPos="196" Type="24">WallCollision</Event>
-  <Event XPos="64" YPos="196" Type="24">WallCollision</Event>
-  <Event XPos="65" YPos="196" Type="24">WallCollision</Event>
-  <Event XPos="66" YPos="196" Type="24">WallCollision</Event>
-  <Event XPos="67" YPos="196" Type="24">WallCollision</Event>
-  <Event XPos="68" YPos="196" Type="24">WallCollision</Event>
-  <Event XPos="69" YPos="196" Type="24">WallCollision</Event>
+  <Event XPos="64" YPos="196" Type="76">WallCollision</Event>
+  <Event XPos="65" YPos="196" Type="76">WallCollision</Event>
+  <Event XPos="66" YPos="196" Type="76">WallCollision</Event>
+  <Event XPos="67" YPos="196" Type="76">WallCollision</Event>
+  <Event XPos="68" YPos="196" Type="76">WallCollision</Event>
+  <Event XPos="69" YPos="196" Type="76">WallCollision</Event>
   <Event XPos="70" YPos="196" Type="24">WallCollision</Event>
   <Event XPos="71" YPos="196" Type="24">WallCollision</Event>
   <Event XPos="72" YPos="196" Type="24">WallCollision</Event>
-  <Event XPos="73" YPos="196" Type="24">WallCollision</Event>
-  <Event XPos="74" YPos="196" Type="24">WallCollision</Event>
-  <Event XPos="75" YPos="196" Type="24">WallCollision</Event>
-  <Event XPos="76" YPos="196" Type="24">WallCollision</Event>
-  <Event XPos="77" YPos="196" Type="24">WallCollision</Event>
-  <Event XPos="78" YPos="196" Type="24">WallCollision</Event>
-  <Event XPos="79" YPos="196" Type="24">WallCollision</Event>
-  <Event XPos="80" YPos="196" Type="24">WallCollision</Event>
-  <Event XPos="81" YPos="196" Type="24">WallCollision</Event>
-  <Event XPos="82" YPos="196" Type="24">WallCollision</Event>
-  <Event XPos="83" YPos="196" Type="24">WallCollision</Event>
+  <Event XPos="73" YPos="196" Type="76">WallCollision</Event>
+  <Event XPos="74" YPos="196" Type="76">WallCollision</Event>
+  <Event XPos="75" YPos="196" Type="76">WallCollision</Event>
+  <Event XPos="76" YPos="196" Type="76">WallCollision</Event>
+  <Event XPos="77" YPos="196" Type="76">WallCollision</Event>
+  <Event XPos="78" YPos="196" Type="76">WallCollision</Event>
+  <Event XPos="79" YPos="196" Type="76">WallCollision</Event>
+  <Event XPos="80" YPos="196" Type="76">WallCollision</Event>
+  <Event XPos="81" YPos="196" Type="76">WallCollision</Event>
+  <Event XPos="82" YPos="196" Type="76">WallCollision</Event>
+  <Event XPos="83" YPos="196" Type="76">WallCollision</Event>
   <Event XPos="84" YPos="196" Type="24">WallCollision</Event>
   <Event XPos="85" YPos="196" Type="24">WallCollision</Event>
   <Event XPos="86" YPos="196" Type="24">WallCollision</Event>
@@ -1381,6 +1393,58 @@
   <Event XPos="196" YPos="196" Type="24">WallCollision</Event>
   <Event XPos="199" YPos="196" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="197" Type="24">CameraCollision</Event>
+  <Event XPos="58" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="59" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="60" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="61" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="62" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="63" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="64" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="65" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="66" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="67" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="68" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="69" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="70" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="71" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="72" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="73" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="74" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="75" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="76" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="77" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="78" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="79" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="80" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="81" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="82" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="83" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="84" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="85" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="86" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="87" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="88" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="89" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="90" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="91" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="92" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="93" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="94" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="95" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="96" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="97" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="98" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="99" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="100" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="101" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="102" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="103" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="104" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="105" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="106" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="107" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="108" YPos="197" Type="76">WallCollision</Event>
+  <Event XPos="109" YPos="197" Type="76">WallCollision</Event>
   <Event XPos="199" YPos="197" Type="24">CameraCollision</Event>
   <Event XPos="0" YPos="198" Type="24">CameraCollision</Event>
   <Event XPos="199" YPos="198" Type="24">CameraCollision</Event>
