@@ -11,6 +11,8 @@
 #include "CXboxInput.h"
 #include "CKeyBinds.h"
 #include "CKeyBindsState.h"
+#include "CPlayer.h"
+#include "CCamera.h"
 enum options{WS_EFFECTS,WS_MUSIC,WS_INPUT, WS_CAMERAVIEW ,WS_KEYBINDS,WS_EXIT};
 
 COptionState::COptionState(void)
