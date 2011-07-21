@@ -939,6 +939,8 @@ bool CGamePlayState::HandleEnter(void)
 
 void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 {
+	ParticleManager* PM = CGamePlayState::GetInstance()->m_pPM;
+
 	switch(pMsg->GetMsgID())
 	{
 	case MSG_CREATE_LEVEL:
@@ -1464,31 +1466,74 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			}
 			else if(tempbullet->GetBulletType() == PROJECTILE_MISSILE || tempbullet->GetBulletType() == PROJECTILE_MINI_MISSILE)
 			{
-				CLandMine* pLandMine = new CLandMine();
-				pLandMine->SetDuration(.10f);
-				pLandMine->SetScale(2.0f);
-				pLandMine->SetOwner(tempbullet->GetOwner());
-				pLandMine->SetImageID (pGame->m_pTM->LoadTexture("resource/graphics/BattleCars_MissileExplosionPlaceholder.png", D3DCOLOR_XRGB(255, 255, 255)));
-				pLandMine->SetCurLife(0.0f);
-				pLandMine->SetMaxLife(1000000.0f);
-				pLandMine->SetHeight((int)(64*pLandMine->GetScale()));
-				pLandMine->SetWidth((int)(64*pLandMine->GetScale()));
-				pLandMine->SetPosX(tempbullet->GetPosX());
-				pLandMine->SetPosY(tempbullet->GetPosY());
-				if(tempbullet->GetBulletType() == PROJECTILE_MISSILE)
-					pLandMine->SetDamage(1);
-				else
-					pLandMine->SetDamage(7);
-				pLandMine->SetBlastRadius(tempbullet->GetBlastRadius());
-				pLandMine->SetLandMineType(LM_EXPLOSION);
-				pLandMine->SetVelX(0.0f);
-				pLandMine->SetVelY(0.0f);
-				pGame->m_pOM->AddObject(pLandMine);
+#pragma region EXPLOSION_EFFECT
+				Emittor* smoke_emittor = PM->CreateEffect(PM->GetEmittor(EXPLOSION_SMOKE_EMITTOR), tempbullet->GetPosX(), tempbullet->GetPosY());
+				if( smoke_emittor )
+				{
+ 					smoke_emittor->SetTimeToDie(1.5f);
+				}
+
+				Emittor* fireburst_emittor = PM->CreateEffect(PM->GetEmittor(EXPLOSION_FIREBURST1_EMITTOR), tempbullet->GetPosX() , tempbullet->GetPosY());
+				if( fireburst_emittor )
+				{
+					fireburst_emittor->SetTimeToDie(1.5f);
+				}
+
+				fireburst_emittor = PM->CreateEffect(PM->GetEmittor(EXPLOSION_FIREBURST2_EMITTOR), tempbullet->GetPosX() , tempbullet->GetPosY());
+				if( fireburst_emittor )
+				{
+					fireburst_emittor->SetTimeToDie(1.5f);				
+				}
+				fireburst_emittor = PM->CreateEffect(PM->GetEmittor(EXPLOSION_FIREBURST3_EMITTOR), tempbullet->GetPosX(), tempbullet->GetPosY());
+				if( fireburst_emittor )
+				{
+					fireburst_emittor->SetTimeToDie(1.5f);
+				}
+
+				Emittor* fire_emittor = PM->CreateEffect(PM->GetEmittor(EXPLOSION_FLAME_EMITTOR), tempbullet->GetPosX(), tempbullet->GetPosY());
+				if( fire_emittor )
+				{
+					fire_emittor->SetTimeToDie(1.5f);
+				}
+#pragma endregion
 				pGame->m_pOM->RemoveObject(tempbullet);
-				pLandMine->Release();
 			}
 			else if(tempbullet->GetBulletType() == PROJECTILE_LANDMINE)
+			{
+				
+#pragma region EXPLOSION_EFFECT
+				Emittor* smoke_emittor = PM->CreateEffect(PM->GetEmittor(EXPLOSION_SMOKE_EMITTOR), tempbullet->GetPosX(), tempbullet->GetPosY());
+				if( smoke_emittor )
+				{
+ 					smoke_emittor->SetTimeToDie(1.5f);
+				}
+
+				Emittor* fireburst_emittor = PM->CreateEffect(PM->GetEmittor(EXPLOSION_FIREBURST1_EMITTOR), tempbullet->GetPosX() , tempbullet->GetPosY());
+				if( fireburst_emittor )
+				{
+					fireburst_emittor->SetTimeToDie(1.5f);
+				}
+
+				fireburst_emittor = PM->CreateEffect(PM->GetEmittor(EXPLOSION_FIREBURST2_EMITTOR), tempbullet->GetPosX() , tempbullet->GetPosY());
+				if( fireburst_emittor )
+				{
+					fireburst_emittor->SetTimeToDie(1.5f);				
+				}
+				fireburst_emittor = PM->CreateEffect(PM->GetEmittor(EXPLOSION_FIREBURST3_EMITTOR), tempbullet->GetPosX(), tempbullet->GetPosY());
+				if( fireburst_emittor )
+				{
+					fireburst_emittor->SetTimeToDie(1.5f);
+				}
+
+				Emittor* fire_emittor = PM->CreateEffect(PM->GetEmittor(EXPLOSION_FLAME_EMITTOR), tempbullet->GetPosX(), tempbullet->GetPosY());
+				if( fire_emittor )
+				{
+					fire_emittor->SetTimeToDie(1.5f);
+				}
+#pragma endregion
+
 				pGame->m_pOM->RemoveObject(tempbullet);
+			}
 			break;
 		}
 	case MSG_CREATE_ENEMY_BULLET_MESSAGE:
