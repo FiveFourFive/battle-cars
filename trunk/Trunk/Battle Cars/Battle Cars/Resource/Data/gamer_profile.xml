@@ -10,6 +10,6 @@
     </Gamer_Profile>
     <Gamer_Profile>Sean
         <Controller_Keybinds shoot="16384" change_weapon="256" kshoot="44" kaccelerate="17" kbreak="31" kleft="30" kright="32" kchange_weapon="45" />
-        <Sounds SFX="36" Background="10" />
+        <Sounds SFX="50" Background="50" />
     </Gamer_Profile>
 </Gamer_Profiles>

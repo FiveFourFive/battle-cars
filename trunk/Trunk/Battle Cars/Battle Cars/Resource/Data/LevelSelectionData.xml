@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Levels>
         <Level>
-               <LevelDataName>testmap.xml</LevelDataName>
+               <LevelDataName>MyMap.xml</LevelDataName>
        </Level>
         <Level>
                <LevelDataName>Junkyard.xml</LevelDataName>
