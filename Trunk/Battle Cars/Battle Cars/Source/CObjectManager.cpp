@@ -18,6 +18,10 @@
 #include "CPowerUp.h"
 #include "CCollectable.h"
 
+#include "CGame.h"
+#include "CLevel.h"
+#include "CMap.h"
+
 CObjectManager* CObjectManager::m_pInstance = NULL;
 
 CObjectManager::CObjectManager(void)
@@ -80,10 +84,14 @@ void CObjectManager::RenderObjects(CCamera* camera)
 					RECT draw_rect;
 					CBase* render_object = (CBase*)m_vObjectList[index];
 					CPlayer* offset_object = (CPlayer*)m_vObjectList[i];
-					draw_rect.left = (render_object->GetPosX()*0.08f) + offset_object->GetHudItem()->GetMiniMapXPos();
-					draw_rect.top = render_object->GetPosY()*0.08f + offset_object->GetHudItem()->GetMiniMapYPos();;
-					draw_rect.right = draw_rect.left + 10;
-					draw_rect.bottom = draw_rect.top + 10;
+
+					float width_scale = 100 / ((float)CLevel::GetInstance()->GetMap()->GetMapWidth() * (float)CLevel::GetInstance()->GetMap()->GetPixelWidth());
+					float height_scale = 100 / ((float)CLevel::GetInstance()->GetMap()->GetMapHeight() * (float)CLevel::GetInstance()->GetMap()->GetPixelHeight());
+
+					draw_rect.left = (render_object->GetPosX()*width_scale) + offset_object->GetHudItem()->GetMiniMapXPos();
+					draw_rect.top = render_object->GetPosY()*height_scale + offset_object->GetHudItem()->GetMiniMapYPos() + 20;
+					draw_rect.right = draw_rect.left + 5;
+					draw_rect.bottom = draw_rect.top + 5;
 
 					// i = THE PLAYER INDEX, index = the rendering objects index
 					if( m_vObjectList[i] == m_vObjectList[index])
