@@ -45,7 +45,7 @@ void CBase::Render(CCamera* camera)
 
 RECT CBase::GetRect()
 {
-	RECT tempRect = { (LONG)GetPosX() - (GetWidth()/2), (LONG)GetPosY() - (GetHeight()/2), (LONG)(GetPosX() + GetWidth()), (LONG)(GetPosY() + GetHeight()) };
+	RECT tempRect = { (LONG)GetPosX() - (GetWidth()/2), (LONG)GetPosY() - (GetHeight()/2), (LONG)(GetPosX() + GetWidth()/2), (LONG)(GetPosY() + GetHeight()/2) };
 	return tempRect;
 }
 

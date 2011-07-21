@@ -622,7 +622,11 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 		{
 			SetSpeed(0);
 			CSpeedRamp* tempramp = (CSpeedRamp*)pBase;
-			SetVelocity((tempramp->GetVelDir() * (GetMaxSpeed() + 200) ));
+			tVector2D myvel = GetVelocity();
+			tVector2D boostvel = (tempramp->GetVelDir() * (GetMaxSpeed() + 100) );
+			myvel.fX = myvel.fX + boostvel.fX;
+			myvel.fY = myvel.fY + boostvel.fY;
+			SetVelocity(myvel);
 			//SetSpeed(GetMaxSpeed() + 300.0f);
 			return true;
 		}
