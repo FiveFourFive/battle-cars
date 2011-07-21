@@ -41,9 +41,9 @@ CCar::CCar(void)
 	SetImageWidth(256);
 	SetImageHeight(256);
 	m_nCollisionRadius = (float)(GetWidth()/2.0f);
-	m_nCollisionX1 = GetPosX();
+	m_nCollisionX1 = GetPosX() + GetWidth()/2;
 	m_nCollisionY1 = GetPosY() - (GetHeight()*0.5f) + (GetWidth()*0.5f);
-	m_nCollisionX2 = GetPosX();
+	m_nCollisionX2 = GetPosX()+ GetWidth()/2;
 	m_nCollisionY2 = GetPosY() + (GetHeight()*0.5f) - (GetWidth()*0.5f);
 	SetVelY(0);
 	m_nKillCount = 0;
@@ -228,24 +228,26 @@ void CCar::Rotate(float angle)
 
 	m_nCollisionX1 = newx + GetPosX();
 	m_nCollisionY1 = newx + GetPosY();*/
-	m_nCollisionX1 = GetPosX();
+	m_nCollisionX1 = GetPosX()+ GetWidth()/2;
 	m_nCollisionY1 = GetPosY() - (GetHeight()*0.5f) + (GetWidth()*0.5f);
 	//m_nCollisionX1 = GetPosX() + (cos(newangle)) * (m_nCollisionX1 - GetPosX()) - sin(newangle) * (m_nCollisionY1 - GetPosY());
 	//m_nCollisionY1 = GetPosY() + (sin(newangle)) * (m_nCollisionX1 - GetPosX()) + cos(newangle) * (m_nCollisionY1 - GetPosY());
 	float tempX1 = m_nCollisionX1;
 	float tempY1 = m_nCollisionY1;
-	m_nCollisionX1 = GetPosX() + (cos(angle)) * (tempX1 - GetPosX()) - sin(angle) * (tempY1 - GetPosY());
-	m_nCollisionY1 = GetPosY() + (sin(angle)) * (tempX1 - GetPosX()) + cos(angle) * (tempY1 - GetPosY());
+	float cx;
+	cx = GetPosX() + GetWidth()/2;
+	m_nCollisionX1 = cx + (cos(angle)) * (tempX1 - cx) - sin(angle) * (tempY1 - GetPosY());
+	m_nCollisionY1 = GetPosY() + (sin(angle)) * (tempX1 - cx) + cos(angle) * (tempY1 - GetPosY());
 
 
-	m_nCollisionX2 = GetPosX();
+	m_nCollisionX2 = GetPosX()+ GetWidth()/2;
 	m_nCollisionY2 = GetPosY() + (GetHeight() * 0.5f) - (GetWidth() * 0.5f);
 
 	float tempX2 = m_nCollisionX2;
 	float tempY2 = m_nCollisionY2;
 	angle = angle + (3.14159f);
-	m_nCollisionX2 = GetPosX() + (cos(angle)) * (tempX1 - GetPosX()) - sin(angle) * (tempY1 - GetPosY());
-	m_nCollisionY2 = GetPosY() + (sin(angle)) * (tempX1 - GetPosX()) + cos(angle) * (tempY1 - GetPosY()); 
+	m_nCollisionX2 = cx + (cos(angle)) * (tempX1 - cx) - sin(angle) * (tempY1 - GetPosY());
+	m_nCollisionY2 = GetPosY() + (sin(angle)) * (tempX1 - cx) + cos(angle) * (tempY1 - GetPosY()); 
 }
 void CCar::PlayCrash(void)
 {
