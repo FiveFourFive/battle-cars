@@ -26,13 +26,13 @@ CCar::CCar(void)
 	m_bAccelerating = false;
 	m_tDirection.fX = 0.0f;
 	m_tDirection.fY = -1.0f;
-
+	m_fTurnDelay = 0.0f;
 	m_tVelocity.fX = 0.0f;
 	m_tVelocity.fY = 0.0f;
 	SetIsAlive(true);
 	m_tOverallVelocity.fX = 0.0f;
 	m_tOverallVelocity.fY = 0.0f;
-
+	m_bIsTurnable = true;
 	SetPosX(350);
 	SetPosY(225);
 	m_nSpecialLevel = 1;
@@ -125,7 +125,15 @@ void CCar::Update(float fElapsedTime)
 		SetSpeed(0);
 
 	SetVelocity(tempvel);
-
+	if(!m_bIsTurnable)
+	{
+		m_fTurnDelay += fElapsedTime;
+		if(m_fTurnDelay >= 0.3f)
+		{
+			m_fTurnDelay = 0.0f;
+			m_bIsTurnable = true;
+		}
+	}
 	//SetDirection(tempdir);
 	SetVelX(m_tVelocity.fX + tempdir.fX);
 	SetVelY(m_tVelocity.fY + tempdir.fY);

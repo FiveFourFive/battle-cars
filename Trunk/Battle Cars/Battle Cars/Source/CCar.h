@@ -50,7 +50,9 @@ private:
 	int m_nSpecialWeaponImageID;
 	int m_nSpecialLevel;
 	int m_nPlayerType;
+	float m_fTurnDelay;
 	bool m_bIsAlive;
+	bool m_bIsTurnable;
 	float m_fCollisionEffect;		// used to create a single particle effect with the send event rather than creating more than what was desired.
 	float m_fRespawnTimer;			// The elapsed time until the object respawns again.
 
@@ -101,7 +103,9 @@ public:
 	bool GetCollisionEffect(){ return Collision_effect; }
 	int GetImageWidth(void) { return m_nImageWidth; }
 	int GetImageHeight(void) { return m_nImageHeight; }
+	bool GetTurnable(void) { return m_bIsTurnable; }
 	//setters
+	void SetTurnable(bool turnable) { m_bIsTurnable = turnable; }
 	void SetOverallVelocity(tVector2D vel) { m_tOverallVelocity = vel; }
 	void SetSpecialLevel(int level) { m_nSpecialLevel = level; }
 	void SetPowerUpBar(float pbar) { m_fPowerUpBar = pbar; }

@@ -285,7 +285,8 @@ void CPlayer::Update(float fElapsedTime)
 		if(CGame::GetInstance()->GetThumbDelay() >= 0.00f)
 		{
 			//CGame::GetInstance()->ResetThumbDelay();
-
+			if(GetTurnable())
+			{
 			if(x < -16000 || xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_LEFT)// && y < 15000 && y > -15000)
 			{
 				SetRotation(GetRotation() - (GetRotationRate() * fElapsedTime));
@@ -307,6 +308,7 @@ void CPlayer::Update(float fElapsedTime)
 				//tempdir = tempdir * GetSpeed();
 				SetDirection(tempdir);
 				Rotate(GetRotation());
+			}
 			}
 
 		}
@@ -331,7 +333,8 @@ void CPlayer::Update(float fElapsedTime)
 					SetSpeed(GetSpeed() - (GetAcceleration() * fElapsedTime));
 			}
 
-
+		if(GetTurnable())
+		{
 		if(m_pDI->KeyDown(tempkeys->GetLeft()))
 		{
 			
@@ -356,7 +359,7 @@ void CPlayer::Update(float fElapsedTime)
 			SetDirection(tempdir);
 			Rotate(GetRotation());
 		}
-		
+		}
 		if(m_pDI->KeyDown(tempkeys->GetShoot()))
 		{
 			float firerate;
@@ -501,6 +504,9 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 		if(distance11 <= (GetRadius() + tempcar->GetRadius()) || distance21 <= (GetRadius() + tempcar->GetRadius())
 			|| distance12 <= (GetRadius() + tempcar->GetRadius()) || distance22 <= (GetRadius() + tempcar->GetRadius()))
 		{
+
+			SetTurnable(false);
+			tempcar->SetTurnable(false);
 			tVector2D othervel = tempcar->GetOverallVelocity();
 			tVector2D currentvel = GetOverallVelocity();
 
