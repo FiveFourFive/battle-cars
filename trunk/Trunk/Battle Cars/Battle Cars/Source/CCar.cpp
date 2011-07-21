@@ -135,6 +135,7 @@ void CCar::Update(float fElapsedTime)
 		}
 	}
 	//SetDirection(tempdir);
+	Rotate(GetRotation());
 	SetVelX(m_tVelocity.fX + tempdir.fX);
 	SetVelY(m_tVelocity.fY + tempdir.fY);
 	m_tOverallVelocity = tempvel + tempdir;
@@ -260,6 +261,8 @@ void CCar::PlayBullet(void)
 bool CCar::CheckCollision(IBaseInterface* pBase)
 {
 	if(this == pBase)
+		return false;
+	if(pBase->GetType() == OBJECT_OBSTACLE || pBase->GetType() == OBJECT_BULLET)
 		return false;
 	if(pBase->GetType() == OBJECT_ENEMY || pBase->GetType() == OBJECT_PLAYER)
 	{

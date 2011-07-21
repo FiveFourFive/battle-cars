@@ -475,13 +475,22 @@ void CPlayer::Render(CCamera* camera)
 	temp_rect.top = LONG(GetPosY() - camera->GetCamY() + camera->GetRenderPosY());
 	temp_rect.right = temp_rect.left + 10;
 	temp_rect.bottom = temp_rect.top + 10;
-	pD3D->DrawRect(temp_rect, 128,128,128);
+	//pD3D->DrawRect(temp_rect, 128,128,128);
+
+		RECT center;
+	center.left = LONG(GetPosX() + GetWidth()/2);
+	center.top = LONG(GetPosY());
+	center.right = center.left + 10;
+	center.bottom = center.top + 10;
+	pD3D->DrawRect(center,0,0,0);
 }
 
 bool CPlayer::CheckCollision(IBaseInterface* pBase)
 {
 	RECT intersection;
 	if(pBase == this)
+		return false;
+	if(pBase->GetType() == OBJECT_OBSTACLE || pBase->GetType() == OBJECT_BULLET)
 		return false;
 	if(pBase->GetType() == OBJECT_ENEMY || pBase->GetType() == OBJECT_PLAYER)
 	{
@@ -614,16 +623,12 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 
 	if(IntersectRect(&intersection, &GetRect(), &pBase->GetRect()))
 	{
-		if(pBase->GetType() == OBJECT_BULLET)
-		{
-			return false;
-		}
-		else if(pBase->GetType() == OBJECT_SPEEDRAMP)
+		if(pBase->GetType() == OBJECT_SPEEDRAMP)
 		{
 			SetSpeed(0);
 			CSpeedRamp* tempramp = (CSpeedRamp*)pBase;
 			tVector2D myvel = GetVelocity();
-			tVector2D boostvel = (tempramp->GetVelDir() * (GetMaxSpeed() + 100) );
+			tVector2D boostvel = (tempramp->GetVelDir() * (GetMaxSpeed() + 50) );
 			myvel.fX = myvel.fX + boostvel.fX;
 			myvel.fY = myvel.fY + boostvel.fY;
 			SetVelocity(myvel);

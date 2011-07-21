@@ -169,6 +169,8 @@ bool CBoss::CheckCollision(IBaseInterface* pBase)
 {
 	if(this == pBase)
 		return false;
+	if(pBase->GetType() == OBJECT_OBSTACLE || pBase->GetType() == OBJECT_BULLET)
+		return false;
 	if(pBase->GetType() == OBJECT_ENEMY || pBase->GetType() == OBJECT_PLAYER || pBase->GetType() == OBJECT_BOSS)
 	{
 		CCar* tempcar = (CCar*)pBase;
@@ -245,7 +247,7 @@ bool CBoss::CheckCollision(IBaseInterface* pBase)
 		{
 			SetSpeed(0);
 			CSpeedRamp* tempramp = (CSpeedRamp*)pBase;
-			SetVelocity((tempramp->GetVelDir() * (GetMaxSpeed() + 200) ));
+			SetVelocity((tempramp->GetVelDir() * (GetMaxSpeed() + 50) ));
 			return true;
 		}
 	}
