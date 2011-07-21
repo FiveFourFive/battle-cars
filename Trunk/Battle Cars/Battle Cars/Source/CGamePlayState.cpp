@@ -214,7 +214,8 @@ void CGamePlayState::Enter(void)
 	dummy2->SetSpeed(0);
 	dummy2->SetType(OBJECT_ENEMY);
 	dummy2->SetKillCount(5);
-	dummy2->Rotate(0.0f);
+	dummy2->SetRotation(4.71f);
+	dummy2->Rotate(4.71f);
 
 	dummy->SetPowerUps(power_ups);
 	dummy->SetMaxSpeed(200.0f);

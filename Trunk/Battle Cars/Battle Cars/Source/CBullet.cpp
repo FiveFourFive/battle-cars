@@ -38,8 +38,8 @@ void CBullet::Update(float fElapsedTime)
 	{
 		if( trace_particle > -1)
 		{
-			pPM->GetEmittor(trace_particle)->SetTimeToDie(0.0f);
-			pPM->GetEmittor(trace_particle)->SetBase(NULL);
+			pPM->GetActiveEmittor(trace_particle)->SetTimeToDie(0.0f);
+			pPM->GetActiveEmittor(trace_particle)->SetBase(NULL);
 		}
 		CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
 	}
@@ -78,8 +78,8 @@ bool CBullet::CheckCollision(IBaseInterface* pBase)
 			CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
 			if( trace_particle > -1)
 			{
-				pPM->GetEmittor(trace_particle)->SetTimeToDie(0.0f);
-				pPM->GetEmittor(trace_particle)->SetBase(NULL);
+				pPM->GetActiveEmittor(trace_particle)->SetTimeToDie(0.0f);
+				pPM->GetActiveEmittor(trace_particle)->SetBase(NULL);
 			}
 			// handle what happens to player)
 			CEventSystem::GetInstance()->SendEvent("damage",pBase,this);
@@ -93,8 +93,8 @@ bool CBullet::CheckCollision(IBaseInterface* pBase)
 			CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
 			if( trace_particle > -1)
 			{
-				pPM->GetEmittor(trace_particle)->SetTimeToDie(0.0f);
-				pPM->GetEmittor(trace_particle)->SetBase(NULL);
+				pPM->GetActiveEmittor(trace_particle)->SetTimeToDie(0.0f);
+				pPM->GetActiveEmittor(trace_particle)->SetBase(NULL);
 			}
 			// handle what happens to enemy
 			CEventSystem::GetInstance()->SendEvent("damage",pBase,this);
