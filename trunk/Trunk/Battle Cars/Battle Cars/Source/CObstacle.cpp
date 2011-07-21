@@ -53,8 +53,8 @@ bool CObstacle::CheckCollision(IBaseInterface* pBase)
 			CObstacle* tempobs = (CObstacle*)pBase;
 			tVector2D hisvel = tempobs->GetVel();
 
-			myvel = (hisvel * 0.3f);
-			hisvel = (myvel * 0.3f);
+			myvel = (hisvel );
+			hisvel = (myvel );
 
 			SetVel(myvel);
 			tempobs->SetVel(hisvel);
