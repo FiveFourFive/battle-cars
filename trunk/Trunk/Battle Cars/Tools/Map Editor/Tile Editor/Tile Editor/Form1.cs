@@ -451,49 +451,45 @@ namespace Tile_Editor
                 {
                     if (List[Ypos, Xpos].Type != (TileType)(-1))
                     {
-                        if (List[Ypos, Xpos].Name == "CameraCollision" || List[Ypos, Xpos].Name == "WallCollision")
+                        if (List[Ypos, Xpos].Name == "CameraCollision")
                         {
-                            D3D.DrawLine(List[Ypos, Xpos].XYIndex.X * PixelSize.Width + PositionOffset.X, List[Ypos, Xpos].XYIndex.Y * PixelSize.Height + PositionOffset.Y,
-                                        List[Ypos, Xpos].XYIndex.X * PixelSize.Width + PositionOffset.X, (List[Ypos, Xpos].XYIndex.Y * PixelSize.Height) + PixelSize.Height + PositionOffset.Y, levelMap.CollisionColor.R, levelMap.CollisionColor.G, levelMap.CollisionColor.B); // left side
-
-                            D3D.DrawLine(List[Ypos, Xpos].XYIndex.X * PixelSize.Width + PositionOffset.X, List[Ypos, Xpos].XYIndex.Y * PixelSize.Height + PositionOffset.Y,
-                                        (List[Ypos, Xpos].XYIndex.X * PixelSize.Width) + PixelSize.Width + PositionOffset.X, List[Ypos, Xpos].XYIndex.Y * PixelSize.Height + PositionOffset.Y, levelMap.CollisionColor.R, levelMap.CollisionColor.G, levelMap.CollisionColor.B); // top side
-
-                            D3D.DrawLine((List[Ypos, Xpos].XYIndex.X + 1) * PixelSize.Width + PositionOffset.X, List[Ypos, Xpos].XYIndex.Y * PixelSize.Height + PositionOffset.Y,
-                                        (List[Ypos, Xpos].XYIndex.X + 1) * PixelSize.Width + PositionOffset.X, (List[Ypos, Xpos].XYIndex.Y + 1) * PixelSize.Height + PositionOffset.Y, levelMap.CollisionColor.R, levelMap.CollisionColor.G, levelMap.CollisionColor.B); //right side
-
-                            D3D.DrawLine(List[Ypos, Xpos].XYIndex.X * PixelSize.Width + PositionOffset.X, (List[Ypos, Xpos].XYIndex.Y + 1) * PixelSize.Height + PositionOffset.Y,
-                                        ((List[Ypos, Xpos].XYIndex.X) * PixelSize.Width) + PixelSize.Width + PositionOffset.X, (List[Ypos, Xpos].XYIndex.Y + 1) * PixelSize.Height + PositionOffset.Y, levelMap.CollisionColor.R, levelMap.CollisionColor.G, levelMap.CollisionColor.B); // bottom side
-
+                            levelMap.CollisionColor = Color.FromArgb(255, 0, 128, 0);
                         }
-                        else if (List[Ypos, Xpos].Name == "PlayerSpawn" || List[Ypos, Xpos].Name == "PowerUpSpawn" || List[Ypos, Xpos].Name == "SpeedRampSpawn" || List[Ypos, Xpos].Name == "ObsticleSpawn")
+                        else if (List[Ypos, Xpos].Name == "WallCollision")
                         {
-                            D3D.DrawLine(List[Ypos, Xpos].XYIndex.X * PixelSize.Width + PositionOffset.X, List[Ypos, Xpos].XYIndex.Y * PixelSize.Height + PositionOffset.Y,
-                                        List[Ypos, Xpos].XYIndex.X * PixelSize.Width + PositionOffset.X, (List[Ypos, Xpos].XYIndex.Y * PixelSize.Height) + PixelSize.Height + PositionOffset.Y, levelMap.SpawnColor.R, levelMap.SpawnColor.G, levelMap.SpawnColor.B); // left side
-
-                            D3D.DrawLine(List[Ypos, Xpos].XYIndex.X * PixelSize.Width + PositionOffset.X, List[Ypos, Xpos].XYIndex.Y * PixelSize.Height + PositionOffset.Y,
-                                        (List[Ypos, Xpos].XYIndex.X * PixelSize.Width) + PixelSize.Width + PositionOffset.X, List[Ypos, Xpos].XYIndex.Y * PixelSize.Height + PositionOffset.Y, levelMap.SpawnColor.R, levelMap.SpawnColor.G, levelMap.SpawnColor.B); // top side
-
-                            D3D.DrawLine((List[Ypos, Xpos].XYIndex.X + 1) * PixelSize.Width + PositionOffset.X, List[Ypos, Xpos].XYIndex.Y * PixelSize.Height + PositionOffset.Y,
-                                        (List[Ypos, Xpos].XYIndex.X + 1) * PixelSize.Width + PositionOffset.X, (List[Ypos, Xpos].XYIndex.Y + 1) * PixelSize.Height + PositionOffset.Y, levelMap.SpawnColor.R, levelMap.SpawnColor.G, levelMap.SpawnColor.B); //right side
-
-                            D3D.DrawLine(List[Ypos, Xpos].XYIndex.X * PixelSize.Width + PositionOffset.X, (List[Ypos, Xpos].XYIndex.Y + 1) * PixelSize.Height + PositionOffset.Y,
-                                        ((List[Ypos, Xpos].XYIndex.X) * PixelSize.Width) + PixelSize.Width + PositionOffset.X, (List[Ypos, Xpos].XYIndex.Y + 1) * PixelSize.Height + PositionOffset.Y, levelMap.SpawnColor.R, levelMap.SpawnColor.G, levelMap.SpawnColor.B); // bottom side
+                            levelMap.CollisionColor = Color.FromArgb(255, 0, 255, 0);
+                        }
+                        else if (List[Ypos, Xpos].Name == "PlayerSpawn")
+                        {
+                            levelMap.CollisionColor = Color.FromArgb(255, 0, 0, 255);
+                        }
+                        else if (List[Ypos, Xpos].Name == "PowerUpSpawn")
+                        {
+                            levelMap.CollisionColor = Color.FromArgb(255, 255, 0, 0);
+                        }
+                        else if (List[Ypos, Xpos].Name == "SpeedRampSpawn")
+                        {
+                            levelMap.CollisionColor = Color.FromArgb(255, 255, 128, 0);
+                        }
+                        else if (List[Ypos, Xpos].Name == "ObstacleSpawn")
+                        {
+                            levelMap.CollisionColor = Color.FromArgb(255, 0, 255, 255);
                         }
                         else
                         {
-                            D3D.DrawLine(List[Ypos, Xpos].XYIndex.X * PixelSize.Width + PositionOffset.X, List[Ypos, Xpos].XYIndex.Y * PixelSize.Height + PositionOffset.Y,
-                                                                    List[Ypos, Xpos].XYIndex.X * PixelSize.Width + PositionOffset.X, (List[Ypos, Xpos].XYIndex.Y * PixelSize.Height) + PixelSize.Height + PositionOffset.Y, levelMap.EventColor.R, levelMap.EventColor.G, levelMap.EventColor.B); // left side
-
-                            D3D.DrawLine(List[Ypos, Xpos].XYIndex.X * PixelSize.Width + PositionOffset.X, List[Ypos, Xpos].XYIndex.Y * PixelSize.Height + PositionOffset.Y,
-                                        (List[Ypos, Xpos].XYIndex.X * PixelSize.Width) + PixelSize.Width + PositionOffset.X, List[Ypos, Xpos].XYIndex.Y * PixelSize.Height + PositionOffset.Y, levelMap.EventColor.R, levelMap.EventColor.G, levelMap.EventColor.B); // top side
-
-                            D3D.DrawLine((List[Ypos, Xpos].XYIndex.X + 1) * PixelSize.Width + PositionOffset.X, List[Ypos, Xpos].XYIndex.Y * PixelSize.Height + PositionOffset.Y,
-                                        (List[Ypos, Xpos].XYIndex.X + 1) * PixelSize.Width + PositionOffset.X, (List[Ypos, Xpos].XYIndex.Y + 1) * PixelSize.Height + PositionOffset.Y, levelMap.EventColor.R, levelMap.EventColor.G, levelMap.EventColor.B); //right side
-
-                            D3D.DrawLine(List[Ypos, Xpos].XYIndex.X * PixelSize.Width + PositionOffset.X, (List[Ypos, Xpos].XYIndex.Y + 1) * PixelSize.Height + PositionOffset.Y,
-                                        ((List[Ypos, Xpos].XYIndex.X) * PixelSize.Width) + PixelSize.Width + PositionOffset.X, (List[Ypos, Xpos].XYIndex.Y + 1) * PixelSize.Height + PositionOffset.Y, levelMap.EventColor.R, levelMap.EventColor.G, levelMap.EventColor.B); // bottom side
+                            levelMap.CollisionColor = Color.FromArgb(255, 255, 255, 0);
                         }
+                        D3D.DrawLine(List[Ypos, Xpos].XYIndex.X * PixelSize.Width + PositionOffset.X, List[Ypos, Xpos].XYIndex.Y * PixelSize.Height + PositionOffset.Y,
+                                    List[Ypos, Xpos].XYIndex.X * PixelSize.Width + PositionOffset.X, (List[Ypos, Xpos].XYIndex.Y * PixelSize.Height) + PixelSize.Height + PositionOffset.Y, levelMap.CollisionColor.R, levelMap.CollisionColor.G, levelMap.CollisionColor.B); // left side
+
+                        D3D.DrawLine(List[Ypos, Xpos].XYIndex.X * PixelSize.Width + PositionOffset.X, List[Ypos, Xpos].XYIndex.Y * PixelSize.Height + PositionOffset.Y,
+                                    (List[Ypos, Xpos].XYIndex.X * PixelSize.Width) + PixelSize.Width + PositionOffset.X, List[Ypos, Xpos].XYIndex.Y * PixelSize.Height + PositionOffset.Y, levelMap.CollisionColor.R, levelMap.CollisionColor.G, levelMap.CollisionColor.B); // top side
+
+                        D3D.DrawLine((List[Ypos, Xpos].XYIndex.X + 1) * PixelSize.Width + PositionOffset.X, List[Ypos, Xpos].XYIndex.Y * PixelSize.Height + PositionOffset.Y,
+                                    (List[Ypos, Xpos].XYIndex.X + 1) * PixelSize.Width + PositionOffset.X, (List[Ypos, Xpos].XYIndex.Y + 1) * PixelSize.Height + PositionOffset.Y, levelMap.CollisionColor.R, levelMap.CollisionColor.G, levelMap.CollisionColor.B); //right side
+
+                        D3D.DrawLine(List[Ypos, Xpos].XYIndex.X * PixelSize.Width + PositionOffset.X, (List[Ypos, Xpos].XYIndex.Y + 1) * PixelSize.Height + PositionOffset.Y,
+                                    ((List[Ypos, Xpos].XYIndex.X) * PixelSize.Width) + PixelSize.Width + PositionOffset.X, (List[Ypos, Xpos].XYIndex.Y + 1) * PixelSize.Height + PositionOffset.Y, levelMap.CollisionColor.R, levelMap.CollisionColor.G, levelMap.CollisionColor.B); // bottom side
                     }
                 }
             }

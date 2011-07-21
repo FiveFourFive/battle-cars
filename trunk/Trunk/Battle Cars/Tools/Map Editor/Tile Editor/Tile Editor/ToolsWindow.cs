@@ -280,7 +280,7 @@ namespace Tile_Editor
                 PlayerSpawn.Checked = false;
                 PowerUpSpawn.Checked = false;
                 SpeedRampSpawn.Checked = false;
-                ObsticleSpawn.Checked = false;
+                ObstacleSpawn.Checked = false;
 
                 EventID.Text = "CameraCollision";
             }
@@ -296,7 +296,7 @@ namespace Tile_Editor
                 PlayerSpawn.Checked = false;
                 PowerUpSpawn.Checked = false;
                 SpeedRampSpawn.Checked = false;
-                ObsticleSpawn.Checked = false;
+                ObstacleSpawn.Checked = false;
 
                 EventID.Text = "WallCollision";
             }
@@ -312,7 +312,7 @@ namespace Tile_Editor
                 WCollision.Checked = false;
                 PowerUpSpawn.Checked = false;
                 SpeedRampSpawn.Checked = false;
-                ObsticleSpawn.Checked = false;
+                ObstacleSpawn.Checked = false;
 
                 EventID.Text = "PlayerSpawn";
             }
@@ -328,7 +328,7 @@ namespace Tile_Editor
                 WCollision.Checked = false;
                 PlayerSpawn.Checked = false;
                 SpeedRampSpawn.Checked = false;
-                ObsticleSpawn.Checked = false;
+                ObstacleSpawn.Checked = false;
 
                 EventID.Text = "PowerUpSpawn";
             }
@@ -336,9 +336,9 @@ namespace Tile_Editor
                 PowerUpSpawn.Checked = false;
         }
 
-        private void ObsticleSpawn_CheckedChanged(object sender, EventArgs e)
+        private void ObstacleSpawn_CheckedChanged_1(object sender, EventArgs e)
         {
-            if (ObsticleSpawn.Checked == true)
+            if (ObstacleSpawn.Checked == true)
             {
                 CCollision.Checked = false;
                 WCollision.Checked = false;
@@ -346,10 +346,10 @@ namespace Tile_Editor
                 SpeedRampSpawn.Checked = false;
                 PlayerSpawn.Checked = false;
 
-                EventID.Text = "ObsticleSpawn";
+                EventID.Text = "ObstacleSpawn";
             }
             else
-                ObsticleSpawn.Checked = false;
+                ObstacleSpawn.Checked = false;
         }
 
         private void SpeedRampSpawn_CheckedChanged_1(object sender, EventArgs e)
@@ -360,7 +360,7 @@ namespace Tile_Editor
                 WCollision.Checked = false;
                 PowerUpSpawn.Checked = false;
                 PlayerSpawn.Checked = false;
-                ObsticleSpawn.Checked = false;
+                ObstacleSpawn.Checked = false;
 
                 EventID.Text = "SpeedRampSpawn";
             }
@@ -376,5 +376,7 @@ namespace Tile_Editor
                 ToolClicked(this, EventArgs.Empty);
             }
         }
+
+       
     }
 }
