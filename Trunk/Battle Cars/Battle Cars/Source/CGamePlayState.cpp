@@ -563,7 +563,7 @@ void CGamePlayState::Enter(void)
 		player->GetCamera()->Update();
 	}
 
-	Level->RestSpawns ();
+	Level->ResetSpawns ();
 
 	//player->SetKillCount(55);
 }

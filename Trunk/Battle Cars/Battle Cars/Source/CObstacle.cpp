@@ -35,29 +35,29 @@ void CObstacle::Update(float fElapsedTime)
 	m_vCollisionVel.fY = m_vCollisionVel.fY - (m_vCollisionVel.fY * 0.05f);*/
 	if(m_vCollisionVel.fX > 0)
 	{
-		m_vCollisionVel.fX = m_vCollisionVel.fX - 0.05f;//(m_vCollisionVel.fX * 0.05f);
-		if(m_vCollisionVel.fX <= 1.0f)
-			m_vCollisionVel.fX = 0.0f;
+		m_vCollisionVel.fX = m_vCollisionVel.fX - 0.8f;//(m_vCollisionVel.fX * 0.05f);
+		
 	}
 	else if(m_vCollisionVel.fX < 0)
 	{
-		m_vCollisionVel.fX = m_vCollisionVel.fX + 0.05f;
-		if(m_vCollisionVel.fX >= -1.0f)
-			m_vCollisionVel.fX = 0.0f;
+		m_vCollisionVel.fX = m_vCollisionVel.fX + 0.8f;
+		
 	}
 	if(m_vCollisionVel.fY > 0)
 	{
-		m_vCollisionVel.fY =m_vCollisionVel.fY - 0.05f;//( m_vCollisionVel.fY * 0.05f);
-		if(m_vCollisionVel.fY <= 1.0f)
-			m_vCollisionVel.fY = 0.0f;
+		m_vCollisionVel.fY =m_vCollisionVel.fY - 0.8f;//( m_vCollisionVel.fY * 0.05f);
+		
 	}
 	else if(m_vCollisionVel.fY < 0)
 	{
-		m_vCollisionVel.fY = m_vCollisionVel.fY + 0.05f;
-		if(m_vCollisionVel.fY >= -1.0f)
-			m_vCollisionVel.fY = 0.0f;
+		m_vCollisionVel.fY = m_vCollisionVel.fY + 0.8f;
 
 	}
+	if(m_vCollisionVel.fX >= -1.0f && m_vCollisionVel.fX <= 1.0f)
+		m_vCollisionVel.fX = 0.0f;
+	if(m_vCollisionVel.fY >= -1.0f && m_vCollisionVel.fY <= 1.0f)
+		m_vCollisionVel.fY = 0.0f;
+
 	CLevel::GetInstance ()->CheckObstacleCollision (this);
 
 	InBounds();
@@ -182,25 +182,6 @@ bool CObstacle::CheckCollision(IBaseInterface* pBase)
 				CObstacle* tempobs = (CObstacle*)pBase;
 				tVector2D hisvel = tempobs->GetVel();
 
-				//tVector2D bounce = hisvel;
-				//
-				//SetPosX(GetPosX() + (bounce.fX * 0.01f * -1.0f));
-				//SetPosY(GetPosY() + (bounce.fY * 0.01f * -1.0f));
-
-			//bounce = myvel;
-
-			//tempobs->SetPosX(tempobs->GetPosX() + (bounce.fX * 0.01f * -1.0f));
-			//tempobs->SetPosY(tempobs->GetPosY() + (bounce.fY * 0.01f * -1.0f));
-			/*if(hisvel.fX > myvel.fX && hisvel.fY > myvel.fY)
-			{
-					myvel = (hisvel );
-					hisvel = (hisvel * -1.0f * 0.5f );
-			}
-			else
-			{
-					hisvel = (myvel );
-					myvel = (myvel * -1.0f * 0.5f );
-			}*/
 			float myfx = abs(myvel.fX);
 			float myfy = abs(myvel.fY);
 			float hisfx = abs(hisvel.fX);
@@ -220,7 +201,7 @@ bool CObstacle::CheckCollision(IBaseInterface* pBase)
 
 				return true;
 				}
-			}
+	
 			}
 		}
 
