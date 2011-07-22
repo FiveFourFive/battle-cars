@@ -184,42 +184,76 @@ void CGamePlayState::Enter(void)
 	bosses.push_back(miniboss);
 
 	dummy = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
-	PowerUp* power_up = new PowerUp();
-	power_up->SetPosX(1000.0f);
-	power_up->SetPosY(1000.0f);
-	power_up->SetType(OBJECT_POWERUP);
-	power_up->SetPowerType(HEALTH_POWERUP);
-	power_ups.push_back(power_up);
-	power_up = new PowerUp();
-	power_ups.push_back(power_up);
-	power_up = new PowerUp();
-	power_ups.push_back(power_up);
-	dummy2 = new CCar();
-	dummy->SetPosX(1200);
-	dummy->SetPosY(1200);
-	dummy->SetHealth(60.0f);
+	dummy->SetHealth(100.0f);
 	dummy->SetShieldBar(0.0f);
-	dummy->SetVelX(0);
-	dummy->SetVelY(0);
-	dummy->SetSpeed(0);
-	dummy->SetMaxHealth(100);
+	dummy->SetVelX(0.0f);
+	dummy->SetVelY(0.0f);
+	dummy->SetSpeed(0.0f);
+	dummy->SetMaxHealth(100.0f);
 	dummy->SetType(OBJECT_ENEMY);
-	dummy->SetKillCount(5);
+	dummy->SetKillCount(0);
 	dummy->Rotate(0.0f);
-	dummy2->SetPosX(450);
-	dummy2->SetPosY(325);
-	dummy2->SetHealth(100);
-	dummy2->SetVelX(0);
-	dummy2->SetVelY(0);
-	dummy2->SetSpeed(0);
-	dummy2->SetType(OBJECT_ENEMY);
-	dummy2->SetKillCount(5);
-	dummy2->SetRotation(4.71f);
-	dummy2->Rotate(4.71f);
-
 	dummy->SetPowerUps(power_ups);
 	dummy->SetMaxSpeed(200.0f);
 	dummy->EnterState ();
+
+	dummy2 = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
+	dummy2->SetHealth(100.0f);
+	dummy2->SetVelX(0.0f);
+	dummy2->SetVelY(0.0f);
+	dummy2->SetSpeed(0.0f);
+	dummy2->SetType(OBJECT_ENEMY);
+	dummy2->SetKillCount(0);
+	dummy2->SetRotation(4.71f);
+	dummy2->Rotate(4.71f);
+	dummy2->SetPowerUps (power_ups);
+	dummy2->SetMaxSpeed(200.0f);
+	dummy2->EnterState ();
+
+	dummy3 = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
+	dummy3->SetHealth(100.0f);
+	dummy3->SetVelX(0.0f);
+	dummy3->SetVelY(0.0f);
+	dummy3->SetSpeed(0.0f);
+	dummy3->SetType(OBJECT_ENEMY);
+	dummy3->SetKillCount(0);
+	dummy3->SetRotation(4.71f);
+	dummy3->Rotate(4.71f);
+	dummy3->SetPowerUps (power_ups);
+	dummy3->SetMaxSpeed(200.0f);
+	dummy3->EnterState ();
+
+	dummy4 = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
+	dummy4->SetHealth(100.0f);
+	dummy4->SetVelX(0.0f);
+	dummy4->SetVelY(0.0f);
+	dummy4->SetSpeed(0.0f);
+	dummy4->SetType(OBJECT_ENEMY);
+	dummy4->SetKillCount(0);
+	dummy4->SetRotation(4.71f);
+	dummy4->Rotate(4.71f);
+	dummy4->SetPowerUps (power_ups);
+	dummy4->SetMaxSpeed(200.0f);
+	dummy4->EnterState ();
+
+	dummy5 = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
+	dummy5->SetHealth(100.0f);
+	dummy5->SetVelX(0.0f);
+	dummy5->SetVelY(0.0f);
+	dummy5->SetSpeed(0.0f);
+	dummy5->SetType(OBJECT_ENEMY);
+	dummy5->SetKillCount(0);
+	dummy5->SetRotation(4.71f);
+	dummy5->Rotate(4.71f);
+	dummy5->SetPowerUps (power_ups);
+	dummy5->SetMaxSpeed(200.0f);
+	dummy5->EnterState ();
+
+	cars.push_back (dummy);
+	cars.push_back (dummy2);
+	cars.push_back (dummy3);
+	cars.push_back (dummy4);
+	cars.push_back (dummy5);
 
 	m_pD3D->Clear(0, 0, 0);
 	m_pD3D->DeviceBegin();
@@ -247,41 +281,38 @@ void CGamePlayState::Enter(void)
 	m_pD3D->DeviceEnd();
 	m_pD3D->Present();
 
-	CSpeedRamp* speedy = new CSpeedRamp();
-	CSpeedRamp* speedy2 = new CSpeedRamp();
-	speedy2->RotateVel(3.14f);
-	speedy2->SetPosX(775);
-	speedy->SetPosX(475);
-	speedy->RotateVel(0.0f);
-	speedy->SetImageID(m_pTM->LoadTexture("resource/graphics/speedramp.png"));
-	speedy2->SetImageID(m_pTM->LoadTexture("resource/graphics/speedramp.png"));
-	ramps.push_back(speedy2);
-	ramps.push_back(speedy);
-	dummy->SetSpeedRamps(ramps);
-	dummy->SetRotation (0);
-	//dummy->SetVelX(10);
+
+	player = CCharacterSelection::GetInstance()->GetPlayer1();
+	player->Rotate(0.0f);
+	player->SetPlayerNum(1);
+	player->SetType(OBJECT_PLAYER);
+	player->Rotate(0);
+	
+	cars.push_back (player);
+	//cars.push_back (miniboss);
+
 	if(!m_bCollectionChallenge)
 	{
 		//m_pOM->AddObject(miniboss);
-		m_pOM->AddObject(dummy2);
-		m_pOM->AddObject(ramps[0]);
-		m_pOM->AddObject(ramps[1]);
-		m_pOM->AddObject(dummy);
-		m_pOM->AddObject(power_ups[0]);
-		m_pOM->AddObject(power_ups[1]);
-		m_pOM->AddObject(power_ups[2]);
+		//m_pOM->AddObject(dummy2);
+		//m_pOM->AddObject(ramps[0]);
+		//m_pOM->AddObject(ramps[1]);
+		//m_pOM->AddObject(dummy);
+		//m_pOM->AddObject(power_ups[0]);
+		//m_pOM->AddObject(power_ups[1]);
+		//m_pOM->AddObject(power_ups[2]);
+
 		characters = CCharacterSelection::GetInstance()->GetList();
-		player = CCharacterSelection::GetInstance()->GetPlayer1();
+
 		if(CNumPlayers::GetInstance()->GetNumberOfPlayers() > 1)
 		{
 			player2 = CCharacterSelection::GetInstance()->GetPlayer2();
 			m_pOM->AddObject(player2);
-			player2->SetPosX(400);
 			player2->Rotate(0.0f);
 			player2->SetPosX(500);
 			player2->SetPosY(400);
-			player2->Rotate(0);
 			player2->SetController(m_pController2);
+			cars.push_back (player2);
 		}
 		else
 		{
@@ -289,51 +320,36 @@ void CGamePlayState::Enter(void)
 			while(player2index == CCharacterSelection::GetInstance()->GetPlayer1()->GetPlayerType())
 				player2index = rand()%4;
 			player2 = characters[player2index];
+
+			//cars.push_back (player2);
 		}
-		power_up = new PowerUp();
-		power_ups.push_back(power_up);
-		power_ups[3]->SetPosX(player->GetPosX() + 300 );
-		power_ups[3]->SetPosY(player->GetPosY() );
-		power_ups[3]->SetType(OBJECT_POWERUP);
-		power_ups[3]->SetPowerType(SHIELD_POWERUP);
-		m_pOM->AddObject(power_ups[3]);
-		power_ups[0]->SetImageID(m_pTM->LoadTexture("resource/graphics/healthup.png")); 
-		power_ups[1]->SetImageID(m_pTM->LoadTexture("resource/graphics/weaponup.png"));
-		power_ups[2]->SetImageID(m_pTM->LoadTexture("resource/graphics/specialup.png"));
-		power_ups[3]->SetImageID(m_pTM->LoadTexture("resource/graphics/armorup.png"));
+
+		//power_up = new PowerUp();
+		//power_ups.push_back(power_up);
+		//power_ups[3]->SetPosX(player->GetPosX() + 300 );
+		//power_ups[3]->SetPosY(player->GetPosY() );
+		//power_ups[3]->SetType(OBJECT_POWERUP);
+		//power_ups[3]->SetPowerType(SHIELD_POWERUP);
+		//m_pOM->AddObject(power_ups[3]);
+		//power_ups[0]->SetImageID(m_pTM->LoadTexture("resource/graphics/healthup.png")); 
+		//power_ups[1]->SetImageID(m_pTM->LoadTexture("resource/graphics/weaponup.png"));
+		//power_ups[2]->SetImageID(m_pTM->LoadTexture("resource/graphics/specialup.png"));
+		//power_ups[3]->SetImageID(m_pTM->LoadTexture("resource/graphics/armorup.png"));
 	}
-	else
-	{
-		player = CCharacterSelection::GetInstance()->GetPlayer1();
-	}
-	player = CCharacterSelection::GetInstance()->GetPlayer1();
-	player->Rotate(0.0f);
-	
-	player->SetPlayerNum(1);
-	player->SetType(OBJECT_PLAYER);
-	player->Rotate(0);
-	
+
+	//m_pOM->AddObject(player);
 
 
+	//power_ups[1]->SetPosX(player->GetPosX() + 200);
+	//power_ups[1]->SetPosY(player->GetPosY() + 200);
+	//power_ups[1]->SetType(OBJECT_POWERUP);
+	//power_ups[1]->SetPowerType(WEAPONS_POWERUP);
 
-	player->SetPosX(400);
-	player->SetPosY(400);
-	m_pOM->AddObject(player);
+	//power_ups[2]->SetPosX(player->GetPosX() + 400);
+	//power_ups[2]->SetPosY(player->GetPosY() + 400);
+	//power_ups[2]->SetType(OBJECT_POWERUP);
+	//power_ups[2]->SetPowerType(SPECIAL_POWERUP);
 
-
-	power_ups[1]->SetPosX(player->GetPosX() + 200);
-	power_ups[1]->SetPosY(player->GetPosY() + 200);
-	power_ups[1]->SetType(OBJECT_POWERUP);
-	power_ups[1]->SetPowerType(WEAPONS_POWERUP);
-
-	power_ups[2]->SetPosX(player->GetPosX() + 400);
-	power_ups[2]->SetPosY(player->GetPosY() + 400);
-	power_ups[2]->SetType(OBJECT_POWERUP);
-	power_ups[2]->SetPowerType(SPECIAL_POWERUP);
-
-	
-
-	
 	
 	m_bCountDown = false;
 	m_fEnlarge = 0.0f;
@@ -347,8 +363,6 @@ void CGamePlayState::Enter(void)
 	m_fCountDown = 0.0f;
 	m_nCollectableTotalComputer = 0;
 	m_nCollectableTotalPlayer = 0;
-
-	Level->SetCarSpawn (player2);
 
 	m_pD3D->Clear(0, 0, 0);
 	m_pD3D->DeviceBegin();
@@ -401,75 +415,67 @@ void CGamePlayState::Enter(void)
 	m_nCrateID = m_pTM->LoadTexture("resource/graphics/crate.png");
 	m_nBarrelID = m_pTM->LoadTexture("resource/graphics/steeldrum.png");
 
+	//crate1 = new CObstacle();
+	//crate2 = new CObstacle();
+	//crate3 = new CObstacle();
+	//crate1->SetImageID(m_nCrateID);
+	//crate1->SetWidth(10);
+	//crate1->SetHeight(10);
+	//crate1->SetPosX(400);
+	//crate1->SetPosY(100);
+	//crate2->SetImageID(m_nCrateID);
+	//crate2->SetWidth(10);
+	//crate2->SetHeight(10);
+	//crate2->SetPosX(23);
+	//crate2->SetPosY(45);
+	//crate3->SetImageID(m_nCrateID);
+	//crate3->SetWidth(10);
+	//crate3->SetHeight(10);
+	//crate3->SetPosX(200);
+	//crate3->SetPosY(700);
+	//crate1->SetType(OBJECT_OBSTACLE);
+	//crate2->SetType(OBJECT_OBSTACLE);
+	//crate3->SetType(OBJECT_OBSTACLE);
 
-	crate1 = new CObstacle();
-	crate2 = new CObstacle();
-	crate3 = new CObstacle();
-	crate1->SetImageID(m_nCrateID);
-	crate1->SetWidth(10);
-	crate1->SetHeight(10);
-	crate1->SetPosX(400);
-	crate1->SetPosY(100);
-	crate2->SetImageID(m_nCrateID);
-	crate2->SetWidth(10);
-	crate2->SetHeight(10);
-	crate2->SetPosX(23);
-	crate2->SetPosY(45);
-	crate3->SetImageID(m_nCrateID);
-	crate3->SetWidth(10);
-	crate3->SetHeight(10);
-	crate3->SetPosX(200);
-	crate3->SetPosY(700);
-	crate1->SetType(OBJECT_OBSTACLE);
-	crate2->SetType(OBJECT_OBSTACLE);
-	crate3->SetType(OBJECT_OBSTACLE);
+	//barrel1 = new CObstacle();
+	//barrel2 = new CObstacle();
+	//barrel1->SetImageID(m_nBarrelID);
+	//barrel1->SetWidth(8);
+	//barrel1->SetHeight(8);
+	//barrel1->SetPosX(350);
+	//barrel1->SetPosY(340);
+	//barrel2->SetImageID(m_nBarrelID);
+	//barrel2->SetWidth(8);
+	//barrel2->SetHeight(8);
+	//barrel2->SetPosX(800);
+	//barrel2->SetPosY(399);
+	//barrel1->SetType(OBJECT_OBSTACLE);
+	//barrel2->SetType(OBJECT_OBSTACLE);
 
-	barrel1 = new CObstacle();
-	barrel2 = new CObstacle();
-	barrel1->SetImageID(m_nBarrelID);
-	barrel1->SetWidth(8);
-	barrel1->SetHeight(8);
-	barrel1->SetPosX(350);
-	barrel1->SetPosY(340);
-	barrel2->SetImageID(m_nBarrelID);
-	barrel2->SetWidth(8);
-	barrel2->SetHeight(8);
-	barrel2->SetPosX(800);
-	barrel2->SetPosY(399);
-	barrel1->SetType(OBJECT_OBSTACLE);
-	barrel2->SetType(OBJECT_OBSTACLE);
+	//Level->SetCarSpawn (this->dummy);
+	//Level->SetCarSpawn (this->dummy2);
 
-	Level->SetCarSpawn (this->player);
+	//for (int i = 0; i < this->power_ups.size (); i++)
+	//{
+	//	Level->SetPowerUpSpawn (power_ups[i]);
+	//}
 
-	Level->SetCarSpawn (this->dummy);
-	Level->SetCarSpawn (this->dummy2);
+	//for (int i = 0; i < this->ramps.size (); i++)
+	//{
+	//	Level->SetSpeedRampSpawn (ramps[i]);
+	//}
 
-	if (this->player2 != NULL)
-	{
-		Level->SetCarSpawn (this->player2);
-	}
+	//Level->SetObstacleSpawn (crate1);
+	//Level->SetObstacleSpawn (crate2);
+	//Level->SetObstacleSpawn (crate3);
+	//Level->SetObstacleSpawn (barrel1);
+	//Level->SetObstacleSpawn (barrel2);
 
-	for (unsigned int i = 0; i < this->power_ups.size (); i++)
-	{
-		Level->SetPowerUpSpawn (power_ups[i]);
-	}
-
-	for (unsigned int i = 0; i < this->ramps.size (); i++)
-	{
-		Level->SetSpeedRampSpawn (ramps[i]);
-	}
-
-	Level->SetObstacleSpawn (crate1);
-	Level->SetObstacleSpawn (crate2);
-	Level->SetObstacleSpawn (crate3);
-	Level->SetObstacleSpawn (barrel1);
-	Level->SetObstacleSpawn (barrel2);
-
-	m_pOM->AddObject(crate1);
-	m_pOM->AddObject(crate2);
-	m_pOM->AddObject(crate3);
-	m_pOM->AddObject(barrel1);
-	m_pOM->AddObject(barrel2);
+	//m_pOM->AddObject(crate1);
+	//m_pOM->AddObject(crate2);
+	//m_pOM->AddObject(crate3);
+	//m_pOM->AddObject(barrel1);
+	//m_pOM->AddObject(barrel2);
 
 	//// game obstacles /////
 
@@ -503,55 +509,100 @@ void CGamePlayState::Enter(void)
 	else
 		collectionChallengeBoss = NULL;
 
-	player->SetKillCount(55);
+	
+	Level->SetCarSpawn (cars);
+	obstacles = Level->SetObstacleSpawn ();
+	ramps = Level->SetSpeedRampSpawn ();
+	power_ups = Level->SetPowerUpSpawn ();
+
+	player->GetCamera ()->Update ();
+
+	if (player2!=NULL)
+	{
+		player2->GetCamera ()->Update ();
+	}
+
+	dummy->SetSpeedRamps(ramps);
+	dummy->SetRotation (0);
+
+	Level->RestSpawns ();
+
+	//player->SetKillCount(55);
 }
 
 void CGamePlayState::Exit(void)
 {
-	barrel1->Release();
-	barrel2->Release();
-	crate1->Release();
-	crate2->Release();
-	crate3->Release();
+	//barrel1->Release();
+	//barrel2->Release();
+	//crate1->Release();
+	//crate2->Release();
+	//crate3->Release();
+
 	m_pFM->UnloadSound(m_nBackgroundMusicID);
 	m_pFM->UnloadSound(m_nCountDown);
 	m_pFM->UnloadSound(m_nCountDownEnd);
+
 	for(unsigned int i = 0; i < collectables.size(); i++)
 	{
 		collectables[i]->Release();
 	}
 	collectables.clear();
+
 	for(unsigned int i = 0; i < characters.size(); i++)
 	{
 		if(characters[i]->GetPlayerNum() == 1)
 			CGame::GetInstance()->SetScore(characters[i]->GetKillCount());
 		characters[i]->Release();
 	}
+	characters.clear ();
+
 	dummy->Release();
+	dummy2->Release();
+	dummy3->Release();
+	dummy4->Release();
+	dummy5->Release();
+
+	/*for(unsigned int i = 0; i < cars.size(); i++)
+	{
+		cars[i]->Release();
+	}
+	cars.clear();*/
+
 	for(unsigned int i = 0; i < bosses.size(); i++)
 	{
 		bosses[i]->Release();
 	}
 	bosses.clear();
+
+	for(unsigned int i = 0; i < obstacles.size(); i++)
+	{
+		obstacles[i]->Release();
+	}
+	obstacles.clear();
+
 	for(unsigned int i = 0; i < ramps.size(); i++)
 	{
 		ramps[i]->Release();
 	}
 	ramps.clear();
-	dummy2->Release();
-	if(collectionChallengeBoss)
-	{
-		collectionChallengeBoss->Release();
-		collectionChallengeBoss = NULL;
-	}
-	m_pPM->ShutDownParticleManager();
-	m_pPM = NULL;
-	m_lScores.clear();
+
 	for(unsigned int i = 0; i < power_ups.size(); i++)
 	{
 		power_ups[i]->Release();
 	}
 	power_ups.clear();
+
+	//dummy2->Release();
+	if(collectionChallengeBoss)
+	{
+		collectionChallengeBoss->Release();
+		collectionChallengeBoss = NULL;
+	}
+
+	m_pPM->ShutDownParticleManager();
+	m_pPM = NULL;
+	m_lScores.clear();
+
 	m_pTM->UnloadTexture(m_nMiniMapOverlayIndex);
 	m_pTM->UnloadTexture(m_nMiniMapMiddlelayIndex);
 	m_pTM->UnloadTexture(m_nMiniMapUnderlayIndex);

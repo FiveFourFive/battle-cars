@@ -182,6 +182,54 @@ bool CMap::LoadEvents (const char* filename)
 			if (type != -1)
 			{
 				c.SetName (pTile->GetText ());
+
+				std::string IDstring = "NULL";
+
+				IDstring = pTile->Attribute ("ID");
+				
+				if (IDstring != "NULL")
+				{
+					if (IDstring == "Crate")
+					{
+						c.SetID (1);
+					}else
+					if (IDstring == "Barrel")
+					{
+						c.SetID (2);
+					}else
+					if (IDstring == "Special")
+					{
+						c.SetID (3);
+					}else
+					if (IDstring == "Weapon")
+					{
+						c.SetID (4);
+					}else
+					if (IDstring == "Health")
+					{
+						c.SetID (5);
+					}else
+					if (IDstring == "Shield")
+					{
+						c.SetID (6);
+					}else
+					if (IDstring == "Up")
+					{
+						c.SetID (7);
+					}else
+					if (IDstring == "Down")
+					{
+						c.SetID (8);
+					}else
+					if (IDstring == "Left")
+					{
+						c.SetID (9);
+					}else
+					if (IDstring == "Right")
+					{
+						c.SetID (10);
+					}
+				}
 			}
 
 			m_pEvents[ypos][xpos] = c;

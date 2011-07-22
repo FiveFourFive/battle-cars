@@ -17,6 +17,7 @@
 #include "CAttackState.h"
 #include "CNumPlayers.h"
 #include "CCharacterSelection.h"
+#include "CCar.h"
 
 
 CWanderState::CWanderState(const CWanderState&)

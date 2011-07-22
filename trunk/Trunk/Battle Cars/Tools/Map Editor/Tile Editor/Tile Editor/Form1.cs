@@ -109,6 +109,7 @@ namespace Tile_Editor
                     levelMap.EventList[Ypos, Xpos].XYIndex = new Point(Xpos, Ypos);
 
                     levelMap.EventList[Ypos, Xpos].Name = "NULL";
+                    levelMap.EventList[Ypos, Xpos].ID = "NULL";
                 }
             }
 
@@ -445,9 +446,9 @@ namespace Tile_Editor
             if (YEnd >= levelMap.MapSize.Height)
                 YEnd = levelMap.MapSize.Height;
 
-            for (int Ypos = YBegin; Ypos < YEnd; Ypos++)
+            for (int Ypos = 0; Ypos < 200; Ypos++)
             {
-                for (int Xpos = XBegin; Xpos < XEnd; Xpos++)
+                for (int Xpos = 0; Xpos < 200; Xpos++)
                 {
                     if (List[Ypos, Xpos].Type != (TileType)(-1))
                     {
@@ -552,10 +553,12 @@ namespace Tile_Editor
                 if (toolsWindow != null)
                 {
                     levelMap.EventList[Pos.Y, Pos.X].Name = toolsWindow.EventIDName;
+                    levelMap.EventList[Pos.Y, Pos.X].ID = toolsWindow.ID;
                 }
                 else
                 {
                     levelMap.EventList[Pos.Y, Pos.X].Name = "NULL";
+                    levelMap.EventList[Pos.Y, Pos.X].ID = "NULL";
                 }
 
                 levelMap.EventList[Pos.Y, Pos.X].Type = (TileType)(((levelMap.TileSize.Height) * levelMap.TileSize.Width + levelMap.TileSize.Width) + TileType.TYPE_EVENT);
@@ -629,10 +632,12 @@ namespace Tile_Editor
                     if (toolsWindow != null)
                     {
                         levelMap.EventList[Pos.Y, Pos.X].Name = toolsWindow.EventIDName;
+                        levelMap.EventList[Pos.Y, Pos.X].ID = toolsWindow.ID;
                     }
                     else
                     {
                         levelMap.EventList[Pos.Y, Pos.X].Name = "NULL";
+                        levelMap.EventList[Pos.Y, Pos.X].ID = "NULL";
                     }
                     levelMap.EventList[Pos.Y, Pos.X].Type = (TileType)(((levelMap.TileSize.Height) * levelMap.TileSize.Width + levelMap.TileSize.Width) + TileType.TYPE_EVENT);
                 }
@@ -793,6 +798,7 @@ namespace Tile_Editor
                         tile.Type = (TileType)(-1);
                         tile.XYIndex = new Point(Xpos, Ypos);
                         tile.Name = "NULL";
+                        tile.ID = "NULL";
                         levelMap.EventList[Ypos, Xpos] = tile;
                     }
                 }
@@ -993,6 +999,12 @@ namespace Tile_Editor
                          if (xType != null)
                          {
                              tile.Type = (TileType)(int.Parse(xType.Value));
+                             XAttribute xID = e.Attribute("ID");
+                             if (xID != null)
+                                 tile.ID = xID.Value;
+                             else
+                                 tile.ID = "NULL";
+
                              levelMap.EventList[tile.XYIndex.Y, tile.XYIndex.X] = tile;
                          }
                     }
@@ -1111,6 +1123,9 @@ namespace Tile_Editor
                     {
                         XElement xTile = new XElement("Event", e.Name);
                         xEvents.Add(xTile);
+
+                        XAttribute xID = new XAttribute("ID", e.ID);
+                        xTile.Add(xID);
 
                         XAttribute xIndexX = new XAttribute("XPos", e.XYIndex.X);
                         xTile.Add(xIndexX);

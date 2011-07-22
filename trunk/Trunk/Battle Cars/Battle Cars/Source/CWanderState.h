@@ -18,6 +18,7 @@
 #include "CSpeedRamp.h"
 class CEnemy;
 class CPlayer;
+class CCar;
 
 class CWanderState : public IAIBaseState
 {
@@ -51,8 +52,8 @@ private:
 	float m_fturnLeftOrRight;
 	tVector2D m_vTargetWanderDirection;
 	CEnemy* m_Owner;
-	CPlayer* m_Target1;
-	CPlayer* m_Target2;
+	CCar* m_Target1;
+	CCar* m_Target2;
 	PowerUp* m_PowerUpTarget;
 	CSpeedRamp* m_SpeedRampTarget;
 	float m_fAggroRadius;
@@ -76,10 +77,10 @@ public:
 	void Enter ();
 	void Exit ();
 	void SetOwner (CEnemy* owner) {m_Owner = owner;}
-	void SetTarget1(CPlayer* pTarget) {m_Target1 = pTarget;}
-	void SetTarget2(CPlayer* pTarget) {m_Target2 = pTarget;}
-	CPlayer* GetTarget1() {return m_Target1;}
-	CPlayer* GetTarget2() {return m_Target2;}
+	void SetTarget1(CCar* pTarget) {m_Target1 = pTarget;}
+	void SetTarget2(CCar* pTarget) {m_Target2 = pTarget;}
+	CCar* GetTarget1() {return m_Target1;}
+	CCar* GetTarget2() {return m_Target2;}
 	
 };
 

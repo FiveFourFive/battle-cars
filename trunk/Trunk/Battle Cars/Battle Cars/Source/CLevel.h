@@ -12,12 +12,18 @@
 #define _CLEVEL_H_
 
 #include <Windows.h>
+#include <vector>
+using namespace std;
+
 class CSGD_TextureManager;
 class CSGD_Direct3D;
 class CMap;
 class CBase;
 class CEventSystem;
 class CCamera;
+class PowerUp;
+class CObstacle;
+class CSpeedRamp;
 
 class CLevel
 {
@@ -46,11 +52,13 @@ public:
 	bool CheckEnemyCollision (CBase* pBase);
 	bool CheckObstacleCollision (CBase* pBase);
 
-	void SetCarSpawn (CBase* pBase);
-	void SetSpeedRampSpawn (CBase* pBase);
-	void SetPowerUpSpawn (CBase* pBase);
-	void SetObstacleSpawn (CBase* pBase);
-	
+	void SetCarSpawn (vector<CBase*> pBases);
+	vector<CSpeedRamp*> SetSpeedRampSpawn ();
+	vector<PowerUp*> SetPowerUpSpawn ();
+	vector<CObstacle*> SetObstacleSpawn ();
+
+	void RestSpawns ();
+
 	CMap* GetMap(void) { return LevelMap; }
 };
 

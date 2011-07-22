@@ -72,6 +72,7 @@
             this.ClientSize = new System.Drawing.Size(442, 363);
             this.Controls.Add(this.TilePanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.MinimizeBox = false;
             this.Name = "TileWindow";
             this.Text = "Tile Window";
             this.TilePanel.ResumeLayout(false);
