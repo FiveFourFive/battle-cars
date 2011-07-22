@@ -150,6 +150,8 @@ public:
 	static void MessageProc(CBaseMessage* pMsg);
 	//Accessors
 	vector<CPlayer*> GetCharacters() {return characters;}
+	vector<CBase*> GetCars () {return cars;}
+
 	CPlayer* GetPlayer1() {return player;}
 	CPlayer* GetPlayer2() {return player2;}
 	CObjectManager* GetObjectManager() {return m_pOM;}

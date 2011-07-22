@@ -25,9 +25,15 @@ CEnemy::CEnemy(CXboxInput* pController) : CPlayer(pController)
 
 	m_pES->RegisterClient ("CameraCollision", this);
 
-	m_AICurrentState = CWanderState::GetInstance();
+	m_WanderState = new CWanderState();
+	m_FleeState = new CFleeState();
+	m_AttackState = new CAttackState();
+	m_CollectState = new CCollectState();
+
+	m_AICurrentState = m_WanderState;
 
 	m_AICurrentState->SetOwner (this);
+
 	EnterState();
 	m_fViewRadius = 30.0f;
 
@@ -44,6 +50,11 @@ CEnemy::CEnemy(CXboxInput* pController) : CPlayer(pController)
 CEnemy::~CEnemy()
 {
 	CEventSystem::GetInstance()->UnregisterClient("collision", this);
+
+	delete	m_WanderState;
+	delete m_FleeState;
+	delete m_AttackState;
+	delete m_CollectState;
 }
 
 void CEnemy::EnterState ()

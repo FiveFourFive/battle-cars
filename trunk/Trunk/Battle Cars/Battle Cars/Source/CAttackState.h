@@ -30,13 +30,13 @@ private:
 	bool StillThreat(void);
 	bool Damaged(void);
 
-	CAttackState(void){};
-	~CAttackState(void){};
 	CAttackState(const CAttackState&);
 	CAttackState& operator = (const CAttackState&);
 
 public:
-	static CAttackState* GetInstance ();
+
+	CAttackState(void){};
+	~CAttackState(void){};
 
 	void Update (float fElapsedTime);
 	void Render ();

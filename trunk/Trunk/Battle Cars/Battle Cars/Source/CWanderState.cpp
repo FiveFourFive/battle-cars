@@ -18,6 +18,7 @@
 #include "CNumPlayers.h"
 #include "CCharacterSelection.h"
 #include "CCar.h"
+#include "CGamePlayState.h"
 
 
 CWanderState::CWanderState(const CWanderState&)
@@ -30,19 +31,16 @@ CWanderState& CWanderState::operator=(const CWanderState&)
 	return *this;
 }
 
-CWanderState* CWanderState::GetInstance()
-{
-	static CWanderState instance;
-	return &instance;
-}
-
 void CWanderState::Update (float fElapsedTime)
 {
-	m_Owner->SetSpeed (m_Owner->GetSpeed () + 02.0f);
-
-	if (m_Owner->GetSpeed () > 150.0f)
+	if (m_Owner)
 	{
-		m_Owner->SetSpeed (150.0f);
+		m_Owner->SetSpeed (m_Owner->GetSpeed () + 02.0f);
+
+		if (m_Owner->GetSpeed () > 150.0f)
+		{
+			m_Owner->SetSpeed (150.0f);
+		}
 	}
 
 
@@ -180,7 +178,7 @@ void CWanderState::Update (float fElapsedTime)
 	//Try to find threats
 	if(FindThreat())
 	{
-		m_Owner->ChangeState(CAttackState::GetInstance());
+		m_Owner->ChangeState(m_Owner->GetAttackState());
 		m_PowerUpTarget = NULL;
 		m_SpeedRampTarget = NULL;
 	}
@@ -215,7 +213,7 @@ void CWanderState::Enter ()
 	m_vDirectionCenter.fX = m_vMainCenter.fX;
 	m_vDirectionCenter.fY = (m_vMainCenter.fY - m_fMainCircleRadius);
 	m_nCounter = 1;*/
-	if(CNumPlayers::GetInstance()->GetNumberOfPlayers() > 1)
+	/*if(CNumPlayers::GetInstance()->GetNumberOfPlayers() > 1)
 	{
 		m_Target1 = CCharacterSelection::GetInstance()->GetPlayer1();
 		m_Target2 = CCharacterSelection::GetInstance()->GetPlayer2();
@@ -224,7 +222,9 @@ void CWanderState::Enter ()
 	{
 		m_Target1 = CCharacterSelection::GetInstance()->GetPlayer1();
 		m_Target2 = NULL;
-	}
+	}*/
+
+	m_Target1 = NULL;
 	m_PowerUpTarget = NULL;
 	m_SpeedRampTarget = NULL;
 	m_bHasTargets = false;
@@ -243,80 +243,53 @@ void CWanderState::Exit ()
 
 bool CWanderState::FindThreat()
 {
-	//if (CLevel::GetInstance ()->CheckEnemyCollision (m_Owner))
+	if (m_Owner)
+	{
+		std::vector <CBase*> cars = CGamePlayState::GetInstance ()->GetCars ();
+
+		for (int index = 0; index < cars.size (); index++)
+		{
+			tVector2D target1Distance, target2Distance;
+			m_Target1 = (CCar*)cars[index];
+
+			if (m_Owner != m_Target1)
+			{
+				if(m_Target1)
+				{
+					target1Distance.fX = (m_Target1->GetPosX()-(m_Owner->GetPosX()));
+					target1Distance.fY = (m_Target1->GetPosY()-(m_Owner->GetPosY()));
+				}
+
+				if(Vector2DLength(target1Distance) <= m_fAggroRadius)
+				{
+					m_Owner->GetAttackState ()->SetTarget(m_Target1);
+					return true;
+				}
+				else
+					return false;
+			}
+		}
+	}
+	//if(m_Target2)
 	//{
-	//	/*m_rtPredictMove.left = m_vPredictMove1.fX;
-	//	m_rtPredictMove.top = m_vPredictMove1.fY;
-
-	//	m_rtPredictMove.right = m_vPredictMove3.fX;
-	//	m_rtPredictMove.bottom = m_vPredictMove2.fY;*/
-
-	//	for (int i = 0; i < m_Owner->GetCollisionRects ().size (); i++)
+	//	target2Distance.fX = (m_Target2->GetPosX()-(m_Owner->GetPosX()));
+	//	target2Distance.fY = (m_Target2->GetPosY()-(m_Owner->GetPosY()));
+	//
+	//	if(Vector2DLength(target1Distance) <= m_fAggroRadius || Vector2DLength(target2Distance) <= m_fAggroRadius)
 	//	{
-	//		RECT intersection;
-	//		float distance;
-
-	//		//if (IntersectRect(&intersection, &m_Owner->GetCollisionRects ()[i], &m_rtPredictMove))
-	//		{
-	//			//find new distance
-	//			RECT ownerTemp = m_Owner->GetRect ();
-
-	//			ownerTemp.left = ownerTemp.right / 2;
-	//			ownerTemp.top = ownerTemp.bottom / 2;
-
-	//			RECT collisionTemp = m_Owner->GetCollisionRects ()[i];
-
-	//			collisionTemp.left = collisionTemp.right / 2;
-	//			collisionTemp.top = collisionTemp.bottom / 2;
-
-	//			distance = sqrt ((float)((collisionTemp.left - ownerTemp.left) * (collisionTemp.left - ownerTemp.left)) + ((collisionTemp.right - ownerTemp.right) * (collisionTemp.right - ownerTemp.right)));
-
-	//			/*if (m_nThreatDistance == 0)
-	//			{
-	//				m_nThreatDistance = distance;
-
-	//			}else if (m_nThreatDistance > distance)
-	//			{
-	//				m_nThreatDistance = distance;
-	//			}*/
-	//		}
+	//		if(Vector2DLength(target1Distance) <= Vector2DLength(target2Distance))
+	//			m_Owner->GetAttackState ()->SetTarget(m_Target1);
+	//		else
+	//			m_Owner->GetAttackState ()->SetTarget(m_Target2);
+	//		return true;
 	//	}
-	//	return true;
+	//	else
+	//		return false;
 	//}
-
-
-	tVector2D target1Distance, target2Distance;
-	if(m_Target1)
-	{
-		target1Distance.fX = (m_Target1->GetPosX()-(m_Owner->GetPosX()));
-		target1Distance.fY = (m_Target1->GetPosY()-(m_Owner->GetPosY()));
-	}
-	if(m_Target2)
-	{
-		target2Distance.fX = (m_Target2->GetPosX()-(m_Owner->GetPosX()));
-		target2Distance.fY = (m_Target2->GetPosY()-(m_Owner->GetPosY()));
-	
-		if(Vector2DLength(target1Distance) <= m_fAggroRadius || Vector2DLength(target2Distance) <= m_fAggroRadius)
-		{
-			if(Vector2DLength(target1Distance) <= Vector2DLength(target2Distance))
-				CAttackState::GetInstance()->SetTarget(m_Target1);
-			else
-				CAttackState::GetInstance()->SetTarget(m_Target2);
-			return true;
-		}
-		else
-			return false;
-	}
-	else 
-	{
-		if(Vector2DLength(target1Distance) <= m_fAggroRadius)
-		{
-			CAttackState::GetInstance()->SetTarget(m_Target1);
-			return true;
-		}
-		else
-			return false;
-	}
+	//else 
+	//{
+		
+	//}
 
 }
 

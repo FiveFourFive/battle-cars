@@ -505,7 +505,7 @@ void CGamePlayState::Enter(void)
 		collectionChallengeBoss->SetHealth(150.0f);
 		collectionChallengeBoss->SetMaxHealth(150.0f);
 		collectionChallengeBoss->SetCarId(m_pTM->LoadTexture("resource/graphics/BattleCars_MiniBossPlaceHolder.png"));
-		collectionChallengeBoss->ChangeState(CCollectState::GetInstance());
+		collectionChallengeBoss->ChangeState(collectionChallengeBoss->GetCollectState ());
 	}
 	else
 		collectionChallengeBoss = NULL;
@@ -516,15 +516,37 @@ void CGamePlayState::Enter(void)
 	ramps = Level->SetSpeedRampSpawn ();
 	power_ups = Level->SetPowerUpSpawn ();
 
+	dummy->SetSpeedRamps(ramps);
+	dummy->SetRotation (0);
+
+	if( COptionState::GetInstance()->IsVertical())
+		player->GetCamera ()->AttachTo(player,CGame::GetInstance()->GetScreenWidth()*0.25f,CGame::GetInstance()->GetScreenHeight()*0.5f);
+	else
+		player->GetCamera ()->AttachTo(player,CGame::GetInstance()->GetScreenWidth()*0.5f, CGame::GetInstance()->GetScreenHeight()*0.25f);
+
 	player->GetCamera ()->Update ();
 
-	if (player2!=NULL)
+	if (player2)
 	{
+		if( COptionState::GetInstance()->IsVertical())
+			player2->GetCamera ()->AttachTo(player2,CGame::GetInstance()->GetScreenWidth()*0.25f,CGame::GetInstance()->GetScreenHeight()*0.5f);
+		else
+			player2->GetCamera ()->AttachTo(player2,CGame::GetInstance()->GetScreenWidth()*0.5f, CGame::GetInstance()->GetScreenHeight()*0.25f);
+
 		player2->GetCamera ()->Update ();
 	}
 
-	dummy->SetSpeedRamps(ramps);
-	dummy->SetRotation (0);
+
+
+	//if( CNumPlayers::GetInstance()->GetNumberOfPlayers() == 2)
+	//{
+	//	if( COptionState::GetInstance()->IsVertical())
+	//		player->GetCamera ()->AttachTo(player,CGame::GetInstance()->GetScreenWidth()*0.25f,CGame::GetInstance()->GetScreenHeight()*0.5f);
+	//	else
+	//		player->GetCamera ()->AttachTo(player,CGame::GetInstance()->GetScreenWidth()*0.5f, CGame::GetInstance()->GetScreenHeight()*0.25f);
+	//}
+	//else
+	//	player->GetCamera ()->AttachTo(player,CGame::GetInstance()->GetScreenWidth()*0.5f,CGame::GetInstance()->GetScreenHeight()*0.5f);
 
 	Level->RestSpawns ();
 

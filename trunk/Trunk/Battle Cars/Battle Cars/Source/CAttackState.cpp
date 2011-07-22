@@ -17,6 +17,7 @@
 #include "CEnemy.h"
 #include "CPlayer.h"
 #include "CMessageSystem.h"
+#include "CGamePlayState.h"
 
 CAttackState::CAttackState(const CAttackState&)
 {
@@ -26,12 +27,6 @@ CAttackState::CAttackState(const CAttackState&)
 CAttackState& CAttackState::operator=(const CAttackState&)
 {
 	return *this;
-}
-
-CAttackState* CAttackState::GetInstance()
-{
-	static CAttackState instance;
-	return &instance;
 }
 
 void CAttackState::Update (float fElapsedTime)
@@ -44,7 +39,7 @@ void CAttackState::Update (float fElapsedTime)
 		m_Owner->SetSpeed (150.0f);
 	}
 	if(!StillThreat())
-		m_Owner->ChangeState(CWanderState::GetInstance());
+		m_Owner->ChangeState(m_Owner->GetWanderState ());
 	Chase(fElapsedTime);
 	//Fire Weapons
 	m_fFireTimer += fElapsedTime;
@@ -55,8 +50,8 @@ void CAttackState::Update (float fElapsedTime)
 	}
 	if(Damaged())
 	{
-		CFleeState::GetInstance()->SetTarget((CCar*)m_Target);
-		m_Owner->ChangeState(CFleeState::GetInstance());
+		m_Owner->GetFleeState ()->SetTarget((CCar*)m_Target);
+		m_Owner->ChangeState(m_Owner->GetFleeState ());
 	}
 
 }
@@ -142,6 +137,8 @@ void CAttackState::Chase(float fElapsedTime)
 
 bool CAttackState::StillThreat()
 {
+	std::vector <CBase*> cars = CGamePlayState::GetInstance ()->GetCars ();
+
 	tVector2D target1Distance;
 	if(m_Target && m_Owner)
 	{

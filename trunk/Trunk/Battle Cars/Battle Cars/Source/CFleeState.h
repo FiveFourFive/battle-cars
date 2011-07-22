@@ -33,13 +33,13 @@ private:
 	void FindHealth(float fElapsedTime);
 	bool Escaped();
 
-	CFleeState(void){};
-	~CFleeState(void){};
+	
 	CFleeState(const CFleeState&);
 	CFleeState& operator = (const CFleeState&);
 
 public:
-	static CFleeState* GetInstance ();
+	CFleeState(void){};
+	~CFleeState(void){};
 
 	void Update (float fElapsedTime);
 	void Render ();

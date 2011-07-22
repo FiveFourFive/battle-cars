@@ -3,12 +3,18 @@
 #include "CSGD_Direct3D.h"
 #include "CCamera.h"
 #include "CGamePlayState.h"
+#include "CLevel.h"
+#include "CMap.h"
 
 CCollectable::CCollectable()
 {
 	m_nType = OBJECT_COLLECTABLE;
-	SetPosX(rand()%1400+100.0f);
-	SetPosY(rand()%1400+100.0f);
+	int minX = 6 * (CLevel::GetInstance ()->GetMap()->GetPixelWidth ());
+	int minY = 6 * (CLevel::GetInstance ()->GetMap()->GetPixelHeight ());
+	int maxX = ((CLevel::GetInstance ()->GetMap()->GetMapWidth ()) - 6) * (CLevel::GetInstance ()->GetMap()->GetPixelWidth ());
+	int maxY = ((CLevel::GetInstance ()->GetMap()->GetMapHeight ()) - 6) * (CLevel::GetInstance ()->GetMap()->GetPixelHeight ());
+	SetPosX((float)(rand()% (maxX - minX) - minX));
+	SetPosY((float)(rand()% (maxY - minY) - minY));
 	SetWidth(128);
 	SetHeight(128);
 	

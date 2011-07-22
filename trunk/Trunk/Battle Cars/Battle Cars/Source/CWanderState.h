@@ -64,13 +64,13 @@ private:
 	void FindSpeedRamp(float fElapsedTime);
 	void UseSpeedRamp(float fElapsedTime);
 
-	CWanderState(void){};
-	~CWanderState(void){};
+	
 	CWanderState(const CWanderState&);
 	CWanderState& operator = (const CWanderState&);
 
 public:
-	static CWanderState* GetInstance ();
+	CWanderState(void){};
+	~CWanderState(void){};
 
 	void Update (float fElapsedTime);
 	void Render ();
