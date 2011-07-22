@@ -2,7 +2,7 @@
 <Emittors>
   <Emittor>
     <Name>Flamethrower</Name>
-    <NumberofParticles>300.00000</NumberofParticles>
+    <NumberofParticles>100.00000</NumberofParticles>
     <MinLifeSpan>0.5</MinLifeSpan>
     <MaxLifeSpan>1.6</MaxLifeSpan>
     <StartColor A="255" R="255" G="81" B="81" />

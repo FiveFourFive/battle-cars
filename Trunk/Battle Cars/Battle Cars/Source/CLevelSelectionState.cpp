@@ -63,12 +63,30 @@ void CLevelSelectionState::Enter()
 	isSet = false;
 	m_nCurrentFrame = 0;
 
-	for( int i = 0; i < 3; i++)
+	for( int i = 0; i < 6; i++)
+	{
 		m_nMovieID[i]=-1;
+	}
+	for( int i = 0; i < 3; i++)
+	{
+		render_ids[i]=-1;
+	}
+
+	m_nMovieID[0] = m_pTM->LoadTexture("resource/videos/level1/1.bmp", D3DCOLOR_ARGB(255,255,255,255));
+	m_nMovieID[1] = m_pTM->LoadTexture("resource/videos/level1/2.bmp", D3DCOLOR_ARGB(255,255,255,255));
+	m_nMovieID[2] = m_pTM->LoadTexture("resource/videos/level1/3.bmp", D3DCOLOR_ARGB(255,255,255,255));
+	m_nMovieID[3] = m_pTM->LoadTexture("resource/videos/level2/1.bmp", D3DCOLOR_ARGB(255,0,255,255));
+	m_nMovieID[4] = m_pTM->LoadTexture("resource/videos/level2/2.bmp", D3DCOLOR_ARGB(255,0,255,255));
+	m_nMovieID[5] = m_pTM->LoadTexture("resource/videos/level2/3.bmp", D3DCOLOR_ARGB(255,0,255,255));
 }
 
 void CLevelSelectionState::Exit()
 {
+	for( int i = 0; i < 6; i++)
+	{
+		m_pTM->UnloadTexture(m_nMovieID[i]);
+	}
+
 	delete m_pPF;
 }
 
@@ -190,7 +208,7 @@ void CLevelSelectionState::Render()
 		else
 		{
 			m_pPF->Print(m_ListofLevels[i]->FileName.c_str(), 10, (i + 1) * 50, 0.5f, D3DCOLOR_XRGB(0, 255, 0));
-			m_pTM->Draw(m_nMovieID[m_nCurrentFrame], 200, 250, 0.5f, 0.5f, NULL,0, 0, 0, color);
+			m_pTM->Draw(render_ids[m_nCurrentFrame], 200, 250, 0.5f, 0.5f, NULL,0, 0, 0, color);
 		}
 	}
 
@@ -248,45 +266,37 @@ void CLevelSelectionState::LoadVideo()
 		m_fMovieTimer = 0.0f;
 		m_nCurrentFrame = 0;
 
-		for( int i = 0; i < 3; i++)
-		{
-			if( m_nMovieID[i] != -1 )
-			{
-				m_pTM->UnloadTexture(m_nMovieID[i]);
-				m_nMovieID[i] = -1;
-			}
-		}
 
 		switch(m_nSelection)
 		{
 		case LEVEL_ONE:
 			{
-				m_nMovieID[0] = m_pTM->LoadTexture("resource/videos/level1/1.bmp", D3DCOLOR_ARGB(255,255,255,255));
-				m_nMovieID[1] = m_pTM->LoadTexture("resource/videos/level1/2.bmp", D3DCOLOR_ARGB(255,255,255,255));
-				m_nMovieID[2] = m_pTM->LoadTexture("resource/videos/level1/3.bmp", D3DCOLOR_ARGB(255,255,255,255));
+				render_ids[0] = m_nMovieID[0];
+				render_ids[1] = m_nMovieID[1];
+				render_ids[2] = m_nMovieID[2];
 
 			}
 			break;
 		case LEVEL_TWO:
 			{
-				m_nMovieID[0] = m_pTM->LoadTexture("resource/videos/level2/1.bmp", D3DCOLOR_ARGB(255,0,255,255));
-				m_nMovieID[1] = m_pTM->LoadTexture("resource/videos/level2/2.bmp", D3DCOLOR_ARGB(255,0,255,255));
-				m_nMovieID[2] = m_pTM->LoadTexture("resource/videos/level2/3.bmp", D3DCOLOR_ARGB(255,0,255,255));
+				render_ids[0] = m_nMovieID[3];
+				render_ids[1] = m_nMovieID[4];
+				render_ids[2] = m_nMovieID[5];
 			}
 			break;
 
 		case LEVEL_THREE:
 			{
-				m_nMovieID[0] = m_pTM->LoadTexture("resource/videos/level2/1.bmp", D3DCOLOR_ARGB(255,0,255,255));
-				m_nMovieID[1] = m_pTM->LoadTexture("resource/videos/level2/2.bmp", D3DCOLOR_ARGB(255,0,255,255));
-				m_nMovieID[2] = m_pTM->LoadTexture("resource/videos/level2/3.bmp", D3DCOLOR_ARGB(255,0,255,255));
+				render_ids[0] = m_nMovieID[3];
+				render_ids[1] = m_nMovieID[4];
+				render_ids[2] = m_nMovieID[5];
 			}
 			break;
 			case LEVEL_FOUR:
 			{
-				m_nMovieID[0] = m_pTM->LoadTexture("resource/videos/level2/1.bmp", D3DCOLOR_ARGB(255,0,255,255));
-				m_nMovieID[1] = m_pTM->LoadTexture("resource/videos/level2/2.bmp", D3DCOLOR_ARGB(255,0,255,255));
-				m_nMovieID[2] = m_pTM->LoadTexture("resource/videos/level2/3.bmp", D3DCOLOR_ARGB(255,0,255,255));
+				render_ids[0] = m_nMovieID[3];
+				render_ids[1] = m_nMovieID[4];
+				render_ids[2] = m_nMovieID[5];
 			}
 			break;
 		}

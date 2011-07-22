@@ -178,28 +178,29 @@ bool CObstacle::CheckCollision(IBaseInterface* pBase)
 			{
 				if(pBase != this)
 				{
-				tVector2D myvel = m_vCollisionVel;
-				CObstacle* tempobs = (CObstacle*)pBase;
-				tVector2D hisvel = tempobs->GetVel();
+					tVector2D myvel = m_vCollisionVel;
+					CObstacle* tempobs = (CObstacle*)pBase;
+					tVector2D hisvel = tempobs->GetVel();
 
-			float myfx = abs(myvel.fX);
-			float myfy = abs(myvel.fY);
-			float hisfx = abs(hisvel.fX);
-			float hisfy = abs(hisvel.fY);
-			if((myfx + myfy) >= (hisfx + hisfy))
-			{
-			SetPosX(GetPosX() + (hisvel.fX * 0.05f));
-			SetPosY(GetPosY() + (hisvel.fY * 0.05f));
+					float myfx = abs(myvel.fX);
+					float myfy = abs(myvel.fY);
+					float hisfx = abs(hisvel.fX);
+					float hisfy = abs(hisvel.fY);
+					if((myfx + myfy) >= (hisfx + hisfy))
+					{
+						SetPosX(GetPosX() + (hisvel.fX * 0.05f));
+						SetPosY(GetPosY() + (hisvel.fY * 0.05f));
 
-			tempobs->SetPosX(tempobs->GetPosX() + (m_vCollisionVel.fX * 0.05f));
-			tempobs->SetPosY(tempobs->GetPosY() + (m_vCollisionVel.fY * 0.05f));
+						tempobs->SetPosX(tempobs->GetPosX() + (m_vCollisionVel.fX * 0.05f));
+						tempobs->SetPosY(tempobs->GetPosY() + (m_vCollisionVel.fY * 0.05f));
 
-			SetVel(hisvel);
-			tempobs->SetVel(myvel);
+						SetVel(hisvel);
+						tempobs->SetVel(myvel);
 			
-				m_bHit = true;
-
-				return true;
+						m_bHit = true;
+						return true;
+					}
+						m_bHit = true;
 				}
 	
 			}
@@ -207,7 +208,7 @@ bool CObstacle::CheckCollision(IBaseInterface* pBase)
 
 
 		
-		}
+	}
 
 	return false;
 }

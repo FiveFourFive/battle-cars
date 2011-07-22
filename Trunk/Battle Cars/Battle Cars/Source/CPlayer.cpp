@@ -56,6 +56,7 @@ CPlayer::CPlayer(CXboxInput* pController)
 	SetCollisionEffect(false);
 
 	isSet = false;
+	m_fBurstDelay = 0.15f;
 
 }
 CPlayer::~CPlayer(void)
@@ -107,6 +108,9 @@ void CPlayer::Update(float fElapsedTime)
 		ParticleManager* PM = ParticleManager::GetInstance();
 		Emittor* flame_thrower = NULL;
 
+		m_fBurstDelay -= fElapsedTime;
+
+
 		if( !isSet )
 		{
 				isSet = true;
@@ -149,8 +153,12 @@ void CPlayer::Update(float fElapsedTime)
 		m_fFlames = m_fFlames - fElapsedTime;
 		if(m_fFlames > 0.0f)
 		{
-			//PlayBullet();		
-			CMessageSystem::GetInstance()->SendMsg(new CCreateVetteSpecialMessage(this));
+			//PlayBullet();	
+			if( m_fBurstDelay <= 0 )
+			{
+				CMessageSystem::GetInstance()->SendMsg(new CCreateVetteSpecialMessage(this));
+				m_fBurstDelay = 0.15f;
+			}
 			m_fFireTimer = 0.0f;
 		}
 		else
