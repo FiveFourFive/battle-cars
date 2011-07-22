@@ -11,6 +11,8 @@
 #include "Emittor.h"
 #include "ParticleManager.h"
 #include "CObstacle.h"
+#include "CLevel.h"
+
 CBullet::CBullet(void)
 {
 	m_pTM = CSGD_TextureManager::GetInstance();
@@ -25,6 +27,8 @@ CBullet::CBullet(void)
 
 void CBullet::Update(float fElapsedTime)
 {
+	CLevel::GetInstance ()->CheckBulletCollision (this);
+
 	m_fCurLife += fElapsedTime;
 	SetPosX(GetPosX() + GetVelX() * fElapsedTime);
 	SetPosY(GetPosY() + GetVelY() * fElapsedTime);
@@ -63,10 +67,9 @@ bool CBullet::CheckCollision(IBaseInterface* pBase)
 	ParticleManager* pPM = ParticleManager::GetInstance();
 	if(GetOwner() == pBase)
 			return false;
+	
 	if(IntersectRect(&intersection, &GetRect(), &pBase->GetRect()))
 	{
-		
-
 		if(pBase->GetType() == OBJECT_PLAYER)
 		{
 			CPlayer* tempplayer = (CPlayer*)pBase;

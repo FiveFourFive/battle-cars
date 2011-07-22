@@ -118,7 +118,7 @@ void CTimeChallengeMode::CheckCarStatus(CCar* car)
 			car->SetHealth(car->GetMaxHealth());
 			car->SetShieldBar(car->GetMaxShield());
 			car->SetPowerUpBar(0);
-			car->SetSpecialLevel(0);
+			car->SetSpecialLevel(1);
 		}
 
 	}
