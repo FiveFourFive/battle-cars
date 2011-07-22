@@ -10,3 +10,15 @@ C:\Users\AndyM\Desktop\Particle Tool\ParticleTool\obj\x86\Debug\GenerateResource
 C:\Users\AndyM\Desktop\Particle Tool\ParticleTool\obj\x86\Debug\ParticleTool.exe
 C:\Users\AndyM\Desktop\Particle Tool\ParticleTool\obj\x86\Debug\ParticleTool.pdb
 C:\Users\AndyM\Desktop\Particle Tool\ParticleTool\obj\x86\Debug\ParticleTool.RandomizeWindow.resources
+C:\Users\Wade\Desktop\Battle Cars\Trunk\Battle Cars\Tools\Particle Tool\ParticleTool\bin\Debug\ParticleTool.exe.config
+C:\Users\Wade\Desktop\Battle Cars\Trunk\Battle Cars\Tools\Particle Tool\ParticleTool\obj\x86\Debug\ParticleTool.exe
+C:\Users\Wade\Desktop\Battle Cars\Trunk\Battle Cars\Tools\Particle Tool\ParticleTool\obj\x86\Debug\ParticleTool.pdb
+C:\Users\Wade\Desktop\Battle Cars\Trunk\Battle Cars\Tools\Particle Tool\ParticleTool\bin\Debug\ParticleTool.exe
+C:\Users\Wade\Desktop\Battle Cars\Trunk\Battle Cars\Tools\Particle Tool\ParticleTool\bin\Debug\ParticleTool.pdb
+C:\Users\Wade\Desktop\Battle Cars\Trunk\Battle Cars\Tools\Particle Tool\ParticleTool\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Wade\Desktop\Battle Cars\Trunk\Battle Cars\Tools\Particle Tool\ParticleTool\obj\x86\Debug\ParticleTool.Form1.resources
+C:\Users\Wade\Desktop\Battle Cars\Trunk\Battle Cars\Tools\Particle Tool\ParticleTool\obj\x86\Debug\ParticleTool.RandomizeWindow.resources
+C:\Users\Wade\Desktop\Battle Cars\Trunk\Battle Cars\Tools\Particle Tool\ParticleTool\obj\x86\Debug\ParticleTool.Properties.Resources.resources
+C:\Users\Wade\Desktop\Battle Cars\Trunk\Battle Cars\Tools\Particle Tool\ParticleTool\obj\x86\Debug\ParticleTool.ToolWindow.resources
+C:\Users\Wade\Desktop\Battle Cars\Trunk\Battle Cars\Tools\Particle Tool\ParticleTool\obj\x86\Debug\GenerateResource-ResGen.read.1.tlog
+C:\Users\Wade\Desktop\Battle Cars\Trunk\Battle Cars\Tools\Particle Tool\ParticleTool\obj\x86\Debug\GenerateResource-ResGen.write.1.tlog

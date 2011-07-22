@@ -2,6 +2,8 @@
 #include "CCar.h"
 #include "CLevel.h"
 #include "CSGD_Direct3D.h"
+#include "CCamera.h"
+#include "SGD_Math.h"
 
 CObstacle::CObstacle(void)
 {
@@ -20,8 +22,8 @@ void CObstacle::Update(float fElapsedTime)
 	SetPosX(GetPosX() + (m_vCollisionVel.fX * fElapsedTime));
 	SetPosY(GetPosY() + (m_vCollisionVel.fY * fElapsedTime));
 
-	m_vCollisionVel.fX = m_vCollisionVel.fX - (m_vCollisionVel.fX * 0.01f);
-	m_vCollisionVel.fY =m_vCollisionVel.fY - ( m_vCollisionVel.fY * 0.01f);
+	m_vCollisionVel.fX = m_vCollisionVel.fX - 1;//(m_vCollisionVel.fX * 0.05f);
+	m_vCollisionVel.fY =m_vCollisionVel.fY - 1;//( m_vCollisionVel.fY * 0.05f);
 
 	CLevel::GetInstance ()->CheckObstacleCollision (this);
 
@@ -32,7 +34,11 @@ void CObstacle::Render(CCamera* camera)
 {
 	CBase::Render(camera);
 	RECT obs;
-	obs = GetRect();
+	// = GetRect();
+	obs.left = GetPosX() - camera->GetCamX() + camera->GetRenderPosX();
+	obs.top = GetPosY() - camera->GetCamY() + camera->GetRenderPosY();
+	obs.right = obs.left + GetWidth();
+	obs.bottom = obs.top + GetWidth();
 	CSGD_Direct3D::GetInstance()->DrawRect(obs,0,0,0);
 
 }
@@ -63,8 +69,27 @@ bool CObstacle::CheckCollision(IBaseInterface* pBase)
 			CObstacle* tempobs = (CObstacle*)pBase;
 			tVector2D hisvel = tempobs->GetVel();
 
-			myvel = (hisvel );
-			hisvel = (myvel );
+			//tVector2D bounce = hisvel;
+			//
+			//SetPosX(GetPosX() + (bounce.fX * 0.01f * -1.0f));
+			//SetPosY(GetPosY() + (bounce.fY * 0.01f * -1.0f));
+
+			//bounce = tempobs->GetVel();
+
+			//tempobs->SetPosX(tempobs->GetPosX() + (bounce.fX * 0.01f * -1.0f));
+			//tempobs->SetPosY(tempobs->GetPosY() + (bounce.fY * 0.01f * -1.0f));
+			if(hisvel.fX > myvel.fX && hisvel.fY > myvel.fY)
+			{
+					myvel = (hisvel );
+					hisvel = (hisvel * -1.0f * 0.5f );
+			}
+			else
+			{
+					hisvel = (myvel );
+					myvel = (myvel * -1.0f * 0.5f );
+			}
+
+		
 
 			SetVel(myvel);
 			tempobs->SetVel(hisvel);

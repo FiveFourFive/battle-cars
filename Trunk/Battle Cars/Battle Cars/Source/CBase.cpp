@@ -44,7 +44,7 @@ void CBase::Render(CCamera* camera)
 		|| (GetPosY() - camera->GetCamY()) > camera->GetRenderPosY() + camera->GetHeight() )
 		return;
 
-	CSGD_TextureManager::GetInstance()->Draw(GetImageID(),int(GetPosX()-camera->GetCamX() + camera->GetRenderPosX()), int(GetPosY()-camera->GetCamY() + camera->GetRenderPosY()),1.0f,1.0f);
+	CSGD_TextureManager::GetInstance()->Draw(GetImageID(),int(GetPosX()-camera->GetCamX() + camera->GetRenderPosX() - (GetWidth()/2)), int(GetPosY()-camera->GetCamY() + camera->GetRenderPosY() - (GetHeight()/2)),1.0f,1.0f);
 }
 
 RECT CBase::GetRect()
