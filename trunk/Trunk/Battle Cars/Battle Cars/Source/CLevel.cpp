@@ -152,22 +152,8 @@ void CLevel::Render (CCamera* camera)
 			m_pTM->Draw (LevelMap->GetTileImageID (), (int)((TileXPos *  LevelMap->GetPixelWidth()) - camera->GetCamX () + camera->GetRenderPosX ()), 
 													  (int)((TileYPos * LevelMap->GetPixelHeight()) - camera->GetCamY () + camera->GetRenderPosY ()), 1.0f, 1.0f, &TileSelection);
 
-			std::string name = (LevelMap->GetEventsList ())[YPos][XPos].GetName ();
-				if (name == "WallCollision")
-				{
-					CSGD_Direct3D::GetInstance ()->GetSprite()->Flush ();
-
-					RECT Wall = LevelMap->GetCollisionRect(XPos, YPos);
-					int width = Wall.right - Wall.left;
-					int Height = Wall.bottom - Wall.top;
-
-					Wall.left = (LONG)(Wall.left - camera->GetCamX ());
-					Wall.top = (LONG)(Wall.top  - camera->GetCamY ());
-					Wall.right = Wall.left + width;
-					Wall.bottom = Wall.top + Height;
-
-					CSGD_Direct3D::GetInstance ()->DrawRect (Wall, 255, 255, 255);
-				}
+			
+			
 		}
 		
 	}
@@ -602,15 +588,19 @@ std::vector<CObstacle*> CLevel::SetObstacleSpawn ()
 			obstacle->SetPosX (spawnPoints[randomIndex].fX * LevelMap->GetPixelWidth ());
 			obstacle->SetPosY (spawnPoints[randomIndex].fY * LevelMap->GetPixelHeight ());
 			obstacle->SetType(OBJECT_OBSTACLE);
+			
 			if ((LevelMap->GetEventsList ())[(int)(spawnPoints[randomIndex].fY)][(int)(spawnPoints[randomIndex].fX)].GetID () == 1)
 			{
 				obstacle->SetImageID (CGamePlayState::GetInstance ()->GetCrateImageID());
+				obstacle->SetWidth(m_pTM->GetTextureWidth(CGamePlayState::GetInstance()->GetBarrelImageID()) - 10);
+				obstacle->SetHeight(m_pTM->GetTextureHeight(CGamePlayState::GetInstance()->GetBarrelImageID()) - 10);
 
 			}else if ((LevelMap->GetEventsList ())[(int)(spawnPoints[randomIndex].fY)][(int)(spawnPoints[randomIndex].fX)].GetID () == 2)
 			{
 				obstacle->SetImageID (CGamePlayState::GetInstance ()->GetBarrelImageID());
+				obstacle->SetWidth(m_pTM->GetTextureWidth(CGamePlayState::GetInstance()->GetBarrelImageID()) - 10);
+				obstacle->SetHeight(m_pTM->GetTextureHeight(CGamePlayState::GetInstance()->GetBarrelImageID()) - 10);
 			}
-
 			obstacles.push_back (obstacle);
 			CObjectManager::GetInstance ()->AddObject(obstacle);
 		}
