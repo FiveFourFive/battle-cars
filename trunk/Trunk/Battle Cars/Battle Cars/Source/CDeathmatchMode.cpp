@@ -107,14 +107,10 @@ void CDeathmatchMode::CheckCarStatus(CCar* car)
 
 			car->SetRespawnTimer(0.0f);
 			car->SetIsAlive(true);
-			int width_index = CLevel::GetInstance()->GetMap()->GetMapWidth() * CLevel::GetInstance()->GetMap()->GetPixelWidth();
-			int height_index = CLevel::GetInstance()->GetMap()->GetMapHeight() * CLevel::GetInstance()->GetMap()->GetPixelHeight();
+			/*int width_index = CLevel::GetInstance()->GetMap()->GetMapWidth() * CLevel::GetInstance()->GetMap()->GetPixelWidth();
+			int height_index = CLevel::GetInstance()->GetMap()->GetMapHeight() * CLevel::GetInstance()->GetMap()->GetPixelHeight();*/
 
-			/*car->SetPosX (car->GetSpawnPosX ());
-			car->SetPosY (car->GetSpawnPosY ());*/
-			vector<CBase*> temp;
-			temp.push_back (car);
-			CLevel::GetInstance ()->SetCarSpawn (temp);
+			CLevel::GetInstance ()->ResetCarSpawn (car);
 
 			car->SetHealth(car->GetMaxHealth());
 			car->SetShieldBar(car->GetMaxShield());

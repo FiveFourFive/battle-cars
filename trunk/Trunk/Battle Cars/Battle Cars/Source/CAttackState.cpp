@@ -137,8 +137,6 @@ void CAttackState::Chase(float fElapsedTime)
 
 bool CAttackState::StillThreat()
 {
-	std::vector <CBase*> cars = CGamePlayState::GetInstance ()->GetCars ();
-
 	tVector2D target1Distance;
 	if(m_Target && m_Owner)
 	{

@@ -265,11 +265,11 @@ bool CWanderState::FindThreat()
 					m_Owner->GetAttackState ()->SetTarget(m_Target1);
 					return true;
 				}
-				else
-					return false;
 			}
 		}
 	}
+
+	return false;
 	//if(m_Target2)
 	//{
 	//	target2Distance.fX = (m_Target2->GetPosX()-(m_Owner->GetPosX()));

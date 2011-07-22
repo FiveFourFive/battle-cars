@@ -52,12 +52,13 @@ public:
 	bool CheckEnemyCollision (CBase* pBase);
 	bool CheckObstacleCollision (CBase* pBase);
 
-	void SetCarSpawn (vector<CBase*> pBases);
+	vector<CBase*>  SetCarSpawn (vector<CBase*> pBases);
 	vector<CSpeedRamp*> SetSpeedRampSpawn ();
 	vector<PowerUp*> SetPowerUpSpawn ();
 	vector<CObstacle*> SetObstacleSpawn ();
+	void ResetCarSpawn (CBase* pBase);
 
-	void RestSpawns ();
+	void ResetSpawns ();
 
 	CMap* GetMap(void) { return LevelMap; }
 };

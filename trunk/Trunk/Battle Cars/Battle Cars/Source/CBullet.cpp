@@ -88,7 +88,7 @@ bool CBullet::CheckCollision(IBaseInterface* pBase)
 		}
 		else if(pBase->GetType() == OBJECT_ENEMY || pBase->GetType() == OBJECT_BOSS)
 		{
-			if(GetOwner()->GetType() == OBJECT_PLAYER)
+			if(GetOwner()->GetType() == OBJECT_PLAYER || GetOwner()->GetType() == OBJECT_ENEMY)
 			{
 			CEnemy* tempenemy = (CEnemy*)pBase;
 			CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));

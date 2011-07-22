@@ -184,77 +184,77 @@ void CGamePlayState::Enter(void)
 	bosses.push_back(boss);
 	bosses.push_back(miniboss);
 
-	dummy = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
-	dummy->SetHealth(100.0f);
-	dummy->SetShieldBar(0.0f);
-	dummy->SetVelX(0.0f);
-	dummy->SetVelY(0.0f);
-	dummy->SetSpeed(0.0f);
-	dummy->SetMaxHealth(100.0f);
-	dummy->SetType(OBJECT_ENEMY);
-	dummy->SetKillCount(0);
-	dummy->Rotate(0.0f);
-	dummy->SetPowerUps(power_ups);
-	dummy->SetMaxSpeed(200.0f);
-	dummy->EnterState ();
+	//dummy = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
+	//dummy->SetHealth(100.0f);
+	//dummy->SetShieldBar(0.0f);
+	//dummy->SetVelX(0.0f);
+	//dummy->SetVelY(0.0f);
+	//dummy->SetSpeed(0.0f);
+	//dummy->SetMaxHealth(100.0f);
+	//dummy->SetType(OBJECT_ENEMY);
+	//dummy->SetKillCount(0);
+	//dummy->Rotate(0.0f);
+	//dummy->SetPowerUps(power_ups);
+	//dummy->SetMaxSpeed(200.0f);
+	//dummy->EnterState ();
 
-	dummy2 = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
-	dummy2->SetHealth(100.0f);
-	dummy2->SetVelX(0.0f);
-	dummy2->SetVelY(0.0f);
-	dummy2->SetSpeed(0.0f);
-	dummy2->SetType(OBJECT_ENEMY);
-	dummy2->SetKillCount(0);
-	dummy2->SetRotation(4.71f);
-	dummy2->Rotate(4.71f);
-	dummy2->SetPowerUps (power_ups);
-	dummy2->SetMaxSpeed(200.0f);
-	dummy2->EnterState ();
+	//dummy2 = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
+	//dummy2->SetHealth(100.0f);
+	//dummy2->SetVelX(0.0f);
+	//dummy2->SetVelY(0.0f);
+	//dummy2->SetSpeed(0.0f);
+	//dummy2->SetType(OBJECT_ENEMY);
+	//dummy2->SetKillCount(0);
+	//dummy2->SetRotation(4.71f);
+	//dummy2->Rotate(4.71f);
+	//dummy2->SetPowerUps (power_ups);
+	//dummy2->SetMaxSpeed(200.0f);
+	//dummy2->EnterState ();
 
-	dummy3 = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
-	dummy3->SetHealth(100.0f);
-	dummy3->SetVelX(0.0f);
-	dummy3->SetVelY(0.0f);
-	dummy3->SetSpeed(0.0f);
-	dummy3->SetType(OBJECT_ENEMY);
-	dummy3->SetKillCount(0);
-	dummy3->SetRotation(4.71f);
-	dummy3->Rotate(4.71f);
-	dummy3->SetPowerUps (power_ups);
-	dummy3->SetMaxSpeed(200.0f);
-	dummy3->EnterState ();
+	//dummy3 = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
+	//dummy3->SetHealth(100.0f);
+	//dummy3->SetVelX(0.0f);
+	//dummy3->SetVelY(0.0f);
+	//dummy3->SetSpeed(0.0f);
+	//dummy3->SetType(OBJECT_ENEMY);
+	//dummy3->SetKillCount(0);
+	//dummy3->SetRotation(4.71f);
+	//dummy3->Rotate(4.71f);
+	//dummy3->SetPowerUps (power_ups);
+	//dummy3->SetMaxSpeed(200.0f);
+	//dummy3->EnterState ();
 
-	dummy4 = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
-	dummy4->SetHealth(100.0f);
-	dummy4->SetVelX(0.0f);
-	dummy4->SetVelY(0.0f);
-	dummy4->SetSpeed(0.0f);
-	dummy4->SetType(OBJECT_ENEMY);
-	dummy4->SetKillCount(0);
-	dummy4->SetRotation(4.71f);
-	dummy4->Rotate(4.71f);
-	dummy4->SetPowerUps (power_ups);
-	dummy4->SetMaxSpeed(200.0f);
-	dummy4->EnterState ();
+	//dummy4 = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
+	//dummy4->SetHealth(100.0f);
+	//dummy4->SetVelX(0.0f);
+	//dummy4->SetVelY(0.0f);
+	//dummy4->SetSpeed(0.0f);
+	//dummy4->SetType(OBJECT_ENEMY);
+	//dummy4->SetKillCount(0);
+	//dummy4->SetRotation(4.71f);
+	//dummy4->Rotate(4.71f);
+	//dummy4->SetPowerUps (power_ups);
+	//dummy4->SetMaxSpeed(200.0f);
+	//dummy4->EnterState ();
 
-	dummy5 = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
-	dummy5->SetHealth(100.0f);
-	dummy5->SetVelX(0.0f);
-	dummy5->SetVelY(0.0f);
-	dummy5->SetSpeed(0.0f);
-	dummy5->SetType(OBJECT_ENEMY);
-	dummy5->SetKillCount(0);
-	dummy5->SetRotation(4.71f);
-	dummy5->Rotate(4.71f);
-	dummy5->SetPowerUps (power_ups);
-	dummy5->SetMaxSpeed(200.0f);
-	dummy5->EnterState ();
+	//dummy5 = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
+	//dummy5->SetHealth(100.0f);
+	//dummy5->SetVelX(0.0f);
+	//dummy5->SetVelY(0.0f);
+	//dummy5->SetSpeed(0.0f);
+	//dummy5->SetType(OBJECT_ENEMY);
+	//dummy5->SetKillCount(0);
+	//dummy5->SetRotation(4.71f);
+	//dummy5->Rotate(4.71f);
+	//dummy5->SetPowerUps (power_ups);
+	//dummy5->SetMaxSpeed(200.0f);
+	//dummy5->EnterState ();
 
-	cars.push_back (dummy);
-	cars.push_back (dummy2);
-	cars.push_back (dummy3);
-	cars.push_back (dummy4);
-	cars.push_back (dummy5);
+	//cars.push_back (dummy);
+	//cars.push_back (dummy2);
+	//cars.push_back (dummy3);
+	//cars.push_back (dummy4);
+	//cars.push_back (dummy5);
 
 	m_pD3D->Clear(0, 0, 0);
 	m_pD3D->DeviceBegin();
@@ -511,13 +511,10 @@ void CGamePlayState::Enter(void)
 		collectionChallengeBoss = NULL;
 
 	
-	Level->SetCarSpawn (cars);
 	obstacles = Level->SetObstacleSpawn ();
 	ramps = Level->SetSpeedRampSpawn ();
 	power_ups = Level->SetPowerUpSpawn ();
-
-	dummy->SetSpeedRamps(ramps);
-	dummy->SetRotation (0);
+	cars = Level->SetCarSpawn (cars);
 
 	if( COptionState::GetInstance()->IsVertical())
 		player->GetCamera ()->AttachTo(player,CGame::GetInstance()->GetScreenWidth()*0.25f,CGame::GetInstance()->GetScreenHeight()*0.5f);
@@ -536,21 +533,7 @@ void CGamePlayState::Enter(void)
 		player2->GetCamera ()->Update ();
 	}
 
-
-
-	//if( CNumPlayers::GetInstance()->GetNumberOfPlayers() == 2)
-	//{
-	//	if( COptionState::GetInstance()->IsVertical())
-	//		player->GetCamera ()->AttachTo(player,CGame::GetInstance()->GetScreenWidth()*0.25f,CGame::GetInstance()->GetScreenHeight()*0.5f);
-	//	else
-	//		player->GetCamera ()->AttachTo(player,CGame::GetInstance()->GetScreenWidth()*0.5f, CGame::GetInstance()->GetScreenHeight()*0.25f);
-	//}
-	//else
-	//	player->GetCamera ()->AttachTo(player,CGame::GetInstance()->GetScreenWidth()*0.5f,CGame::GetInstance()->GetScreenHeight()*0.5f);
-
-	Level->RestSpawns ();
-
-	//player->SetKillCount(55);
+	Level->ResetSpawns ();
 }
 
 void CGamePlayState::Exit(void)
@@ -579,17 +562,18 @@ void CGamePlayState::Exit(void)
 	}
 	characters.clear ();
 
-	dummy->Release();
-	dummy2->Release();
-	dummy3->Release();
-	dummy4->Release();
-	dummy5->Release();
+	//dummy->Release();
+	//dummy2->Release();
+	//dummy3->Release();
+	//dummy4->Release();
+	//dummy5->Release();
 
-	/*for(unsigned int i = 0; i < cars.size(); i++)
+	for(unsigned int i = 0; i < cars.size(); i++)
 	{
+		if (cars[i] != player && cars[i] != player2)
 		cars[i]->Release();
 	}
-	cars.clear();*/
+	cars.clear();
 
 	for(unsigned int i = 0; i < bosses.size(); i++)
 	{

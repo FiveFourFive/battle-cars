@@ -25,6 +25,7 @@
 #include "CSpeedRamp.h"
 #include "CObstacle.h"
 #include "CPowerUp.h"
+#include "CCharacterSelection.h"
 
 CLevel::CLevel()
 {
@@ -338,7 +339,29 @@ bool CLevel::CheckObstacleCollision (CBase* pBase)
 
 						((CObstacle*)pBase)->SetVel (temp);
 
-						//((CObstacle*)pBase)->SetPosX (LevelMap->GetCollisionRect(XPos, YPos));
+						if (intersection.bottom - intersection.top < intersection.right - intersection.left)
+						{
+							if (((CObstacle*)pBase)->GetRect ().top <= LevelMap->GetCollisionRect(XPos, YPos).bottom)//bottom collision
+							{
+								((CObstacle*)pBase)->SetPosY (LevelMap->GetCollisionRect(XPos, YPos).bottom);
+							}
+							if (((CObstacle*)pBase)->GetRect ().bottom >= LevelMap->GetCollisionRect(XPos, YPos).top)//left collision
+							{
+								((CObstacle*)pBase)->SetPosY (LevelMap->GetCollisionRect(XPos, YPos).top);
+							}
+						}
+
+						if (intersection.bottom - intersection.top > intersection.right - intersection.left)
+						{
+							if (((CObstacle*)pBase)->GetRect ().left <= LevelMap->GetCollisionRect(XPos, YPos).right)//right collision
+							{
+								((CObstacle*)pBase)->SetPosX (LevelMap->GetCollisionRect(XPos, YPos).right);
+							}
+							if (((CObstacle*)pBase)->GetRect ().right >= LevelMap->GetCollisionRect(XPos, YPos).left)//left collision
+							{
+								((CObstacle*)pBase)->SetPosX (LevelMap->GetCollisionRect(XPos, YPos).left);
+							}
+						}
 
 						return true;
 					}
@@ -351,7 +374,7 @@ bool CLevel::CheckObstacleCollision (CBase* pBase)
 }
 
 
-void CLevel::SetCarSpawn (vector<CBase*> pBases)
+vector<CBase*> CLevel::SetCarSpawn (vector<CBase*> pBases)
 {
 	CTile** Events = LevelMap->GetEventsList();
 	std::vector <tVector2D> spawnPoints;
@@ -379,8 +402,9 @@ void CLevel::SetCarSpawn (vector<CBase*> pBases)
 	}
 
 	unsigned int index = 0;
+	std::vector <CBase*> cars;
 
-	while (index < spawnPoints.size () && index < pBases.size ())
+	while (index < spawnPoints.size ())
 	{
 		int randomIndex = rand() % spawnPoints.size ();
 
@@ -388,12 +412,88 @@ void CLevel::SetCarSpawn (vector<CBase*> pBases)
 		{
 			(LevelMap->GetEventsList ())[(int)(spawnPoints[randomIndex].fY)][(int)(spawnPoints[randomIndex].fX)].SetInUse (true);
 
-			pBases[index]->SetPosX ((float)(spawnPoints[randomIndex].fX * LevelMap->GetPixelWidth ()));
-			pBases[index]->SetPosY ((float)(spawnPoints[randomIndex].fY * LevelMap->GetPixelHeight ()));
+			if (index < pBases.size ())
+			{
+				pBases[index]->SetPosX ((float)(spawnPoints[randomIndex].fX * LevelMap->GetPixelWidth ()));
+				pBases[index]->SetPosY ((float)(spawnPoints[randomIndex].fY * LevelMap->GetPixelHeight ()));
 
-			CObjectManager::GetInstance ()->AddObject(pBases[index]);
+				CObjectManager::GetInstance ()->AddObject(pBases[index]);
+			}else
+			{
+				CEnemy* car = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
+				car->SetPosX ((float)(spawnPoints[randomIndex].fX * LevelMap->GetPixelWidth ()));
+				car->SetPosY ((float)(spawnPoints[randomIndex].fY * LevelMap->GetPixelHeight ()));
+				car->SetHealth(100.0f);
+				car->SetShieldBar(0.0f);
+				car->SetVelX(0.0f);
+				car->SetVelY(0.0f);
+				car->SetSpeed(0.0f);
+				car->SetMaxHealth(100.0f);
+				car->SetType(OBJECT_ENEMY);
+				car->SetKillCount(0);
+				car->Rotate(0.0f);
+				car->SetMaxSpeed(200.0f);
+				car->SetPowerUps (CGamePlayState::GetInstance ()->GetPowerUps ());
+				car->SetSpeedRamps (CGamePlayState::GetInstance ()->GetSpeedRamps ());
+				car->EnterState ();
+				
+				cars.push_back (car);
+				CObjectManager::GetInstance ()->AddObject(car);
+			}
 
 			index++;
+		}
+	}
+
+	for (unsigned int i = 0; i < cars.size (); i++)
+	{
+		pBases.push_back (cars[i]);
+	}
+
+	return pBases;
+}
+
+void CLevel::ResetCarSpawn (CBase* pBase)
+{
+	//this->ResetSpawns ();
+
+	CTile** Events = LevelMap->GetEventsList();
+	std::vector <tVector2D> spawnPoints;
+
+	for (int YPos = 0; YPos < LevelMap->GetMapHeight(); YPos++)
+	{
+		for (int XPos = 0; XPos < LevelMap->GetMapWidth(); XPos++)
+		{
+			if ( (LevelMap->GetEventsList ())[YPos][XPos].GetType () != -1)
+			{
+				std::string name = (LevelMap->GetEventsList ())[YPos][XPos].GetName ();
+				if (name == "PlayerSpawn")
+				{
+					if((LevelMap->GetEventsList ())[YPos][XPos].InUse () == false)
+					{
+						tVector2D point;
+						point.fX = (float)XPos;
+						point.fY = (float)YPos;
+
+						spawnPoints.push_back (point);
+					}
+				}
+			}
+		}
+	}
+
+	unsigned int index = 0;
+
+	while (index < spawnPoints.size ())
+	{
+		int randomIndex = rand() % spawnPoints.size ();
+
+		if ((LevelMap->GetEventsList ())[(int)(spawnPoints[randomIndex].fY)][(int)(spawnPoints[randomIndex].fX)].InUse () == false)
+		{
+			pBase->SetPosX ((float)(spawnPoints[randomIndex].fX * LevelMap->GetPixelWidth ()));
+			pBase->SetPosY ((float)(spawnPoints[randomIndex].fY * LevelMap->GetPixelHeight ()));
+
+			return;
 		}
 	}
 }
@@ -640,7 +740,7 @@ bool CLevel::CheckEnemyCollision (CBase* pBase)
 	return false;
 }
 
-void CLevel::RestSpawns ()
+void CLevel::ResetSpawns ()
 {
 	CTile** Events = LevelMap->GetEventsList();
 
@@ -648,10 +748,7 @@ void CLevel::RestSpawns ()
 	{
 		for (int XPos = 0; XPos < LevelMap->GetMapWidth(); XPos++)
 		{
-			if ( (LevelMap->GetEventsList ())[YPos][XPos].GetType () != -1)
-			{
-				(LevelMap->GetEventsList ())[YPos][XPos].SetInUse (false);
-			}
+			(LevelMap->GetEventsList ())[YPos][XPos].SetInUse (false);
 		}
 	}
 }
