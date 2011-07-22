@@ -140,6 +140,10 @@ void Emittor::Render(CCamera* camera)
 {
 	CSGD_Direct3D::GetInstance()->GetSprite()->Flush();
 
+	if( (this->position.fX - camera->GetCamX()) < 0 || (this->position.fX - camera->GetCamX()) > camera->GetRenderPosX() + camera->GetWidth()
+		|| ( this->position.fY - camera->GetCamY() + 2 < 0) || (this->position.fY - camera->GetCamY()) > camera->GetRenderPosY() + camera->GetHeight())
+		return;
+
 	CSGD_TextureManager* pTM = CSGD_TextureManager::GetInstance();
 	int temp_source = 0;
 	int temp_destination = 0;
