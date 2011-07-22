@@ -25,6 +25,7 @@
 #include "CSpeedRamp.h"
 #include "CObstacle.h"
 #include "CPowerUp.h"
+#include "CBullet.h"
 #include "CCharacterSelection.h"
 
 CLevel::CLevel()
@@ -322,6 +323,89 @@ bool CLevel::CheckObstacleCollision (CBase* pBase)
 	CTile** Events = LevelMap->GetEventsList();
 	RECT intersection;
 
+	int XBegin = 0, YBegin = 0, XEnd = 0, YEnd;
+
+	XBegin = ((pBase->GetRect ().left - 10) / LevelMap->GetPixelWidth());
+	YBegin = ((pBase->GetRect ().top - 10) / LevelMap->GetPixelHeight());
+	XEnd = ((pBase->GetRect ().right + 10) / LevelMap->GetPixelWidth());
+	YEnd = ((pBase->GetRect ().bottom + 10) / LevelMap->GetPixelHeight());
+
+	if (XBegin - 1 >= 0)
+	{
+		XBegin = XBegin - 1;
+	}
+
+	if (YBegin - 1 >= 0)
+	{
+		YBegin = YBegin - 1;
+	}
+
+	if (XEnd + 1 <= LevelMap->GetMapWidth ())
+	{
+		XEnd = XEnd + 1;
+	}
+
+	if (YEnd + 1 <= LevelMap->GetMapHeight ())
+	{
+		YEnd = YEnd + 1;
+	}
+
+	for (int YPos = YBegin; YPos < YEnd; YPos++)
+	{
+		for (int XPos = XBegin; XPos < XEnd; XPos++)
+		{
+			if (pBase->GetType () == OBJECT_OBSTACLE && (LevelMap->GetEventsList ())[YPos][XPos].GetType () != -1)
+			{
+				std::string name = (LevelMap->GetEventsList ())[YPos][XPos].GetName ();
+				if (name == "WallCollision")
+				{
+					if(IntersectRect(&intersection, &LevelMap->GetCollisionRect(XPos, YPos), &pBase->GetRect()))
+					{
+						tVector2D temp;
+						temp.fX = 0.0f;
+						temp.fY = 0.0f;
+
+						((CObstacle*)pBase)->SetVel (temp);
+
+						if (intersection.bottom - intersection.top < intersection.right - intersection.left)
+						{
+							if (((CObstacle*)pBase)->GetRect ().top <= LevelMap->GetCollisionRect(XPos, YPos).bottom)//bottom collision
+							{
+								((CObstacle*)pBase)->SetPosY (LevelMap->GetCollisionRect(XPos, YPos).bottom);
+							}
+							if (((CObstacle*)pBase)->GetRect ().bottom >= LevelMap->GetCollisionRect(XPos, YPos).top)//left collision
+							{
+								((CObstacle*)pBase)->SetPosY (LevelMap->GetCollisionRect(XPos, YPos).top);
+							}
+						}
+
+						if (intersection.bottom - intersection.top > intersection.right - intersection.left)
+						{
+							if (((CObstacle*)pBase)->GetRect ().left <= LevelMap->GetCollisionRect(XPos, YPos).right)//right collision
+							{
+								((CObstacle*)pBase)->SetPosX (LevelMap->GetCollisionRect(XPos, YPos).right);
+							}
+							if (((CObstacle*)pBase)->GetRect ().right >= LevelMap->GetCollisionRect(XPos, YPos).left)//left collision
+							{
+								((CObstacle*)pBase)->SetPosX (LevelMap->GetCollisionRect(XPos, YPos).left);
+							}
+						}
+
+						return true;
+					}
+				}
+			}
+		}
+	}
+
+	return false;
+}
+
+bool CLevel::CheckBulletCollision (CBase* pBase)
+{
+	CTile** Events = LevelMap->GetEventsList();
+	RECT intersection;
+
 	for (int YPos = 0; YPos < LevelMap->GetMapHeight(); YPos++)
 	{
 		for (int XPos = 0; XPos < LevelMap->GetMapWidth(); XPos++)
@@ -372,7 +456,6 @@ bool CLevel::CheckObstacleCollision (CBase* pBase)
 
 	return false;
 }
-
 
 vector<CBase*> CLevel::SetCarSpawn (vector<CBase*> pBases)
 {

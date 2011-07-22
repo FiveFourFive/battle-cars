@@ -51,6 +51,7 @@ public:
 	bool CheckCameraCollision (CCamera* camera);
 	bool CheckEnemyCollision (CBase* pBase);
 	bool CheckObstacleCollision (CBase* pBase);
+	bool CheckBulletCollision (CBase* pBase);
 
 	vector<CBase*>  SetCarSpawn (vector<CBase*> pBases);
 	vector<CSpeedRamp*> SetSpeedRampSpawn ();

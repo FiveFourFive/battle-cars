@@ -290,11 +290,12 @@ void CGamePlayState::Enter(void)
 	player->Rotate(0);
 	
 	cars.push_back (player);
-	//cars.push_back (miniboss);
+	
 
 	if(!m_bCollectionChallenge)
 	{
-		//m_pOM->AddObject(miniboss);
+		cars.push_back (miniboss);
+		m_pOM->AddObject(miniboss);
 		//m_pOM->AddObject(dummy2);
 		//m_pOM->AddObject(ramps[0]);
 		//m_pOM->AddObject(ramps[1]);
@@ -601,7 +602,7 @@ void CGamePlayState::Exit(void)
 
 	for(unsigned int i = 0; i < cars.size(); i++)
 	{
-		if (cars[i] != player && cars[i] != player2)
+		if (cars[i] != player && cars[i] != player2 && cars[i]->GetType () != OBJECT_BOSS)
 		cars[i]->Release();
 	}
 	cars.clear();
