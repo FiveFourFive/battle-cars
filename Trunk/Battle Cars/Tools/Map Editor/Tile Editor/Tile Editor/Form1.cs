@@ -446,9 +446,9 @@ namespace Tile_Editor
             if (YEnd >= levelMap.MapSize.Height)
                 YEnd = levelMap.MapSize.Height;
 
-            for (int Ypos = 0; Ypos < 200; Ypos++)
+            for (int Ypos = YBegin; Ypos < YEnd; Ypos++)
             {
-                for (int Xpos = 0; Xpos < 200; Xpos++)
+                for (int Xpos = XBegin; Xpos < XEnd; Xpos++)
                 {
                     if (List[Ypos, Xpos].Type != (TileType)(-1))
                     {
