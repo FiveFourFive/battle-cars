@@ -109,6 +109,14 @@ namespace Tile_Editor
             set { EventID.Text = value; }
         }
 
+        string id;
+
+        public string ID
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
         public ToolsWindow()
         {
             InitializeComponent();
@@ -133,6 +141,8 @@ namespace Tile_Editor
             toolTip1.SetToolTip(this.Fill, "Fill Tool: used to select a tile from the tile window");
 
             CCollision.Checked = true;
+            ID = "NULL";
+
         }
 
         private void Selection_Click(object sender, EventArgs e)
@@ -281,7 +291,9 @@ namespace Tile_Editor
                 PowerUpSpawn.Checked = false;
                 SpeedRampSpawn.Checked = false;
                 ObstacleSpawn.Checked = false;
-
+                PowerUps.Visible = false;
+                SpeedRampDirection.Visible = false;
+                Obstacles.Visible = false;
                 EventID.Text = "CameraCollision";
             }
             else
@@ -297,7 +309,9 @@ namespace Tile_Editor
                 PowerUpSpawn.Checked = false;
                 SpeedRampSpawn.Checked = false;
                 ObstacleSpawn.Checked = false;
-
+                PowerUps.Visible = false;
+                SpeedRampDirection.Visible = false;
+                Obstacles.Visible = false;
                 EventID.Text = "WallCollision";
             }
             else
@@ -313,7 +327,9 @@ namespace Tile_Editor
                 PowerUpSpawn.Checked = false;
                 SpeedRampSpawn.Checked = false;
                 ObstacleSpawn.Checked = false;
-
+                PowerUps.Visible = false;
+                SpeedRampDirection.Visible = false;
+                Obstacles.Visible = false;
                 EventID.Text = "PlayerSpawn";
             }
             else
@@ -329,11 +345,16 @@ namespace Tile_Editor
                 PlayerSpawn.Checked = false;
                 SpeedRampSpawn.Checked = false;
                 ObstacleSpawn.Checked = false;
-
+                PowerUps.Visible = true;
+                SpeedRampDirection.Visible = false;
+                Obstacles.Visible = false;
                 EventID.Text = "PowerUpSpawn";
             }
             else
+            {
+                PowerUps.Visible = false;
                 PowerUpSpawn.Checked = false;
+            }
         }
 
         private void ObstacleSpawn_CheckedChanged_1(object sender, EventArgs e)
@@ -345,11 +366,16 @@ namespace Tile_Editor
                 PowerUpSpawn.Checked = false;
                 SpeedRampSpawn.Checked = false;
                 PlayerSpawn.Checked = false;
-
+                PowerUps.Visible = false;
+                SpeedRampDirection.Visible = false;
+                Obstacles.Visible = true;
                 EventID.Text = "ObstacleSpawn";
             }
             else
+            {
+                Obstacles.Visible = false;
                 ObstacleSpawn.Checked = false;
+            }
         }
 
         private void SpeedRampSpawn_CheckedChanged_1(object sender, EventArgs e)
@@ -361,11 +387,16 @@ namespace Tile_Editor
                 PowerUpSpawn.Checked = false;
                 PlayerSpawn.Checked = false;
                 ObstacleSpawn.Checked = false;
-
+                PowerUps.Visible = false;
+                SpeedRampDirection.Visible = true;
+                Obstacles.Visible = false;
                 EventID.Text = "SpeedRampSpawn";
             }
             else
+            {
+                SpeedRampDirection.Visible = false;
                 SpeedRampSpawn.Checked = false;
+            }
         }
 
         private void EventEraser_Click(object sender, EventArgs e)
@@ -375,6 +406,37 @@ namespace Tile_Editor
             {
                 ToolClicked(this, EventArgs.Empty);
             }
+        }
+
+        private void SpeedRampDirection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (SpeedRampDirection.SelectedIndex != -1)
+            {
+
+                id = SpeedRampDirection.Items[SpeedRampDirection.SelectedIndex].ToString();
+            }
+            else
+                id = "NULL";
+        }
+
+        private void PowerUps_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (PowerUps.SelectedIndex != -1)
+            {
+                id = PowerUps.Items[PowerUps.SelectedIndex].ToString();
+            }
+            else
+                id = "NULL";
+        }
+
+        private void Obstacles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Obstacles.SelectedIndex != -1)
+            {
+                id = Obstacles.Items[Obstacles.SelectedIndex].ToString();
+            }
+            else
+                id = "NULL";
         }
 
        

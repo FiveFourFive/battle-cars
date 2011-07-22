@@ -47,6 +47,8 @@
             this.label20 = new System.Windows.Forms.Label();
             this.EventsInfo = new System.Windows.Forms.TabPage();
             this.EventsGroupBox = new System.Windows.Forms.GroupBox();
+            this.PowerUps = new System.Windows.Forms.ComboBox();
+            this.SpeedRampDirection = new System.Windows.Forms.ComboBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.SpeedRampSpawn = new System.Windows.Forms.RadioButton();
             this.PlayerSpawn = new System.Windows.Forms.RadioButton();
@@ -75,6 +77,7 @@
             this.TilesHeight = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.Obstacles = new System.Windows.Forms.ComboBox();
             this.ToolsTab.SuspendLayout();
             this.ToolsPage.SuspendLayout();
             this.EventsInfo.SuspendLayout();
@@ -275,16 +278,49 @@
             // 
             // EventsGroupBox
             // 
+            this.EventsGroupBox.Controls.Add(this.Obstacles);
+            this.EventsGroupBox.Controls.Add(this.PowerUps);
+            this.EventsGroupBox.Controls.Add(this.SpeedRampDirection);
             this.EventsGroupBox.Controls.Add(this.groupBox9);
             this.EventsGroupBox.Controls.Add(this.label17);
             this.EventsGroupBox.Controls.Add(this.groupBox8);
             this.EventsGroupBox.Controls.Add(this.EventID);
-            this.EventsGroupBox.Location = new System.Drawing.Point(17, 62);
+            this.EventsGroupBox.Location = new System.Drawing.Point(17, 42);
             this.EventsGroupBox.Name = "EventsGroupBox";
-            this.EventsGroupBox.Size = new System.Drawing.Size(439, 167);
+            this.EventsGroupBox.Size = new System.Drawing.Size(439, 236);
             this.EventsGroupBox.TabIndex = 9;
             this.EventsGroupBox.TabStop = false;
             this.EventsGroupBox.Text = "Event Info";
+            // 
+            // PowerUps
+            // 
+            this.PowerUps.FormattingEnabled = true;
+            this.PowerUps.Items.AddRange(new object[] {
+            "Health",
+            "Shield",
+            "Weapon",
+            "Special"});
+            this.PowerUps.Location = new System.Drawing.Point(194, 128);
+            this.PowerUps.Name = "PowerUps";
+            this.PowerUps.Size = new System.Drawing.Size(121, 21);
+            this.PowerUps.TabIndex = 14;
+            this.PowerUps.Visible = false;
+            this.PowerUps.SelectedIndexChanged += new System.EventHandler(this.PowerUps_SelectedIndexChanged);
+            // 
+            // SpeedRampDirection
+            // 
+            this.SpeedRampDirection.FormattingEnabled = true;
+            this.SpeedRampDirection.Items.AddRange(new object[] {
+            "Up",
+            "Down",
+            "Left",
+            "Right"});
+            this.SpeedRampDirection.Location = new System.Drawing.Point(194, 128);
+            this.SpeedRampDirection.Name = "SpeedRampDirection";
+            this.SpeedRampDirection.Size = new System.Drawing.Size(121, 21);
+            this.SpeedRampDirection.TabIndex = 13;
+            this.SpeedRampDirection.Visible = false;
+            this.SpeedRampDirection.SelectedIndexChanged += new System.EventHandler(this.SpeedRampDirection_SelectedIndexChanged);
             // 
             // groupBox9
             // 
@@ -354,7 +390,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(107, 116);
+            this.label17.Location = new System.Drawing.Point(109, 193);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(49, 13);
             this.label17.TabIndex = 5;
@@ -399,7 +435,7 @@
             // 
             // EventID
             // 
-            this.EventID.Location = new System.Drawing.Point(162, 113);
+            this.EventID.Location = new System.Drawing.Point(164, 190);
             this.EventID.Name = "EventID";
             this.EventID.Size = new System.Drawing.Size(100, 20);
             this.EventID.TabIndex = 2;
@@ -669,6 +705,19 @@
             this.label5.TabIndex = 2;
             this.label5.Text = "Height";
             // 
+            // Obstacles
+            // 
+            this.Obstacles.FormattingEnabled = true;
+            this.Obstacles.Items.AddRange(new object[] {
+            "Crate",
+            "Barrel"});
+            this.Obstacles.Location = new System.Drawing.Point(194, 128);
+            this.Obstacles.Name = "Obstacles";
+            this.Obstacles.Size = new System.Drawing.Size(121, 21);
+            this.Obstacles.TabIndex = 15;
+            this.Obstacles.Visible = false;
+            this.Obstacles.SelectedIndexChanged += new System.EventHandler(this.Obstacles_SelectedIndexChanged);
+            // 
             // ToolsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -676,6 +725,7 @@
             this.ClientSize = new System.Drawing.Size(530, 410);
             this.Controls.Add(this.ToolsTab);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.MinimizeBox = false;
             this.Name = "ToolsWindow";
             this.Text = "Tools Window";
             this.ToolsTab.ResumeLayout(false);
@@ -753,5 +803,8 @@
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.RadioButton CCollision;
         private System.Windows.Forms.RadioButton WCollision;
+        private System.Windows.Forms.ComboBox PowerUps;
+        private System.Windows.Forms.ComboBox SpeedRampDirection;
+        private System.Windows.Forms.ComboBox Obstacles;
     }
 }

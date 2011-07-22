@@ -24,9 +24,11 @@ private:
 
 	std::string  m_stName; // for spawns, collisions and events
 
+	int m_nID;
+
 public:
 	CTile ();
-	CTile (int XPos, int YPos, int XPicked, int YPicked, int Index, const char* Name, int type);
+	CTile (int XPos, int YPos, int XPicked, int YPicked, int id, const char* Name, int type);
 	~CTile();
 
 	//Accessors
@@ -34,6 +36,7 @@ public:
 	int GetYPos () {return m_nYPos; }
 	int GetXPicked () {return m_nXPicked; }
 	int GetYPicked () {return m_nYPicked; }
+	int GetID () {return m_nID;}
 
 	const char* GetName () {return m_stName.c_str(); }
 	int GetType() {return m_nType;}
@@ -47,6 +50,7 @@ public:
 	void SetName (const char* Name) {m_stName = Name;}
 	void SetType (int type) {m_nType = type;}
 	void SetInUse (bool inUse) {m_bInUse = inUse;}
+	void SetID (int id) {m_nID = id;}
 
 };
 

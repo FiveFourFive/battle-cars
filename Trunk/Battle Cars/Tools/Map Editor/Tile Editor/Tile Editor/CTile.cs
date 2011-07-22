@@ -40,6 +40,14 @@ namespace Tile_Editor
             set { type = value; }
         }
 
+        string id;
+
+        public string ID
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
         public override string ToString()
         {
             return name;

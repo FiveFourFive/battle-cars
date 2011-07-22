@@ -73,11 +73,16 @@ private:
 	// objects
 	CPlayer* player;
 	CEnemy* dummy;
+	vector<CBase*> cars;
+	vector<CObstacle*> obstacles;
 	vector<PowerUp*> power_ups;
 	vector<CSpeedRamp*> ramps;
 	vector<CBoss*> bosses;
 	PowerUp* power_up_power;
-	CCar* dummy2;
+	CEnemy* dummy2;
+	CEnemy* dummy3;
+	CEnemy* dummy4;
+	CEnemy* dummy5;
 	CPlayer* player2;
 	CObstacle* crate1;
 	CObstacle* crate2;
@@ -169,6 +174,8 @@ public:
 	void SetComputerCollectables(int collectables) {m_nCollectableTotalComputer = collectables;}
 	void SetPlayerCollectables(int collectables) {m_nCollectableTotalPlayer = collectables;}
 
+	int GetBarrelImageID () {return this->m_nBarrelID;}
+	int GetCrateImageID () {return this->m_nCrateID;}
 };
 
 

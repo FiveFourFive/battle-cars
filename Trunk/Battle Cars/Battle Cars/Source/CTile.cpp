@@ -18,9 +18,10 @@ CTile::CTile ()
 	SetName ("NoName");
 	SetType (-1);
 	SetInUse (false);
+	SetID (-1);
 }
 
-CTile::CTile (int XPos, int YPos, int XPicked, int YPicked, int Index, const char* Name, int type)
+CTile::CTile (int XPos, int YPos, int XPicked, int YPicked, int id, const char* Name, int type)
 {
 	SetXPos (XPos);
 	SetYPos (YPos);
@@ -28,6 +29,7 @@ CTile::CTile (int XPos, int YPos, int XPicked, int YPicked, int Index, const cha
 	SetYPicked (YPicked);
 	SetName (Name);
 	SetType (type);
+	SetID (id);
 }
 
 CTile::~CTile()

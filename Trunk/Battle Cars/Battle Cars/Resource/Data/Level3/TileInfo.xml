@@ -4812,11 +4812,11 @@
     <Tile XPos="7" YPos="24" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="8" YPos="24" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="9" YPos="24" PickedX="0" PickedY="0" Type="0" />
-    <Tile XPos="10" YPos="24" PickedX="0" PickedY="0" Type="0" />
-    <Tile XPos="11" YPos="24" PickedX="0" PickedY="0" Type="0" />
-    <Tile XPos="12" YPos="24" PickedX="0" PickedY="0" Type="0" />
-    <Tile XPos="13" YPos="24" PickedX="0" PickedY="0" Type="0" />
-    <Tile XPos="14" YPos="24" PickedX="0" PickedY="0" Type="0" />
+    <Tile XPos="10" YPos="24" PickedX="6" PickedY="5" Type="46" />
+    <Tile XPos="11" YPos="24" PickedX="6" PickedY="5" Type="46" />
+    <Tile XPos="12" YPos="24" PickedX="6" PickedY="5" Type="46" />
+    <Tile XPos="13" YPos="24" PickedX="6" PickedY="5" Type="46" />
+    <Tile XPos="14" YPos="24" PickedX="6" PickedY="5" Type="46" />
     <Tile XPos="15" YPos="24" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="16" YPos="24" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="17" YPos="24" PickedX="0" PickedY="0" Type="0" />
@@ -5012,11 +5012,11 @@
     <Tile XPos="7" YPos="25" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="8" YPos="25" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="9" YPos="25" PickedX="0" PickedY="0" Type="0" />
-    <Tile XPos="10" YPos="25" PickedX="0" PickedY="0" Type="0" />
+    <Tile XPos="10" YPos="25" PickedX="6" PickedY="5" Type="46" />
     <Tile XPos="11" YPos="25" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="12" YPos="25" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="13" YPos="25" PickedX="0" PickedY="0" Type="0" />
-    <Tile XPos="14" YPos="25" PickedX="0" PickedY="0" Type="0" />
+    <Tile XPos="14" YPos="25" PickedX="6" PickedY="5" Type="46" />
     <Tile XPos="15" YPos="25" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="16" YPos="25" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="17" YPos="25" PickedX="0" PickedY="0" Type="0" />
@@ -5212,11 +5212,11 @@
     <Tile XPos="7" YPos="26" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="8" YPos="26" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="9" YPos="26" PickedX="0" PickedY="0" Type="0" />
-    <Tile XPos="10" YPos="26" PickedX="0" PickedY="0" Type="0" />
+    <Tile XPos="10" YPos="26" PickedX="6" PickedY="5" Type="46" />
     <Tile XPos="11" YPos="26" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="12" YPos="26" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="13" YPos="26" PickedX="0" PickedY="0" Type="0" />
-    <Tile XPos="14" YPos="26" PickedX="0" PickedY="0" Type="0" />
+    <Tile XPos="14" YPos="26" PickedX="6" PickedY="5" Type="46" />
     <Tile XPos="15" YPos="26" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="16" YPos="26" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="17" YPos="26" PickedX="0" PickedY="0" Type="0" />
@@ -5412,11 +5412,11 @@
     <Tile XPos="7" YPos="27" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="8" YPos="27" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="9" YPos="27" PickedX="0" PickedY="0" Type="0" />
-    <Tile XPos="10" YPos="27" PickedX="0" PickedY="0" Type="0" />
+    <Tile XPos="10" YPos="27" PickedX="6" PickedY="5" Type="46" />
     <Tile XPos="11" YPos="27" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="12" YPos="27" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="13" YPos="27" PickedX="0" PickedY="0" Type="0" />
-    <Tile XPos="14" YPos="27" PickedX="0" PickedY="0" Type="0" />
+    <Tile XPos="14" YPos="27" PickedX="6" PickedY="5" Type="46" />
     <Tile XPos="15" YPos="27" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="16" YPos="27" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="17" YPos="27" PickedX="0" PickedY="0" Type="0" />
@@ -5612,11 +5612,11 @@
     <Tile XPos="7" YPos="28" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="8" YPos="28" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="9" YPos="28" PickedX="0" PickedY="0" Type="0" />
-    <Tile XPos="10" YPos="28" PickedX="0" PickedY="0" Type="0" />
+    <Tile XPos="10" YPos="28" PickedX="6" PickedY="5" Type="46" />
     <Tile XPos="11" YPos="28" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="12" YPos="28" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="13" YPos="28" PickedX="0" PickedY="0" Type="0" />
-    <Tile XPos="14" YPos="28" PickedX="0" PickedY="0" Type="0" />
+    <Tile XPos="14" YPos="28" PickedX="6" PickedY="5" Type="46" />
     <Tile XPos="15" YPos="28" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="16" YPos="28" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="17" YPos="28" PickedX="0" PickedY="0" Type="0" />
@@ -5812,11 +5812,11 @@
     <Tile XPos="7" YPos="29" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="8" YPos="29" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="9" YPos="29" PickedX="0" PickedY="0" Type="0" />
-    <Tile XPos="10" YPos="29" PickedX="0" PickedY="0" Type="0" />
+    <Tile XPos="10" YPos="29" PickedX="6" PickedY="5" Type="46" />
     <Tile XPos="11" YPos="29" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="12" YPos="29" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="13" YPos="29" PickedX="0" PickedY="0" Type="0" />
-    <Tile XPos="14" YPos="29" PickedX="0" PickedY="0" Type="0" />
+    <Tile XPos="14" YPos="29" PickedX="6" PickedY="5" Type="46" />
     <Tile XPos="15" YPos="29" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="16" YPos="29" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="17" YPos="29" PickedX="0" PickedY="0" Type="0" />
@@ -6012,11 +6012,11 @@
     <Tile XPos="7" YPos="30" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="8" YPos="30" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="9" YPos="30" PickedX="0" PickedY="0" Type="0" />
-    <Tile XPos="10" YPos="30" PickedX="0" PickedY="0" Type="0" />
-    <Tile XPos="11" YPos="30" PickedX="0" PickedY="0" Type="0" />
-    <Tile XPos="12" YPos="30" PickedX="0" PickedY="0" Type="0" />
-    <Tile XPos="13" YPos="30" PickedX="0" PickedY="0" Type="0" />
-    <Tile XPos="14" YPos="30" PickedX="0" PickedY="0" Type="0" />
+    <Tile XPos="10" YPos="30" PickedX="6" PickedY="5" Type="46" />
+    <Tile XPos="11" YPos="30" PickedX="6" PickedY="5" Type="46" />
+    <Tile XPos="12" YPos="30" PickedX="6" PickedY="5" Type="46" />
+    <Tile XPos="13" YPos="30" PickedX="6" PickedY="5" Type="46" />
+    <Tile XPos="14" YPos="30" PickedX="6" PickedY="5" Type="46" />
     <Tile XPos="15" YPos="30" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="16" YPos="30" PickedX="0" PickedY="0" Type="0" />
     <Tile XPos="17" YPos="30" PickedX="0" PickedY="0" Type="0" />

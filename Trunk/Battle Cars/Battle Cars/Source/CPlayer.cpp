@@ -84,6 +84,7 @@ void CPlayer::Update(float fElapsedTime)
 		m_pCamera->AttachTo(this,CGame::GetInstance()->GetScreenWidth()*0.5f,CGame::GetInstance()->GetScreenHeight()*0.5f);
 
 	m_pCamera->Update();
+	CLevel::GetInstance ()->CheckPlayerCollision (this, this->GetCamera ());
 
 	if( GetHealth() <= 0.0f)
 	{
@@ -446,9 +447,6 @@ void CPlayer::Update(float fElapsedTime)
 		}
 	}
 
-	
-	CLevel::GetInstance ()->CheckPlayerCollision (this, this->GetCamera ());
-
 	SetCollisionDelay(GetCollisionDelay() + fElapsedTime);
 	if(GetCollisionDelay() >= 0.2)
 	{
@@ -483,6 +481,21 @@ void CPlayer::Render(CCamera* camera)
 	center.right = center.left + 10;
 	center.bottom = center.top + 10;
 	pD3D->DrawRect(center,0,0,0);
+	pD3D->DrawRect(temp_rect, 0,255,255);
+
+	//pD3D->GetSprite()->Flush();
+	//temp_rect.left = this->GetCX1 () - camera->GetCamX() + camera->GetRenderPosX();
+	//temp_rect.top = this->GetCY1 () - camera->GetCamY() + camera->GetRenderPosY();
+	//temp_rect.right = temp_rect.left + 5;
+	//temp_rect.bottom = temp_rect.top + 5;
+	//pD3D->DrawRect(temp_rect, 255,0,0);
+
+	//pD3D->GetSprite()->Flush();
+	//temp_rect.left = this->GetCX2 () - camera->GetCamX() + camera->GetRenderPosX();
+	//temp_rect.top = this->GetCY2 () - camera->GetCamY() + camera->GetRenderPosY();
+	//temp_rect.right = temp_rect.left + 5;
+	//temp_rect.bottom = temp_rect.top + 5;
+	//pD3D->DrawRect(temp_rect, 0,255,0);
 }
 
 bool CPlayer::CheckCollision(IBaseInterface* pBase)
@@ -506,10 +519,12 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 		float centery2 = tempcar->GetCY2();
 		float myx2 = GetCX2();
 		float myy2 = GetCY2();
+
 		float distance11 = sqrt(((centerx - myx)*(centerx - myx)) + ((centery - myy)*(centery - myy)));
 		float distance21 = sqrt(((centerx2 - myx2)*(centerx2 - myx2)) + ((centery2 - myy2)*(centery2 - myy2)));
 		float distance12 = sqrt(((centerx2 - myx)*(centerx2 - myx)) + ((centery2 - myy)*(centery2 - myy)));
 		float distance22 = sqrt(((centerx - myx2)*(centerx - myx2)) + ((centery - myy2)*(centery - myy2)));
+
 		if(distance11 <= (GetRadius() + tempcar->GetRadius()) || distance21 <= (GetRadius() + tempcar->GetRadius())
 			|| distance12 <= (GetRadius() + tempcar->GetRadius()) || distance22 <= (GetRadius() + tempcar->GetRadius()))
 		{
