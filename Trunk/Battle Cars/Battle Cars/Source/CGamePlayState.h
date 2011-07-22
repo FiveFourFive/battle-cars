@@ -151,6 +151,7 @@ public:
 	//Accessors
 	vector<CPlayer*> GetCharacters() {return characters;}
 	vector<CBase*> GetCars () {return cars;}
+	vector<PowerUp*> GetPowerUps () {return power_ups;}
 
 	CPlayer* GetPlayer1() {return player;}
 	CPlayer* GetPlayer2() {return player2;}
