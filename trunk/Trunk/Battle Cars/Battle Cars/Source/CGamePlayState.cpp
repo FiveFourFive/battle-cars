@@ -384,6 +384,7 @@ void CGamePlayState::Enter(void)
 	m_pPM->LoadEmittor("resource/data/explosion.xml");
 	m_pPM->LoadEmittor("resource/data/car_exploded.xml");
 	m_pPM->LoadEmittor("resource/data/FlameThrower.xml");
+	m_pPM->LoadEmittor("resource/data/barrel_explode.xml");
 
 	
 	time = 1000;
@@ -516,24 +517,54 @@ void CGamePlayState::Enter(void)
 	power_ups = Level->SetPowerUpSpawn ();
 	cars = Level->SetCarSpawn (cars);
 
-	if( COptionState::GetInstance()->IsVertical())
-		player->GetCamera ()->AttachTo(player,CGame::GetInstance()->GetScreenWidth()*0.25f,CGame::GetInstance()->GetScreenHeight()*0.5f);
-	else
-		player->GetCamera ()->AttachTo(player,CGame::GetInstance()->GetScreenWidth()*0.5f, CGame::GetInstance()->GetScreenHeight()*0.25f);
+	
 
-	player->GetCamera ()->Update ();
-
-	if (player2)
+	if( CNumPlayers::GetInstance()->GetNumberOfPlayers() == 2)
 	{
 		if( COptionState::GetInstance()->IsVertical())
-			player2->GetCamera ()->AttachTo(player2,CGame::GetInstance()->GetScreenWidth()*0.25f,CGame::GetInstance()->GetScreenHeight()*0.5f);
+		{
+			player->GetCamera()->AttachTo(player,CGame::GetInstance()->GetScreenWidth()*0.25f,CGame::GetInstance()->GetScreenHeight()*0.5f);
+			player->GetCamera()->SetWidth(CGame::GetInstance()->GetScreenWidth()*0.5f);
+			player->GetCamera()->SetHeight(CGame::GetInstance()->GetScreenHeight());
+		}
 		else
-			player2->GetCamera ()->AttachTo(player2,CGame::GetInstance()->GetScreenWidth()*0.5f, CGame::GetInstance()->GetScreenHeight()*0.25f);
+		{
+			player->GetCamera ()->AttachTo(player,CGame::GetInstance()->GetScreenWidth()*0.5f, CGame::GetInstance()->GetScreenHeight()*0.25f);
+			player->GetCamera()->SetWidth(CGame::GetInstance()->GetScreenWidth());
+			player->GetCamera()->SetHeight(CGame::GetInstance()->GetScreenHeight()*0.5f);
+		}
 
-		player2->GetCamera ()->Update ();
-	}
+		
 
 	Level->ResetSpawns ();
+			if( COptionState::GetInstance()->IsVertical())
+			{
+				player2->GetCamera ()->AttachTo(player2,CGame::GetInstance()->GetScreenWidth()*0.25f,CGame::GetInstance()->GetScreenHeight()*0.5f);
+				player2->GetCamera()->SetWidth(CGame::GetInstance()->GetScreenWidth()*0.5f);
+				player2->GetCamera()->SetHeight(CGame::GetInstance()->GetScreenHeight());
+			}
+			else
+			{
+				player2->GetCamera ()->AttachTo(player2,CGame::GetInstance()->GetScreenWidth()*0.5f, CGame::GetInstance()->GetScreenHeight()*0.25f);
+				player2->GetCamera()->SetWidth(CGame::GetInstance()->GetScreenWidth());
+				player2->GetCamera()->SetHeight(CGame::GetInstance()->GetScreenHeight()*0.5f);
+			}
+
+
+		player->GetCamera()->Update();
+		player2->GetCamera()->Update();
+	}
+	else
+	{
+		player->GetCamera ()->AttachTo(player,CGame::GetInstance()->GetScreenWidth()*0.5f,CGame::GetInstance()->GetScreenHeight()*0.5f);
+		player->GetCamera()->SetWidth(CGame::GetInstance()->GetScreenWidth());
+		player->GetCamera()->SetHeight(CGame::GetInstance()->GetScreenHeight());
+		player->GetCamera()->Update();
+	}
+
+	Level->RestSpawns ();
+
+	//player->SetKillCount(55);
 }
 
 void CGamePlayState::Exit(void)

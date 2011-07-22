@@ -669,7 +669,7 @@ void CPlayer::HandleEvent(CEvent* pEvent)
 			float damage = tempbullet->GetDamage();
 			if(tempbullet->GetSlowRate() != 0.0f)
 				SetSpeed(GetSpeed()*.75f);
-			if(GetShieldBar() >= 0)
+			if(GetShieldBar() > 0)
 			{
 				SetShieldBar(GetShieldBar() - tempbullet->GetDamage());
 			}

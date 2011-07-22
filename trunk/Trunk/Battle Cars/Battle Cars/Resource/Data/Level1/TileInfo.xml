@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TilesInfo Width="8" Height="6">
+<TilesInfo Width="8" Height="8">
   <BitmapName>BC_tiles.png</BitmapName>
   <Tiles>
     <Tile XPos="0" YPos="0" PickedX="6" PickedY="4" Type="38" />

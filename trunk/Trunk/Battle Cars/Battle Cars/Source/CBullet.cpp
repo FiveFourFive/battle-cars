@@ -51,14 +51,8 @@ void CBullet::Render(CCamera* camera)
 		|| (GetRect().top - camera->GetCamY()) > camera->GetRenderPosY() + camera->GetHeight() )
 		return;
 
-	RECT temppos;
-	temppos.left = (LONG)(GetPosX() - camera->GetCamX() + camera->GetRenderPosX());
-	temppos.top = (LONG)(GetPosY() - camera->GetCamY() + camera->GetRenderPosY());
-	temppos.right = (LONG)(temppos.left + GetWidth());
-	temppos.bottom = (LONG)(temppos.top + GetHeight());
-	CSGD_Direct3D::GetInstance()->DrawRect(temppos,255,255,255);
 	m_pTM->Draw(GetImageID(),int(GetPosX() - camera->GetCamX() + camera->GetRenderPosX()),int(GetPosY() - camera->GetCamY() + camera->GetRenderPosY()),m_fScale,m_fScale, 
-		NULL,64/2, 64/2, GetRotation());
+		NULL,m_pTM->GetTextureWidth(GetImageID())*0.5f, m_pTM->GetTextureHeight(GetImageID())*0.5f, GetRotation());
 	//m_pTM->Draw(GetImageID(),(int)GetPosX(),(int)GetPosY(),0.5f,0.5f,NULL,GetPosX()-(GetWidth()),GetPosY()-(GetHeight()),m_fRotation);
 
 }

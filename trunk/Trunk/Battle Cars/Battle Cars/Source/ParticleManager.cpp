@@ -241,7 +241,7 @@ bool ParticleManager::LoadEmittor( const char* FileName)
 		else
 			MessageBox(0, "Failed to load Acceleration", 0, 0);
 
-		TiXmlElement* pRotation = xEmittor->FirstChildElement("YAcceleration");
+		TiXmlElement* pRotation = xEmittor->FirstChildElement("Rotation");
 		if(pRotation)
 		{
 			temp->SetRotation((float)atof(pRotation->GetText()));

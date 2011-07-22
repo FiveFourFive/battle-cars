@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Emittors>
+  <Emittor>
+    <Name>Barrel Explosion</Name>
+    <NumberofParticles>50.00000</NumberofParticles>
+    <MinLifeSpan>0.4</MinLifeSpan>
+    <MaxLifeSpan>1</MaxLifeSpan>
+    <StartColor A="255" R="198" G="0" B="198" />
+    <EndColor A="0" R="255" G="0" B="255" />
+    <XStartScale>0.3</XStartScale>
+    <XEndScale>0.8</XEndScale>
+    <YStartScale>0.3</YStartScale>
+    <YEndScale>0.8.0</YEndScale>
+    <MinXVelocity>-10.000</MinXVelocity>
+    <MaxXVelocity>10.000</MaxXVelocity>
+    <MinYVelocity>-10.000</MinYVelocity>
+    <MaxYVelocity>10.000</MaxYVelocity>
+    <XAcceleration>-100.000</XAcceleration>
+    <YAcceleration>-50.000</YAcceleration>
+    <Rotation>0</Rotation>
+    <SourceBlend>5</SourceBlend>
+    <DestinationBlend>6</DestinationBlend>
+    <ImageName>raindrop.tga</ImageName>
+    <Continuous>true</Continuous>
+    <Bursting>false</Bursting>
+  </Emittor>
+</Emittors>

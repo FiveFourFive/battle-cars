@@ -54,6 +54,9 @@ public:
 	void SetRenderPosX(float xPos){ m_fRenderPosX = xPos; }
 	void SetRenderPosY(float yPos){ m_fRenderPosY = yPos; }
 
+	void SetWidth(int width){ m_nWidth = width;}
+	void SetHeight(int height){ m_nHeight = height;}
+
 	CBase* GetOwner() { return owner;}
 	
 	RECT GetRect();

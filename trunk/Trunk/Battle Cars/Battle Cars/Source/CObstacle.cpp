@@ -4,12 +4,19 @@
 #include "CSGD_Direct3D.h"
 #include "CCamera.h"
 #include "SGD_Math.h"
+#include "ParticleManager.h"
+#include "Emittor.h"
 
 CObstacle::CObstacle(void)
 {
 	m_vCollisionVel.fX = 0;
 	m_vCollisionVel.fY = 0;
 
+	m_bHit = false;
+	m_fRespawnTimer = 25.0f;
+	m_fBlowUpTimer = 5.0f;
+	ParticleCreated = false;
+	m_bActive = true;
 }
 
 CObstacle::~CObstacle(void)
@@ -52,18 +59,95 @@ void CObstacle::Update(float fElapsedTime)
 	CLevel::GetInstance ()->CheckObstacleCollision (this);
 
 	InBounds();
+
+	if( GetObstacleType() == BARREL_OBSTACLES)
+	{
+		if( m_bHit )
+		{
+			if( !ParticleCreated )
+			{
+				ParticleManager* PM = ParticleManager::GetInstance();
+				Emittor* blow_emittor = PM->CreateEffect(PM->GetEmittor(BARREL_EMITTOR), this->GetPosX(), this->GetPosY());
+
+				if( blow_emittor )
+				{
+					m_nBarrelBurstingID = blow_emittor->GetID();
+					blow_emittor->SetTimeToDie(5.0f);
+					PM->AttachToBasePosition(this, blow_emittor);
+				}
+				ParticleCreated = true;
+			}
+
+			if( m_fBlowUpTimer > 0.0f)
+			{
+				ParticleManager* PM = ParticleManager::GetInstance();
+
+				m_fBlowUpTimer -= fElapsedTime;
+				PM->AttachToBasePosition(this, PM->GetActiveEmittor(m_nBarrelBurstingID));
+			}
+
+			if( m_fBlowUpTimer <= 0.0f)
+			{
+				m_fRespawnTimer-= fElapsedTime;
+
+				if( m_bActive )
+				{
+					ParticleManager* PM = ParticleManager::GetInstance();
+#pragma region EXPLOSION_EFFECT
+					Emittor* smoke_emittor = PM->CreateEffect(PM->GetEmittor(EXPLOSION_SMOKE_EMITTOR), this->GetPosX(), this->GetPosY());
+					if( smoke_emittor )
+					{
+ 						smoke_emittor->SetTimeToDie(1.5f);
+					}
+
+					Emittor* fireburst_emittor = PM->CreateEffect(PM->GetEmittor(EXPLOSION_FIREBURST1_EMITTOR), this->GetPosX() , this->GetPosY());
+					if( fireburst_emittor )
+					{
+						fireburst_emittor->SetTimeToDie(1.5f);
+					}
+
+					fireburst_emittor = PM->CreateEffect(PM->GetEmittor(EXPLOSION_FIREBURST2_EMITTOR), this->GetPosX() , this->GetPosY());
+					if( fireburst_emittor )
+					{
+						fireburst_emittor->SetTimeToDie(1.5f);				
+					}
+					fireburst_emittor = PM->CreateEffect(PM->GetEmittor(EXPLOSION_FIREBURST3_EMITTOR), this->GetPosX(), this->GetPosY());
+					if( fireburst_emittor )
+					{
+						fireburst_emittor->SetTimeToDie(1.5f);
+					}
+
+					Emittor* fire_emittor = PM->CreateEffect(PM->GetEmittor(EXPLOSION_FLAME_EMITTOR), this->GetPosX(), this->GetPosY());
+					if( fire_emittor )
+					{
+						fire_emittor->SetTimeToDie(1.5f);
+					}
+#pragma endregion
+
+				}
+
+				m_bActive = false;
+
+				if( m_fRespawnTimer <= 0.0f )
+				{
+					m_bHit = false;
+					m_fBlowUpTimer = 5.0f;
+					m_fRespawnTimer = 25.0f;
+					SetPosX(GetSpawnPosition().fX);
+					SetPosY(GetSpawnPosition().fY);
+
+					ParticleCreated = false;
+					m_bActive = true;
+				}
+			}
+		}
+	}
 }
 
 void CObstacle::Render(CCamera* camera)
 {
-	CBase::Render(camera);
-	RECT obs;
-	// = GetRect();
-	obs.left = GetPosX() - camera->GetCamX() + camera->GetRenderPosX();
-	obs.top = GetPosY() - camera->GetCamY() + camera->GetRenderPosY();
-	obs.right = obs.left + GetWidth();
-	obs.bottom = obs.top + GetWidth();
-	CSGD_Direct3D::GetInstance()->DrawRect(obs,0,0,0);
+	if( m_bActive )
+		CBase::Render(camera);
 
 }
 
@@ -71,32 +155,35 @@ bool CObstacle::CheckCollision(IBaseInterface* pBase)
 {
 	RECT intersection;
 
-	if(IntersectRect(&intersection,&this->GetRect(),&pBase->GetRect()))
+	if( m_bActive )
 	{
-		if(pBase->GetType() == OBJECT_ENEMY || pBase->GetType() == OBJECT_PLAYER || pBase->GetType() == OBJECT_BOSS)
+		if(IntersectRect(&intersection,&this->GetRect(),&pBase->GetRect()))
 		{
-			tVector2D myvel = m_vCollisionVel;
-			CCar* tempcar = (CCar*)pBase;
-			tVector2D hisvel = tempcar->GetOverallVelocity();
-
-			myvel = myvel + (hisvel * 0.3f);
-			//hisvel = (hisvel * 0.8f);
-			SetVel(myvel);
-			tempcar->SetSpeed(tempcar->GetSpeed() * 0.6f);
-			return true;
-		}
-		else if(pBase->GetType() == OBJECT_OBSTACLE)
-		{
-			if(pBase != this)
+			if(pBase->GetType() == OBJECT_ENEMY || pBase->GetType() == OBJECT_PLAYER || pBase->GetType() == OBJECT_BOSS)
 			{
-			tVector2D myvel = m_vCollisionVel;
-			CObstacle* tempobs = (CObstacle*)pBase;
-			tVector2D hisvel = tempobs->GetVel();
+				tVector2D myvel = m_vCollisionVel;
+				CCar* tempcar = (CCar*)pBase;
+				tVector2D hisvel = tempcar->GetOverallVelocity();
 
-			//tVector2D bounce = hisvel;
-			//
-			//SetPosX(GetPosX() + (bounce.fX * 0.01f * -1.0f));
-			//SetPosY(GetPosY() + (bounce.fY * 0.01f * -1.0f));
+				myvel = myvel + (hisvel * 0.3f);
+				//hisvel = (hisvel * 0.8f);
+				SetVel(myvel);
+				tempcar->SetSpeed(tempcar->GetSpeed() * 0.6f);
+				m_bHit = true;
+				return true;
+			}
+			else if(pBase->GetType() == OBJECT_OBSTACLE)
+			{
+				if(pBase != this)
+				{
+				tVector2D myvel = m_vCollisionVel;
+				CObstacle* tempobs = (CObstacle*)pBase;
+				tVector2D hisvel = tempobs->GetVel();
+
+				//tVector2D bounce = hisvel;
+				//
+				//SetPosX(GetPosX() + (bounce.fX * 0.01f * -1.0f));
+				//SetPosY(GetPosY() + (bounce.fY * 0.01f * -1.0f));
 
 			//bounce = myvel;
 
@@ -127,14 +214,18 @@ bool CObstacle::CheckCollision(IBaseInterface* pBase)
 			SetVel(hisvel);
 			tempobs->SetVel(myvel);
 			
-			return true;
+				m_bHit = true;
+
+				return true;
+				}
 			}
 			}
 		}
 
 
 		
-	}
+		}
 
+	}
 	return false;
 }
