@@ -122,6 +122,11 @@ void CDeathmatchMode::CheckCarStatus(CCar* car)
 			car->SetSpecialLevel(0);
 			car->SetVelX(0);
 			car->SetVelY(0);
+			car->SetSpeed(0);
+			tVector2D vel;
+			vel.fX = 0.0f;
+			vel.fY = 0.0f;
+			car->SetVelocity(vel);
 			car->Rotate(0.0f);
 		}
 
