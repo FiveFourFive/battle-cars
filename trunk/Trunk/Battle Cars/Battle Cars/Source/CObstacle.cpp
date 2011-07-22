@@ -22,17 +22,33 @@ void CObstacle::Update(float fElapsedTime)
 	SetPosX(GetPosX() + (m_vCollisionVel.fX * fElapsedTime));
 	SetPosY(GetPosY() + (m_vCollisionVel.fY * fElapsedTime));
 
-	m_vCollisionVel.fX = m_vCollisionVel.fX - (m_vCollisionVel.fX * 0.05f);
-	m_vCollisionVel.fY = m_vCollisionVel.fY - (m_vCollisionVel.fY * 0.05f);
-	//if(m_vCollisionVel.fX >= 0)
-	//m_vCollisionVel.fX = m_vCollisionVel.fX - 0.1f;//(m_vCollisionVel.fX * 0.05f);
-	//else
-	//	m_vCollisionVel.fX = 0.0f;
-	//if(m_vCollisionVel.fY >= 0)
-	//m_vCollisionVel.fY =m_vCollisionVel.fY - 0.1f;//( m_vCollisionVel.fY * 0.05f);
-	//else
-	//	m_vCollisionVel.fY = 0.0f;
+	/*m_vCollisionVel.fX = m_vCollisionVel.fX - (m_vCollisionVel.fX * 0.05f);
+	m_vCollisionVel.fY = m_vCollisionVel.fY - (m_vCollisionVel.fY * 0.05f);*/
+	if(m_vCollisionVel.fX > 0)
+	{
+		m_vCollisionVel.fX = m_vCollisionVel.fX - 0.05f;//(m_vCollisionVel.fX * 0.05f);
+		if(m_vCollisionVel.fX <= 1.0f)
+			m_vCollisionVel.fX = 0.0f;
+	}
+	else if(m_vCollisionVel.fX < 0)
+	{
+		m_vCollisionVel.fX = m_vCollisionVel.fX + 0.05f;
+		if(m_vCollisionVel.fX >= -1.0f)
+			m_vCollisionVel.fX = 0.0f;
+	}
+	if(m_vCollisionVel.fY > 0)
+	{
+		m_vCollisionVel.fY =m_vCollisionVel.fY - 0.05f;//( m_vCollisionVel.fY * 0.05f);
+		if(m_vCollisionVel.fY <= 1.0f)
+			m_vCollisionVel.fY = 0.0f;
+	}
+	else if(m_vCollisionVel.fY < 0)
+	{
+		m_vCollisionVel.fY = m_vCollisionVel.fY + 0.05f;
+		if(m_vCollisionVel.fY >= -1.0f)
+			m_vCollisionVel.fY = 0.0f;
 
+	}
 	CLevel::GetInstance ()->CheckObstacleCollision (this);
 
 	InBounds();
@@ -86,7 +102,7 @@ bool CObstacle::CheckCollision(IBaseInterface* pBase)
 
 			//tempobs->SetPosX(tempobs->GetPosX() + (bounce.fX * 0.01f * -1.0f));
 			//tempobs->SetPosY(tempobs->GetPosY() + (bounce.fY * 0.01f * -1.0f));
-			if(hisvel.fX > myvel.fX && hisvel.fY > myvel.fY)
+			/*if(hisvel.fX > myvel.fX && hisvel.fY > myvel.fY)
 			{
 					myvel = (hisvel );
 					hisvel = (hisvel * -1.0f * 0.5f );
@@ -95,12 +111,12 @@ bool CObstacle::CheckCollision(IBaseInterface* pBase)
 			{
 					hisvel = (myvel );
 					myvel = (myvel * -1.0f * 0.5f );
-			}
+			}*/
 
 		
 
-			SetVel(myvel);
-			tempobs->SetVel(hisvel);
+			SetVel(hisvel);
+			tempobs->SetVel(myvel);
 
 			return true;
 			}
