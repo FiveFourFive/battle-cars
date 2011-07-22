@@ -32,6 +32,8 @@ private:
 	RECT m_rectWall;
 	RECT m_rectWallCollision;
 
+	float m_fBurstDelay;		// Delay until flamethrower bullet burst.
+
 	int m_nFlameThrower;		// The Emittor ID to the flamethrower particle effect.
 	bool isSet;					// Is the emittor Set?
 

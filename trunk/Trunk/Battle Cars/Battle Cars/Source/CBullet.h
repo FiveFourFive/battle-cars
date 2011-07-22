@@ -27,6 +27,8 @@ private:
 	float m_fBlastRadius;
 	int m_nBulletType;
 	float m_fSlowRate;
+
+	bool m_bToRender;				// Used to not render flamethrower.
 	
 	int trace_particle;				// The index to the particle effect.
 
@@ -46,6 +48,7 @@ public:
 	float GetBlastRadius() {return m_fBlastRadius;}
 	float GetSlowRate() {return m_fSlowRate;}
 	int GetBulletType() {return m_nBulletType;}
+	bool ToRender(){ return m_bToRender;}
 	CPlayer* GetOwner(void) { return m_pOwner; }
 	CSGD_TextureManager* GetTextureManager() {return m_pTM;}
 
@@ -60,6 +63,7 @@ public:
 	void SetBulletType(int type) {m_nBulletType = type;}
 	void SetBlastRadius(float radius) {m_fBlastRadius = radius;}
 	void SetSlowRate(float rate) {m_fSlowRate = rate;}
+	void SetToRender(bool value){m_bToRender = value;}
 	bool CheckCollision(IBaseInterface* pBase);
 
 	void SetTracerEmittor(int index){ trace_particle = index;}

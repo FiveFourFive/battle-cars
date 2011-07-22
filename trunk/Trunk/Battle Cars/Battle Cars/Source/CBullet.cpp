@@ -22,6 +22,8 @@ CBullet::CBullet(void)
 	m_fSlowRate = 0.0f;
 	trace_particle = -1;
 
+	m_bToRender = true;
+
 	//SetOwner(NULL);
 }
 
@@ -56,8 +58,9 @@ void CBullet::Render(CCamera* camera)
 		|| (GetRect().top - camera->GetCamY()) > camera->GetRenderPosY() + camera->GetHeight() )
 		return;
 
-	m_pTM->Draw(GetImageID(),int(GetPosX() - camera->GetCamX() + camera->GetRenderPosX()),int(GetPosY() - camera->GetCamY() + camera->GetRenderPosY()),m_fScale,m_fScale, 
-		NULL,m_pTM->GetTextureWidth(GetImageID())*0.5f, m_pTM->GetTextureHeight(GetImageID())*0.5f, GetRotation());
+	if( m_bToRender )
+		m_pTM->Draw(GetImageID(),int(GetPosX() - camera->GetCamX() + camera->GetRenderPosX()),int(GetPosY() - camera->GetCamY() + camera->GetRenderPosY()),m_fScale,m_fScale, 
+			NULL,m_pTM->GetTextureWidth(GetImageID())*0.5f, m_pTM->GetTextureHeight(GetImageID())*0.5f, GetRotation());
 	//m_pTM->Draw(GetImageID(),(int)GetPosX(),(int)GetPosY(),0.5f,0.5f,NULL,GetPosX()-(GetWidth()),GetPosY()-(GetHeight()),m_fRotation);
 
 }
@@ -69,6 +72,9 @@ bool CBullet::CheckCollision(IBaseInterface* pBase)
 	if(GetOwner() == pBase)
 			return false;
 	
+	if( GetType() == PROJECTILE_BULLET )
+		return false;
+
 	if(IntersectRect(&intersection, &GetRect(), &pBase->GetRect()))
 	{
 		if(pBase->GetType() == OBJECT_PLAYER)

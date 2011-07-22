@@ -1415,6 +1415,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet->SetPosY(pCVS->GetPlayer()->GetPosY());
 			pBullet->SetDamage(.25f*(pCVS->GetPlayer()->GetSpecialLevel()));
 			pBullet->SetBulletType(PROJECTILE_BULLET);
+			pBullet->SetToRender(false);
 			pBullet1->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_FlameParticlePlaceholder.png"));
 			pBullet1->SetScale(1.0f);
 			pBullet1->SetOwner(pCVS->GetPlayer());
@@ -1426,6 +1427,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet1->SetPosY(pCVS->GetPlayer()->GetPosY());
 			pBullet1->SetDamage(.25f*(pCVS->GetPlayer()->GetSpecialLevel()));
 			pBullet1->SetBulletType(PROJECTILE_BULLET);
+			pBullet1->SetToRender(false);
 			pBullet2->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_FlameParticlePlaceholder.png"));
 			pBullet2->SetScale(1.0f);
 			pBullet2->SetOwner(pCVS->GetPlayer());
@@ -1437,6 +1439,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet2->SetPosY(pCVS->GetPlayer()->GetPosY());
 			pBullet2->SetDamage(.25f*(pCVS->GetPlayer()->GetSpecialLevel()));
 			pBullet2->SetBulletType(PROJECTILE_BULLET);
+			pBullet2->SetToRender(false);
 			pBullet3->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_FlameParticlePlaceholder.png"));
 			pBullet3->SetScale(1.0f);
 			pBullet3->SetOwner(pCVS->GetPlayer());
@@ -1448,6 +1451,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet3->SetPosY(pCVS->GetPlayer()->GetPosY());
 			pBullet3->SetDamage(.25f*(pCVS->GetPlayer()->GetSpecialLevel()));
 			pBullet3->SetBulletType(PROJECTILE_BULLET);
+			pBullet3->SetToRender(false);
 			pBullet4->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_FlameParticlePlaceholder.png"));
 			pBullet4->SetScale(1.0f);
 			pBullet4->SetOwner(pCVS->GetPlayer());
@@ -1459,6 +1463,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet4->SetPosY(pCVS->GetPlayer()->GetPosY());
 			pBullet4->SetDamage(.25f*(pCVS->GetPlayer()->GetSpecialLevel()));
 			pBullet4->SetBulletType(PROJECTILE_BULLET);
+			pBullet4->SetToRender(false);
 
 
 			temp.fX = 0;
@@ -1841,6 +1846,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 				pBullet->SetPosY(pBVS->GetBoss()->GetPosY());
 				pBullet->SetDamage(.25f*(pBVS->GetBoss()->GetSpecialLevel()));
 				pBullet->SetBulletType(PROJECTILE_BULLET);
+				pBullet->SetToRender(false);
 				pBullet1->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_FlameParticlePlaceholder.png"));
 				pBullet1->SetScale(1.0f);
 				pBullet1->SetOwner(pBVS->GetBoss());
@@ -1852,6 +1858,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 				pBullet1->SetPosY(pBVS->GetBoss()->GetPosY());
 				pBullet1->SetDamage(.25f*(pBVS->GetBoss()->GetSpecialLevel()));
 				pBullet1->SetBulletType(PROJECTILE_BULLET);
+				pBullet1->SetToRender(false);
 				pBullet2->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_FlameParticlePlaceholder.png"));
 				pBullet2->SetScale(1.0f);
 				pBullet2->SetOwner(pBVS->GetBoss());
@@ -1863,6 +1870,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 				pBullet2->SetPosY(pBVS->GetBoss()->GetPosY());
 				pBullet2->SetDamage(.25f*(pBVS->GetBoss()->GetSpecialLevel()));
 				pBullet2->SetBulletType(PROJECTILE_BULLET);
+				pBullet2->SetToRender(false);
 				pBullet3->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_FlameParticlePlaceholder.png"));
 				pBullet3->SetScale(1.0f);
 				pBullet3->SetOwner(pBVS->GetBoss());
@@ -1874,6 +1882,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 				pBullet3->SetPosY(pBVS->GetBoss()->GetPosY());
 				pBullet3->SetDamage(.25f*(pBVS->GetBoss()->GetSpecialLevel()));
 				pBullet3->SetBulletType(PROJECTILE_BULLET);
+				pBullet3->SetToRender(false);
 				pBullet4->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_FlameParticlePlaceholder.png"));
 				pBullet4->SetScale(1.0f);
 				pBullet4->SetOwner(pBVS->GetBoss());
@@ -1885,6 +1894,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 				pBullet4->SetPosY(pBVS->GetBoss()->GetPosY());
 				pBullet4->SetDamage(.25f*(pBVS->GetBoss()->GetSpecialLevel()));
 				pBullet4->SetBulletType(PROJECTILE_BULLET);
+				pBullet4->SetToRender(false);
 
 
 				temp.fX = 0;
