@@ -209,6 +209,5 @@ bool CObstacle::CheckCollision(IBaseInterface* pBase)
 		
 		}
 
-	}
 	return false;
 }

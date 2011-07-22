@@ -294,8 +294,7 @@ void CGamePlayState::Enter(void)
 
 	if(!m_bCollectionChallenge)
 	{
-		cars.push_back (miniboss);
-		m_pOM->AddObject(miniboss);
+	//	m_pOM->AddObject(miniboss);
 		//m_pOM->AddObject(dummy2);
 		//m_pOM->AddObject(ramps[0]);
 		//m_pOM->AddObject(ramps[1]);
@@ -525,14 +524,14 @@ void CGamePlayState::Enter(void)
 		if( COptionState::GetInstance()->IsVertical())
 		{
 			player->GetCamera()->AttachTo(player,CGame::GetInstance()->GetScreenWidth()*0.25f,CGame::GetInstance()->GetScreenHeight()*0.5f);
-			player->GetCamera()->SetWidth(CGame::GetInstance()->GetScreenWidth()*0.5f);
-			player->GetCamera()->SetHeight(CGame::GetInstance()->GetScreenHeight());
+			player->GetCamera()->SetWidth((int)(CGame::GetInstance()->GetScreenWidth()*0.5f));
+			player->GetCamera()->SetHeight((int)(CGame::GetInstance()->GetScreenHeight()));
 		}
 		else
 		{
 			player->GetCamera ()->AttachTo(player,CGame::GetInstance()->GetScreenWidth()*0.5f, CGame::GetInstance()->GetScreenHeight()*0.25f);
-			player->GetCamera()->SetWidth(CGame::GetInstance()->GetScreenWidth());
-			player->GetCamera()->SetHeight(CGame::GetInstance()->GetScreenHeight()*0.5f);
+			player->GetCamera()->SetWidth((int)(CGame::GetInstance()->GetScreenWidth()));
+			player->GetCamera()->SetHeight((int)(CGame::GetInstance()->GetScreenHeight()*0.5f));
 		}
 
 		
@@ -541,14 +540,14 @@ void CGamePlayState::Enter(void)
 			if( COptionState::GetInstance()->IsVertical())
 			{
 				player2->GetCamera ()->AttachTo(player2,CGame::GetInstance()->GetScreenWidth()*0.25f,CGame::GetInstance()->GetScreenHeight()*0.5f);
-				player2->GetCamera()->SetWidth(CGame::GetInstance()->GetScreenWidth()*0.5f);
-				player2->GetCamera()->SetHeight(CGame::GetInstance()->GetScreenHeight());
+				player2->GetCamera()->SetWidth((int)(CGame::GetInstance()->GetScreenWidth()*0.5f));
+				player2->GetCamera()->SetHeight((int)(CGame::GetInstance()->GetScreenHeight()));
 			}
 			else
 			{
 				player2->GetCamera ()->AttachTo(player2,CGame::GetInstance()->GetScreenWidth()*0.5f, CGame::GetInstance()->GetScreenHeight()*0.25f);
-				player2->GetCamera()->SetWidth(CGame::GetInstance()->GetScreenWidth());
-				player2->GetCamera()->SetHeight(CGame::GetInstance()->GetScreenHeight()*0.5f);
+				player2->GetCamera()->SetWidth((int)(CGame::GetInstance()->GetScreenWidth()));
+				player2->GetCamera()->SetHeight((int)(CGame::GetInstance()->GetScreenHeight()*0.5f));
 			}
 
 

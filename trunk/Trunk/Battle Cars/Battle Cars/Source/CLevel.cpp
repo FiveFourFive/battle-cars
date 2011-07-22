@@ -115,25 +115,19 @@ void CLevel::Render (CCamera* camera)
 	XEnd = (screen.right / LevelMap->GetPixelWidth());
 	YEnd = (screen.bottom / LevelMap->GetPixelHeight());
 
-	if (XBegin - 1 >= 0)
-	{
-		XBegin = XBegin - 1;
-	}
+	XBegin = XBegin - 1;
+	YBegin = YBegin - 1;
+	XEnd = XEnd + 1;
+	YEnd = YEnd + 1;
 
-	if (YBegin - 1 >= 0)
-	{
-		YBegin = YBegin - 1;
-	}
-
-	if (XEnd + 1 <= LevelMap->GetMapWidth ())
-	{
-		XEnd = XEnd + 1;
-	}
-
-	if (YEnd + 1 <= LevelMap->GetMapHeight ())
-	{
-		YEnd = YEnd + 1;
-	}
+	if (XBegin < 0)
+		XBegin = 0;
+	if (YBegin < 0)
+		YBegin = 0;
+	if (XEnd > LevelMap->GetMapWidth ())
+		XEnd = LevelMap->GetMapWidth ();
+	if (YEnd > LevelMap->GetMapHeight ())
+		YEnd = LevelMap->GetMapHeight ();
 
 	for (int YPos = YBegin; YPos < YEnd; YPos++)
 	{
@@ -335,20 +329,33 @@ bool CLevel::CheckObstacleCollision (CBase* pBase)
 		XBegin = XBegin - 1;
 	}
 
+	if (XBegin < 0)
+		XBegin = 0;
+
 	if (YBegin - 1 >= 0)
 	{
 		YBegin = YBegin - 1;
 	}
+
+	if (YBegin < 0)
+		YBegin = 0;
 
 	if (XEnd + 1 <= LevelMap->GetMapWidth ())
 	{
 		XEnd = XEnd + 1;
 	}
 
+	if (XEnd > LevelMap->GetMapWidth ())
+		XEnd = LevelMap->GetMapWidth ();
+
 	if (YEnd + 1 <= LevelMap->GetMapHeight ())
 	{
 		YEnd = YEnd + 1;
 	}
+
+	if (YEnd > LevelMap->GetMapHeight ())
+		YEnd = LevelMap->GetMapHeight ();
+
 
 	for (int YPos = YBegin; YPos < YEnd; YPos++)
 	{
@@ -367,31 +374,34 @@ bool CLevel::CheckObstacleCollision (CBase* pBase)
 
 						((CObstacle*)pBase)->SetVel (temp);
 
-						if (intersection.bottom - intersection.top < intersection.right - intersection.left)
+						if ((intersection.bottom - intersection.top) < (intersection.right - intersection.left))//top or bottom collision
 						{
 							if (((CObstacle*)pBase)->GetRect ().top <= LevelMap->GetCollisionRect(XPos, YPos).bottom)//bottom collision
 							{
-								((CObstacle*)pBase)->SetPosY (LevelMap->GetCollisionRect(XPos, YPos).bottom);
+								((CObstacle*)pBase)->SetPosY (((CObstacle*)pBase)->GetPosY () + 2.0f);
+								return true;
 							}
-							if (((CObstacle*)pBase)->GetRect ().bottom >= LevelMap->GetCollisionRect(XPos, YPos).top)//left collision
+							if (((CObstacle*)pBase)->GetRect ().bottom >= LevelMap->GetCollisionRect(XPos, YPos).top)//top collision
 							{
-								((CObstacle*)pBase)->SetPosY (LevelMap->GetCollisionRect(XPos, YPos).top);
+								((CObstacle*)pBase)->SetPosY (((CObstacle*)pBase)->GetPosY () - 2.0f);
+								return true;
 							}
 						}
 
-						if (intersection.bottom - intersection.top > intersection.right - intersection.left)
+						if (intersection.bottom - intersection.top > intersection.right - intersection.left) // left or right collision
 						{
 							if (((CObstacle*)pBase)->GetRect ().left <= LevelMap->GetCollisionRect(XPos, YPos).right)//right collision
 							{
-								((CObstacle*)pBase)->SetPosX (LevelMap->GetCollisionRect(XPos, YPos).right);
+								((CObstacle*)pBase)->SetPosX (((CObstacle*)pBase)->GetPosX () + 2.0f);
+								return true;
 							}
 							if (((CObstacle*)pBase)->GetRect ().right >= LevelMap->GetCollisionRect(XPos, YPos).left)//left collision
 							{
-								((CObstacle*)pBase)->SetPosX (LevelMap->GetCollisionRect(XPos, YPos).left);
+								((CObstacle*)pBase)->SetPosX (((CObstacle*)pBase)->GetPosX () - 2.0f);
+								return true;
 							}
 						}
 
-						return true;
 					}
 				}
 			}
@@ -406,46 +416,57 @@ bool CLevel::CheckBulletCollision (CBase* pBase)
 	CTile** Events = LevelMap->GetEventsList();
 	RECT intersection;
 
-	for (int YPos = 0; YPos < LevelMap->GetMapHeight(); YPos++)
+		int XBegin = 0, YBegin = 0, XEnd = 0, YEnd;
+
+	XBegin = ((pBase->GetRect ().left - 10) / LevelMap->GetPixelWidth());
+	YBegin = ((pBase->GetRect ().top - 10) / LevelMap->GetPixelHeight());
+	XEnd = ((pBase->GetRect ().right + 10) / LevelMap->GetPixelWidth());
+	YEnd = ((pBase->GetRect ().bottom + 10) / LevelMap->GetPixelHeight());
+
+	if (XBegin - 1 >= 0)
 	{
-		for (int XPos = 0; XPos < LevelMap->GetMapWidth(); XPos++)
+		XBegin = XBegin - 1;
+	}
+
+	if (XBegin < 0)
+		XBegin = 0;
+
+	if (YBegin - 1 >= 0)
+	{
+		YBegin = YBegin - 1;
+	}
+
+	if (YBegin < 0)
+		YBegin = 0;
+
+	if (XEnd + 1 <= LevelMap->GetMapWidth ())
+	{
+		XEnd = XEnd + 1;
+	}
+
+	if (XEnd > LevelMap->GetMapWidth ())
+		XEnd = LevelMap->GetMapWidth ();
+
+	if (YEnd + 1 <= LevelMap->GetMapHeight ())
+	{
+		YEnd = YEnd + 1;
+	}
+
+	if (YEnd > LevelMap->GetMapHeight ())
+		YEnd = LevelMap->GetMapHeight ();
+
+	for (int YPos = YBegin; YPos < YEnd; YPos++)
+	{
+		for (int XPos = XBegin; XPos < XEnd; XPos++)
 		{
-			if (pBase->GetType () == OBJECT_PLAYER && (LevelMap->GetEventsList ())[YPos][XPos].GetType () != -1)
+			if (pBase->GetType () == OBJECT_BULLET && (LevelMap->GetEventsList ())[YPos][XPos].GetType () != -1)
 			{
 				std::string name = (LevelMap->GetEventsList ())[YPos][XPos].GetName ();
 				if (name == "WallCollision")
 				{
 					if(IntersectRect(&intersection, &LevelMap->GetCollisionRect(XPos, YPos), &pBase->GetRect()))
 					{
-						tVector2D temp;
-						temp.fX = 0.0f;
-						temp.fY = 0.0f;
-
-						((CObstacle*)pBase)->SetVel (temp);
-
-						if (intersection.bottom - intersection.top < intersection.right - intersection.left)
-						{
-							if (((CObstacle*)pBase)->GetRect ().top <= LevelMap->GetCollisionRect(XPos, YPos).bottom)//bottom collision
-							{
-								((CObstacle*)pBase)->SetPosY (LevelMap->GetCollisionRect(XPos, YPos).bottom);
-							}
-							if (((CObstacle*)pBase)->GetRect ().bottom >= LevelMap->GetCollisionRect(XPos, YPos).top)//left collision
-							{
-								((CObstacle*)pBase)->SetPosY (LevelMap->GetCollisionRect(XPos, YPos).top);
-							}
-						}
-
-						if (intersection.bottom - intersection.top > intersection.right - intersection.left)
-						{
-							if (((CObstacle*)pBase)->GetRect ().left <= LevelMap->GetCollisionRect(XPos, YPos).right)//right collision
-							{
-								((CObstacle*)pBase)->SetPosX (LevelMap->GetCollisionRect(XPos, YPos).right);
-							}
-							if (((CObstacle*)pBase)->GetRect ().right >= LevelMap->GetCollisionRect(XPos, YPos).left)//left collision
-							{
-								((CObstacle*)pBase)->SetPosX (LevelMap->GetCollisionRect(XPos, YPos).left);
-							}
-						}
+						CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage((CBullet*)pBase));
 
 						return true;
 					}

@@ -27,25 +27,26 @@ CBullet::CBullet(void)
 
 void CBullet::Update(float fElapsedTime)
 {
-	CLevel::GetInstance ()->CheckBulletCollision (this);
-
-	m_fCurLife += fElapsedTime;
-	SetPosX(GetPosX() + GetVelX() * fElapsedTime);
-	SetPosY(GetPosY() + GetVelY() * fElapsedTime);
-
-	ParticleManager* pPM = ParticleManager::GetInstance();
-
-	if( trace_particle > -1 )
-		pPM->AttachToBasePosition(this, pPM->GetActiveEmittor(trace_particle));
-
-	if(m_fCurLife >= m_fMaxLife)
+	if (!CLevel::GetInstance ()->CheckBulletCollision (this))
 	{
-		if( trace_particle > -1)
+		m_fCurLife += fElapsedTime;
+		SetPosX(GetPosX() + GetVelX() * fElapsedTime);
+		SetPosY(GetPosY() + GetVelY() * fElapsedTime);
+
+		ParticleManager* pPM = ParticleManager::GetInstance();
+
+		if( trace_particle > -1 )
+			pPM->AttachToBasePosition(this, pPM->GetActiveEmittor(trace_particle));
+
+		if(m_fCurLife >= m_fMaxLife)
 		{
-			pPM->GetActiveEmittor(trace_particle)->SetTimeToDie(0.0f);
-			pPM->GetActiveEmittor(trace_particle)->SetBase(NULL);
+			if( trace_particle > -1)
+			{
+				pPM->GetActiveEmittor(trace_particle)->SetTimeToDie(0.0f);
+				pPM->GetActiveEmittor(trace_particle)->SetBase(NULL);
+			}
+			CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
 		}
-		CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
 	}
 }
 
