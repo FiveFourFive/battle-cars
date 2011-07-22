@@ -166,8 +166,8 @@ void CCar::Render(CCamera* camera)
 	tempcar.bottom = (LONG)(tempcar.top + GetHeight());
 	
 
-	m_pTM->Draw(m_nCarID,(int)GetPosX()-(GetWidth()/2)- (int)camera->GetCamX() + (int)camera->GetRenderPosX(),
-		(int)GetPosY()-(GetHeight()/2)- (int)camera->GetCamY() + (int)camera->GetRenderPosY(),0.4f,0.4f,NULL, float(GetImageWidth()/2),float(GetImageHeight()/2),GetRotation());
+	m_pTM->Draw(m_nCarID,(int)GetPosX()-(GetImageWidth()/2*0.4f)- (int)camera->GetCamX() + (int)camera->GetRenderPosX(),
+		(int)GetPosY()-(GetImageHeight()/2*0.4f)- (int)camera->GetCamY() + (int)camera->GetRenderPosY(),0.4f,0.4f,NULL, float(GetImageWidth()/2),float(GetImageHeight()/2),GetRotation());
 	//pD3D->DrawRect(tempcar,255,0,0);
 	//pD3D->DrawText("BEEP", (int)(GetPosX()- camera->GetCamX() + 10), (int)(GetPosY()- camera->GetCamY() + 35),255,255,255);
 	//pD3D->DrawLine((int)(GetPosX()- camera->GetCamX() + camera->GetRenderPosX()), (int)(GetPosY()- camera->GetCamY()+ camera->GetRenderPosY()), (int)(GetPosX()- camera->GetCamX() + camera->GetRenderPosX() + GetVelX()), (int)(GetPosY()- camera->GetCamY() + camera->GetRenderPosY() + GetVelY()),255,255,255);
@@ -228,20 +228,20 @@ void CCar::Rotate(float angle)
 
 	m_nCollisionX1 = newx + GetPosX();
 	m_nCollisionY1 = newx + GetPosY();*/
-	m_nCollisionX1 = GetPosX()+ GetWidth()/2;
-	m_nCollisionY1 = GetPosY() - (GetHeight()*0.5f) + (GetWidth()*0.5f);
+	m_nCollisionX1 = GetPosX();
+	m_nCollisionY1 = GetPosY() - (GetHeight()*0.5f) + ((GetImageWidth()/2)*0.5f*0.4f);
 	//m_nCollisionX1 = GetPosX() + (cos(newangle)) * (m_nCollisionX1 - GetPosX()) - sin(newangle) * (m_nCollisionY1 - GetPosY());
 	//m_nCollisionY1 = GetPosY() + (sin(newangle)) * (m_nCollisionX1 - GetPosX()) + cos(newangle) * (m_nCollisionY1 - GetPosY());
 	float tempX1 = m_nCollisionX1;
 	float tempY1 = m_nCollisionY1;
 	float cx;
-	cx = GetPosX() + GetWidth()/2;
+	cx = GetPosX();
 	m_nCollisionX1 = cx + (cos(angle)) * (tempX1 - cx) - sin(angle) * (tempY1 - GetPosY());
 	m_nCollisionY1 = GetPosY() + (sin(angle)) * (tempX1 - cx) + cos(angle) * (tempY1 - GetPosY());
 
 
-	m_nCollisionX2 = GetPosX()+ GetWidth()/2;
-	m_nCollisionY2 = GetPosY() + (GetHeight() * 0.5f) - (GetWidth() * 0.5f);
+	m_nCollisionX2 = GetPosX();
+	m_nCollisionY2 = GetPosY() + (GetHeight() * 0.5f) - ((GetImageWidth()/2) * 0.5f*0.4f);
 
 	float tempX2 = m_nCollisionX2;
 	float tempY2 = m_nCollisionY2;
