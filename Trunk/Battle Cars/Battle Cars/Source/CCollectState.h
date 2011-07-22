@@ -15,13 +15,14 @@ private:
 	int m_nTarget;
 	CEnemy* m_Owner;
 
-	CCollectState(){};
-	~CCollectState(){};
 	CCollectState(const CCollectState&);
 	CCollectState& operator=(const CCollectState&);
 	
 public:
-	static CCollectState* GetInstance();
+	
+	CCollectState(){};
+	~CCollectState(){};
+
 	void Update(float fElapsedTime);
 	void Render();
 	void Enter();

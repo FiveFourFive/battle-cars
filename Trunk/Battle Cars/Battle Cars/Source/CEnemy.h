@@ -14,6 +14,11 @@
 #include <vector>
 
 #include "IAIBaseState.h"
+#include "CWanderState.h"
+#include "CFleeState.h"
+#include "CAttackState.h"
+#include "CCollectState.h"
+
 #include "CPlayer.h"
 #include "IListener.h"
 #include "CEventSystem.h"
@@ -28,6 +33,11 @@ class CEnemy : public CPlayer
 {
 private:
 	IAIBaseState*  m_AICurrentState;
+	CWanderState* m_WanderState;
+	CFleeState*   m_FleeState;
+	CAttackState* m_AttackState;
+	CCollectState* m_CollectState;
+
 	CEventSystem*	m_pES;
 	std::vector<RECT> m_CollisionRECT;
 	std::vector<PowerUp*> powerUps;
@@ -49,6 +59,11 @@ public:
 	float GetSpeedRampTimer() {return m_fSpeedRampTimer;}
 	IAIBaseState* GetCurrentState() {return m_AICurrentState;}
 	CEventSystem* GetEventSystem() {return m_pES;}
+	CWanderState* GetWanderState () {return m_WanderState;}
+	CFleeState* GetFleeState () {return m_FleeState;}
+	CAttackState* GetAttackState () {return m_AttackState;}
+	CCollectState* GetCollectState () {return m_CollectState;}
+
 	//Mutators
 	void SetPowerUps(std::vector<PowerUp*> powerUp) {powerUps = powerUp;}
 	void SetSpeedRamps(std::vector<CSpeedRamp*> ramps) {speedRamps = ramps;}

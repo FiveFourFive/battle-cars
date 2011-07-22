@@ -28,11 +28,6 @@ CFleeState& CFleeState::operator=(const CFleeState&)
 	return *this;
 }
 
-CFleeState* CFleeState::GetInstance()
-{
-	static CFleeState instance;
-	return &instance;
-}
 
 void CFleeState::Update (float fElapsedTime)
 {
@@ -54,7 +49,7 @@ void CFleeState::Update (float fElapsedTime)
 	//Check to see if healed
 	if(!Damaged())
 	{
-			m_Owner->ChangeState(CWanderState::GetInstance());
+			m_Owner->ChangeState(m_Owner->GetWanderState ());
 	}
 	//Check to see if far enough away
 	if(Escaped())

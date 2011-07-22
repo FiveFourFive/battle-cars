@@ -14,11 +14,6 @@ CCollectState& CCollectState::operator=(const CCollectState&)
 	return *this;
 }
 
-CCollectState* CCollectState::GetInstance()
-{
-	static CCollectState instance;
-	return &instance;
-}
 
 void CCollectState::Update (float fElapsedTime)
 {
