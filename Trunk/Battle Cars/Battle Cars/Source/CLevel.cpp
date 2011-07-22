@@ -687,19 +687,24 @@ std::vector<CObstacle*> CLevel::SetObstacleSpawn ()
 			CObstacle* obstacle = new CObstacle();
 			obstacle->SetPosX (spawnPoints[randomIndex].fX * LevelMap->GetPixelWidth ());
 			obstacle->SetPosY (spawnPoints[randomIndex].fY * LevelMap->GetPixelHeight ());
+			obstacle->SetSpawnPosX(spawnPoints[randomIndex].fX * LevelMap->GetPixelWidth ());
+			obstacle->SetSpawnPosY(spawnPoints[randomIndex].fY * LevelMap->GetPixelHeight ());
 			obstacle->SetType(OBJECT_OBSTACLE);
-			
 			if ((LevelMap->GetEventsList ())[(int)(spawnPoints[randomIndex].fY)][(int)(spawnPoints[randomIndex].fX)].GetID () == 1)
 			{
 				obstacle->SetImageID (CGamePlayState::GetInstance ()->GetCrateImageID());
 				obstacle->SetWidth(m_pTM->GetTextureWidth(CGamePlayState::GetInstance()->GetBarrelImageID()) - 10);
 				obstacle->SetHeight(m_pTM->GetTextureHeight(CGamePlayState::GetInstance()->GetBarrelImageID()) - 10);
+				obstacle->SetObstacleType(CRATE_OBSTACLES);
+
 
 			}else if ((LevelMap->GetEventsList ())[(int)(spawnPoints[randomIndex].fY)][(int)(spawnPoints[randomIndex].fX)].GetID () == 2)
 			{
 				obstacle->SetImageID (CGamePlayState::GetInstance ()->GetBarrelImageID());
 				obstacle->SetWidth(m_pTM->GetTextureWidth(CGamePlayState::GetInstance()->GetBarrelImageID()) - 10);
 				obstacle->SetHeight(m_pTM->GetTextureHeight(CGamePlayState::GetInstance()->GetBarrelImageID()) - 10);
+				obstacle->SetObstacleType(BARREL_OBSTACLES);
+
 			}
 			obstacles.push_back (obstacle);
 			CObjectManager::GetInstance ()->AddObject(obstacle);
