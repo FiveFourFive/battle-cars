@@ -50,6 +50,7 @@
 #include "CCollectionMode.h"
 #include "CCollectState.h"
 #include "CHUD.h"
+#include "CMap.h"
 
 void LoadCharacters();
 
@@ -896,18 +897,22 @@ void CGamePlayState::Render(void)
 	m_pD3D->GetSprite()->Flush();////
 	m_pD3D->DrawRect(temp,0,0,0);//
 
+
 	Level->Render (player->GetCamera ());
 	m_pOM->RenderObjects(player->GetCamera());
+	m_pPM->RenderEmittors(player->GetCamera());
+
+	if( CNumPlayers::GetInstance()->GetNumberOfPlayers() == 2)
+	{
+		Level->Render(player2->GetCamera());
+		m_pOM->RenderObjects(player2->GetCamera());
+		m_pPM->RenderEmittors(player2->GetCamera());
+	}
 
 	if(m_pMode==CTutorialMode::GetInstance())
 	{
 		m_pPF->Print(CTutorialMode::GetInstance()->GetMessage(0).c_str(),CGame::GetInstance()->GetScreenWidth()/4,0,1.0f,D3DCOLOR_ARGB(255,255,255,255));
 		m_pPF->Print(CTutorialMode::GetInstance()->GetMessage(CTutorialMode::GetInstance()->GetCurrMessage()).c_str(),CGame::GetInstance()->GetScreenWidth()/4,CGame::GetInstance()->GetScreenHeight()/2,1.0f,D3DCOLOR_ARGB(255,255,255,255));
-	}
-	if( CNumPlayers::GetInstance()->GetNumberOfPlayers() == 2)
-	{
-		Level->Render(player2->GetCamera());
-		m_pOM->RenderObjects(player2->GetCamera());
 	}
 
 	
@@ -956,13 +961,13 @@ void CGamePlayState::Render(void)
 	{
 		if( COptionState::GetInstance()->IsVertical())
 		{
-			m_pD3D->DrawLine(int(CGame::GetInstance()->GetScreenWidth() * 0.5f), 0, int(CGame::GetInstance()->GetScreenWidth() * 0.5f), CGame::GetInstance()->GetScreenHeight(), 255,0,0);
+			m_pD3D->DrawLine(int(CGame::GetInstance()->GetScreenWidth() * 0.5f) - CLevel::GetInstance()->GetMap()->GetPixelWidth(), 0, int(CGame::GetInstance()->GetScreenWidth() * 0.5f)- CLevel::GetInstance()->GetMap()->GetPixelWidth(), CGame::GetInstance()->GetScreenHeight(), 255,0,0);
 			/*player2->GetCamera()->AttachTo(player2, CGame::GetInstance()->GetScreenWidth()*0.25f, CGame::GetInstance()->GetScreenHeight()*0.25f);
 			player->GetCamera()->AttachTo(player, CGame::GetInstance()->GetScreenWidth()*0.25f, CGame::GetInstance()->GetScreenHeight()*0.25f);*/
 		}
 		else
 		{
-			m_pD3D->DrawLine(0, int(CGame::GetInstance()->GetScreenHeight()*0.5f), CGame::GetInstance()->GetScreenWidth(), int(CGame::GetInstance()->GetScreenHeight()*0.5f), 255,0,0);
+			m_pD3D->DrawLine(0, int(CGame::GetInstance()->GetScreenHeight()*0.5f) - CLevel::GetInstance()->GetMap()->GetPixelHeight(), CGame::GetInstance()->GetScreenWidth(), int(CGame::GetInstance()->GetScreenHeight()*0.5f)- CLevel::GetInstance()->GetMap()->GetPixelHeight(), 255,0,0);
 			/*player2->GetCamera()->AttachTo(player2, CGame::GetInstance()->GetScreenWidth()*0.5f, CGame::GetInstance()->GetScreenHeight()*0.5f);
 			player->GetCamera()->AttachTo(player, CGame::GetInstance()->GetScreenWidth()*0.5f, CGame::GetInstance()->GetScreenHeight()*0.5f);*/
 		}
@@ -970,9 +975,7 @@ void CGamePlayState::Render(void)
 	}
 
 	
-	
 
-	m_pPM->RenderEmittors(player->GetCamera());
 
 	//
 	//m_pTM->Draw(m_nMiniMapUnderlayIndex,CGame::GetInstance()->GetScreenWidth()-192,0,.75f,.75f);

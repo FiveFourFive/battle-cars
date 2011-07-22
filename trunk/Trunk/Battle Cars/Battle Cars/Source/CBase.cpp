@@ -40,6 +40,10 @@ void CBase::Update(float fElapsedTime)
 
 void CBase::Render(CCamera* camera)
 {
+	if( (GetPosX() - camera->GetCamX()) < 0 || (GetPosX() - camera->GetCamX()) > camera->GetRenderPosX() + camera->GetWidth() || (GetPosY() - camera->GetCamY() + 2 < 0) 
+		|| (GetPosY() - camera->GetCamY()) > camera->GetRenderPosY() + camera->GetHeight() )
+		return;
+
 	CSGD_TextureManager::GetInstance()->Draw(GetImageID(),int(GetPosX()-camera->GetCamX() + camera->GetRenderPosX()), int(GetPosY()-camera->GetCamY() + camera->GetRenderPosY()),1.0f,1.0f);
 }
 

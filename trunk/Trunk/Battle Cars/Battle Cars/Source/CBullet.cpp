@@ -47,7 +47,8 @@ void CBullet::Update(float fElapsedTime)
 
 void CBullet::Render(CCamera* camera)
 {
-	if( (GetPosX() - camera->GetCamX()) < 0 || (GetPosX() - camera->GetCamX()) > camera->GetRenderPosX() + camera->GetWidth() )
+	if( (GetPosX() - camera->GetCamX()) < 0 || (GetPosX() - camera->GetCamX()) > camera->GetRenderPosX() + camera->GetWidth() || (GetRect().top - camera->GetCamY() + 2 < 0) 
+		|| (GetRect().top - camera->GetCamY()) > camera->GetRenderPosY() + camera->GetHeight() )
 		return;
 
 	RECT temppos;
@@ -106,6 +107,11 @@ bool CBullet::CheckCollision(IBaseInterface* pBase)
 		else if(pBase->GetType() == OBJECT_OBSTACLE)
 		{
 			CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
+			if( trace_particle > -1)
+			{
+				pPM->GetActiveEmittor(trace_particle)->SetTimeToDie(0.0f);
+				pPM->GetActiveEmittor(trace_particle)->SetBase(NULL);
+			}
 			CObstacle* tempobs = (CObstacle*)pBase;
 			tVector2D obsvel = tempobs->GetVel();
 			obsvel.fX = this->GetVelX() * 0.4f;
