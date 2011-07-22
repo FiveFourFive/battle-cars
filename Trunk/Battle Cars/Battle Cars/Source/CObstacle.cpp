@@ -22,8 +22,16 @@ void CObstacle::Update(float fElapsedTime)
 	SetPosX(GetPosX() + (m_vCollisionVel.fX * fElapsedTime));
 	SetPosY(GetPosY() + (m_vCollisionVel.fY * fElapsedTime));
 
-	m_vCollisionVel.fX = m_vCollisionVel.fX - 1;//(m_vCollisionVel.fX * 0.05f);
-	m_vCollisionVel.fY =m_vCollisionVel.fY - 1;//( m_vCollisionVel.fY * 0.05f);
+	m_vCollisionVel.fX = m_vCollisionVel.fX - (m_vCollisionVel.fX * 0.05f);
+	m_vCollisionVel.fY = m_vCollisionVel.fY - (m_vCollisionVel.fY * 0.05f);
+	//if(m_vCollisionVel.fX >= 0)
+	//m_vCollisionVel.fX = m_vCollisionVel.fX - 0.1f;//(m_vCollisionVel.fX * 0.05f);
+	//else
+	//	m_vCollisionVel.fX = 0.0f;
+	//if(m_vCollisionVel.fY >= 0)
+	//m_vCollisionVel.fY =m_vCollisionVel.fY - 0.1f;//( m_vCollisionVel.fY * 0.05f);
+	//else
+	//	m_vCollisionVel.fY = 0.0f;
 
 	CLevel::GetInstance ()->CheckObstacleCollision (this);
 
