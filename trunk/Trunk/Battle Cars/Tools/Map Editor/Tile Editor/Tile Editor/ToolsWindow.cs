@@ -295,6 +295,9 @@ namespace Tile_Editor
                 SpeedRampDirection.Visible = false;
                 Obstacles.Visible = false;
                 EventID.Text = "CameraCollision";
+                PowerUps.SelectedIndex = -1;
+                SpeedRampDirection.SelectedIndex = -1;
+                Obstacles.SelectedIndex = -1;
             }
             else
                 CCollision.Checked = false;
@@ -313,6 +316,9 @@ namespace Tile_Editor
                 SpeedRampDirection.Visible = false;
                 Obstacles.Visible = false;
                 EventID.Text = "WallCollision";
+                PowerUps.SelectedIndex = -1;
+                SpeedRampDirection.SelectedIndex = -1;
+                Obstacles.SelectedIndex = -1;
             }
             else
                 WCollision.Checked = false;
@@ -331,6 +337,9 @@ namespace Tile_Editor
                 SpeedRampDirection.Visible = false;
                 Obstacles.Visible = false;
                 EventID.Text = "PlayerSpawn";
+                PowerUps.SelectedIndex = -1;
+                SpeedRampDirection.SelectedIndex = -1;
+                Obstacles.SelectedIndex = -1;
             }
             else
                 PlayerSpawn.Checked = false;
@@ -349,11 +358,14 @@ namespace Tile_Editor
                 SpeedRampDirection.Visible = false;
                 Obstacles.Visible = false;
                 EventID.Text = "PowerUpSpawn";
+                SpeedRampDirection.SelectedIndex = -1;
+                Obstacles.SelectedIndex = -1;
             }
             else
             {
                 PowerUps.Visible = false;
                 PowerUpSpawn.Checked = false;
+                PowerUps.SelectedIndex = -1;
             }
         }
 
@@ -370,11 +382,14 @@ namespace Tile_Editor
                 SpeedRampDirection.Visible = false;
                 Obstacles.Visible = true;
                 EventID.Text = "ObstacleSpawn";
+                PowerUps.SelectedIndex = -1;
+                SpeedRampDirection.SelectedIndex = -1;
             }
             else
             {
                 Obstacles.Visible = false;
                 ObstacleSpawn.Checked = false;
+                Obstacles.SelectedIndex = -1;
             }
         }
 
@@ -391,11 +406,14 @@ namespace Tile_Editor
                 SpeedRampDirection.Visible = true;
                 Obstacles.Visible = false;
                 EventID.Text = "SpeedRampSpawn";
+                PowerUps.SelectedIndex = -1;
+                Obstacles.SelectedIndex = -1;
             }
             else
             {
                 SpeedRampDirection.Visible = false;
                 SpeedRampSpawn.Checked = false;
+                SpeedRampDirection.SelectedIndex = -1;
             }
         }
 
