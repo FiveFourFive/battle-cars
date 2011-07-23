@@ -12,6 +12,9 @@
         <level>
         <LevelDataName>Untitled.xml</LevelDataName>
         </level>
+        <level>
+        <LevelDataName>TutorialLevel.xml</LevelDataName>
+        </level>
 </Levels>
 
 
