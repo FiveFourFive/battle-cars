@@ -65,7 +65,7 @@ public:
 	void Exit();		// Shutdown everything and deallocate memory that this program started.
 
 	Gamer_Profile* GetActiveProfile(){ return activeProfile;}
-
+	void SaveWinnerCar(int index);
 	////////////////////////////////////////////////////////
 	//	Loads up the Gamer profiles xml file. Only three profiles will be saved at once.
 	////////////////////////////////////////////////////////

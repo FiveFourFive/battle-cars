@@ -49,8 +49,8 @@ CCar::CCar(void)
 	m_nKillCount = 0;
 	SetVelX(0);
 	m_nSelectedWeapon = 0;
-	std::vector<CCar*>* templist = CGamePlayState::GetInstance()->GetList();
-	templist->push_back(this);
+	/*std::vector<CCar*>* templist = CGamePlayState::GetInstance()->GetList();
+	templist->push_back(this);*/
 
 	m_nCrashID = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/crash.mp3");
 	m_nBulletSound = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/bullet1.mp3");

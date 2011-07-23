@@ -19,6 +19,8 @@ public:
 	CKeyboardKeyBinds* m_pKKB;
 	float m_sfx;
 	float m_background;
+	int cars[4];
+	int index; // the 0-2 value of which profile slot its saved in
 
 	string GetUserName(){ return m_sUserName;}
 	CKeyBinds* GetControllerBinds(){ return m_pKB;}

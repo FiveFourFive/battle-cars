@@ -94,7 +94,7 @@ private:
 	int m_nBarrelID;
 
 	// sound
-	int m_nBackgroundMusicID;
+	int m_nBgMusicID;
 	int m_nCountDown;
 	int m_nCountDownEnd;
 
@@ -102,6 +102,7 @@ private:
 	float m_fCountDown;
 	float m_fEnlarge;
 	bool m_bCountDown;
+	float scoretimer;
 
 	int m_nMiniMapOverlayIndex;
 	int m_nMiniMapMiddlelayIndex;
@@ -135,7 +136,7 @@ private:
 	void Update(float fElapsedTime);
 	void Render(void);
 	bool HandleEnter(void);
-	void SortScores(int left, int right); // move to HUD class if implemented
+	 // move to HUD class if implemented
 public:
 
 	CLevel* GetLevel () {return Level;}
@@ -145,6 +146,8 @@ public:
 
 	std::vector<CCar*>* GetList(void) { return &m_lScores; }
 	vector<CCar*> GetScores(void) { return m_lScores; }
+	void SetScores(vector<CCar*> vscores) { m_lScores = vscores; }
+	void SortScores(void);
 	static CGamePlayState* GetInstance();
 
 	static void MessageProc(CBaseMessage* pMsg);

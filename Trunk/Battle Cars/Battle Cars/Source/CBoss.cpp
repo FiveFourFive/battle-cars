@@ -7,6 +7,7 @@
 #include "CNumPlayers.h"
 #include "CCharacterSelection.h"
 #include "CSGD_TextureManager.h"
+#include "CGamePlayState.h"
 
 CBoss::CBoss(CXboxInput* pController) : CEnemy(pController)
 {
@@ -133,7 +134,10 @@ void CBoss::HandleEvent(CEvent* pEvent)
 				if(GetHealth() < 0)
 				{
 					if(GetIsAlive() == true)
+					{
 						tempbullet->GetOwner()->SetKillCount(tempbullet->GetOwner()->GetKillCount() + 1);
+						CGamePlayState::GetInstance()->SortScores();
+					}
 				}
 				if(!m_bIsEnraged && !m_bIsMiniBoss)
 				{

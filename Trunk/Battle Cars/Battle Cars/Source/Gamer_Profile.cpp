@@ -27,7 +27,10 @@ Gamer_Profile& Gamer_Profile::operator()(const Gamer_Profile& temp )
 		this->m_sUserName = temp.m_sUserName;
 		this->m_sfx = temp.m_sfx;
 		this->m_background = temp.m_background;
-
+		this->cars[0] = temp.cars[0];
+		this->cars[1] = temp.cars[1];
+		this->cars[2] = temp.cars[2];
+		this->cars[3] = temp.cars[3];
 		CKeyBinds* temp_controllerbinds = new CKeyBinds();
 		temp_controllerbinds->SetAccelerate(temp.m_pKB->GetAccelerate());
 		temp_controllerbinds->SetAccept(temp.m_pKB->GetAccept());

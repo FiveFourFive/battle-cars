@@ -109,7 +109,7 @@ void CGamePlayState::Enter(void)
 	m_pPM	=	ParticleManager::GetInstance();
 	m_pMS->InitMessageSystem (MessageProc);
 
-
+	//CSGD_FModManager::GetInstance()->PlaySound(m_nBackgroundMusicID);
 	m_pMS->SendMsg (new CCreateLevelMessage());
 	m_pMS->ProcessMessages ();
 
@@ -249,7 +249,8 @@ void CGamePlayState::Enter(void)
 	m_nCollectableTotalPlayer = 0;
 
 	
-	time = 1000;
+	
+	time = 60;
 	m_fElapsedSecond = 0.0f;
 	score = 0;
 
@@ -327,7 +328,9 @@ void CGamePlayState::Enter(void)
 	//m_pOM->AddObject(barrel2);
 
 	//// game obstacles /////
-
+	m_nBgMusicID = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/Superbeast.mp3",SGD_FMOD_LOOPING);
+	m_nCountDown = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/Countdown.mp3");
+	m_nCountDownEnd = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/Countdowntone.mp3");
 
 
 	m_nMiniMapOverlayIndex=m_pTM->LoadTexture("resource/graphics/HUDS/minimap_overlay.png");
@@ -410,8 +413,10 @@ void CGamePlayState::Enter(void)
 	}
 
 	Level->ResetSpawns ();
-
-	//player->SetKillCount(55);
+	m_lScores.push_back(player);
+	if(CNumPlayers::GetInstance()->GetNumberOfPlayers() == 2)
+		m_lScores.push_back(player2);
+	player->SetKillCount(0);
 }
 
 void CGamePlayState::Exit(void)
@@ -422,7 +427,7 @@ void CGamePlayState::Exit(void)
 	//crate2->Release();
 	//crate3->Release();
 
-	m_pFM->UnloadSound(m_nBackgroundMusicID);
+	m_pFM->UnloadSound(m_nBgMusicID);
 	m_pFM->UnloadSound(m_nCountDown);
 	m_pFM->UnloadSound(m_nCountDownEnd);
 
@@ -497,7 +502,7 @@ void CGamePlayState::Exit(void)
 
 	Level->Shutdown ();
 
-	m_pFM->StopSound(m_nBackgroundMusicID);
+	m_pFM->StopSound(m_nBgMusicID);
 	delete m_pPF;
 	if(m_pOF)
 	{
@@ -649,6 +654,15 @@ bool CGamePlayState::Input()
 
 void CGamePlayState::Update(float fElapsedTime)
 {
+	if(!CSGD_FModManager::GetInstance()->IsSoundPlaying(m_nBgMusicID))
+		CSGD_FModManager::GetInstance()->PlaySound(m_nBgMusicID);
+
+	scoretimer += fElapsedTime;
+	if(scoretimer >= 1.0f)
+	{
+		scoretimer = 0.0f;
+		SortScores();
+	}
 
 	if( COptionState::GetInstance()->IsVertical() )
 	{
@@ -732,21 +746,7 @@ void CGamePlayState::Update(float fElapsedTime)
 		m_pPM->UpdateEmittors(fElapsedTime);
 		m_pMS->ProcessMessages ();
 		
-		for(unsigned int i = 0; i < m_lScores.size() - 1; i++)
-		{
-			for(unsigned int m = 1; m< m_lScores.size(); m++)
-			{
-				if(m_lScores[i]->GetKillCount() < m_lScores[m]->GetKillCount())
-				{
-					CCar* tempcar = m_lScores[i];
-					m_lScores[i] = m_lScores[m];
-					m_lScores[m] = tempcar;
-				}
-			}
-		}
-		SortScores(0,m_lScores.size());
-
-		
+	
 	}
 	else
 	{
@@ -1981,26 +1981,21 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 	}
 }
 
-void CGamePlayState::SortScores(int left, int right)
+void CGamePlayState::SortScores(void)
 {
-	unsigned int index = 1;
-	int offset;
-	while(index < m_lScores.size())
-	{
-		offset = index-1;
-		while(offset >= 0)
-		{
 
-			if(m_lScores[index]->GetKillCount() < m_lScores[offset]->GetKillCount())
+	for(int i = 0; i < m_lScores.size(); i++)
+	{
+		for(int j = 0; j < m_lScores.size(); j++)
+		{
+			if(m_lScores[i]->GetKillCount() > m_lScores[j]->GetKillCount())
 			{
-				CCar* tempcar = m_lScores[index];
-				m_lScores[index] = m_lScores[offset];
-				m_lScores[offset] = tempcar;
-				
+				CCar* tempcar;
+				tempcar = m_lScores[i];
+				m_lScores[i] = m_lScores[j];
+				m_lScores[j] = tempcar;
 			}
-			offset--;
 		}
-		index++;
 	}
 
 }
@@ -2011,6 +2006,6 @@ void CGamePlayState::Setvolume(void)
 	m_pFM->SetVolume(m_nCountDownEnd,CGame::GetInstance()->getSoundAVolume());
 	if(m_nCountDown != 0)
 	m_pFM->SetVolume(m_nCountDown,CGame::GetInstance()->getSoundAVolume());
-	if(m_nBackgroundMusicID != 0)
-	m_pFM->SetVolume(m_nBackgroundMusicID,CGame::GetInstance()->getSoundBVolume());
+	if(m_nBgMusicID != 0)
+	m_pFM->SetVolume(m_nBgMusicID,CGame::GetInstance()->getSoundBVolume());
 }
