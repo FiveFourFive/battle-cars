@@ -31,7 +31,7 @@ bool CLoadingState::HandleEnter()
 }
 void CLoadingState::Enter(void)
 {	
-	timeStamp=(float)timeGetTime();
+	timeStamp=(float)(timeGetTime());
 
 	m_nBGImageID = CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/gamestates images/mainmenu_bg.jpg");
 	m_nAnimID = CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/Weapons/BC_MG.png");
@@ -64,7 +64,7 @@ void CLoadingState::Update(float fElapsedTime)
 {
 	if(timeGetTime()-timeStamp>8000)
 	{
-		timeStamp=(float)timeGetTime();
+		timeStamp=(float)(timeGetTime());
 		
 		CGame::GetInstance()->ChangeState(CGamePlayState::GetInstance());
 	}

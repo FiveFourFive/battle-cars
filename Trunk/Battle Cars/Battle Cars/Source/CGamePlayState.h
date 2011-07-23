@@ -180,8 +180,8 @@ public:
 	void SetComputerCollectables(int collectables) {m_nCollectableTotalComputer = collectables;}
 	void SetPlayerCollectables(int collectables) {m_nCollectableTotalPlayer = collectables;}
 
-	int GetBarrelImageID () {return this->m_nBarrelID;}
-	int GetCrateImageID () {return this->m_nCrateID;}
+	int GetBarrelImageID () {return m_nBarrelID;}
+	int GetCrateImageID () {return m_nCrateID;}
 };
 
 

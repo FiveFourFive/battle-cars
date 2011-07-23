@@ -487,8 +487,8 @@ vector<CBase*> CLevel::SetCarSpawn (vector<CBase*> pBases)
 				car->SetKillCount(0);
 				car->Rotate(0.0f);
 				car->SetMaxSpeed(200.0f);
-				car->SetPowerUps (CGamePlayState::GetInstance ()->GetPowerUps ());
-				car->SetSpeedRamps (CGamePlayState::GetInstance ()->GetSpeedRamps ());
+				/*car->SetPowerUps (CGamePlayState::GetInstance ()->GetPowerUps ());
+				car->SetSpeedRamps (CGamePlayState::GetInstance ()->GetSpeedRamps ());*/
 				car->EnterState ();
 				
 				cars.push_back (car);

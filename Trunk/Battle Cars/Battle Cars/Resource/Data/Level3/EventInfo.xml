@@ -415,329 +415,329 @@
   <Event ID="NULL" XPos="199" YPos="6" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="7" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="7" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="89" YPos="7" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="89" YPos="7" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="7" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="7" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="8" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="8" Type="24">WallCollision</Event>
   <Event ID="Special" XPos="27" YPos="8" Type="76">PowerUpSpawn</Event>
-  <Event ID="Left" XPos="61" YPos="8" Type="76">ObstacleSpawn</Event>
-  <Event ID="Shield" XPos="89" YPos="8" Type="76">WallCollision</Event>
+  <Event ID="Crate" XPos="61" YPos="8" Type="76">ObstacleSpawn</Event>
+  <Event ID="NULL" XPos="89" YPos="8" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="8" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="8" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="9" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="9" Type="24">WallCollision</Event>
   <Event ID="Shield" XPos="7" YPos="9" Type="76">PowerUpSpawn</Event>
-  <Event ID="Left" XPos="72" YPos="9" Type="76">ObstacleSpawn</Event>
-  <Event ID="Shield" XPos="89" YPos="9" Type="76">WallCollision</Event>
+  <Event ID="Crate" XPos="72" YPos="9" Type="76">ObstacleSpawn</Event>
+  <Event ID="NULL" XPos="89" YPos="9" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="9" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="9" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="10" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="10" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="89" YPos="10" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="89" YPos="10" Type="76">WallCollision</Event>
   <Event ID="Health" XPos="190" YPos="10" Type="76">PowerUpSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="10" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="10" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="11" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="11" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="89" YPos="11" Type="76">WallCollision</Event>
-  <Event ID="Health" XPos="186" YPos="11" Type="76">PlayerSpawn</Event>
+  <Event ID="NULL" XPos="89" YPos="11" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="186" YPos="11" Type="76">PlayerSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="11" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="11" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="12" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="12" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="89" YPos="12" Type="76">WallCollision</Event>
-  <Event ID="Left" XPos="99" YPos="12" Type="76">ObstacleSpawn</Event>
-  <Event ID="Right" XPos="170" YPos="12" Type="76">ObstacleSpawn</Event>
+  <Event ID="NULL" XPos="89" YPos="12" Type="76">WallCollision</Event>
+  <Event ID="Barrel" XPos="99" YPos="12" Type="76">ObstacleSpawn</Event>
+  <Event ID="Barrel" XPos="170" YPos="12" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="12" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="12" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="13" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="13" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="89" YPos="13" Type="76">WallCollision</Event>
-  <Event ID="Left" XPos="128" YPos="13" Type="76">ObstacleSpawn</Event>
+  <Event ID="NULL" XPos="89" YPos="13" Type="76">WallCollision</Event>
+  <Event ID="Barrel" XPos="128" YPos="13" Type="76">ObstacleSpawn</Event>
   <Event ID="Crate" XPos="151" YPos="13" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="13" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="13" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="14" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="14" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="89" YPos="14" Type="76">WallCollision</Event>
-  <Event ID="Right" XPos="183" YPos="14" Type="76">ObstacleSpawn</Event>
+  <Event ID="NULL" XPos="89" YPos="14" Type="76">WallCollision</Event>
+  <Event ID="Crate" XPos="183" YPos="14" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="14" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="14" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="15" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="15" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="89" YPos="15" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="89" YPos="15" Type="76">WallCollision</Event>
   <Event ID="Health" XPos="168" YPos="15" Type="76">PowerUpSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="15" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="15" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="16" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="16" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="89" YPos="16" Type="76">WallCollision</Event>
-  <Event ID="Left" XPos="117" YPos="16" Type="76">ObstacleSpawn</Event>
+  <Event ID="NULL" XPos="89" YPos="16" Type="76">WallCollision</Event>
+  <Event ID="Crate" XPos="117" YPos="16" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="16" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="16" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="17" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="17" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="89" YPos="17" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="89" YPos="17" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="17" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="17" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="18" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="18" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="89" YPos="18" Type="76">WallCollision</Event>
-  <Event ID="Right" XPos="166" YPos="18" Type="76">ObstacleSpawn</Event>
+  <Event ID="NULL" XPos="89" YPos="18" Type="76">WallCollision</Event>
+  <Event ID="Barrel" XPos="166" YPos="18" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="18" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="18" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="19" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="19" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="89" YPos="19" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="89" YPos="19" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="19" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="19" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="20" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="20" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="89" YPos="20" Type="76">WallCollision</Event>
-  <Event ID="Right" XPos="188" YPos="20" Type="76">ObstacleSpawn</Event>
+  <Event ID="NULL" XPos="89" YPos="20" Type="76">WallCollision</Event>
+  <Event ID="Barrel" XPos="188" YPos="20" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="20" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="20" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="21" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="21" Type="24">WallCollision</Event>
-  <Event ID="Left" XPos="63" YPos="21" Type="76">ObstacleSpawn</Event>
-  <Event ID="Shield" XPos="89" YPos="21" Type="76">WallCollision</Event>
+  <Event ID="Crate" XPos="63" YPos="21" Type="76">ObstacleSpawn</Event>
+  <Event ID="NULL" XPos="89" YPos="21" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="21" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="21" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="22" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="22" Type="24">WallCollision</Event>
-  <Event ID="Special" XPos="83" YPos="22" Type="76">PlayerSpawn</Event>
-  <Event ID="Shield" XPos="89" YPos="22" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="83" YPos="22" Type="76">PlayerSpawn</Event>
+  <Event ID="NULL" XPos="89" YPos="22" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="22" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="22" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="23" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="23" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="89" YPos="23" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="89" YPos="23" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="23" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="23" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="24" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="24" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="89" YPos="24" Type="76">WallCollision</Event>
-  <Event ID="Left" XPos="135" YPos="24" Type="76">ObstacleSpawn</Event>
+  <Event ID="NULL" XPos="89" YPos="24" Type="76">WallCollision</Event>
+  <Event ID="Barrel" XPos="135" YPos="24" Type="76">ObstacleSpawn</Event>
   <Event ID="Crate" XPos="156" YPos="24" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="24" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="24" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="25" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="25" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="89" YPos="25" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="89" YPos="25" Type="76">WallCollision</Event>
   <Event ID="Crate" XPos="167" YPos="25" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="25" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="25" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="26" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="26" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="54" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="55" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="56" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="57" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="58" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="59" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="60" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="61" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="62" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="63" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="64" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="65" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="66" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="67" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="68" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="69" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="70" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="71" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="72" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="73" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="74" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="75" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="76" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="77" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="78" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="79" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="80" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="81" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="82" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="83" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="84" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="85" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="86" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="87" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="88" YPos="26" Type="76">WallCollision</Event>
-  <Event ID="Shield" XPos="89" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="54" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="55" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="56" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="57" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="58" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="59" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="60" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="61" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="62" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="63" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="64" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="65" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="66" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="67" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="68" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="69" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="70" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="71" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="72" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="73" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="74" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="75" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="76" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="77" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="78" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="79" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="80" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="81" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="82" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="83" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="84" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="85" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="86" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="87" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="88" YPos="26" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="89" YPos="26" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="26" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="26" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="27" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="27" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="54" YPos="27" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="54" YPos="27" Type="76">WallCollision</Event>
   <Event ID="Crate" XPos="146" YPos="27" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="27" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="27" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="28" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="28" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="54" YPos="28" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="54" YPos="28" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="28" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="28" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="29" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="29" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="54" YPos="29" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="54" YPos="29" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="29" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="29" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="30" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="30" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="54" YPos="30" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="54" YPos="30" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="30" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="30" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="31" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="31" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="54" YPos="31" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="61" YPos="31" Type="76">PlayerSpawn</Event>
-  <Event ID="Left" XPos="102" YPos="31" Type="76">ObstacleSpawn</Event>
+  <Event ID="NULL" XPos="54" YPos="31" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="61" YPos="31" Type="76">PlayerSpawn</Event>
+  <Event ID="Crate" XPos="102" YPos="31" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="31" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="31" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="32" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="32" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="54" YPos="32" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="54" YPos="32" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="32" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="32" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="33" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="33" Type="24">WallCollision</Event>
-  <Event ID="Health" XPos="31" YPos="33" Type="76">ObstacleSpawn</Event>
-  <Event ID="Shield" XPos="54" YPos="33" Type="76">WallCollision</Event>
+  <Event ID="Crate" XPos="31" YPos="33" Type="76">ObstacleSpawn</Event>
+  <Event ID="NULL" XPos="54" YPos="33" Type="76">WallCollision</Event>
   <Event ID="Down" XPos="108" YPos="33" Type="76">SpeedRampSpawn</Event>
-  <Event ID="Right" XPos="183" YPos="33" Type="76">ObstacleSpawn</Event>
+  <Event ID="Barrel" XPos="183" YPos="33" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="33" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="33" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="34" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="34" Type="24">WallCollision</Event>
-  <Event ID="Health" XPos="45" YPos="34" Type="76">ObstacleSpawn</Event>
-  <Event ID="Shield" XPos="54" YPos="34" Type="76">WallCollision</Event>
+  <Event ID="Barrel" XPos="45" YPos="34" Type="76">ObstacleSpawn</Event>
+  <Event ID="NULL" XPos="54" YPos="34" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="34" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="34" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="35" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="35" Type="24">WallCollision</Event>
-  <Event ID="Health" XPos="17" YPos="35" Type="76">ObstacleSpawn</Event>
-  <Event ID="Shield" XPos="54" YPos="35" Type="76">WallCollision</Event>
-  <Event ID="Left" XPos="70" YPos="35" Type="76">ObstacleSpawn</Event>
-  <Event ID="Right" XPos="148" YPos="35" Type="76">ObstacleSpawn</Event>
+  <Event ID="Barrel" XPos="17" YPos="35" Type="76">ObstacleSpawn</Event>
+  <Event ID="NULL" XPos="54" YPos="35" Type="76">WallCollision</Event>
+  <Event ID="Crate" XPos="70" YPos="35" Type="76">ObstacleSpawn</Event>
+  <Event ID="Crate" XPos="148" YPos="35" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="35" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="35" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="36" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="36" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="54" YPos="36" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="54" YPos="36" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="36" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="36" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="37" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="37" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="54" YPos="37" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="54" YPos="37" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="37" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="37" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="38" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="38" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="54" YPos="38" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="54" YPos="38" Type="76">WallCollision</Event>
   <Event ID="Crate" XPos="162" YPos="38" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="38" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="38" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="39" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="39" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="54" YPos="39" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="54" YPos="39" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="39" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="39" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="40" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="40" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="54" YPos="40" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="54" YPos="40" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="40" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="40" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="41" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="41" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="54" YPos="41" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="54" YPos="41" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="41" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="41" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="42" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="42" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="54" YPos="42" Type="76">WallCollision</Event>
-  <Event ID="Left" XPos="105" YPos="42" Type="76">ObstacleSpawn</Event>
+  <Event ID="NULL" XPos="54" YPos="42" Type="76">WallCollision</Event>
+  <Event ID="Crate" XPos="105" YPos="42" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="42" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="42" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="43" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="43" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="54" YPos="43" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="54" YPos="43" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="43" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="43" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="44" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="44" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="54" YPos="44" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="54" YPos="44" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="44" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="44" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="45" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="45" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="54" YPos="45" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="54" YPos="45" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="45" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="45" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="46" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="46" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="54" YPos="46" Type="76">WallCollision</Event>
-  <Event ID="Left" XPos="121" YPos="46" Type="76">ObstacleSpawn</Event>
+  <Event ID="NULL" XPos="54" YPos="46" Type="76">WallCollision</Event>
+  <Event ID="Crate" XPos="121" YPos="46" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="46" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="46" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="47" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="47" Type="24">WallCollision</Event>
-  <Event ID="Health" XPos="8" YPos="47" Type="76">ObstacleSpawn</Event>
-  <Event ID="Shield" XPos="54" YPos="47" Type="76">WallCollision</Event>
+  <Event ID="Barrel" XPos="8" YPos="47" Type="76">ObstacleSpawn</Event>
+  <Event ID="NULL" XPos="54" YPos="47" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="47" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="47" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="48" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="48" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="54" YPos="48" Type="76">WallCollision</Event>
-  <Event ID="Right" XPos="155" YPos="48" Type="76">ObstacleSpawn</Event>
+  <Event ID="NULL" XPos="54" YPos="48" Type="76">WallCollision</Event>
+  <Event ID="Barrel" XPos="155" YPos="48" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="48" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="48" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="49" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="49" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="54" YPos="49" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="54" YPos="49" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="49" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="49" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="50" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="50" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="54" YPos="50" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="54" YPos="50" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="50" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="50" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="51" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="51" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="54" YPos="51" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="54" YPos="51" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="51" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="51" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="52" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="52" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="54" YPos="52" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="54" YPos="52" Type="76">WallCollision</Event>
   <Event ID="Right" XPos="91" YPos="52" Type="76">SpeedRampSpawn</Event>
-  <Event ID="Right" XPos="136" YPos="52" Type="76">ObstacleSpawn</Event>
+  <Event ID="Crate" XPos="136" YPos="52" Type="76">ObstacleSpawn</Event>
   <Event ID="Health" XPos="180" YPos="52" Type="76">PlayerSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="52" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="52" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="53" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="53" Type="24">WallCollision</Event>
-  <Event ID="Health" XPos="39" YPos="53" Type="76">ObstacleSpawn</Event>
-  <Event ID="Shield" XPos="54" YPos="53" Type="76">WallCollision</Event>
+  <Event ID="Crate" XPos="39" YPos="53" Type="76">ObstacleSpawn</Event>
+  <Event ID="NULL" XPos="54" YPos="53" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="53" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="53" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="54" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="54" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="54" YPos="54" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="54" YPos="54" Type="76">WallCollision</Event>
   <Event ID="Down" XPos="103" YPos="54" Type="76">SpeedRampSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="54" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="54" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="55" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="55" Type="24">WallCollision</Event>
-  <Event ID="Shield" XPos="54" YPos="55" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="54" YPos="55" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="55" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="55" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="56" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="56" Type="24">WallCollision</Event>
   <Event ID="Health" XPos="11" YPos="56" Type="76">PlayerSpawn</Event>
-  <Event ID="Left" XPos="94" YPos="56" Type="76">ObstacleSpawn</Event>
-  <Event ID="Left" XPos="99" YPos="56" Type="76">ObstacleSpawn</Event>
+  <Event ID="Barrel" XPos="94" YPos="56" Type="76">ObstacleSpawn</Event>
+  <Event ID="Crate" XPos="99" YPos="56" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="56" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="56" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="57" Type="24">CameraCollision</Event>
@@ -754,8 +754,8 @@
   <Event ID="NULL" XPos="199" YPos="59" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="60" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="60" Type="24">WallCollision</Event>
-  <Event ID="Left" XPos="94" YPos="60" Type="76">ObstacleSpawn</Event>
-  <Event ID="Left" XPos="99" YPos="60" Type="76">ObstacleSpawn</Event>
+  <Event ID="Barrel" XPos="94" YPos="60" Type="76">ObstacleSpawn</Event>
+  <Event ID="Crate" XPos="99" YPos="60" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="60" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="60" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="61" Type="24">CameraCollision</Event>
@@ -786,7 +786,7 @@
   <Event ID="NULL" XPos="199" YPos="66" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="67" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="67" Type="24">WallCollision</Event>
-  <Event ID="Right" XPos="157" YPos="67" Type="76">ObstacleSpawn</Event>
+  <Event ID="Barrel" XPos="157" YPos="67" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="67" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="67" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="68" Type="24">CameraCollision</Event>
@@ -825,7 +825,7 @@
   <Event ID="NULL" XPos="199" YPos="75" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="76" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="76" Type="24">WallCollision</Event>
-  <Event ID="Left" XPos="70" YPos="76" Type="76">ObstacleSpawn</Event>
+  <Event ID="Crate" XPos="70" YPos="76" Type="76">ObstacleSpawn</Event>
   <Event ID="Left" XPos="168" YPos="76" Type="76">SpeedRampSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="76" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="76" Type="24">CameraCollision</Event>
@@ -839,7 +839,7 @@
   <Event ID="NULL" XPos="199" YPos="78" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="79" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="79" Type="24">WallCollision</Event>
-  <Event ID="Health" XPos="45" YPos="79" Type="76">ObstacleSpawn</Event>
+  <Event ID="Barrel" XPos="45" YPos="79" Type="76">ObstacleSpawn</Event>
   <Event ID="Crate" XPos="190" YPos="79" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="79" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="79" Type="24">CameraCollision</Event>
@@ -853,7 +853,7 @@
   <Event ID="NULL" XPos="199" YPos="81" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="82" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="82" Type="24">WallCollision</Event>
-  <Event ID="Left" XPos="55" YPos="82" Type="76">ObstacleSpawn</Event>
+  <Event ID="Barrel" XPos="55" YPos="82" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="82" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="82" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="83" Type="24">CameraCollision</Event>
@@ -943,13 +943,13 @@
   <Event ID="NULL" XPos="3" YPos="91" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="47" YPos="91" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="94" YPos="91" Type="76">WallCollision</Event>
-  <Event ID="Left" XPos="169" YPos="91" Type="76">ObstacleSpawn</Event>
-  <Event ID="Left" XPos="185" YPos="91" Type="76">PowerUpSpawn</Event>
+  <Event ID="Crate" XPos="169" YPos="91" Type="76">ObstacleSpawn</Event>
+  <Event ID="Special" XPos="185" YPos="91" Type="76">PowerUpSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="91" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="91" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="92" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="92" Type="24">WallCollision</Event>
-  <Event ID="Left" XPos="41" YPos="92" Type="76">ObstacleSpawn</Event>
+  <Event ID="Crate" XPos="41" YPos="92" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="47" YPos="92" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="94" YPos="92" Type="76">WallCollision</Event>
   <Event ID="Left" XPos="157" YPos="92" Type="76">SpeedRampSpawn</Event>
@@ -963,13 +963,13 @@
   <Event ID="NULL" XPos="199" YPos="93" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="94" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="94" Type="24">WallCollision</Event>
-  <Event ID="Health" XPos="13" YPos="94" Type="76">ObstacleSpawn</Event>
+  <Event ID="Barrel" XPos="13" YPos="94" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="47" YPos="94" Type="76">WallCollision</Event>
   <Event ID="Special" XPos="55" YPos="94" Type="76">PowerUpSpawn</Event>
   <Event ID="Weapon" XPos="80" YPos="94" Type="76">PowerUpSpawn</Event>
   <Event ID="NULL" XPos="94" YPos="94" Type="76">WallCollision</Event>
-  <Event ID="Left" XPos="114" YPos="94" Type="76">ObstacleSpawn</Event>
-  <Event ID="Left" XPos="185" YPos="94" Type="76">PowerUpSpawn</Event>
+  <Event ID="Crate" XPos="114" YPos="94" Type="76">ObstacleSpawn</Event>
+  <Event ID="Weapon" XPos="185" YPos="94" Type="76">PowerUpSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="94" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="94" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="95" Type="24">CameraCollision</Event>
@@ -980,7 +980,7 @@
   <Event ID="NULL" XPos="199" YPos="95" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="96" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="96" Type="24">WallCollision</Event>
-  <Event ID="Left" XPos="29" YPos="96" Type="76">ObstacleSpawn</Event>
+  <Event ID="Barrel" XPos="29" YPos="96" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="47" YPos="96" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="94" YPos="96" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="96" Type="24">WallCollision</Event>
@@ -997,7 +997,7 @@
   <Event ID="NULL" XPos="47" YPos="98" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="61" YPos="98" Type="76">PlayerSpawn</Event>
   <Event ID="NULL" XPos="94" YPos="98" Type="76">WallCollision</Event>
-  <Event ID="Left" XPos="185" YPos="98" Type="76">PowerUpSpawn</Event>
+  <Event ID="Health" XPos="185" YPos="98" Type="76">PowerUpSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="98" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="98" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="99" Type="24">CameraCollision</Event>
@@ -1015,7 +1015,7 @@
   <Event ID="NULL" XPos="0" YPos="101" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="101" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="47" YPos="101" Type="76">WallCollision</Event>
-  <Event ID="Left" XPos="56" YPos="101" Type="76">ObstacleSpawn</Event>
+  <Event ID="Crate" XPos="56" YPos="101" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="94" YPos="101" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="101" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="101" Type="24">CameraCollision</Event>
@@ -1033,7 +1033,7 @@
   <Event ID="NULL" XPos="199" YPos="103" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="104" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="104" Type="24">WallCollision</Event>
-  <Event ID="Health" XPos="21" YPos="104" Type="76">PlayerSpawn</Event>
+  <Event ID="NULL" XPos="21" YPos="104" Type="76">PlayerSpawn</Event>
   <Event ID="NULL" XPos="47" YPos="104" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="94" YPos="104" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="104" Type="24">WallCollision</Event>
@@ -1042,14 +1042,14 @@
   <Event ID="NULL" XPos="3" YPos="105" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="47" YPos="105" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="94" YPos="105" Type="76">WallCollision</Event>
-  <Event ID="Left" XPos="182" YPos="105" Type="76">ObstacleSpawn</Event>
+  <Event ID="Barrel" XPos="182" YPos="105" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="105" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="105" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="106" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="106" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="47" YPos="106" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="94" YPos="106" Type="76">WallCollision</Event>
-  <Event ID="Left" XPos="125" YPos="106" Type="76">ObstacleSpawn</Event>
+  <Event ID="Barrel" XPos="125" YPos="106" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="106" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="106" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="107" Type="24">CameraCollision</Event>
@@ -1068,20 +1068,20 @@
   <Event ID="NULL" XPos="3" YPos="109" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="47" YPos="109" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="94" YPos="109" Type="76">WallCollision</Event>
-  <Event ID="Left" XPos="156" YPos="109" Type="76">ObstacleSpawn</Event>
+  <Event ID="Crate" XPos="156" YPos="109" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="109" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="109" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="110" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="110" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="47" YPos="110" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="87" YPos="110" Type="76">PlayerSpawn</Event>
+  <Event ID="NULL" XPos="87" YPos="110" Type="76">PlayerSpawn</Event>
   <Event ID="NULL" XPos="94" YPos="110" Type="76">WallCollision</Event>
   <Event ID="Left" XPos="167" YPos="110" Type="76">SpeedRampSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="110" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="110" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="111" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="111" Type="24">WallCollision</Event>
-  <Event ID="Left" XPos="32" YPos="111" Type="76">ObstacleSpawn</Event>
+  <Event ID="Barrel" XPos="32" YPos="111" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="47" YPos="111" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="94" YPos="111" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="111" Type="24">WallCollision</Event>
@@ -1089,9 +1089,9 @@
   <Event ID="NULL" XPos="0" YPos="112" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="112" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="47" YPos="112" Type="76">WallCollision</Event>
-  <Event ID="Left" XPos="52" YPos="112" Type="76">ObstacleSpawn</Event>
+  <Event ID="Barrel" XPos="52" YPos="112" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="94" YPos="112" Type="76">WallCollision</Event>
-  <Event ID="Left" XPos="190" YPos="112" Type="76">ObstacleSpawn</Event>
+  <Event ID="Crate" XPos="190" YPos="112" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="112" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="112" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="113" Type="24">CameraCollision</Event>
@@ -1114,7 +1114,6 @@
   <Event ID="NULL" XPos="199" YPos="115" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="116" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="116" Type="24">WallCollision</Event>
-  <Event ID="Special" XPos="13" YPos="116" Type="76">SpeedRampSpawn</Event>
   <Event ID="Crate" XPos="180" YPos="116" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="116" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="116" Type="24">CameraCollision</Event>
@@ -1126,7 +1125,7 @@
   <Event ID="NULL" XPos="199" YPos="117" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="118" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="118" Type="24">WallCollision</Event>
-  <Event ID="Left" XPos="101" YPos="118" Type="76">ObstacleSpawn</Event>
+  <Event ID="Crate" XPos="101" YPos="118" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="118" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="118" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="119" Type="24">CameraCollision</Event>
@@ -1144,7 +1143,7 @@
   <Event ID="NULL" XPos="199" YPos="121" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="122" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="122" Type="24">WallCollision</Event>
-  <Event ID="Health" XPos="26" YPos="122" Type="76">ObstacleSpawn</Event>
+  <Event ID="Barrel" XPos="26" YPos="122" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="122" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="122" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="123" Type="24">CameraCollision</Event>
@@ -1248,7 +1247,7 @@
   <Event ID="NULL" XPos="199" YPos="134" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="135" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="135" Type="24">WallCollision</Event>
-  <Event ID="Health" XPos="11" YPos="135" Type="76">ObstacleSpawn</Event>
+  <Event ID="Barrel" XPos="11" YPos="135" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="196" YPos="135" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="135" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="136" Type="24">CameraCollision</Event>
@@ -1310,61 +1309,61 @@
   <Event ID="NULL" XPos="199" YPos="148" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="149" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="149" Type="24">WallCollision</Event>
-  <Event ID="Special" XPos="140" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="141" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="142" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="143" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="144" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="145" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="146" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="147" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="148" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="149" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="150" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="151" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="152" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="153" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="154" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="155" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="156" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="157" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="158" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="159" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="160" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="161" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="162" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="163" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="164" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="165" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="166" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="167" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="168" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="169" YPos="149" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="170" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="140" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="141" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="142" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="143" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="144" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="145" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="146" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="147" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="148" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="149" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="150" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="151" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="152" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="153" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="154" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="155" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="156" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="157" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="158" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="159" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="160" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="161" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="162" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="163" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="164" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="165" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="166" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="167" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="168" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="169" YPos="149" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="170" YPos="149" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="149" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="149" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="150" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="150" Type="24">WallCollision</Event>
   <Event ID="Crate" XPos="93" YPos="150" Type="76">ObstacleSpawn</Event>
-  <Event ID="Special" XPos="140" YPos="150" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="170" YPos="150" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="140" YPos="150" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="170" YPos="150" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="150" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="150" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="151" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="151" Type="24">WallCollision</Event>
-  <Event ID="Special" XPos="140" YPos="151" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="170" YPos="151" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="140" YPos="151" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="170" YPos="151" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="151" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="151" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="152" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="152" Type="24">WallCollision</Event>
-  <Event ID="Special" XPos="140" YPos="152" Type="76">WallCollision</Event>
-  <Event ID="Special" XPos="170" YPos="152" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="140" YPos="152" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="170" YPos="152" Type="76">WallCollision</Event>
   <Event ID="NULL" XPos="196" YPos="152" Type="24">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="152" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="153" Type="24">CameraCollision</Event>
   <Event ID="NULL" XPos="3" YPos="153" Type="24">WallCollision</Event>
-  <Event ID="Special" XPos="140" YPos="153" Type="76">WallCollision</Event>
+  <Event ID="NULL" XPos="140" YPos="153" Type="76">WallCollision</Event>
   <Event ID="Health" XPos="144" YPos="153" Type="76">PowerUpSpawn</Event>
   <Event ID="Crate" XPos="152" YPos="153" Type="76">ObstacleSpawn</Event>
   <Event ID="Shield" XPos="164" YPos="153" Type="76">PowerUpSpawn</Event>
