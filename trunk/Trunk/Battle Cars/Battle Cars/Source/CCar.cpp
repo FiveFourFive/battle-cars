@@ -188,26 +188,26 @@ void CCar::Render(CCamera* camera)
 	//m_nCollisionY1 = GetPosY() - camera->GetCamY();
 	pD3D->GetSprite()->Flush();
 	RECT tempcircle1;
-	tempcircle1.left = (int)(m_nCollisionX1 - camera->GetCamX() + camera->GetRenderPosX());
-	tempcircle1.top = (int)(m_nCollisionY1 - camera->GetCamY() + camera->GetRenderPosY());
-	tempcircle1.right = tempcircle1.left + (int)m_nCollisionRadius;
-	tempcircle1.bottom = tempcircle1.top + (int)m_nCollisionRadius;
+	tempcircle1.left =  (LONG)((int)(m_nCollisionX1 - camera->GetCamX() + camera->GetRenderPosX()));
+	tempcircle1.top =  (LONG)((int)(m_nCollisionY1 - camera->GetCamY() + camera->GetRenderPosY()));
+	tempcircle1.right =  (LONG)(tempcircle1.left + (int)m_nCollisionRadius);
+	tempcircle1.bottom =  (LONG)(tempcircle1.top + (int)m_nCollisionRadius);
 
 	pD3D->DrawRect(tempcircle1,255,255,255);
 
 	RECT tempcircle2;
-	tempcircle2.left =LONG( m_nCollisionX2 - camera->GetCamX() + camera->GetRenderPosX());
-	tempcircle2.top = LONG(m_nCollisionY2 - camera->GetCamY() + camera->GetRenderPosY());
-	tempcircle2.right = LONG(tempcircle2.left + m_nCollisionRadius);
-	tempcircle2.bottom = LONG(tempcircle2.top + m_nCollisionRadius);
+	tempcircle2.left =  (LONG)(m_nCollisionX2 - camera->GetCamX() + camera->GetRenderPosX());
+	tempcircle2.top =  (LONG)(m_nCollisionY2 - camera->GetCamY() + camera->GetRenderPosY());
+	tempcircle2.right =  (LONG)(tempcircle2.left + m_nCollisionRadius);
+	tempcircle2.bottom =  (LONG)(tempcircle2.top + m_nCollisionRadius);
 
 	pD3D->DrawRect(tempcircle2,0,0,255);
 
 	RECT center;
-	center.left = LONG(GetPosX());
-	center.top = LONG(GetPosY());
-	center.right = center.left + 10;
-	center.bottom = center.top + 10;
+	center.left = (LONG)GetPosX();
+	center.top = (LONG)GetPosY();
+	center.right = (LONG)center.left + 10;
+	center.bottom = (LONG)center.top + 10;
 	pD3D->DrawRect(center,0,0,0);
 	// end collision testing
 

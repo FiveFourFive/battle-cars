@@ -91,29 +91,12 @@ void CGamePlayState::Enter(void)
 {
 	//m_pMode = new CDeathmatchMode();
 
-
-	RECT lowerhalf = { 200, 500, 600, 540};
-	RECT regular_load = { 200, 500, 201, 540};
 	int offset = 0;
 
 	Level = CLevel::GetInstance ();
 
 	m_pD3D	=	CSGD_Direct3D::GetInstance();
 
-	m_pD3D->Clear(0, 0, 0);
-	m_pD3D->DeviceBegin();
-	m_pD3D->SpriteBegin();
-
-
-	m_pD3D->GetSprite()->Flush();
-	m_pD3D->DrawRect(lowerhalf, 58,58,58);
-	m_pD3D->DrawRect(regular_load, 0, 0, 255);
-	m_pD3D->GetSprite()->Flush();
-
-
-	m_pD3D->SpriteEnd();
-	m_pD3D->DeviceEnd();
-	m_pD3D->Present();
 
 	m_pTM	=	CSGD_TextureManager::GetInstance();
 	m_pFM	=	CSGD_FModManager::GetInstance();
@@ -126,34 +109,10 @@ void CGamePlayState::Enter(void)
 	m_pPM	=	ParticleManager::GetInstance();
 	m_pMS->InitMessageSystem (MessageProc);
 
-	m_pD3D->Clear(0, 0, 0);
-	m_pD3D->DeviceBegin();
-	m_pD3D->SpriteBegin();
-
-	m_pD3D->DrawRect(lowerhalf, 58,58,58);
-	regular_load.right += 25;
-	m_pD3D->DrawRect(regular_load, 0, 0, 255);
-
-
-	m_pD3D->SpriteEnd();
-	m_pD3D->DeviceEnd();
-	m_pD3D->Present();
 
 	m_pMS->SendMsg (new CCreateLevelMessage());
 	m_pMS->ProcessMessages ();
 
-	m_pD3D->Clear(0, 0, 0);
-	m_pD3D->DeviceBegin();
-	m_pD3D->SpriteBegin();
-
-	m_pD3D->DrawRect(lowerhalf, 58,58,58);
-	regular_load.right += 100;
-	m_pD3D->DrawRect(regular_load, 0, 0, 255);
-
-
-	m_pD3D->SpriteEnd();
-	m_pD3D->DeviceEnd();
-	m_pD3D->Present();
 
 	m_pController1 = CGame::GetInstance()->GetController1();
 	m_pController2 = CGame::GetInstance()->GetController2();
@@ -161,11 +120,6 @@ void CGamePlayState::Enter(void)
 	m_pPF = new CPrintFont(m_pTM->LoadTexture("resource/graphics/BC_Font.png",D3DCOLOR_XRGB(0, 0, 0)));
 
 
-
-	m_nBackgroundMusicID = m_pFM->LoadSound("resource/sounds/Superbeast.mp3",SGD_FMOD_LOOPING);
-	m_nCountDown = m_pFM->LoadSound("resource/sounds/Countdown.mp3");
-	m_nCountDownEnd = m_pFM->LoadSound("resource/sounds/Countdowntone.mp3");
-	m_pFM->PlaySound(m_nBackgroundMusicID);
 	CGame::GetInstance()->ResetInputDelay();
 
 	
@@ -210,77 +164,6 @@ void CGamePlayState::Enter(void)
 	//dummy2->SetPowerUps (power_ups);
 	//dummy2->SetMaxSpeed(200.0f);
 	//dummy2->EnterState ();
-
-	//dummy3 = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
-	//dummy3->SetHealth(100.0f);
-	//dummy3->SetVelX(0.0f);
-	//dummy3->SetVelY(0.0f);
-	//dummy3->SetSpeed(0.0f);
-	//dummy3->SetType(OBJECT_ENEMY);
-	//dummy3->SetKillCount(0);
-	//dummy3->SetRotation(4.71f);
-	//dummy3->Rotate(4.71f);
-	//dummy3->SetPowerUps (power_ups);
-	//dummy3->SetMaxSpeed(200.0f);
-	//dummy3->EnterState ();
-
-	//dummy4 = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
-	//dummy4->SetHealth(100.0f);
-	//dummy4->SetVelX(0.0f);
-	//dummy4->SetVelY(0.0f);
-	//dummy4->SetSpeed(0.0f);
-	//dummy4->SetType(OBJECT_ENEMY);
-	//dummy4->SetKillCount(0);
-	//dummy4->SetRotation(4.71f);
-	//dummy4->Rotate(4.71f);
-	//dummy4->SetPowerUps (power_ups);
-	//dummy4->SetMaxSpeed(200.0f);
-	//dummy4->EnterState ();
-
-	//dummy5 = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
-	//dummy5->SetHealth(100.0f);
-	//dummy5->SetVelX(0.0f);
-	//dummy5->SetVelY(0.0f);
-	//dummy5->SetSpeed(0.0f);
-	//dummy5->SetType(OBJECT_ENEMY);
-	//dummy5->SetKillCount(0);
-	//dummy5->SetRotation(4.71f);
-	//dummy5->Rotate(4.71f);
-	//dummy5->SetPowerUps (power_ups);
-	//dummy5->SetMaxSpeed(200.0f);
-	//dummy5->EnterState ();
-
-	//cars.push_back (dummy);
-	//cars.push_back (dummy2);
-	//cars.push_back (dummy3);
-	//cars.push_back (dummy4);
-	//cars.push_back (dummy5);
-
-	m_pD3D->Clear(0, 0, 0);
-	m_pD3D->DeviceBegin();
-	m_pD3D->SpriteBegin();
-
-	m_pD3D->DrawRect(lowerhalf, 58,58,58);
-	regular_load.right += 100;
-	m_pD3D->DrawRect(regular_load, 0, 0, 255);
-
-
-	m_pD3D->SpriteEnd();
-	m_pD3D->DeviceEnd();
-	m_pD3D->Present();
-	
-	m_pD3D->Clear(0, 0, 0);
-	m_pD3D->DeviceBegin();
-	m_pD3D->SpriteBegin();
-
-	m_pD3D->DrawRect(lowerhalf, 58,58,58);
-	regular_load.right += 25;
-	m_pD3D->DrawRect(regular_load, 0, 0, 255);
-
-
-	m_pD3D->SpriteEnd();
-	m_pD3D->DeviceEnd();
-	m_pD3D->Present();
 
 
 	player = CCharacterSelection::GetInstance()->GetPlayer1();
@@ -365,27 +248,6 @@ void CGamePlayState::Enter(void)
 	m_nCollectableTotalComputer = 0;
 	m_nCollectableTotalPlayer = 0;
 
-	m_pD3D->Clear(0, 0, 0);
-	m_pD3D->DeviceBegin();
-	m_pD3D->SpriteBegin();
-
-
-	m_pD3D->DrawRect(lowerhalf, 58,58,58);
-	regular_load.right += 75;
-	m_pD3D->DrawRect(regular_load, 0, 0, 255);
-
-
-	m_pD3D->SpriteEnd();
-	m_pD3D->DeviceEnd();
-	m_pD3D->Present();
-
-	m_pPM->LoadEmittor("resource/data/collision.xml");
-	m_pPM->LoadEmittor("resource/data/missle_flame.xml");
-	m_pPM->LoadEmittor("resource/data/explosion.xml");
-	m_pPM->LoadEmittor("resource/data/car_exploded.xml");
-	m_pPM->LoadEmittor("resource/data/FlameThrower.xml");
-	m_pPM->LoadEmittor("resource/data/barrel_explode.xml");
-
 	
 	time = 1000;
 	m_fElapsedSecond = 0.0f;
@@ -394,21 +256,6 @@ void CGamePlayState::Enter(void)
 	m_pPlayer1KB = CGamerProfile::GetInstance()->GetActiveProfile()->GetControllerBinds();
 	m_pPlayer1KeyboardKB = CGamerProfile::GetInstance()->GetActiveProfile()->GetKeyboardBinds();
 
-	
-
-	m_pD3D->Clear(0, 0, 0);
-	m_pD3D->DeviceBegin();
-	m_pD3D->SpriteBegin();
-
-
-	m_pD3D->DrawRect(lowerhalf, 58,58,58);
-	regular_load.right += 75;
-	m_pD3D->DrawRect(regular_load, 0, 0, 255);
-
-
-	m_pD3D->SpriteEnd();
-	m_pD3D->DeviceEnd();
-	m_pD3D->Present();
 	Setvolume();
 
 
