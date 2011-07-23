@@ -53,6 +53,7 @@ void CLoadingState::Enter(void)
 
 void CLoadingState::Exit(void)
 {
+	delete pFont;
 }
 
 bool CLoadingState::Input(void)
