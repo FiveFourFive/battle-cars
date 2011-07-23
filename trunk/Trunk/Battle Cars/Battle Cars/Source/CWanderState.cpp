@@ -249,7 +249,7 @@ bool CWanderState::FindThreat()
 
 		for (int index = 0; index < cars.size (); index++)
 		{
-			tVector2D target1Distance, target2Distance;
+			tVector2D target1Distance;
 			m_Target1 = (CCar*)cars[index];
 
 			if (m_Owner != m_Target1)

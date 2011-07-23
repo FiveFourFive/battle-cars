@@ -148,9 +148,6 @@ void CLevel::Render (CCamera* camera)
 				
 			m_pTM->Draw (LevelMap->GetTileImageID (), (int)((TileXPos *  LevelMap->GetPixelWidth()) - camera->GetCamX () + camera->GetRenderPosX ()), 
 													  (int)((TileYPos * LevelMap->GetPixelHeight()) - camera->GetCamY () + camera->GetRenderPosY ()), 1.0f, 1.0f, &TileSelection);
-
-			
-			
 		}
 		
 	}
@@ -170,25 +167,19 @@ bool CLevel::CheckPlayerCollision (CBase* pBase, CCamera* camera)
 	XEnd = (camera->GetRect ().right / LevelMap->GetPixelWidth());
 	YEnd = (camera->GetRect ().bottom / LevelMap->GetPixelHeight());
 
-	if (XBegin - 1 >= 0)
-	{
-		XBegin = XBegin - 1;
-	}
+	XBegin = XBegin - 1;
+	YBegin = YBegin - 1;
+	XEnd = XEnd + 1;
+	YEnd = YEnd + 1;
 
-	if (YBegin - 1 >= 0)
-	{
-		YBegin = YBegin - 1;
-	}
-
-	if (XEnd + 1 <= LevelMap->GetMapWidth ())
-	{
-		XEnd = XEnd + 1;
-	}
-
-	if (YEnd + 1 <= LevelMap->GetMapHeight ())
-	{
-		YEnd = YEnd + 1;
-	}
+	if (XBegin < 0)
+		XBegin = 0;
+	if (YBegin < 0)
+		YBegin = 0;
+	if (XEnd > LevelMap->GetMapWidth ())
+		XEnd = LevelMap->GetMapWidth ();
+	if (YEnd > LevelMap->GetMapHeight ())
+		YEnd = LevelMap->GetMapHeight ();
 
 	for (int YPos = YBegin; YPos < YEnd; YPos++)
 	{
@@ -269,25 +260,19 @@ bool CLevel::CheckCameraCollision (CCamera* camera)
 	XEnd = (camera->GetRect ().right / LevelMap->GetPixelWidth());
 	YEnd = (camera->GetRect ().bottom / LevelMap->GetPixelHeight());
 
-	if (XBegin - 1 >= 0)
-	{
-		XBegin = XBegin - 1;
-	}
+	XBegin = XBegin - 1;
+	YBegin = YBegin - 1;
+	XEnd = XEnd + 1;
+	YEnd = YEnd + 1;
 
-	if (YBegin - 1 >= 0)
-	{
-		YBegin = YBegin - 1;
-	}
-
-	if (XEnd + 1 <= LevelMap->GetMapWidth ())
-	{
-		XEnd = XEnd + 1;
-	}
-
-	if (YEnd + 1 <= LevelMap->GetMapHeight ())
-	{
-		YEnd = YEnd + 1;
-	}
+	if (XBegin < 0)
+		XBegin = 0;
+	if (YBegin < 0)
+		YBegin = 0;
+	if (XEnd > LevelMap->GetMapWidth ())
+		XEnd = LevelMap->GetMapWidth ();
+	if (YEnd > LevelMap->GetMapHeight ())
+		YEnd = LevelMap->GetMapHeight ();
 
 	for (int YPos = YBegin; YPos < YEnd; YPos++)
 	{
@@ -325,35 +310,17 @@ bool CLevel::CheckObstacleCollision (CBase* pBase)
 	XEnd = ((pBase->GetRect ().right + 10) / LevelMap->GetPixelWidth());
 	YEnd = ((pBase->GetRect ().bottom + 10) / LevelMap->GetPixelHeight());
 
-	if (XBegin - 1 >= 0)
-	{
-		XBegin = XBegin - 1;
-	}
+	XBegin = XBegin - 1;
+	YBegin = YBegin - 1;
+	XEnd = XEnd + 1;
+	YEnd = YEnd + 1;
 
 	if (XBegin < 0)
 		XBegin = 0;
-
-	if (YBegin - 1 >= 0)
-	{
-		YBegin = YBegin - 1;
-	}
-
 	if (YBegin < 0)
 		YBegin = 0;
-
-	if (XEnd + 1 <= LevelMap->GetMapWidth ())
-	{
-		XEnd = XEnd + 1;
-	}
-
 	if (XEnd > LevelMap->GetMapWidth ())
 		XEnd = LevelMap->GetMapWidth ();
-
-	if (YEnd + 1 <= LevelMap->GetMapHeight ())
-	{
-		YEnd = YEnd + 1;
-	}
-
 	if (YEnd > LevelMap->GetMapHeight ())
 		YEnd = LevelMap->GetMapHeight ();
 
@@ -424,35 +391,17 @@ bool CLevel::CheckBulletCollision (CBase* pBase)
 	XEnd = ((pBase->GetRect ().right + 10) / LevelMap->GetPixelWidth());
 	YEnd = ((pBase->GetRect ().bottom + 10) / LevelMap->GetPixelHeight());
 
-	if (XBegin - 1 >= 0)
-	{
-		XBegin = XBegin - 1;
-	}
+	XBegin = XBegin - 1;
+	YBegin = YBegin - 1;
+	XEnd = XEnd + 1;
+	YEnd = YEnd + 1;
 
 	if (XBegin < 0)
 		XBegin = 0;
-
-	if (YBegin - 1 >= 0)
-	{
-		YBegin = YBegin - 1;
-	}
-
 	if (YBegin < 0)
 		YBegin = 0;
-
-	if (XEnd + 1 <= LevelMap->GetMapWidth ())
-	{
-		XEnd = XEnd + 1;
-	}
-
 	if (XEnd > LevelMap->GetMapWidth ())
 		XEnd = LevelMap->GetMapWidth ();
-
-	if (YEnd + 1 <= LevelMap->GetMapHeight ())
-	{
-		YEnd = YEnd + 1;
-	}
-
 	if (YEnd > LevelMap->GetMapHeight ())
 		YEnd = LevelMap->GetMapHeight ();
 
@@ -528,12 +477,12 @@ vector<CBase*> CLevel::SetCarSpawn (vector<CBase*> pBases)
 				CEnemy* car = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
 				car->SetPosX ((float)(spawnPoints[randomIndex].fX * LevelMap->GetPixelWidth ()));
 				car->SetPosY ((float)(spawnPoints[randomIndex].fY * LevelMap->GetPixelHeight ()));
-				car->SetHealth(100.0f);
-				car->SetShieldBar(0.0f);
+				car->SetHealth(150.0f);
+				car->SetShieldBar(100.0f);
 				car->SetVelX(0.0f);
 				car->SetVelY(0.0f);
 				car->SetSpeed(0.0f);
-				car->SetMaxHealth(100.0f);
+				car->SetMaxHealth(150.0f);
 				car->SetType(OBJECT_ENEMY);
 				car->SetKillCount(0);
 				car->Rotate(0.0f);

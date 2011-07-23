@@ -1,25 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Emittors>
   <Emittor>
-    <Name>Flamethrower</Name>
-    <NumberofParticles>100.00000</NumberofParticles>
-    <MinLifeSpan>0.5</MinLifeSpan>
-    <MaxLifeSpan>1.6</MaxLifeSpan>
-    <StartColor A="255" R="255" G="81" B="81" />
-    <EndColor A="0" R="255" G="255" B="0" />
-    <XStartScale>0.3</XStartScale>
-    <XEndScale>2.0</XEndScale>
-    <YStartScale>0.3</YStartScale>
-    <YEndScale>2.0</YEndScale>
-    <MinXVelocity>-100.000</MinXVelocity>
-    <MaxXVelocity>100</MaxXVelocity>
-    <MinYVelocity>-100.000</MinYVelocity>
-    <MaxYVelocity>0.000</MaxYVelocity>
+    <Name>Particle Emittor</Name>
+    <NumberofParticles>100</NumberofParticles>
+    <MinLifeSpan>1</MinLifeSpan>
+    <MaxLifeSpan>1</MaxLifeSpan>
+    <StartColor A="255" R="254" G="63" B="7" />
+    <EndColor A="0" R="255" G="176" B="60" />
+    <XStartScale>0.5</XStartScale>
+    <XEndScale>3</XEndScale>
+    <YStartScale>0.5</YStartScale>
+    <YEndScale>3</YEndScale>
+    <MinXVelocity>0</MinXVelocity>
+    <MaxXVelocity>0</MaxXVelocity>
+    <MinYVelocity>-30</MinYVelocity>
+    <MaxYVelocity>30</MaxYVelocity>
     <XAcceleration>0</XAcceleration>
-    <YAcceleration>-100.000</YAcceleration>
-    <Rotation>0</Rotation>
+    <YAcceleration>0</YAcceleration>
+    <Rotation>3.1</Rotation>
     <SourceBlend>3</SourceBlend>
-    <DestinationBlend>3</DestinationBlend>
+    <DestinationBlend>5</DestinationBlend>
     <ImageName>Puff2.png</ImageName>
     <Continuous>true</Continuous>
     <Bursting>false</Bursting>

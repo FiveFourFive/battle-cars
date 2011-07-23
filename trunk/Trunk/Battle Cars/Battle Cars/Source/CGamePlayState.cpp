@@ -127,11 +127,11 @@ void CGamePlayState::Enter(void)
 	CBoss* boss = new CBoss(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
 	CBoss* miniboss = new CBoss(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
 	miniboss->SetMiniBoss(true);
-	miniboss->SetHealth(65.0f);
-	miniboss->SetMaxHealth(65.0f);
-	miniboss->SetShieldBar(30.0f);
-	miniboss->SetMaxShield(30.0f);
-	miniboss->SetAcceleration(3.5f);
+	miniboss->SetHealth(200.0f);
+	miniboss->SetMaxHealth(200.0f);
+	miniboss->SetShieldBar(100.0f);
+	miniboss->SetMaxShield(100.0f);
+	miniboss->SetAcceleration(2.0f);
 	miniboss->SetPosX(float(rand()%1400+200));
 	miniboss->SetPosY(float(rand()%1400+200));
 	miniboss->SetCarId(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniBossPlaceHolder.png"));
@@ -177,7 +177,7 @@ void CGamePlayState::Enter(void)
 
 	if(!m_bCollectionChallenge)
 	{
-	//	m_pOM->AddObject(miniboss);
+		m_pOM->AddObject(miniboss);
 		//m_pOM->AddObject(dummy2);
 		//m_pOM->AddObject(ramps[0]);
 		//m_pOM->AddObject(ramps[1]);
@@ -1127,7 +1127,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pLandMine->SetMaxLife(30.0f);
 			pLandMine->SetHeight((int)(64*pLandMine->GetScale()));
 			pLandMine->SetWidth((int)(64*pLandMine->GetScale()));
-			pLandMine->SetDamage(float(20*(pTSM->GetPlayer()->GetSpecialLevel())));
+			pLandMine->SetDamage(float(15*(pTSM->GetPlayer()->GetSpecialLevel())));
 			pLandMine->SetBlastRadius(0.0f);
 			pLandMine->SetLandMineType(LM_LM);
 			pLandMine->SetVelX(0.0f);
@@ -1140,7 +1140,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pLandMine1->SetMaxLife(30.0f);
 			pLandMine1->SetHeight((int)(64*pLandMine->GetScale()));
 			pLandMine1->SetWidth((int)(64*pLandMine->GetScale()));
-			pLandMine1->SetDamage(float(20*(pTSM->GetPlayer()->GetSpecialLevel())));
+			pLandMine1->SetDamage(float(15*(pTSM->GetPlayer()->GetSpecialLevel())));
 			pLandMine1->SetBlastRadius(0.0f);
 			pLandMine1->SetLandMineType(LM_LM);
 			pLandMine1->SetVelX(0.0f);
@@ -1153,7 +1153,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pLandMine2->SetMaxLife(30.0f);
 			pLandMine2->SetHeight((int)(64*pLandMine->GetScale()));
 			pLandMine2->SetWidth((int)(64*pLandMine->GetScale()));
-			pLandMine2->SetDamage(float(20*(pTSM->GetPlayer()->GetSpecialLevel())));
+			pLandMine2->SetDamage(float(15*(pTSM->GetPlayer()->GetSpecialLevel())));
 			pLandMine2->SetBlastRadius(0.0f);
 			pLandMine2->SetLandMineType(LM_LM);
 			pLandMine2->SetVelX(0.0f);
@@ -1260,7 +1260,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet->SetWidth((int)(8*pBullet->GetScale()));
 			pBullet->SetPosX(pCVS->GetPlayer()->GetPosX());
 			pBullet->SetPosY(pCVS->GetPlayer()->GetPosY());
-			pBullet->SetDamage(.25f*(pCVS->GetPlayer()->GetSpecialLevel()));
+			pBullet->SetDamage(.35f*(pCVS->GetPlayer()->GetSpecialLevel()));
 			pBullet->SetBulletType(PROJECTILE_BULLET);
 			pBullet->SetToRender(false);
 			pBullet1->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_FlameParticlePlaceholder.png"));
@@ -1272,7 +1272,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet1->SetWidth((int)(8*pBullet->GetScale()));
 			pBullet1->SetPosX(pCVS->GetPlayer()->GetPosX());
 			pBullet1->SetPosY(pCVS->GetPlayer()->GetPosY());
-			pBullet1->SetDamage(.25f*(pCVS->GetPlayer()->GetSpecialLevel()));
+			pBullet1->SetDamage(.35f*(pCVS->GetPlayer()->GetSpecialLevel()));
 			pBullet1->SetBulletType(PROJECTILE_BULLET);
 			pBullet1->SetToRender(false);
 			pBullet2->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_FlameParticlePlaceholder.png"));
@@ -1284,7 +1284,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet2->SetWidth((int)(8*pBullet->GetScale()));
 			pBullet2->SetPosX(pCVS->GetPlayer()->GetPosX());
 			pBullet2->SetPosY(pCVS->GetPlayer()->GetPosY());
-			pBullet2->SetDamage(.25f*(pCVS->GetPlayer()->GetSpecialLevel()));
+			pBullet2->SetDamage(.35f*(pCVS->GetPlayer()->GetSpecialLevel()));
 			pBullet2->SetBulletType(PROJECTILE_BULLET);
 			pBullet2->SetToRender(false);
 			pBullet3->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_FlameParticlePlaceholder.png"));
@@ -1296,7 +1296,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet3->SetWidth((int)(8*pBullet->GetScale()));
 			pBullet3->SetPosX(pCVS->GetPlayer()->GetPosX());
 			pBullet3->SetPosY(pCVS->GetPlayer()->GetPosY());
-			pBullet3->SetDamage(.25f*(pCVS->GetPlayer()->GetSpecialLevel()));
+			pBullet3->SetDamage(.35f*(pCVS->GetPlayer()->GetSpecialLevel()));
 			pBullet3->SetBulletType(PROJECTILE_BULLET);
 			pBullet3->SetToRender(false);
 			pBullet4->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_FlameParticlePlaceholder.png"));
@@ -1308,7 +1308,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet4->SetWidth((int)(8*pBullet->GetScale()));
 			pBullet4->SetPosX(pCVS->GetPlayer()->GetPosX());
 			pBullet4->SetPosY(pCVS->GetPlayer()->GetPosY());
-			pBullet4->SetDamage(.25f*(pCVS->GetPlayer()->GetSpecialLevel()));
+			pBullet4->SetDamage(.35f*(pCVS->GetPlayer()->GetSpecialLevel()));
 			pBullet4->SetBulletType(PROJECTILE_BULLET);
 			pBullet4->SetToRender(false);
 

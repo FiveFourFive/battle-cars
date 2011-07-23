@@ -250,6 +250,7 @@ namespace ParticleTool
                             temp_render_emittor.Particles[i].Color = temp_render_emittor.Start_Color1;
                             temp_render_emittor.Particles[i].ScaleX = temp_render_emittor.Start_scaleX;
                             temp_render_emittor.Particles[i].ScaleY = temp_render_emittor.Start_scaleY;
+                            temp_render_emittor.Particles[i].Rotation = 0;
 
                             temp_render_emittor.Particles[i].SpawnTime = 0;
                             temp_render_emittor.Particles[i].IsDead = true;
@@ -292,7 +293,10 @@ namespace ParticleTool
                 {
                     if (temp_render_emittor.Particles[i].IsDead != true)
                         TM.Draw(temp_render_emittor.TextureID1, (int)temp_render_emittor.Particles[i].PosX - (int)((TM.GetTextureWidth(temp_render_emittor.TextureID1) * 0.5M) * temp_render_emittor.Particles[i].ScaleX), (int)temp_render_emittor.Particles[i].PosY - (int)((TM.GetTextureHeight(temp_render_emittor.TextureID1) * 0.5M) * temp_render_emittor.Particles[i].ScaleY),
-                                (float)temp_render_emittor.Particles[i].ScaleX, (float)temp_render_emittor.Particles[i].ScaleY, Rectangle.Empty, (int)(TM.GetTextureWidth(temp_render_emittor.TextureID1)), (int)(TM.GetTextureHeight(temp_render_emittor.TextureID1)), (float)temp_render_emittor.Particles[i].Rotation, temp_render_emittor.Particles[i].Color.ToArgb());
+                                (float)temp_render_emittor.Particles[i].ScaleX, (float)temp_render_emittor.Particles[i].ScaleY, Rectangle.Empty, 
+                                (int)((TM.GetTextureWidth(temp_render_emittor.TextureID1)* 0.5f) * (float)temp_render_emittor.Particles[i].ScaleX) ,
+                                (int)((TM.GetTextureHeight(temp_render_emittor.TextureID1) * 0.5f) * (float)temp_render_emittor.Particles[i].ScaleY), 
+                                (float)temp_render_emittor.Particles[i].Rotation, temp_render_emittor.Particles[i].Color.ToArgb());
                 }
                 d3d.Sprite.Flush();
             }

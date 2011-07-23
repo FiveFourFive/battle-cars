@@ -4,6 +4,7 @@
 #include "CCar.h"
 #include "CEventSystem.h"
 #include "IListener.h"
+#include <vector>
 
 class CXboxInput;
 class CMessageSystem;
@@ -20,7 +21,11 @@ private:
 
 	int m_nScore_Overlay_Index;
 
-	int m_nWeaponImageIndex;
+	std::vector<int> Weapons;
+
+	//int m_nWeaponImageIndex;
+	//int m_nPistoalImageID;
+	//int m_nRocketImageID;
 
 	CEventSystem* m_pES;
 	CXboxInput* m_pController1;
@@ -54,8 +59,8 @@ public:
 	void SetWallCollisionRect (RECT collision) {m_rectWallCollision = collision;}
 	RECT GetWallCollisionRect () { return m_rectWallCollision;}
 
-	void SetWeaponIcon(int icon){m_nWeaponImageIndex=icon;}
-	int GetWeaponIcon(){return m_nWeaponImageIndex;}
+	void AddWeaponIcon(int icon){Weapons.push_back(icon);}
+	int GetWeaponIcon(){return Weapons[GetSelectedWeapon ()];}
 
 	CHUD* GetHudItem(){ return m_pHUD;}
 
