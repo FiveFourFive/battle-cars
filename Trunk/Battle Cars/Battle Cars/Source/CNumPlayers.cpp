@@ -277,9 +277,11 @@ bool CNumPlayers::HandleEnter(void)
 	{
 	case 0:
 		m_nNumberOfPlayers = 1;
+		m_nSelection = 2;
 		break;
 	case 1:
 		m_nNumberOfPlayers = 2;
+		m_nSelection = 2;
 		break;
 	case 2:
 		CGame::GetInstance()->ChangeState(CCharacterSelection::GetInstance());
