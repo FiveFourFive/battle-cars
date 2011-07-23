@@ -49,6 +49,8 @@ public:
 	int GetObstacleType(){ return m_nObstacleType;}
 
 	bool IsActive(){ return m_bActive;}
+	bool IsHit(){ return m_bHit;}
+	void SetHit(bool value){ m_bHit = value;}
 };
 
 

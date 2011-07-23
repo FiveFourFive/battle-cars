@@ -226,33 +226,37 @@ void CPlayer::Update(float fElapsedTime)
 					break;
 				case WEAPON_SPECIAL:
 				{
-					switch(GetPlayerType())
-							{
-								case CAR_MINI:
-									{
-										PlayBullet();
-										pMS->SendMsg(new CCreateMiniSpecialMessage(this));
-									}
-									break;
-								case CAR_VETTE:
-									{
-										m_fFlames = 1.5f;
-										m_bIsFlameThrowerOn = true;
-									}
-									break;
-								case CAR_HUMMER:
-									{
-										m_fIcyBullets = 40.0f;
-										m_bIsIcyGatlingOn = true;
-									}
-									break;
-								case CAR_TRUCK:
-									{
-										PlayBullet();
-										pMS->SendMsg(new CCreateTruckSpecialMessage(this));
-									}
-									break;
-							}
+					if( GetPowerUpBar() >= GetMaxPowerUp() )
+					{
+						SetPowerUpBar(0.0f);
+						switch(GetPlayerType())
+								{
+									case CAR_MINI:
+										{
+											PlayBullet();
+											pMS->SendMsg(new CCreateMiniSpecialMessage(this));
+										}
+										break;
+									case CAR_VETTE:
+										{
+											m_fFlames = 1.5f;
+											m_bIsFlameThrowerOn = true;
+										}
+										break;
+									case CAR_HUMMER:
+										{
+											m_fIcyBullets = 40.0f;
+											m_bIsIcyGatlingOn = true;
+										}
+										break;
+									case CAR_TRUCK:
+										{
+											PlayBullet();
+											pMS->SendMsg(new CCreateTruckSpecialMessage(this));
+										}
+										break;
+								}
+					}
 				}
 					break;
 				}
@@ -405,9 +409,9 @@ void CPlayer::Update(float fElapsedTime)
 					break;
 					case WEAPON_SPECIAL:
 					{
-						//if(GetPowerUpBar() >= GetMaxPowerUp())
-						//{
-							//SetPowerUpBar(0);
+						if(GetPowerUpBar() >= GetMaxPowerUp())
+						{
+							SetPowerUpBar(0);
 							switch(GetPlayerType())
 							{
 								case CAR_MINI:
@@ -435,7 +439,7 @@ void CPlayer::Update(float fElapsedTime)
 									}
 									break;
 							}
-						//}
+						}
 					}
 					break;
 				}

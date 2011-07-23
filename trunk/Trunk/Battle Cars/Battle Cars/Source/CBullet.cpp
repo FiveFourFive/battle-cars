@@ -121,6 +121,8 @@ bool CBullet::CheckCollision(IBaseInterface* pBase)
 			obsvel.fX = this->GetVelX() * 0.4f;
 			obsvel.fY = this->GetVelY() * 0.4f;
 			tempobs->SetVel(obsvel);
+
+			tempobs->SetHit(true);
 		}
 	}
 	return false;
