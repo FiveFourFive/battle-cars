@@ -137,7 +137,7 @@ void CDeathmatchMode::CheckWinLoss(void)
 		scores = CGamePlayState::GetInstance()->GetList();
 		if(scores->front()->GetType() == OBJECT_PLAYER)
 		{
-			CPlayer* tempplayer = (CPlayer*)scores->back();
+			CPlayer* tempplayer = (CPlayer*)scores->front();
 			CWinState::GetInstance()->SetWinner(tempplayer);
 			if(tempplayer->GetPlayerNum() == 1)
 			{
@@ -147,10 +147,14 @@ void CDeathmatchMode::CheckWinLoss(void)
 			else
 			{
 				CGame::GetInstance()->ChangeState(CLossState::GetInstance());
+				CWinState::GetInstance()->SetWinner(NULL);
 			}
 		}
 		else
+		{
+			CWinState::GetInstance()->SetWinner(NULL);
 			CGame::GetInstance()->ChangeState(CLossState::GetInstance());
+		}
 	}
 
 }

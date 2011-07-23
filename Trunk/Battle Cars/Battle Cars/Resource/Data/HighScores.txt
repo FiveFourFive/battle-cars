@@ -1,3 +1,6 @@
+DEFAULT 55
+DEFAULT 55
+DEFAULT 55
 aad 12
 aai 3
 aah 2
@@ -5,6 +8,3 @@ aaf 2
 aab 1
 aac 0
 aag 0
-aaa 0
-aae 0
-aaj 0

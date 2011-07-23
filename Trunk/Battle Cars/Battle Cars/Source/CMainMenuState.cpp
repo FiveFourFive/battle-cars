@@ -18,6 +18,7 @@
 #include "CCreditsScreenState.h"
 #include "ParticleManager.h"
 #include "CHighScoreState.h"
+#include "Gamer_Profile.h"
 
 enum menu {PLAY, OPTIONS, HOW_TO_PLAY, GAMER_PROFILE, HIGH_SCORES, CREDITS, EXIT};
 
@@ -62,7 +63,6 @@ void CMainMenuState::Enter(void)
 	
 	m_pController1 = CGame::GetInstance()->GetController1();
 	m_pController2 = CGame::GetInstance()->GetController2();
-
 	
 	//ParticleManager::GetInstance()->LoadEmittor("resource/data/collision.xml");
 	//ParticleManager::GetInstance()->LoadEmittor("resource/data/missle_flame.xml");
@@ -82,7 +82,11 @@ void CMainMenuState::Enter(void)
 	//m_pFM->SetVolume(m_nMenuMove,CGame::GetInstance()->getSoundAVolume());
 	m_pFM->PlaySound(m_nBackgroundMusicID);
 	m_nBGImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/mainmenu_bg.jpg");
-
+	Gamer_Profile* temp = CGamerProfile::GetInstance()->GetActiveProfile();
+	if(temp->index > 3 || temp->index < 0)
+	{
+		temp->index = 0;
+	}
 }
 
 void CMainMenuState::Exit(void)

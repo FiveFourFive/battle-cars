@@ -653,6 +653,7 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 			myvel.fX = myvel.fX + boostvel.fX;
 			myvel.fY = myvel.fY + boostvel.fY;
 			SetVelocity(myvel);
+			SetSpeed(GetMaxSpeed());
 			//SetSpeed(GetMaxSpeed() + 300.0f);
 			return true;
 		}
