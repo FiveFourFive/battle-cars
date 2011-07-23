@@ -45,6 +45,7 @@ void CLoadingState::Enter(void)
 	ParticleManager::GetInstance()->LoadEmittor("resource/data/explosion.xml");
 	ParticleManager::GetInstance()->LoadEmittor("resource/data/car_exploded.xml");
 	ParticleManager::GetInstance()->LoadEmittor("resource/data/FlameThrower.xml");
+	ParticleManager::GetInstance()->LoadEmittor("resource/data/barrel_explode.xml");
 
 	pFont = new CPrintFont(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BC_Font.png",D3DCOLOR_XRGB(0, 0, 0)));
 
@@ -61,7 +62,7 @@ bool CLoadingState::Input(void)
 
 void CLoadingState::Update(float fElapsedTime)
 {
-	if(timeGetTime()-timeStamp>13000)
+	if(timeGetTime()-timeStamp>8000)
 	{
 		timeStamp=timeGetTime();
 		

@@ -250,7 +250,7 @@ void CGamePlayState::Enter(void)
 
 	
 	
-	time = 60;
+	time = 240;
 	m_fElapsedSecond = 0.0f;
 	score = 0;
 
@@ -716,13 +716,13 @@ void CGamePlayState::Update(float fElapsedTime)
 					bosses[1]->SetSpecialLevel(1);
 					bosses[1]->SetCarId(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniBossPlaceHolder.png"));
 					m_fRespawnMiniBossTimer = 0.0f;
-					//m_pOM->AddObject(bosses[1]);
+					m_pOM->AddObject(bosses[1]);
 				}
 			}
 			if(time <= 30 && !m_bBossHasSpawned)
 			{
 				m_bBossHasSpawned = true;
-				//m_pOM->AddObject(bosses[0]);
+				m_pOM->AddObject(bosses[0]);
 			}
 			if(m_bBossHasDied)
 			{
