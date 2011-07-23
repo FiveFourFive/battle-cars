@@ -2,5 +2,5 @@
 <Level>
   <TileLocation>TileInfo.xml</TileLocation>
   <EventLocation>EventInfo.xml</EventLocation>
-  <LevelInfo Width="200" Height="200" PixelWidth="32" PixelHeight="32">Test</LevelInfo>
+  <LevelInfo Width="200" Height="200" PixelWidth="32" PixelHeight="32">CrashCity</LevelInfo>
 </Level>
