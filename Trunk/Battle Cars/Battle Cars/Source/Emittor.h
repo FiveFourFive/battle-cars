@@ -202,7 +202,7 @@ public:
 	// Initializes the particle list with emittor information
 	//
 	///////////////////////////////////////////////////////////////////////
-	void InitializeParticleList(Emittor* temp);
+	void InitializeParticleList();
 };
 
 #endif

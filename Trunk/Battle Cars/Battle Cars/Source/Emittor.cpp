@@ -274,11 +274,11 @@ void Emittor::InitializeEmittor()
 	directory += imagename;
 	SetTextureID( CSGD_TextureManager::GetInstance()->LoadTexture(directory.c_str(), D3DCOLOR_XRGB(0,0,0)));
 
-	InitializeParticleList(this);
+	InitializeParticleList();
 	
 }
 
-void Emittor::InitializeParticleList(Emittor* temp)
+void Emittor::InitializeParticleList()
 {
 	m_vParticleList.clear();
 
@@ -306,8 +306,15 @@ void Emittor::InitializeParticleList(Emittor* temp)
 			temp->scaleY_timer = 0.0f;
 			temp->spawn_timer = 0.0f;
 
-			temp->isDead = true;
+			temp->isDead = false;
 
 			m_vParticleList.push_back(temp);
         }
+
+	int count = 0;
+	while( count < 20 )
+	{
+		m_vParticleList[rand()%m_nMaxNumber]->isDead = true;
+		count++;
+	}
 }

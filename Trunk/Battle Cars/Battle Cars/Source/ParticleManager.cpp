@@ -420,6 +420,7 @@ Emittor* ParticleManager::CreateEffect( Emittor* temp_emittor, float posX, float
 	new_emittor->SetID(ActiveCount);
 	ActiveCount++;
 	
+	new_emittor->InitializeParticleList();
 	m_ActiveEmittors.push_back(new_emittor);
 
 	return new_emittor;
