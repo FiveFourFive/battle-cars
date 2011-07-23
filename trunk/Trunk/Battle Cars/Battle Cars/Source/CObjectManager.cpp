@@ -162,6 +162,7 @@ void CObjectManager::RemoveAllObjects(void)
 	for(size_t i = 0; i < m_vObjectList.size(); i++)
 	{
 		m_vObjectList[i]->Release();
+		m_vObjectList[i] = NULL;
 	}
 	m_vObjectList.clear();
 
