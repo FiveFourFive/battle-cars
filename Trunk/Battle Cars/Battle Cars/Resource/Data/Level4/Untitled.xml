@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Level>
+  <TileLocation>TileInfo.xml</TileLocation>
+  <EventLocation>EventInfo.xml</EventLocation>
+  <LevelInfo Width="150" Height="153" PixelWidth="32" PixelHeight="32">Untitled</LevelInfo>
+</Level>
