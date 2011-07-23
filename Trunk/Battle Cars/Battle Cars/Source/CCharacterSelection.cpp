@@ -28,25 +28,35 @@ CCharacterSelection::CCharacterSelection()
 
 	currPlayer = NULL;
 	m_nSelection = 0;
+
+	m_pDI = CSGD_DirectInput::GetInstance();
+	m_pTM = CSGD_TextureManager::GetInstance();
+	m_pFM = CSGD_FModManager::GetInstance();
+
+	if( LoadCharacters() == false)
+		MessageBox(NULL, "Failed to Load characters", 0, 0);
 }
 
 CCharacterSelection::~CCharacterSelection()
 {
-
+	for( unsigned int i = 0; i < m_vPlayerList.size(); i++)
+	{
+		if( m_vPlayerList[i])
+		{
+			delete m_vPlayerList[i];
+			m_vPlayerList[i] = NULL;
+		}
+	}
 }
 
 void CCharacterSelection::Enter()
 {
-	m_vPlayerList.clear();
+	//m_vPlayerList.clear();
 
 	for( int i = 0; i < 4; i++)
 	{
 		isAvailable[i] = true;
 	}
-
-	m_pDI = CSGD_DirectInput::GetInstance();
-	m_pTM = CSGD_TextureManager::GetInstance();
-	m_pFM = CSGD_FModManager::GetInstance();
 	
 	m_nMenuSelect = m_pFM->LoadSound("resource/sounds/menuselect.mp3");
 	m_nMenuMove = m_pFM->LoadSound("resource/sounds/menuchange.mp3");
@@ -54,9 +64,6 @@ void CCharacterSelection::Enter()
 	m_nFontID = m_pTM->LoadTexture("resource/graphics/BC_Font.png",D3DCOLOR_XRGB(0, 0, 0));
 
 	m_pPF = new CPrintFont(m_nFontID);
-
-	if( LoadCharacters() == false)
-		MessageBox(NULL, "Failed to Load characters", 0, 0);
 
 	currPlayer = m_vPlayerList[0];
 

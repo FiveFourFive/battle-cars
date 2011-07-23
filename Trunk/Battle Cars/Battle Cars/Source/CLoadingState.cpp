@@ -66,7 +66,7 @@ void CLoadingState::Update(float fElapsedTime)
 	{
 		timeStamp=(float)(timeGetTime());
 		
-		CGame::GetInstance()->ChangeState(CGamePlayState::GetInstance());
+		CGame::GetInstance()->ClearStates(CGamePlayState::GetInstance());
 	}
 }
 
