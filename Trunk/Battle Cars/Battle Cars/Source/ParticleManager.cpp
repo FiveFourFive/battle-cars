@@ -76,13 +76,6 @@ void ParticleManager::RenderEmittors(CCamera* camera)
 	for( unsigned int i = 0; i < m_ActiveEmittors.size(); i++)
 	{
 		m_ActiveEmittors[i]->Render(camera);
-
-		RECT temp_rect;
-		temp_rect.left = LONG(m_ActiveEmittors[i]->GetPosition().fX - camera->GetCamX() + camera->GetRenderPosX());
-		temp_rect.top = LONG(m_ActiveEmittors[i]->GetPosition().fY - camera->GetCamY() + camera->GetRenderPosY());
-		temp_rect.right = temp_rect.left + 20;
-		temp_rect.bottom = temp_rect.top + 20;
-		D3D->DrawRect(temp_rect, 128,255,128);
 		
 	}
 }
@@ -356,12 +349,15 @@ void ParticleManager::ShutDownParticleManager()
 		{
 			delete m_ActiveEmittors[i];
 			m_ActiveEmittors[i] = NULL;
+			ActiveCount--;
 		}
 	}
 	m_ActiveEmittors.clear();
 	
 	if( Count != 0)
 		MessageBox(0, "Count does not equal 0, possible leak of emittor or my terrible coding", 0,0);
+	if( ActiveCount != 0)
+		MessageBox(0, "Active Count does not equal 0, possible leak of emittor or my terrible coding", 0,0);
 	DeleteInstance();
 }
 
@@ -389,6 +385,9 @@ Emittor* ParticleManager::GetActiveEmittor( int id)
 
 Emittor* ParticleManager::CreateEffect( Emittor* temp_emittor, float posX, float posY, float accelX, float accelY)
 {
+	if( temp_emittor == NULL)
+		return NULL;
+
 	Emittor* new_emittor = new Emittor();
 	new_emittor->SetPosition(posX, posY);
 	new_emittor->SetMaxNumber(temp_emittor->GetMaxNumber());

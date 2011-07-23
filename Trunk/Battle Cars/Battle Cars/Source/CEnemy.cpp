@@ -166,10 +166,8 @@ void CEnemy::HandleEvent(CEvent* pEvent)
 		{
 			if( GetShieldBar() < GetMaxShield() )
 			{
-				SetShieldBar(GetShieldBar() + 20.0f);
-			}
-			if( GetShieldBar() > GetMaxShield() )
 				SetShieldBar(GetMaxShield());
+			}
 		}
 	}
 }

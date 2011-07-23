@@ -154,7 +154,7 @@ void CPlayer::Update(float fElapsedTime)
 			flame_thrower->SetAcceleration(temp.fX, temp.fY);
 
 			PM->AttachToBasePosition(this, flame_thrower,0, 0);
-			flame_thrower->InitializeParticleList (flame_thrower);
+			flame_thrower->InitializeParticleList();
 		}
 
 		m_fFlames = m_fFlames - fElapsedTime;
@@ -713,7 +713,7 @@ void CPlayer::HandleEvent(CEvent* pEvent)
 		else if(pEvent->GetEventID() == "powerup_power")
 		{
 			if(GetPowerUpBar() < GetMaxPowerUp())
-				SetPowerUpBar(GetPowerUpBar() + 20);
+				SetPowerUpBar(GetPowerUpBar() + 50);
 			if(GetPowerUpBar() > GetMaxPowerUp())
 				SetPowerUpBar(GetMaxPowerUp());
 		}
@@ -738,10 +738,8 @@ void CPlayer::HandleEvent(CEvent* pEvent)
 		{
 			if( GetShieldBar() < GetMaxShield() )
 			{
-				SetShieldBar(GetShieldBar() + 20.0f);
-			}
-			if( GetShieldBar() > GetMaxShield() )
 				SetShieldBar(GetMaxShield());
+			}
 		}
 	}
 	

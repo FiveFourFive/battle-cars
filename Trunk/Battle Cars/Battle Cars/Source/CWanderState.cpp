@@ -247,7 +247,7 @@ bool CWanderState::FindThreat()
 	{
 		std::vector <CBase*> cars = CGamePlayState::GetInstance ()->GetCars ();
 
-		for (int index = 0; index < cars.size (); index++)
+		for (unsigned int index = 0; index < cars.size (); index++)
 		{
 			tVector2D target1Distance;
 			m_Target1 = (CCar*)cars[index];

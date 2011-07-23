@@ -1984,9 +1984,9 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 void CGamePlayState::SortScores(void)
 {
 
-	for(int i = 0; i < m_lScores.size(); i++)
+	for(unsigned int i = 0; i < m_lScores.size(); i++)
 	{
-		for(int j = 0; j < m_lScores.size(); j++)
+		for(unsigned int j = 0; j < m_lScores.size(); j++)
 		{
 			if(m_lScores[i]->GetKillCount() > m_lScores[j]->GetKillCount())
 			{
