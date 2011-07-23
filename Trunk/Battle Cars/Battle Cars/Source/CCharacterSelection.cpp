@@ -130,6 +130,11 @@ bool CCharacterSelection::Input()
 			}
 			else if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_B)
 			{
+				for( unsigned int i = 0; i < m_vPlayerList.size(); i++)
+				{
+					delete m_vPlayerList[i];
+					m_vPlayerList[i] = NULL;
+				}
 				CGame::GetInstance()->RemoveState(this);
 			}
 		}
@@ -166,6 +171,11 @@ bool CCharacterSelection::Input()
 	{
 		if(m_pDI->KeyPressed(DIK_ESCAPE)||m_pDI->JoystickButtonPressed(1))
 		{
+			for( unsigned int i = 0; i < m_vPlayerList.size(); i++)
+			{
+				delete m_vPlayerList[i];
+				m_vPlayerList[i] = NULL;
+			}
 			CGame::GetInstance()->RemoveState(this);
 		}
 
@@ -620,11 +630,8 @@ bool CCharacterSelection::LoadCharacters()
 		string temp_buffer = "resource/graphics/";
 		temp_buffer += buffer;
 		character->SetImageID(m_pTM->LoadTexture(temp_buffer.c_str()));
-
-		if( counter == CAR_TRUCK )
-			character->SetCarId( m_pTM->LoadTexture("resource/graphics/BC_Truck.png"));
-		else
-			character->SetCarId(m_pTM->LoadTexture("resource/graphics/sbs_sprites_cars.png"));
+		character->SetCarId(m_pTM->LoadTexture("resource/graphics/sbs_sprites_cars.png"));
+		
 		counter++;
 		m_vPlayerList.push_back(character);
 		pCharacterRoot = pCharacterRoot->NextSiblingElement("character");

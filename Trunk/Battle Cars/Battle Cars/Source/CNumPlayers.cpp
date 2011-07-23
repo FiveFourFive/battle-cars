@@ -284,7 +284,7 @@ bool CNumPlayers::HandleEnter(void)
 		m_nSelection = 2;
 		break;
 	case 2:
-		CGame::GetInstance()->ChangeState(CCharacterSelection::GetInstance());
+		CGame::GetInstance()->AddState(CCharacterSelection::GetInstance());
 		break;
 	}
 

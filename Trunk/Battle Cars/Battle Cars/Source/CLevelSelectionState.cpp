@@ -217,7 +217,7 @@ void CLevelSelectionState::Render()
 
 bool CLevelSelectionState::HandleEnter()
 {
-	CGame::GetInstance()->ChangeState(CNumPlayers::GetInstance());
+	CGame::GetInstance()->AddState(CNumPlayers::GetInstance());
 	return true;
 }
 
