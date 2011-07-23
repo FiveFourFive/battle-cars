@@ -326,6 +326,7 @@ void CGamePlayState::Exit(void)
 		if(characters[i]->GetPlayerNum() == 1)
 			CGame::GetInstance()->SetScore(characters[i]->GetKillCount());
 		characters[i]->Release();
+		characters[i] = NULL;
 	}
 	characters.clear ();
 
@@ -333,6 +334,7 @@ void CGamePlayState::Exit(void)
 	{
 		if (cars[i] != player && cars[i] != player2 && cars[i]->GetType () != OBJECT_BOSS)
 		cars[i]->Release();
+		cars[i] = NULL;
 	}
 	cars.clear();
 

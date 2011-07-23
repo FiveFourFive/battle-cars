@@ -154,7 +154,6 @@ void CPlayer::Update(float fElapsedTime)
 			flame_thrower->SetAcceleration(temp.fX, temp.fY);
 
 			PM->AttachToBasePosition(this, flame_thrower,0, 0);
-			flame_thrower->InitializeParticleList();
 		}
 
 		m_fFlames = m_fFlames - fElapsedTime;

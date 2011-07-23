@@ -39,14 +39,14 @@ CCharacterSelection::CCharacterSelection()
 
 CCharacterSelection::~CCharacterSelection()
 {
-	for( unsigned int i = 0; i < m_vPlayerList.size(); i++)
+	/*for( unsigned int i = 0; i < m_vPlayerList.size(); i++)
 	{
 		if( m_vPlayerList[i])
 		{
 			delete m_vPlayerList[i];
 			m_vPlayerList[i] = NULL;
 		}
-	}
+	}*/
 }
 
 void CCharacterSelection::Enter()
