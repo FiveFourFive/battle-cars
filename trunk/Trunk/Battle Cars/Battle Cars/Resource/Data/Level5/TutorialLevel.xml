@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Level>
-  <TileLocation>TileInfo.xml</TileLocation>
-  <EventLocation>EventInfo.xml</EventLocation>
-  <LevelInfo Width="64" Height="32" PixelWidth="32" PixelHeight="32">tutorialMap</LevelInfo>
-</Level>

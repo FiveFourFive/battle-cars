@@ -3,14 +3,14 @@
         <Level>
                <LevelDataName>Addicts_Mayhem.xml</LevelDataName>
        </Level>
+        <level>
+       		<LevelDataName>TutorialLevel.xml</LevelDataName>
+        </level>
 	<Level>
                <LevelDataName>CrashCity.xml</LevelDataName>
         </Level>
         <level>
         	<LevelDataName>Untitled.xml</LevelDataName>
-        </level>
-        <level>
-       		<LevelDataName>TutorialLevel.xml</LevelDataName>
         </level>
 </Levels>
 
