@@ -22,6 +22,7 @@
 #include "Gamer_Profile.h"
 #include "CGamerProfile.h"
 #include "CLevel.h"
+#include "CGamePlayState.h"
 
 CPlayer::CPlayer(CXboxInput* pController)
 {
@@ -689,7 +690,10 @@ void CPlayer::HandleEvent(CEvent* pEvent)
 			{
 				
 				if(GetIsAlive() == true)
+				{
 					tempbullet->GetOwner()->SetKillCount(tempbullet->GetOwner()->GetKillCount() + 1);
+					CGamePlayState::GetInstance()->SortScores();
+				}
 			}
 			}
 

@@ -44,7 +44,7 @@ void CHUD::Render(void)
 	RECT power;
 	RECT minimap;
 
-	m_pTM->Draw(m_nScoreBoardID, int((CGame::GetInstance()->GetScreenWidth()*0.05f) + pCamera->GetRenderPosX()), int(pCamera->GetHeight() - 260 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY()));
+	m_pTM->Draw(m_nScoreBoardID, int((CGame::GetInstance()->GetScreenWidth()*0.05f) + pCamera->GetRenderPosX()), int(pCamera->GetHeight() - 250 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY()),1.2f,1.5f);
 
 	m_pTM->Draw(m_nPistolID,int((CGame::GetInstance()->GetScreenWidth()*0.05f) + pCamera->GetRenderPosX()), int(pCamera->GetHeight() - 100 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY()));
 
@@ -86,7 +86,7 @@ void CHUD::Render(void)
 	vector<CCar*> scores = CGamePlayState::GetInstance()->GetScores();
 	char buffer[32];
 	DWORD color = 0;
-	for(unsigned int i = 0; i < scores.size()-1; i++)
+	for(unsigned int i = 0; i < scores.size(); i++)
 	{
 
 		sprintf_s(buffer,"%i)%i",i+1,scores[i]->GetKillCount());
@@ -94,6 +94,8 @@ void CHUD::Render(void)
 		{
 			color = D3DCOLOR_ARGB(255,0,255,0);
 		}
+		else
+			color = D3DCOLOR_ARGB(255,255,0,0);
 		m_pPF->Print(buffer,int((CGame::GetInstance()->GetScreenWidth()*0.05f) + pCamera->GetRenderPosX()),int(pCamera->GetHeight() - 240 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY()+(20*i)),1.0f,color);
 
 	}

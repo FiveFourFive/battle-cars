@@ -11,6 +11,8 @@
 #include "CGamePlayState.h"
 #include "CLoadingState.h"
 #include "CNumPlayers.h"
+#include "CGamerProfile.h"
+#include "Gamer_Profile.h"
 
 #include "SGD_Math.h"
 
@@ -61,6 +63,12 @@ void CCharacterSelection::Enter()
 	m_bPlayer1_turn = true;
 	m_bPlayer2_turn = false;
 	m_nSelection = 0;
+
+	for(int i = 0; i < 4; i++)
+	{
+		if(CGamerProfile::GetInstance()->GetActiveProfile()->cars[i] == 0)
+			isAvailable[i] = false;
+	}
 
 }
 

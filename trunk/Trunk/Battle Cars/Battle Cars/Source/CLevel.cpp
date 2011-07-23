@@ -26,6 +26,7 @@
 #include "CObstacle.h"
 #include "CPowerUp.h"
 #include "CBullet.h"
+#include <vector>
 #include "CCharacterSelection.h"
 
 CLevel::CLevel()
@@ -543,6 +544,8 @@ vector<CBase*> CLevel::SetCarSpawn (vector<CBase*> pBases)
 				
 				cars.push_back (car);
 				CObjectManager::GetInstance ()->AddObject(car);
+				std::vector<CCar*>* templist = CGamePlayState::GetInstance()->GetList();
+				templist->push_back(car);
 			}
 
 			index++;
@@ -552,6 +555,7 @@ vector<CBase*> CLevel::SetCarSpawn (vector<CBase*> pBases)
 	for (unsigned int i = 0; i < cars.size (); i++)
 	{
 		pBases.push_back (cars[i]);
+		
 	}
 
 	return pBases;

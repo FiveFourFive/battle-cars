@@ -38,7 +38,7 @@ void CLoadingState::Enter(void)
 	m_nBackgroundMusicID = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/Superbeast.mp3",SGD_FMOD_LOOPING);
 	m_nCountDown = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/Countdown.mp3");
 	m_nCountDownEnd = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/Countdowntone.mp3");
-	CSGD_FModManager::GetInstance()->PlaySound(m_nBackgroundMusicID);
+	//CSGD_FModManager::GetInstance()->PlaySound(m_nBackgroundMusicID);
 
 	ParticleManager::GetInstance()->LoadEmittor("resource/data/collision.xml");
 	ParticleManager::GetInstance()->LoadEmittor("resource/data/missle_flame.xml");
@@ -76,6 +76,6 @@ void CLoadingState::Render(void)
 	rot +=.04f;
 	CSGD_Direct3D::GetInstance()->GetSprite()->Flush();
 	CSGD_TextureManager::GetInstance()->Draw(m_nBGImageID, 0,0,2.9f, 1.8f);
-	pFont->Print("Loading",CGame::GetInstance()->GetScreenWidth()/2-175,100,1.0f,D3DCOLOR_ARGB(255,255,255,255));
+	pFont->Print("Loading",CGame::GetInstance()->GetScreenWidth()/2-150,500,3.0f,D3DCOLOR_ARGB(255,255,0,0));
 	CSGD_TextureManager::GetInstance()->Draw(m_nAnimID, CGame::GetInstance()->GetScreenWidth()-128,CGame::GetInstance()->GetScreenHeight()-128,1.0f,1.0f,NULL,64,64,rot);
 }

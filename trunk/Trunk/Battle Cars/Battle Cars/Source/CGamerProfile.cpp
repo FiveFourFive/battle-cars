@@ -415,7 +415,7 @@ bool CGamerProfile::LoadProfiles(const char* szXmlFileName)
 #pragma region Gamer_Profiles
 
 	TiXmlElement* pGamerProfile = pRoot->FirstChildElement("Gamer_Profile");
-
+	int ind = 0;
 	while( pGamerProfile )
 	{
 		Gamer_Profile* temp = new Gamer_Profile();
@@ -423,6 +423,7 @@ bool CGamerProfile::LoadProfiles(const char* szXmlFileName)
 		temp->m_sUserName = pGamerProfile->GetText();
 		TiXmlElement* Sounds = pGamerProfile->FirstChildElement("Sounds");
 		TiXmlElement* KB = pGamerProfile->FirstChildElement("Controller_Keybinds");
+		TiXmlElement* Cars = pGamerProfile->FirstChildElement("cars");
 
 		double sfx;
 		double bg;
@@ -461,6 +462,23 @@ bool CGamerProfile::LoadProfiles(const char* szXmlFileName)
 		tempkkb->SetRight(kright);
 		temp->m_pKB = tempkb;
 		temp->m_pKKB = tempkkb;
+
+		int mini;
+		int vette;
+		int humvee;
+		int truck;
+
+		Cars->Attribute("mini",&mini);
+		Cars->Attribute("vette",&vette);
+		Cars->Attribute("humvee",&humvee);
+		Cars->Attribute("truck",&truck);
+
+		temp->cars[0] = mini;
+		temp->cars[1] = vette;
+		temp->cars[2] = humvee;
+		temp->cars[3] = truck;
+		temp->index = ind;
+		ind++;
 		m_vUserProfiles.push_back(temp);
 		pGamerProfile = pGamerProfile->NextSiblingElement();
 
@@ -528,6 +546,12 @@ bool CGamerProfile::SaveProfiles(const char* szXmlFileName)
 		float background;
 		sfx = m_vUserProfiles[i]->m_sfx * 100;
 		background = m_vUserProfiles[i]->m_background * 100;
+		TiXmlElement* pCars = new TiXmlElement("cars");
+		pCars->SetAttribute("mini",m_vUserProfiles[i]->cars[0]);
+		pCars->SetAttribute("vette",m_vUserProfiles[i]->cars[1]);
+		pCars->SetAttribute("humvee",m_vUserProfiles[i]->cars[2]);
+		pCars->SetAttribute("truck",m_vUserProfiles[i]->cars[3]);
+		pProfile->LinkEndChild(pCars);
 
 		pSounds->SetAttribute("SFX",(int)sfx);
 		pSounds->SetAttribute("Background",(int)background);
@@ -572,18 +596,21 @@ bool CGamerProfile::HandleEnter(void)
 			delete activeProfile;
 			activeProfile = new Gamer_Profile();
 			activeProfile->operator()(*m_vUserProfiles[0]);
+			activeProfile->index = 0;
 			CGame::GetInstance()->SetPlayerProfile(activeProfile);
 			break;
 		case 300:
 			delete activeProfile;
 			activeProfile = new Gamer_Profile();
 			activeProfile->operator()(*m_vUserProfiles[1]);
+			activeProfile->index = 1;
 			CGame::GetInstance()->SetPlayerProfile(activeProfile);
 			break;
 		case 400:
 			delete activeProfile;
 			activeProfile = new Gamer_Profile();
 			activeProfile->operator()(*m_vUserProfiles[2]);
+			activeProfile->index = 2;
 			CGame::GetInstance()->SetPlayerProfile(activeProfile);
 			break;
 		}
@@ -645,5 +672,16 @@ Gamer_Profile* CGamerProfile::SaveProfile()
 	profile_to_save->m_background = CGame::GetInstance()->getSoundBVolume();
 
 	return profile_to_save;
+}
+
+void CGamerProfile::SaveWinnerCar(int index)
+{
+	Gamer_Profile* profile_to_save = new Gamer_Profile();
+	profile_to_save->operator()(*activeProfile);
+	profile_to_save->m_sfx = CGame::GetInstance()->getSoundAVolume();
+	profile_to_save->m_background = CGame::GetInstance()->getSoundBVolume();
+	delete m_vUserProfiles[index];
+	m_vUserProfiles[index] = profile_to_save;
+	CGamerProfile::GetInstance()->SaveProfiles("resource/data/gamer_profile.xml");
 }
 

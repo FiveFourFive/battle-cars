@@ -17,6 +17,7 @@
 #include "CSpeedRamp.h"
 #include "ParticleManager.h"
 #include "Emittor.h"
+#include "CGamePlayState.h"
 
 CEnemy::CEnemy(CXboxInput* pController) : CPlayer(pController)
 {
@@ -131,7 +132,10 @@ void CEnemy::HandleEvent(CEvent* pEvent)
 			{
 			
 				if(GetIsAlive() == true)
+				{
+					CGamePlayState::GetInstance()->SortScores();
 					tempbullet->GetOwner()->SetKillCount(tempbullet->GetOwner()->GetKillCount() + 1);
+				}
 			}
 			}
 		}

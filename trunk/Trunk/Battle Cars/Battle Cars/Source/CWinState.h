@@ -36,6 +36,12 @@ private:
 	int m_nSlot;
 	int m_nBGImageID;
 
+	int miniID;
+	int vetteID;
+	int humveeID;
+	int truckID;
+	int id;
+
 	CPlayer* m_pWinner;
 
 	CWinState(void);

@@ -73,6 +73,11 @@ void CWinState::Enter(void)
 	m_nMenuMove = m_pFM->LoadSound("resource/sounds/menuchange.mp3");
 	m_nBGImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/otherstates.jpg");
 
+	miniID = m_pTM->LoadTexture("resource/graphics/BC_Mini.png");
+	vetteID = m_pTM->LoadTexture("resource/graphics/BC_Corvette.png");
+	humveeID = m_pTM->LoadTexture("resource/graphics/BC_Humvee.png");
+	truckID = m_pTM->LoadTexture("resource/graphics/BC_Truck.png");
+
 	int playerscore = CGame::GetInstance()->GetScore();
 	CHighscoreState::GetInstance()->LoadScores();
 	
@@ -91,7 +96,15 @@ void CWinState::Enter(void)
 }
 void CWinState::Exit(void)
 {
-
+	if(id == miniID)
+		CGamerProfile::GetInstance()->GetActiveProfile()->cars[0] = 1;
+	else if(id == vetteID)
+		CGamerProfile::GetInstance()->GetActiveProfile()->cars[1] = 1;
+	else if(id == humveeID)
+		CGamerProfile::GetInstance()->GetActiveProfile()->cars[2] = 1;
+	else if(id == truckID)
+		CGamerProfile::GetInstance()->GetActiveProfile()->cars[3] = 1;
+	CGamerProfile::GetInstance()->SaveWinnerCar(CGamerProfile::GetInstance()->GetActiveProfile()->index);
 	delete m_pPF;
 }
 
@@ -185,24 +198,38 @@ void CWinState::Render(void)
 	int color = 0;
 	
 	sprintf_s(buffer,"%f",m_fTotalTurns);
-	m_pD3D->DrawText(buffer,400,280,255,255,255);
+	//m_pD3D->DrawText(buffer,400,280,255,255,255);
+	Gamer_Profile* tempprofile = CGamerProfile::GetInstance()->GetActiveProfile();
 	switch(m_nSlot)
 	{
 	case 0:
-		color = 25;
+		if(tempprofile->cars[0] == 0)
+		{
+			id = miniID;
 		break;
+		}
 	case 1:
-		color = 100;
+		if(tempprofile->cars[1] == 0)
+		{
+		id = vetteID;
 		break;
+		}
 	case 2:
-		color = 200;
+		if(tempprofile->cars[2] == 0)
+		{
+		id = humveeID;
 		break;
+		}
 	case 3:
-		color = 255;
+		if(tempprofile->cars[3] == 0)
+		{
+		id = truckID;
 		break;
+		}
 	}
-
-	m_pD3D->DrawRect(cars,color,0,0);
+	if(id >= 0)
+		m_pTM->Draw(id,800,250,1.0f,1.0f);
+	//m_pD3D->DrawRect(cars,color,0,0);
 
 
 }
