@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <characters>
-            <character armor ="20" accel  ="160" maxspeed ="300" rate="0">CarTexture.bmp</character>
-            <character armor ="40" accel ="130" maxspeed ="275" rate=".1">CarTexture.bmp</character>
-            <character armor ="60" accel ="110" maxspeed ="220" rate=".2">CarTexture.bmp</character>
-            <character armor ="80" accel ="90" maxspeed ="200" rate=".3">BC_Truck.png</character>
+            <character armor ="20" accel  ="160" maxspeed ="300" rate="0">sbs_cars_big.png</character>
+            <character armor ="40" accel ="130" maxspeed ="275" rate=".1">sbs_cars_big.png</character>
+            <character armor ="60" accel ="110" maxspeed ="220" rate=".2">sbs_cars_big.png</character>
+            <character armor ="80" accel ="90" maxspeed ="200" rate=".3">sbs_cars_big.png</character>
 </characters>
 
 
