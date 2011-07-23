@@ -141,11 +141,11 @@ bool CWinState::Input(void)
 	}
 	else
 	{
-		if(m_pDI->KeyPressed(DIK_ESCAPE))
+		if(m_pDI->KeyPressed(DIK_ESCAPE) || m_pDI->JoystickButtonDown(1))
 		{
 			return this->HandleEnter();
 		}
-		if(m_pDI->KeyPressed(DIK_RETURN))
+		if(m_pDI->KeyPressed(DIK_RETURN)||m_pDI->JoystickButtonPressed(0))
 		{
 			return this->HandleEnter();
 		}

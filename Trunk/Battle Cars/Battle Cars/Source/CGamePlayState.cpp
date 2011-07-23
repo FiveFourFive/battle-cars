@@ -440,7 +440,7 @@ bool CGamePlayState::Input()
 		{
 			if(m_pMode==CTutorialMode::GetInstance())
 			{
-				if(m_pDI->KeyPressed(DIK_ESCAPE))
+				if(m_pDI->KeyPressed(DIK_ESCAPE)||m_pDI->JoystickButtonDown(4))
 				{
 					((CTutorialMode*)m_pMode)->ToggleSkipTutorial();
 				}
@@ -448,7 +448,7 @@ bool CGamePlayState::Input()
 				{
 					if(!((CTutorialMode*)m_pMode)->GetTryStart())
 					{
-						if(m_pDI->KeyPressed(DIK_RETURN))
+						if(m_pDI->KeyPressed(DIK_RETURN)||m_pDI->JoystickButtonDown(0))
 						{
 							((CTutorialMode*)m_pMode)->SetTryStart(true);
 							((CTutorialMode*)m_pMode)->SetCurrMessage(2);
@@ -459,7 +459,7 @@ bool CGamePlayState::Input()
 				{
 					if(!((CTutorialMode*)m_pMode)->GetTryMoved())
 					{
-						if(m_pDI->KeyPressed(DIK_UP))
+						if(m_pDI->KeyPressed(DIK_UP)||m_pDI->JoystickGetLStickDirDown(DIR_UP))
 						{
 							((CTutorialMode*)m_pMode)->SetTryMoved(true);
 							((CTutorialMode*)m_pMode)->SetCurrMessage(3);
@@ -482,7 +482,7 @@ bool CGamePlayState::Input()
 				{
 					if(!((CTutorialMode*)m_pMode)->GetTryShoot())
 					{
-						if(m_pDI->KeyPressed(DIK_SPACE))
+						if(m_pDI->KeyPressed(DIK_SPACE)||m_pDI->JoystickButtonDown(0))
 						{
 							((CTutorialMode*)m_pMode)->SetTryShoot(true);
 							((CTutorialMode*)m_pMode)->SetCurrMessage(5);
@@ -494,7 +494,7 @@ bool CGamePlayState::Input()
 				{
 					if(!((CTutorialMode*)m_pMode)->GetTryToggleWeapon())
 					{
-						if(m_pDI->KeyPressed(DIK_LCONTROL))
+						if(m_pDI->KeyPressed(DIK_LCONTROL)||m_pDI->JoystickButtonDown(3))
 						{
 							((CTutorialMode*)m_pMode)->SetTryToggleWeapon(true);
 							((CTutorialMode*)m_pMode)->SetCurrMessage(6);
@@ -503,27 +503,15 @@ bool CGamePlayState::Input()
 				}
 				if(((CTutorialMode*)m_pMode)->GetCurrMessage()==6)
 				{
-					if(m_pDI->KeyPressed(DIK_RETURN))
+					if(m_pDI->KeyPressed(DIK_RETURN)||m_pDI->JoystickButtonDown(0))
 					{
 						((CTutorialMode*)m_pMode)->ToggleSkipTutorial();
 					}
 				}
 			}
-			if(m_pDI->KeyPressed(DIK_M))
-			{
-				CGame::GetInstance()->RemoveState(this);
-				CGame::GetInstance()->AddState(CMainMenuState::GetInstance());
-			}
-			if(m_pDI->KeyPressed(DIK_ESCAPE))
+			if(m_pDI->KeyPressed(DIK_ESCAPE)||m_pDI->JoystickButtonDown(4))
 			{
 				CGame::GetInstance()->AddState(CPauseMenuState::GetInstance());
-			}
-			if(m_pDI->KeyPressed(DIK_H))
-			{
-				if(dummy)
-				{
-					dummy->SetHealth(100.0f);
-				}
 			}
 		}
 	}
