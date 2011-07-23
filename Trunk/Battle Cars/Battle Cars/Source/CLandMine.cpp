@@ -66,19 +66,19 @@ bool CLandMine::CheckCollision(IBaseInterface* pBase)
 			RECT myrect = this->GetRect();
 			if(obsrect.left > myrect.right)
 			{
-				obsvel.fX = float((rand() % 40) + 15) * -1.0f;
+				obsvel.fX = (float)(((rand() % 40) + 15) * -1.0f);
 			}
 			else
 			{
-				obsvel.fX = float((rand() % 40) + 15);
+				obsvel.fX = (float)(((rand() % 40) + 15));
 			}
 			if(obsrect.bottom > myrect.top)
 			{
-				obsvel.fY = float((rand() % 40) + 15) * -1.0f;
+				obsvel.fY = (float)(((rand() % 40) + 15) * -1.0f);
 			}
 			else
 			{
-				obsvel.fY = float((rand() % 40) + 15);
+				obsvel.fY = (float)(((rand() % 40) + 15));
 			}
 			tempobs->SetVel(obsvel);
 		}

@@ -2,12 +2,19 @@
 #define _CLOADINGSTATE_H
 
 #include "IGameState.h"
-#include "CMessageSystem.h"
+#include "CPrintFont.h"
 
 class CLoadingState : public IGameState
 {
 
 private:
+	CPrintFont * pFont;
+	int m_nBGImageID;
+	int m_nAnimID;
+	int m_nBackgroundMusicID;
+	int m_nCountDown;
+	int m_nCountDownEnd;
+
 	CLoadingState(void){}
 	~CLoadingState(void){}
 	CLoadingState(const CLoadingState&);
@@ -16,7 +23,6 @@ private:
 	float timeStamp;
 	bool HandleEnter(void);
 public:
-	
 	static CLoadingState* GetInstance();
 
 	bool Input(void);
@@ -24,7 +30,6 @@ public:
 	void Render(void);
 	void Enter(void);
 	void Exit(void);
-	static void MessageProc(CBaseMessage* pMsg);
 
 };
 

@@ -108,28 +108,28 @@ void CCreditsScreenState::Update(float fElapsedTime)
 void CCreditsScreenState::Render()
 {
 	m_pTM->Draw(m_nImageID, 0, 0, 2.9f, 1.8f);
-	m_pPF->Print("Battle Cars: Mayhem and Destruction", int(CGame::GetInstance()->GetScreenWidth()*0.5f - 328), int(y[0]), 0.8f, D3DCOLOR_XRGB(0,255,0));
-	m_pPF->Print("Executive Producer", int(CGame::GetInstance()->GetScreenWidth()*0.5f - 328), int(y[1]), 0.8f, D3DCOLOR_XRGB(0,255,0));
-	m_pPF->Print("John O'Leske", int(CGame::GetInstance()->GetScreenWidth()*0.5f - 264),int( y[2]), 0.8f, D3DCOLOR_XRGB(0,255,0));
-	m_pPF->Print("Associate Producer:", int(CGame::GetInstance()->GetScreenWidth()*0.5f - 328), int(y[3]), 0.8f, D3DCOLOR_XRGB(0,255,0));
-	m_pPF->Print("Sean Hathaway", int(CGame::GetInstance()->GetScreenWidth()*0.5f - 264), int(y[4]), 0.8f, D3DCOLOR_XRGB(0,255,0));
-	m_pPF->Print("Robert Martinez", int(CGame::GetInstance()->GetScreenWidth()*0.5f - 264), int(y[5]), 0.8f, D3DCOLOR_XRGB(0,255,0));
-	m_pPF->Print("Shawn \"The New Guy\" Paris",int( CGame::GetInstance()->GetScreenWidth()*0.5f - 264), int(y[6]), 0.8f, D3DCOLOR_XRGB(0,255,0));
-	m_pPF->Print("Artist:", int(CGame::GetInstance()->GetScreenWidth()*0.5f - 328), int(y[7]), 0.8f, D3DCOLOR_XRGB(0,255,0));
-	m_pPF->Print("Chris Jahosky", int(CGame::GetInstance()->GetScreenWidth()*0.5f - 264), int(y[8]), 0.8f, D3DCOLOR_XRGB(0,255,0));
-	m_pPF->Print("Daniel Kahn", int(CGame::GetInstance()->GetScreenWidth()*0.5f - 264), int(y[9]), 0.8f, D3DCOLOR_XRGB(0,255,0));
-	m_pPF->Print("Effects: Andy Madruga", int(CGame::GetInstance()->GetScreenWidth()*0.5f - 264), int(y[10]), 0.8f, D3DCOLOR_XRGB(0,255,0));
+	m_pPF->Print("Battle Cars: Mayhem and Destruction", (int)(CGame::GetInstance()->GetScreenWidth()*0.5f - 328), (int)y[0], 0.8f, D3DCOLOR_XRGB(0,255,0));
+	m_pPF->Print("Executive Producer", (int)(CGame::GetInstance()->GetScreenWidth()*0.5f - 328), (int)y[1], 0.8f, D3DCOLOR_XRGB(0,255,0));
+	m_pPF->Print("John O'Leske", (int)(CGame::GetInstance()->GetScreenWidth()*0.5f - 264), (int)y[2], 0.8f, D3DCOLOR_XRGB(0,255,0));
+	m_pPF->Print("Associate Producer:", (int)(CGame::GetInstance()->GetScreenWidth()*0.5f - 328), (int)y[3], 0.8f, D3DCOLOR_XRGB(0,255,0));
+	m_pPF->Print("Sean Hathaway", (int)(CGame::GetInstance()->GetScreenWidth()*0.5f - 264), (int)y[4], 0.8f, D3DCOLOR_XRGB(0,255,0));
+	m_pPF->Print("Robert Martinez", (int)(CGame::GetInstance()->GetScreenWidth()*0.5f - 264), (int)y[5], 0.8f, D3DCOLOR_XRGB(0,255,0));
+	m_pPF->Print("Shawn \"The New Guy\" Paris", (int)(CGame::GetInstance()->GetScreenWidth()*0.5f - 264), (int)y[6], 0.8f, D3DCOLOR_XRGB(0,255,0));
+	m_pPF->Print("Artist:", (int)(CGame::GetInstance()->GetScreenWidth()*0.5f - 328), (int)y[7], 0.8f, D3DCOLOR_XRGB(0,255,0));
+	m_pPF->Print("Chris Jahosky", (int)(CGame::GetInstance()->GetScreenWidth()*0.5f - 264), (int)y[8], 0.8f, D3DCOLOR_XRGB(0,255,0));
+	m_pPF->Print("Daniel Kahn", (int)(CGame::GetInstance()->GetScreenWidth()*0.5f - 264), (int)y[9], 0.8f, D3DCOLOR_XRGB(0,255,0));
+	m_pPF->Print("Effects: Andy Madruga", (int)(CGame::GetInstance()->GetScreenWidth()*0.5f - 264), (int)y[10], 0.8f, D3DCOLOR_XRGB(0,255,0));
 
 
-	m_pPF->Print("Sleepless Burrito Slayers Team Programmers/Members:", int(CGame::GetInstance()->GetScreenWidth()*0.1f), int(y[11]), 0.8f, D3DCOLOR_XRGB(0,255,0));
-	m_pPF->Print("Andy Madruga", int(CGame::GetInstance()->GetScreenWidth()* 0.1f  + 64), int(y[12]), 0.8f, D3DCOLOR_XRGB(0,255,0));
-	m_pPF->Print("Wade Shwallon", int(CGame::GetInstance()->GetScreenWidth()*0.1f + 64), int(y[13]), 0.8f, D3DCOLOR_XRGB(0,255,0));
-	m_pPF->Print("Joshua Fields", int(CGame::GetInstance()->GetScreenWidth()*0.1f + 64), int(y[14]), 0.8f, D3DCOLOR_XRGB(0,255,0));
-	m_pPF->Print("John Rostick", int(CGame::GetInstance()->GetScreenWidth()* 0.1f  + 64), int(y[15]), 0.8f, D3DCOLOR_XRGB(0,255,0));
-	m_pPF->Print("Daniel Kahn", int(CGame::GetInstance()->GetScreenWidth()*  0.1f   + 64), int(y[16]), 0.8f, D3DCOLOR_XRGB(0,255,0));
+	m_pPF->Print("Sleepless Burrito Slayers Team Programmers/Members:", (int)(CGame::GetInstance()->GetScreenWidth()*0.1f), (int)y[11], 0.8f, D3DCOLOR_XRGB(0,255,0));
+	m_pPF->Print("Andy Madruga", (int)(CGame::GetInstance()->GetScreenWidth()* 0.1f  + 64), (int)y[12], 0.8f, D3DCOLOR_XRGB(0,255,0));
+	m_pPF->Print("Wade Shwallon", (int)(CGame::GetInstance()->GetScreenWidth()*0.1f + 64), (int)y[13], 0.8f, D3DCOLOR_XRGB(0,255,0));
+	m_pPF->Print("Joshua Fields", (int)(CGame::GetInstance()->GetScreenWidth()*0.1f + 64), (int)y[14], 0.8f, D3DCOLOR_XRGB(0,255,0));
+	m_pPF->Print("John Rostick", (int)(CGame::GetInstance()->GetScreenWidth()* 0.1f  + 64), (int)y[15], 0.8f, D3DCOLOR_XRGB(0,255,0));
+	m_pPF->Print("Daniel Kahn", (int)(CGame::GetInstance()->GetScreenWidth()*  0.1f   + 64), (int)y[16], 0.8f, D3DCOLOR_XRGB(0,255,0));
 
-	m_pPF->Print("Special Thanks To:", int(CGame::GetInstance()->GetScreenWidth()*0.5f - 328), int(y[17]), 0.8f, D3DCOLOR_XRGB(0,255,0));
-	m_pPF->Print("Dave Brown", int(CGame::GetInstance()->GetScreenWidth()*  0.1f   + 64), int(y[18]), 0.8f, D3DCOLOR_XRGB(0,255,0));
+	m_pPF->Print("Special Thanks To:", (int)(CGame::GetInstance()->GetScreenWidth()*0.5f - 328),(int) y[17], 0.8f, D3DCOLOR_XRGB(0,255,0));
+	m_pPF->Print("Dave Brown", (int)(CGame::GetInstance()->GetScreenWidth()*  0.1f   + 64),(int) y[18], 0.8f, D3DCOLOR_XRGB(0,255,0));
 
 
 	
