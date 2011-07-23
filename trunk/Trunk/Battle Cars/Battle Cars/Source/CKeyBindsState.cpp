@@ -187,22 +187,22 @@ bool CKeyBindsState::Input(void)
 			m_bSelected = SendKeyBinds();
 		else
 		{
-		if(m_pDI->KeyPressed(DIK_RETURN))
+		if((m_pDI->KeyPressed(DIK_RETURN)))
 		{
 			m_nSelected = 255;
 			if(m_nSelection != WS_EXIT)
 				m_bSelected = true;
 		}
 		
-	if(m_pDI->KeyPressed(DIK_ESCAPE) && !m_bSelected)
+	if((m_pDI->KeyPressed(DIK_ESCAPE)||m_pDI->JoystickButtonPressed(1)) && !m_bSelected)
 	{
 		CGame::GetInstance()->RemoveState(this);
 	}
-	if(m_pDI->KeyPressed(DIK_RETURN) && !m_bSelected)
+	if((m_pDI->KeyPressed(DIK_RETURN)||m_pDI->JoystickButtonPressed(0)) && !m_bSelected)
 	{
 		return this->HandleEnter();
 	}
-	if(m_pDI->KeyPressed(DIK_UP) && !m_bSelected)
+	if((m_pDI->KeyPressed(DIK_UP)||m_pDI->JoystickGetLStickDirDown(DIR_UP)) && !m_bSelected)
 	{
 		m_nSelection--;
 		m_pFM->PlaySound(m_nMenuMove);
@@ -210,7 +210,7 @@ bool CKeyBindsState::Input(void)
 			m_nSelection = m_nMaxOptions;
 	}
 
-	if(m_pDI->KeyPressed(DIK_DOWN) && !m_bSelected)
+	if((m_pDI->KeyPressed(DIK_DOWN) || m_pDI->JoystickGetLStickDirDown(DIR_DOWN)) && !m_bSelected)
 	{
 		m_nSelection++;
 		m_pFM->PlaySound(m_nMenuMove);

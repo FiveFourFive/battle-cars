@@ -76,7 +76,7 @@ bool CCreditsScreenState::Input()
 		if(CGame::GetInstance()->GetInputDelay() >= 0.15f)
 		{
 			CGame::GetInstance()->ResetInputDelay();
-			if(xState.Gamepad.wButtons & tempkeys->GetBack())
+			if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_B)
 			{
 				CGame::GetInstance()->RemoveState(this);
 			}
@@ -84,7 +84,7 @@ bool CCreditsScreenState::Input()
 	}
 	else
 	{
-		if(m_pDI->KeyPressed(DIK_ESCAPE))
+		if(m_pDI->KeyPressed(DIK_ESCAPE)||m_pDI->JoystickButtonPressed(1))
 		{
 			CGame::GetInstance()->ChangeState(CMainMenuState::GetInstance());
 		}

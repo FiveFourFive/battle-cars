@@ -336,7 +336,7 @@ void CPlayer::Update(float fElapsedTime)
 	{
 		CKeyboardKeyBinds* tempkeys = CGamerProfile::GetInstance()->GetActiveProfile()->m_pKKB;
 
-		if(m_pDI->KeyDown(tempkeys->Getforward()))
+		if(m_pDI->KeyDown(tempkeys->Getforward()) || m_pDI->JoystickGetLStickDirDown(DIR_UP))
 			{
 				SetAccelerating(true);
 				if(GetSpeed() < GetMaxSpeed())
@@ -346,7 +346,7 @@ void CPlayer::Update(float fElapsedTime)
 				SetAccelerating(false);
 
 		
-		if(m_pDI->KeyDown(tempkeys->Getbackward()))
+		if(m_pDI->KeyDown(tempkeys->Getbackward())||m_pDI->JoystickGetLStickDirDown(DIR_DOWN))
 			{
 				if(GetSpeed() > (-0.5f * GetMaxSpeed()))
 					SetSpeed(GetSpeed() - (GetAcceleration() * fElapsedTime));
@@ -354,7 +354,7 @@ void CPlayer::Update(float fElapsedTime)
 
 		if(GetTurnable())
 		{
-		if(m_pDI->KeyDown(tempkeys->GetLeft()))
+		if(m_pDI->KeyDown(tempkeys->GetLeft())||m_pDI->JoystickGetLStickDirDown(DIR_LEFT))
 		{
 			
 			SetRotation(GetRotation() - (GetRotationRate() * fElapsedTime));
@@ -367,7 +367,7 @@ void CPlayer::Update(float fElapsedTime)
 			Rotate(GetRotation());
 		}
 
-		if(m_pDI->KeyDown(tempkeys->GetRight()))
+		if(m_pDI->KeyDown(tempkeys->GetRight())||m_pDI->JoystickGetLStickDirDown(DIR_RIGHT))
 		{
 			SetRotation(GetRotation() + (GetRotationRate() * fElapsedTime));
 			tVector2D tempdir = GetDirection();
@@ -379,7 +379,7 @@ void CPlayer::Update(float fElapsedTime)
 			Rotate(GetRotation());
 		}
 		}
-		if(m_pDI->KeyDown(tempkeys->GetShoot()))
+		if(m_pDI->KeyDown(tempkeys->GetShoot())||m_pDI->JoystickButtonPressed(0))
 		{
 			float firerate;
 			if(GetSelectedWeapon() == WEAPON_PISTOL)
@@ -444,25 +444,13 @@ void CPlayer::Update(float fElapsedTime)
 				}
 			}
 		}
-		if(m_pDI->KeyPressed(tempkeys->GetChangeWeapon()))
+		if(m_pDI->KeyPressed(tempkeys->GetChangeWeapon())||m_pDI->JoystickButtonPressed(3))
 		{
 			IncrementWeapon();
 				if(GetSelectedWeapon() > 2)
 					SetSelectedWeapon(0);
 		}
-		if(m_pDI->KeyPressed(DIK_Z))
-		{
-			if(GetShieldBar() <= 0)
-				SetHealth(GetHealth() - 10);
-			else
-				SetShieldBar(GetShieldBar() - 10);
-		}
-		if(m_pDI->KeyPressed(DIK_X))
-		{
-			if(GetPowerUpBar() < 100)
-				SetPowerUpBar(GetPowerUpBar() + 10);
-
-		}
+		
 	}
 
 	SetCollisionDelay(GetCollisionDelay() + fElapsedTime);

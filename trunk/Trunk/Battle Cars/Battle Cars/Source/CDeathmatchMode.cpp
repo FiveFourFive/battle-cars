@@ -135,7 +135,7 @@ void CDeathmatchMode::CheckWinLoss(void)
 	{
 		vector<CCar*>* scores;
 		scores = CGamePlayState::GetInstance()->GetList();
-		if(scores->back()->GetType() == OBJECT_PLAYER)
+		if(scores->front()->GetType() == OBJECT_PLAYER)
 		{
 			CPlayer* tempplayer = (CPlayer*)scores->back();
 			CWinState::GetInstance()->SetWinner(tempplayer);

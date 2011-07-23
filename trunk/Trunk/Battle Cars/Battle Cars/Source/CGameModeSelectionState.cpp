@@ -105,17 +105,17 @@ bool CGameModeSelectionState::Input(void)
 	}
 	else
 	{
-		if(m_pDI->KeyPressed(DIK_ESCAPE))
+		if(m_pDI->KeyPressed(DIK_ESCAPE)||m_pDI->JoystickButtonDown(1))
 		{
 			CGame::GetInstance()->RemoveState(this);
 		}
 
-		if(m_pDI->KeyPressed(DIK_RETURN))
+		if(m_pDI->KeyPressed(DIK_RETURN)||m_pDI->JoystickButtonDown(0))
 		{
 			return this->HandleEnter();
 		}
 
-		if(m_pDI->KeyPressed(DIK_UP))
+		if(m_pDI->KeyPressed(DIK_UP)||m_pDI->JoystickGetLStickDirDown(DIR_UP))
 		{
 			
 				m_nSelection--;
@@ -125,7 +125,7 @@ bool CGameModeSelectionState::Input(void)
 
 		}
 
-		if(m_pDI->KeyPressed(DIK_DOWN))
+		if(m_pDI->KeyPressed(DIK_DOWN)||m_pDI->JoystickGetLStickDirDown(DIR_DOWN))
 		{
 		
 				m_nSelection++;

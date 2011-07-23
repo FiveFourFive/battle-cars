@@ -132,17 +132,17 @@ bool CLevelSelectionState::Input()
 	}
 	else
 	{
-		if(m_pDI->KeyPressed(DIK_ESCAPE))
+		if(m_pDI->KeyPressed(DIK_ESCAPE)||m_pDI->JoystickButtonDown(1))
 		{
 			CGame::GetInstance()->RemoveState(this);
 		}
 
-		if(m_pDI->KeyPressed(DIK_RETURN))
+		if(m_pDI->KeyPressed(DIK_RETURN)||m_pDI->JoystickButtonDown(0))
 		{
 			return this->HandleEnter();
 		}
 
-		if(m_pDI->KeyPressed(DIK_UP))
+		if(m_pDI->KeyPressed(DIK_UP)||m_pDI->JoystickGetLStickDirDown(DIR_UP))
 		{
 			isSet = false;
 			m_nSelection--;
@@ -151,7 +151,7 @@ bool CLevelSelectionState::Input()
 				m_nSelection = LEVEL_MAX - 1;
 		}
 
-		if(m_pDI->KeyPressed(DIK_DOWN))
+		if(m_pDI->KeyPressed(DIK_DOWN)||m_pDI->JoystickGetLStickDirDown(DIR_DOWN))
 		{
 			isSet = false;
 			m_nSelection++;

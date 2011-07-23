@@ -235,20 +235,20 @@ bool CGamerProfile::Input()
 
 				if( m_nProfileState == LOADSAVE_STATE)
 				{
-					if(  m_pDI->KeyDown(DIK_LEFT))
+					if(  m_pDI->KeyDown(DIK_LEFT)||m_pDI->JoystickGetLStickDirDown(DIR_LEFT))
 					{
 						m_nEntrySelection--;
 						m_pFM->PlaySoundA(m_nMenuMove);
 					}
-					if(  m_pDI->KeyDown(DIK_RIGHT))
+					if(  m_pDI->KeyDown(DIK_RIGHT)||m_pDI->JoystickGetLStickDirDown(DIR_RIGHT))
 					{
 						m_nEntrySelection++;
 						m_pFM->PlaySoundA(m_nMenuMove);
 					}
-					if( m_pDI->KeyDown(DIK_RETURN))
+					if( m_pDI->KeyDown(DIK_RETURN)||m_pDI->JoystickButtonPressed(0))
 						HandleEnter();
 
-					if( m_pDI->KeyDown(DIK_ESCAPE))
+					if( m_pDI->KeyDown(DIK_ESCAPE)||m_pDI->JoystickButtonPressed(1))
 					{
 						m_pFM->PlaySoundA(m_nMenuSelect);
 						CGame::GetInstance()->ChangeState(CMainMenuState::GetInstance());
@@ -256,7 +256,7 @@ bool CGamerProfile::Input()
 				}
 				else if( m_nProfileState == EDITNAME_STATE )
 				{
-					if( m_pDI->KeyDown(DIK_BACKSPACE))
+					if( m_pDI->KeyDown(DIK_BACKSPACE)||m_pDI->JoystickButtonPressed(1))
 					{
 						if( activeProfile->m_sUserName.size() > 0)
 						{
@@ -264,25 +264,25 @@ bool CGamerProfile::Input()
 							m_pFM->PlaySoundA(m_nMenuMove);
 						}
 					}
-					if(  m_pDI->KeyDown(DIK_UP))
+					if(  m_pDI->KeyDown(DIK_UP)||m_pDI->JoystickGetLStickDirDown(DIR_UP))
 					{
 						temp++;
 						m_pFM->PlaySoundA(m_nMenuMove);
 					}
-					if(  m_pDI->KeyDown(DIK_DOWN))
+					if(  m_pDI->KeyDown(DIK_DOWN)||m_pDI->JoystickGetLStickDirDown(DIR_DOWN))
 					{
 						temp--;
 						m_pFM->PlaySoundA(m_nMenuMove);
 					}
 
-					if( m_pDI->KeyDown(DIK_RETURN))
+					if( m_pDI->KeyDown(DIK_RETURN)||m_pDI->JoystickButtonPressed(0))
 					{
 						m_pFM->PlaySoundA(m_nMenuSelect);
 						activeProfile->m_sUserName += temp;
 						temp = 'A';
 					}
 
-					if( m_pDI->KeyDown(DIK_ESCAPE))
+					if( m_pDI->KeyDown(DIK_ESCAPE)||m_pDI->JoystickButtonPressed(1))
 					{
 						m_pFM->PlaySoundA(m_nMenuSelect);
 						m_nProfileState = LOADSAVE_STATE;
@@ -300,9 +300,9 @@ bool CGamerProfile::Input()
 						CurrPos += 100;
 						m_pFM->PlaySoundA(m_nMenuMove);
 					}
-					if( m_pDI->KeyDown(DIK_RETURN))
+					if( m_pDI->KeyDown(DIK_RETURN)||m_pDI->JoystickButtonPressed(0))
 						HandleEnter();
-					if( m_pDI->KeyDown(DIK_ESCAPE))
+					if( m_pDI->KeyDown(DIK_ESCAPE)||m_pDI->JoystickButtonPressed(1))
 					{
 						m_pFM->PlaySoundA(m_nMenuSelect);
 						m_nProfileState = LOADSAVE_STATE;

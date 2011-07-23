@@ -85,12 +85,12 @@ bool CPauseMenuState::Input(void)
 	}
 	else
 	{
-	if(m_pDI->KeyPressed(DIK_RETURN))
+	if(m_pDI->KeyPressed(DIK_RETURN)||m_pDI->JoystickButtonPressed(0))
 	{
 		HandleEnter();
 
 	}
-	if(m_pDI->KeyPressed(DIK_UP))
+	if(m_pDI->KeyPressed(DIK_UP)||m_pDI->JoystickGetLStickDirDown(DIR_UP))
 	{
 		m_nSelection--;
 		m_pFM->PlaySound(m_nMenuMove);
@@ -98,7 +98,7 @@ bool CPauseMenuState::Input(void)
 			m_nSelection = 2;
 	}
 
-	if(m_pDI->KeyPressed(DIK_DOWN))
+	if(m_pDI->KeyPressed(DIK_DOWN)||m_pDI->JoystickGetLStickDirDown(DIR_DOWN))
 	{
 		m_nSelection++;
 		m_pFM->PlaySound(m_nMenuMove);

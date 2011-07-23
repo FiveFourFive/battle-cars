@@ -190,15 +190,15 @@ bool COptionState::Input(void)
 	else
 	{
 
-	if(m_pDI->KeyPressed(DIK_ESCAPE))
+	if(m_pDI->KeyPressed(DIK_ESCAPE)||m_pDI->JoystickButtonDown(1))
 	{
 		CGame::GetInstance()->RemoveState(this);
 	}
-	if(m_pDI->KeyPressed(DIK_RETURN))
+	if(m_pDI->KeyPressed(DIK_RETURN)||m_pDI->JoystickButtonPressed(0))
 	{
 		return this->HandleEnter();
 	}
-	if(m_pDI->KeyPressed(DIK_UP))
+	if(m_pDI->KeyPressed(DIK_UP)||m_pDI->JoystickGetLStickDirDown(DIR_UP))
 	{
 		m_nSelection--;
 		m_pFM->PlaySound(m_nMenuMove);
@@ -206,7 +206,7 @@ bool COptionState::Input(void)
 			m_nSelection = 5;
 	}
 
-	if(m_pDI->KeyPressed(DIK_DOWN))
+	if(m_pDI->KeyPressed(DIK_DOWN)||m_pDI->JoystickGetLStickDirDown(DIR_DOWN))
 	{
 		m_nSelection++;
 		m_pFM->PlaySound(m_nMenuMove);
@@ -216,7 +216,7 @@ bool COptionState::Input(void)
 	if(m_fDelay > 0.20f)
 	{
 		
-	if(m_pDI->KeyDown(DIK_LEFT))
+	if(m_pDI->KeyDown(DIK_LEFT)||m_pDI->JoystickGetLStickDirDown(DIR_LEFT))
 	{
 		m_fDelay = 0.0f;
 		switch(m_nSelection)
@@ -265,7 +265,7 @@ bool COptionState::Input(void)
 				}
 		}
 	}
-	if(m_pDI->KeyDown(DIK_RIGHT))
+	if(m_pDI->KeyDown(DIK_RIGHT)||m_pDI->JoystickGetLStickDirDown(DIR_RIGHT))
 	{
 		m_fDelay = 0.0f;
 		switch(m_nSelection)
