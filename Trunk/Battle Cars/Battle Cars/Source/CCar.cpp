@@ -85,8 +85,6 @@ void CCar::Update(float fElapsedTime)
 	{
 		if( !ReloadTexture )
 		{
-			ReloadTexture = true;
-			m_nCarID = CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BC_Truck.png");
 			image_scale = 0.4f;
 		}
 	}

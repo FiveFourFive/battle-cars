@@ -620,7 +620,11 @@ bool CCharacterSelection::LoadCharacters()
 		string temp_buffer = "resource/graphics/";
 		temp_buffer += buffer;
 		character->SetImageID(m_pTM->LoadTexture(temp_buffer.c_str()));
-		character->SetCarId(m_pTM->LoadTexture("resource/graphics/sbs_sprites_cars.png"));
+
+		if( counter == CAR_TRUCK )
+			character->SetCarId( m_pTM->LoadTexture("resource/graphics/BC_Truck.png"));
+		else
+			character->SetCarId(m_pTM->LoadTexture("resource/graphics/sbs_sprites_cars.png"));
 		counter++;
 		m_vPlayerList.push_back(character);
 		pCharacterRoot = pCharacterRoot->NextSiblingElement("character");
