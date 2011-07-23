@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Level>
-  <TileLocation>TileInfo.xml</TileLocation>
-  <CollisionLocation>CollisionInfo.xml</CollisionLocation>
-  <EventLocation>EventInfo.xml</EventLocation>
-  <SpawnLocation>SpawnInfo.xml</SpawnLocation>
-  <LevelInfo Width="40" Height="40" PixelWidth="32" PixelHeight="32">Untitled</LevelInfo>
-</Level>
