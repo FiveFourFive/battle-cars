@@ -79,7 +79,7 @@ void CGame::Initialize(HWND hWnd, HINSTANCE hInstance, int nScreenWidth, int nSc
 	m_pD3D->InitDirect3D(hWnd, nScreenWidth, nScreenHeight, bIsWindowed, false);
 	m_pTM->InitTextureManager( m_pD3D->GetDirect3DDevice(), m_pD3D->GetSprite());
 	m_pFM->InitFModManager(hWnd);
-	m_pDI->InitDirectInput(hWnd, hInstance, DI_KEYBOARD /*| DI_MOUSE*/, 0);
+	m_pDI->InitDirectInput(hWnd, hInstance, DI_KEYBOARD | DI_JOYSTICKS/*| DI_MOUSE*/, 0);
 	// Initialize States
 	m_pMainMenuState = CMainMenuState::GetInstance();
 	this->AddState(m_pMainMenuState);

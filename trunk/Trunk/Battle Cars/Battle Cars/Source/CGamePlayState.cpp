@@ -208,7 +208,7 @@ void CGamePlayState::Enter(void)
 
 	
 	
-	time = 240;
+	time = 60;
 	m_fElapsedSecond = 0.0f;
 	score = 0;
 
@@ -442,7 +442,7 @@ bool CGamePlayState::Input()
 
 		if(!m_bCountDown)
 		{
-			if(m_pDI->KeyPressed(DIK_RETURN))
+			if(m_pDI->KeyPressed(DIK_RETURN)||m_pDI->JoystickButtonDown(0))
 			{
 				m_pFM->PlaySound(m_nCountDown);
 				m_bCountDown = true;
