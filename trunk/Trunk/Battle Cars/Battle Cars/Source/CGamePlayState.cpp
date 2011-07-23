@@ -1523,7 +1523,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet->SetWidth((int)(64*pBullet->GetScale()));
 			pBullet->SetPosX(pEBM->GetEnemy()->GetPosX());
 			pBullet->SetPosY(pEBM->GetEnemy()->GetPosY());
-			pBullet->SetDamage(20);
+			pBullet->SetDamage(10);
 			pBullet->SetBulletType(PROJECTILE_BULLET);
 			pBullet->SetRotation(pEBM->GetEnemy()->GetRotation());
 			pGame->m_pOM->AddObject(pBullet);
