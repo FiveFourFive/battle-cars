@@ -34,6 +34,10 @@ CPlayer::CPlayer(CXboxInput* pController)
 
 	SetBulletImageID(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/bullet.png",D3DCOLOR_XRGB(255, 255, 255)));
 	SetMissileImageID(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BC_Missile.png"));
+
+	Weapons.push_back ( CSGD_TextureManager::GetInstance()->LoadTexture("Resource/Graphics/HUDS/Weapon_Icons/Pistoal_PlaceHolder.png"));
+	Weapons.push_back ( CSGD_TextureManager::GetInstance()->LoadTexture("Resource/Graphics/HUDS/Weapon_Icons/ranged08.png"));
+
 	m_pCamera = new CCamera();
 	m_pHUD = new CHUD();
 	m_pHUD->SetOwner(this);
@@ -136,6 +140,7 @@ void CPlayer::Update(float fElapsedTime)
 		if( flame_thrower == NULL )
 		{
 			flame_thrower = PM->GetActiveEmittor(GetFlameThrowerEmittorID());
+			
 		}
 
 		if( flame_thrower )
@@ -149,6 +154,7 @@ void CPlayer::Update(float fElapsedTime)
 			flame_thrower->SetAcceleration(temp.fX, temp.fY);
 
 			PM->AttachToBasePosition(this, flame_thrower,0, 0);
+			flame_thrower->InitializeParticleList (flame_thrower);
 		}
 
 		m_fFlames = m_fFlames - fElapsedTime;
@@ -489,8 +495,8 @@ void CPlayer::Render(CCamera* camera)
 	center.top = LONG(GetPosY());
 	center.right = center.left + 10;
 	center.bottom = center.top + 10;
-	pD3D->DrawRect(center,0,0,0);
-	pD3D->DrawRect(temp_rect, 0,255,255);
+	//pD3D->DrawRect(center,0,0,0);
+	//pD3D->DrawRect(temp_rect, 0,255,255);
 
 	//pD3D->GetSprite()->Flush();
 	//temp_rect.left = this->GetCX1 () - camera->GetCamX() + camera->GetRenderPosX();

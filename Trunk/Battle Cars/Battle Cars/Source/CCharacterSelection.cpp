@@ -348,7 +348,7 @@ bool CCharacterSelection::HandleEnter()
 							m_player2 = m_vPlayerList[CAR_MINI];
 							m_bPlayer2_turn = false;
 							isAvailable[CAR_MINI] = false;
-							m_player2->SetWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/rocket_icon.png"));
+							m_player2->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/rocket_icon.png"));
 						}
 						else
 							m_pFM->PlaySoundA(m_nIncorrectSelection);
@@ -361,7 +361,7 @@ bool CCharacterSelection::HandleEnter()
 							m_player2 = m_vPlayerList[CAR_VETTE];
 							m_bPlayer2_turn = false;
 							isAvailable[CAR_VETTE] = false;
-							m_player2->SetWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/flamerthrower_icon.png"));
+							m_player2->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/flamerthrower_icon.png"));
 						}
 						else
 							m_pFM->PlaySoundA(m_nIncorrectSelection);
@@ -374,7 +374,7 @@ bool CCharacterSelection::HandleEnter()
 							m_player2 = m_vPlayerList[CAR_HUMMER];
 							m_bPlayer2_turn = false;
 							isAvailable[CAR_HUMMER] = false;
-							m_player2->SetWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/minigun_icon.png"));
+							m_player2->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/minigun_icon.png"));
 						}
 						else
 							m_pFM->PlaySoundA(m_nIncorrectSelection);
@@ -387,7 +387,7 @@ bool CCharacterSelection::HandleEnter()
 							m_player2 = m_vPlayerList[CAR_TRUCK];
 							m_bPlayer2_turn = false;
 							isAvailable[CAR_TRUCK] = false;
-							m_player2->SetWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/mine_icon.png"));
+							m_player2->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/mine_icon.png"));
 						}
 						else
 							m_pFM->PlaySoundA(m_nIncorrectSelection);
@@ -408,7 +408,7 @@ bool CCharacterSelection::HandleEnter()
 							m_bPlayer1_turn = false;
 							m_bPlayer2_turn = true;
 							isAvailable[CAR_MINI] = false;
-							m_player1->SetWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/rocket_icon.png"));
+							m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/rocket_icon.png"));
 						}
 						else
 							m_pFM->PlaySoundA(m_nIncorrectSelection);
@@ -422,7 +422,7 @@ bool CCharacterSelection::HandleEnter()
 							m_bPlayer1_turn = false;
 							m_bPlayer2_turn = true;
 							isAvailable[CAR_VETTE] = false;
-							m_player1->SetWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/flamerthrower_icon.png"));
+							m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/flamerthrower_icon.png"));
 						}
 						else
 							m_pFM->PlaySoundA(m_nIncorrectSelection);
@@ -436,7 +436,7 @@ bool CCharacterSelection::HandleEnter()
 							m_bPlayer1_turn = false;
 							m_bPlayer2_turn = true;
 							isAvailable[CAR_HUMMER] = false;
-							m_player1->SetWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/minigun_icon.png"));
+							m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/minigun_icon.png"));
 						}
 						else
 							m_pFM->PlaySoundA(m_nIncorrectSelection);
@@ -450,7 +450,7 @@ bool CCharacterSelection::HandleEnter()
 							m_bPlayer1_turn = false;
 							m_bPlayer2_turn = true;
 							isAvailable[CAR_TRUCK] = false;
-							m_player1->SetWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/mine_icon.png"));
+							m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/mine_icon.png"));
 						}
 						else
 							m_pFM->PlaySoundA(m_nIncorrectSelection);
@@ -483,7 +483,7 @@ bool CCharacterSelection::HandleEnter()
 							m_player1 = m_vPlayerList[CAR_MINI];
 							m_bPlayer1_turn = false;
 							isAvailable[CAR_MINI] = false;
-							m_player1->SetWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/rocket_icon.png"));
+							m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/rocket_icon.png"));
 						}
 						else
 							m_pFM->PlaySoundA(m_nIncorrectSelection);
@@ -496,7 +496,7 @@ bool CCharacterSelection::HandleEnter()
 							m_player1 = m_vPlayerList[CAR_VETTE];
 							m_bPlayer1_turn = false;
 							isAvailable[CAR_VETTE] = false;
-							m_player1->SetWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/flamerthrower_icon.png"));
+							m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/flamerthrower_icon.png"));
 						}
 						else
 							m_pFM->PlaySoundA(m_nIncorrectSelection);
@@ -509,7 +509,7 @@ bool CCharacterSelection::HandleEnter()
 							m_player1 = m_vPlayerList[CAR_HUMMER];
 							m_bPlayer1_turn = false;
 							isAvailable[CAR_HUMMER] = false;
-							m_player1->SetWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/minigun_icon.png"));
+							m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/minigun_icon.png"));
 						}
 						else
 							m_pFM->PlaySoundA(m_nIncorrectSelection);
@@ -522,7 +522,7 @@ bool CCharacterSelection::HandleEnter()
 							m_player1 = m_vPlayerList[CAR_TRUCK];
 							m_bPlayer1_turn = false;
 							isAvailable[CAR_TRUCK] = false;
-							m_player1->SetWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/mine_icon.png"));
+							m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/mine_icon.png"));
 						}
 						else
 							m_pFM->PlaySoundA(m_nIncorrectSelection);
@@ -559,7 +559,7 @@ bool CCharacterSelection::LoadCharacters()
 	while(pCharacterRoot)
 	{
 		CPlayer* character = new CPlayer(CGame::GetInstance()->GetController1());
-		character->SetWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/rocket_icon.png"));
+		//character->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/rocket_icon.png"));
 		int armor, accel, maxspeed;
 		double rate;
 		float rotate;
