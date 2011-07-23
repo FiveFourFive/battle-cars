@@ -420,39 +420,6 @@ Emittor* ParticleManager::CreateEffect( Emittor* temp_emittor, float posX, float
 	new_emittor->SetID(ActiveCount);
 	ActiveCount++;
 	
-
-	new_emittor->ClearParticleList();
-
-	for (int i = 0; i < new_emittor->GetMaxNumber(); i++)
-        {
-
-            Particle* temp = new Particle();
-
-			temp->position = new_emittor->GetPosition();
-			temp->color = new_emittor->GetStartColor();
-
-			temp->currLife = 0;
-			temp->maxlife = RAND_FLOAT(new_emittor->GetMinLife(), new_emittor->GetEndLife());
-
-			temp->spawnDelay = RAND_FLOAT(0.0f, 0.5f);
-			
-			temp->velocity.fX = (RAND_FLOAT(new_emittor->GetMinVelocity().fX,new_emittor->GetMaxVelocity().fX)) * 0.01f;
-			temp->velocity.fY = (RAND_FLOAT(new_emittor->GetMinVelocity().fY, new_emittor->GetMaxVelocity().fY)) * 0.01f;
-			temp->acceleration = new_emittor->GetAcceleration();
-			temp->scaleX = new_emittor->GetStartScaleX();
-			temp->scaleY = new_emittor->GetStartScaleY();
-
-			temp->rotation = 0.0f;
-
-			temp->colorfade_timer = 0.0f;
-			temp->scaleX_timer = 0.0f;
-			temp->scaleY_timer = 0.0f;
-			temp->spawn_timer = 0.0f;
-
-			temp->isDead = true;
-
-			new_emittor->AddToParticleList(temp);
-        }
 	m_ActiveEmittors.push_back(new_emittor);
 
 	return new_emittor;
