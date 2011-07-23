@@ -490,10 +490,10 @@ vector<CBase*> CLevel::SetCarSpawn (vector<CBase*> pBases)
 				car->SetMaxSpeed(200.0f);
 
 				RECT image_rect;
-				image_rect.left =50;
-				image_rect.top = 10;
-				image_rect.right = 195;
-				image_rect.bottom = 245;
+				image_rect.left =0;
+				image_rect.top = 480;
+				image_rect.right = 80;
+				image_rect.bottom = 645;
 
 				car->SetHealthImageRect(&image_rect);
 

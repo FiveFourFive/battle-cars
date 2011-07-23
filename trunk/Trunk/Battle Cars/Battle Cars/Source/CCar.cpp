@@ -59,12 +59,10 @@ CCar::CCar(void)
 	m_fFireDelay = .50f;
 	m_fFireDelayMissiles = 1.0f;
 	SetPowerUpBar(100.0f);
-	m_nCarID = CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BC_Truck.png");
+	m_nCarID = CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/sbs_sprites_cars.png");
 
 	m_fCollisionEffect = 0.0f;
 	m_fRespawnTimer = 0.0f;
-
-	ReloadTexture = false;
 	image_scale = 1.0f;
 
 	CEventSystem::GetInstance()->RegisterClient("damage",this);
@@ -79,14 +77,6 @@ void CCar::Update(float fElapsedTime)
 	{
 		m_fRespawnTimer += fElapsedTime;
 		return;
-	}
-
-	if( m_nPlayerType == CAR_TRUCK)
-	{
-		if( !ReloadTexture )
-		{
-			image_scale = 0.4f;
-		}
 	}
 
 	m_fCollisionEffect += fElapsedTime;

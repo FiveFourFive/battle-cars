@@ -62,8 +62,6 @@ private:
 
 	bool Collision_effect;			//Check whether effect has been applied yet or not.
 
-	bool ReloadTexture;
-
 public:
 	CCar(void);
 	void Update(float fElapsedTime);
