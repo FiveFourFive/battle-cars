@@ -64,6 +64,9 @@ CCar::CCar(void)
 	m_fCollisionEffect = 0.0f;
 	m_fRespawnTimer = 0.0f;
 
+	ReloadTexture = false;
+	image_scale = 1.0f;
+
 	CEventSystem::GetInstance()->RegisterClient("damage",this);
 	CEventSystem::GetInstance()->RegisterClient("collision", this);
 	CEventSystem::GetInstance()->RegisterClient("weapon_level",this);
@@ -76,6 +79,16 @@ void CCar::Update(float fElapsedTime)
 	{
 		m_fRespawnTimer += fElapsedTime;
 		return;
+	}
+
+	if( m_nPlayerType == CAR_TRUCK)
+	{
+		if( !ReloadTexture )
+		{
+			ReloadTexture = true;
+			m_nCarID = CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BC_Truck.png");
+			image_scale = 0.4f;
+		}
 	}
 
 	m_fCollisionEffect += fElapsedTime;
@@ -165,9 +178,11 @@ void CCar::Render(CCamera* camera)
 	tempcar.right = (LONG)(tempcar.left + GetWidth());
 	tempcar.bottom = (LONG)(tempcar.top + GetHeight());
 	
+	SetImageWidth(GetHealthImageRect().right - GetHealthImageRect().left);
+	SetImageHeight(GetHealthImageRect().bottom - GetHealthImageRect().top);
 
-	m_pTM->Draw(m_nCarID,(int)(GetPosX()-(GetImageWidth()/2*0.4f)- (int)camera->GetCamX() + (int)camera->GetRenderPosX()),
-		(int)(GetPosY()-(GetImageHeight()/2*0.4f)- (int)camera->GetCamY() + (int)camera->GetRenderPosY()),0.4f,0.4f,NULL, float(GetImageWidth()/2),float(GetImageHeight()/2),GetRotation());
+	m_pTM->Draw(m_nCarID,(int)(GetPosX()-(GetImageWidth()/2*image_scale)- (int)camera->GetCamX() + (int)camera->GetRenderPosX()),
+		(int)(GetPosY()-(GetImageHeight()/2*image_scale)- (int)camera->GetCamY() + (int)camera->GetRenderPosY()),image_scale,image_scale,&GetHealthImageRect(), float(GetImageWidth()/2),float(GetImageHeight()/2),GetRotation());
 	//pD3D->DrawRect(tempcar,255,0,0);
 	//pD3D->DrawText("BEEP", (int)(GetPosX()- camera->GetCamX() + 10), (int)(GetPosY()- camera->GetCamY() + 35),255,255,255);
 	//pD3D->DrawLine((int)(GetPosX()- camera->GetCamX() + camera->GetRenderPosX()), (int)(GetPosY()- camera->GetCamY()+ camera->GetRenderPosY()), (int)(GetPosX()- camera->GetCamX() + camera->GetRenderPosX() + GetVelX()), (int)(GetPosY()- camera->GetCamY() + camera->GetRenderPosY() + GetVelY()),255,255,255);

@@ -484,9 +484,19 @@ vector<CBase*> CLevel::SetCarSpawn (vector<CBase*> pBases)
 				car->SetSpeed(0.0f);
 				car->SetMaxHealth(150.0f);
 				car->SetType(OBJECT_ENEMY);
+				car->SetPlayerType(CAR_TRUCK);
 				car->SetKillCount(0);
 				car->Rotate(0.0f);
 				car->SetMaxSpeed(200.0f);
+
+				RECT image_rect;
+				image_rect.left =50;
+				image_rect.top = 10;
+				image_rect.right = 195;
+				image_rect.bottom = 245;
+
+				car->SetHealthImageRect(&image_rect);
+
 				/*car->SetPowerUps (CGamePlayState::GetInstance ()->GetPowerUps ());
 				car->SetSpeedRamps (CGamePlayState::GetInstance ()->GetSpeedRamps ());*/
 				car->EnterState ();

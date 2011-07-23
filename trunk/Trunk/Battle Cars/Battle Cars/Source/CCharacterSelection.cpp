@@ -32,9 +32,6 @@ CCharacterSelection::CCharacterSelection()
 	m_pDI = CSGD_DirectInput::GetInstance();
 	m_pTM = CSGD_TextureManager::GetInstance();
 	m_pFM = CSGD_FModManager::GetInstance();
-
-	if( LoadCharacters() == false)
-		MessageBox(NULL, "Failed to Load characters", 0, 0);
 }
 
 CCharacterSelection::~CCharacterSelection()
@@ -51,7 +48,10 @@ CCharacterSelection::~CCharacterSelection()
 
 void CCharacterSelection::Enter()
 {
-	//m_vPlayerList.clear();
+	m_vPlayerList.clear();
+
+	if( LoadCharacters() == false)
+		MessageBox(NULL, "Failed to Load characters", 0, 0);
 
 	for( int i = 0; i < 4; i++)
 	{
@@ -274,7 +274,7 @@ void CCharacterSelection::Render()
 		break;
 	}
 
-	m_pTM->Draw(currPlayer->GetImageID(), 650, 25, 1.0f, 1.0f);
+	m_pTM->Draw(currPlayer->GetImageID(), 650, 25, 1.0f, 1.0f, &currPlayer->GetImageRect());
 
 	RECT render_health_rect;
 	render_health_rect.left = 450;
@@ -562,6 +562,9 @@ bool CCharacterSelection::LoadCharacters()
 	TiXmlElement* pRoot = doc.RootElement();
 	if(!pRoot)
 		return false;
+
+
+
 	TiXmlElement* pCharacterRoot = pRoot->FirstChildElement("character");
 	while(pCharacterRoot)
 	{
@@ -570,6 +573,9 @@ bool CCharacterSelection::LoadCharacters()
 		int armor, accel, maxspeed;
 		double rate;
 		float rotate;
+		RECT temp_image_rect;
+		RECT health_rect;
+
 		if(pCharacterRoot->Attribute("armor", &armor))
 			character->SetArmor((float)armor);
 		if(pCharacterRoot->Attribute("accel", &accel))
@@ -581,6 +587,19 @@ bool CCharacterSelection::LoadCharacters()
 			rotate = 3.14f-(float)rate;
 			character->SetRotationRate(rotate);
 		}
+
+		pCharacterRoot->Attribute("left", (int*)(&temp_image_rect.left));
+		pCharacterRoot->Attribute("top", (int*)(&temp_image_rect.top));
+		pCharacterRoot->Attribute("right", (int*)(&temp_image_rect.right));
+		pCharacterRoot->Attribute("bottom", (int*)(&temp_image_rect.bottom));
+
+		pCharacterRoot->Attribute("h_left", (int*)(&health_rect.left));
+		pCharacterRoot->Attribute("h_top", (int*)(&health_rect.top));
+		pCharacterRoot->Attribute("h_right", (int*)(&health_rect.right));
+		pCharacterRoot->Attribute("h_bottom", (int*)(&health_rect.bottom));
+
+		character->SetImageRect(&temp_image_rect);
+		character->SetHealthImageRect(&health_rect);
 
 		const char* buffer = pCharacterRoot->GetText();
 
@@ -601,7 +620,7 @@ bool CCharacterSelection::LoadCharacters()
 		string temp_buffer = "resource/graphics/";
 		temp_buffer += buffer;
 		character->SetImageID(m_pTM->LoadTexture(temp_buffer.c_str()));
-		character->SetCarId(character->GetImageID());
+		character->SetCarId(m_pTM->LoadTexture("resource/graphics/sbs_sprites_cars.png"));
 		counter++;
 		m_vPlayerList.push_back(character);
 		pCharacterRoot = pCharacterRoot->NextSiblingElement("character");

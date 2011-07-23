@@ -130,6 +130,18 @@ void CGamePlayState::Enter(void)
 	miniboss->SetPosX(float(rand()%1400+200));
 	miniboss->SetPosY(float(rand()%1400+200));
 	miniboss->SetCarId(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniBossPlaceHolder.png"));
+
+	RECT health_rect;
+	health_rect.left = 5;
+	health_rect.top = 0;
+	health_rect.right = 256;
+	health_rect.bottom = 256;
+
+	miniboss->SetHealthImageRect(&health_rect);
+	miniboss->SetScale(0.4f);
+	boss->SetHealthImageRect(&health_rect);
+	boss->SetScale(0.4f);
+
 	bosses.push_back(boss);
 	bosses.push_back(miniboss);
 
