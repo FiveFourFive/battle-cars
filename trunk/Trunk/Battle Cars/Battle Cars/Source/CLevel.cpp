@@ -28,6 +28,7 @@
 #include "CBullet.h"
 #include <vector>
 #include "CCharacterSelection.h"
+#include "CWanderState.h"
 
 CLevel::CLevel()
 {
@@ -802,68 +803,105 @@ bool CLevel::CheckEnemyCollision (CBase* pBase)
 	{
 		for (int XPos = XBegin; XPos < XEnd; XPos++)
 		{
-			if (pBase->GetType () == OBJECT_PLAYER && (LevelMap->GetEventsList ())[YPos][XPos].GetType () != -1)
+			if (pBase->GetType () == OBJECT_ENEMY && (LevelMap->GetEventsList ())[YPos][XPos].GetType () != -1)
 			{
 				std::string name = (LevelMap->GetEventsList ())[YPos][XPos].GetName ();
 				if (name == "WallCollision")
 				{
-					float TopCenterX = ((CPlayer*)pBase)->GetCX1 ();
-					float TopCenterY = ((CPlayer*)pBase)->GetCY1 ();
-					float BottomCenterX = ((CPlayer*)pBase)->GetCX2 ();
-					float BottomCenterY = ((CPlayer*)pBase)->GetCY2 ();
+					float TopCenterX = ((CEnemy*)pBase)->GetCX1 ();
+					float TopCenterY = ((CEnemy*)pBase)->GetCY1 ();
+					float BottomCenterX = ((CEnemy*)pBase)->GetCX2 ();
+					float BottomCenterY = ((CEnemy*)pBase)->GetCY2 ();
 
-					float radius = ((CPlayer*)pBase)->GetRadius ();
+					float radius = ((CEnemy*)pBase)->GetRadius ();
 
 					RECT Wall = LevelMap->GetCollisionRect(XPos, YPos);
-					tVector2D temp = ((CPlayer*)pBase)->GetOverallVelocity();
+					tVector2D temp = ((CEnemy*)pBase)->GetOverallVelocity();
 
 					//check the top side of the wall
 					if ((BottomCenterY + radius >= Wall.top && BottomCenterY < Wall.bottom && (BottomCenterX >= Wall.left && BottomCenterX <= Wall.right)) ||
 						(TopCenterY + radius >= Wall.top && TopCenterY < Wall.bottom && (TopCenterX >= Wall.left && TopCenterX <= Wall.right)))
 					{
-						((CPlayer*)pBase)->SetPosY (((CPlayer*)pBase)->GetPosY()-0.5f);
-						temp.fY = -1.0f * ((CPlayer*)pBase)->GetOverallVelocity().fY * 0.6f;
-						((CPlayer*)pBase)->SetVelocity (temp);
-						((CPlayer*)pBase)->Rotate (((CPlayer*)pBase)->GetRotation ());
-						((CPlayer*)pBase)->SetSpeed (0.0f);
+						((CEnemy*)pBase)->SetPosY (((CEnemy*)pBase)->GetPosY()-0.5f);
+						temp.fY = -1.0f * ((CEnemy*)pBase)->GetOverallVelocity().fY * 0.6f;
+						((CEnemy*)pBase)->SetVelocity (temp);
+						((CEnemy*)pBase)->Rotate (((CPlayer*)pBase)->GetRotation ());
+						((CEnemy*)pBase)->SetSpeed (0.0f);
 
-						//change target
+						//change state to wander state
+						if (((CEnemy*)pBase)->GetCurrentState () != ((CEnemy*)pBase)->GetWanderState ())
+						{
+							((CEnemy*)pBase)->GetWanderState ()->SetOwner ((CEnemy*)pBase);
+							((CEnemy*)pBase)->SetCurrentState (((CEnemy*)pBase)->GetWanderState ());
+						}else
+						{
+							((CWanderState*)((CEnemy*)pBase)->GetCurrentState ())->SetTarget1 (NULL);
+							((CWanderState*)((CEnemy*)pBase)->GetCurrentState ())->SetTarget2 (NULL);
+						}
 					}
 					
 					if ((BottomCenterY - radius  <= Wall.bottom && BottomCenterY > Wall.top && (BottomCenterX >= Wall.left && BottomCenterX <= Wall.right)) ||
 						(TopCenterY - radius  <= Wall.bottom && TopCenterY > Wall.top && (TopCenterX >= Wall.left && TopCenterX <= Wall.right)))//check the bottom side of the wall
 					{
-						((CPlayer*)pBase)->SetPosY (((CPlayer*)pBase)->GetPosY() + 0.5f);
+						((CEnemy*)pBase)->SetPosY (((CEnemy*)pBase)->GetPosY() + 0.5f);
 						temp.fY = -1.0f * ((CPlayer*)pBase)->GetOverallVelocity().fY * 0.6f;
-						((CPlayer*)pBase)->SetVelocity (temp);
-						((CPlayer*)pBase)->Rotate (((CPlayer*)pBase)->GetRotation ());
-						((CPlayer*)pBase)->SetSpeed (0.0f);
+						((CEnemy*)pBase)->SetVelocity (temp);
+						((CEnemy*)pBase)->Rotate (((CEnemy*)pBase)->GetRotation ());
+						((CEnemy*)pBase)->SetSpeed (0.0f);
 
 						//change target
+						if (((CEnemy*)pBase)->GetCurrentState () != ((CEnemy*)pBase)->GetWanderState ())
+						{
+							((CEnemy*)pBase)->GetWanderState ()->SetOwner ((CEnemy*)pBase);
+							((CEnemy*)pBase)->SetCurrentState (((CEnemy*)pBase)->GetWanderState ());
+						}else
+						{
+							((CWanderState*)((CEnemy*)pBase)->GetCurrentState ())->SetTarget1 (NULL);
+							((CWanderState*)((CEnemy*)pBase)->GetCurrentState ())->SetTarget2 (NULL);
+						}
 					}
 
 					if ((BottomCenterX + radius >= Wall.left && BottomCenterX < Wall.left && (BottomCenterY >= Wall.top && BottomCenterY <= Wall.bottom)) ||
 						(TopCenterX + radius >= Wall.left && TopCenterX < Wall.right && (TopCenterY >= Wall.top && TopCenterY <= Wall.bottom)))//check the Left side of the wall
 					{
-						((CPlayer*)pBase)->SetPosX (((CPlayer*)pBase)->GetPosX() - 0.5f);
-						temp.fX = -1.0f * ((CPlayer*)pBase)->GetOverallVelocity().fX * 0.6f;
-						((CPlayer*)pBase)->SetVelocity (temp);
-						((CPlayer*)pBase)->Rotate (((CPlayer*)pBase)->GetRotation ());
-						((CPlayer*)pBase)->SetSpeed (0.0f);
+						((CEnemy*)pBase)->SetPosX (((CEnemy*)pBase)->GetPosX() - 0.5f);
+						temp.fX = -1.0f * ((CEnemy*)pBase)->GetOverallVelocity().fX * 0.6f;
+						((CEnemy*)pBase)->SetVelocity (temp);
+						((CEnemy*)pBase)->Rotate (((CEnemy*)pBase)->GetRotation ());
+						((CEnemy*)pBase)->SetSpeed (0.0f);
 
 						//change target
+						if (((CEnemy*)pBase)->GetCurrentState () != ((CEnemy*)pBase)->GetWanderState ())
+						{
+							((CEnemy*)pBase)->GetWanderState ()->SetOwner ((CEnemy*)pBase);
+							((CEnemy*)pBase)->SetCurrentState (((CEnemy*)pBase)->GetWanderState ());
+						}else
+						{
+							((CWanderState*)((CEnemy*)pBase)->GetCurrentState ())->SetTarget1 (NULL);
+							((CWanderState*)((CEnemy*)pBase)->GetCurrentState ())->SetTarget2 (NULL);
+						}
 					}
 					
 					if ((BottomCenterX - radius <= Wall.right && BottomCenterX > Wall.left &&(BottomCenterY >= Wall.top && BottomCenterY <= Wall.bottom)) ||
 						(TopCenterX - radius <= Wall.right && TopCenterX > Wall.left &&(TopCenterY >= Wall.top && TopCenterY <= Wall.bottom)))//check the Right side of the wall
 					{
-						((CPlayer*)pBase)->SetPosX (((CPlayer*)pBase)->GetPosX() + 0.5f);
-						temp.fX = -1.0f * ((CPlayer*)pBase)->GetOverallVelocity().fX * 0.6f;
-						((CPlayer*)pBase)->SetVelocity (temp);
-						((CPlayer*)pBase)->Rotate (((CPlayer*)pBase)->GetRotation ());
-						((CPlayer*)pBase)->SetSpeed (0.0f);
+						((CEnemy*)pBase)->SetPosX (((CEnemy*)pBase)->GetPosX() + 0.5f);
+						temp.fX = -1.0f * ((CEnemy*)pBase)->GetOverallVelocity().fX * 0.6f;
+						((CEnemy*)pBase)->SetVelocity (temp);
+						((CEnemy*)pBase)->Rotate (((CEnemy*)pBase)->GetRotation ());
+						((CEnemy*)pBase)->SetSpeed (0.0f);
 
 						//change target
+						if (((CEnemy*)pBase)->GetCurrentState () != ((CEnemy*)pBase)->GetWanderState ())
+						{
+							((CEnemy*)pBase)->GetWanderState ()->SetOwner ((CEnemy*)pBase);
+							((CEnemy*)pBase)->SetCurrentState (((CEnemy*)pBase)->GetWanderState ());
+							
+						}else
+						{
+							((CWanderState*)((CEnemy*)pBase)->GetCurrentState ())->SetTarget1 (NULL);
+							((CWanderState*)((CEnemy*)pBase)->GetCurrentState ())->SetTarget2 (NULL);
+						}
 
 					}
 				}

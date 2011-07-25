@@ -18,6 +18,7 @@
 #include "ParticleManager.h"
 #include "Emittor.h"
 #include "CGamePlayState.h"
+#include "CLevel.h"
 
 CEnemy::CEnemy(CXboxInput* pController) : CPlayer(pController)
 {
@@ -31,9 +32,12 @@ CEnemy::CEnemy(CXboxInput* pController) : CPlayer(pController)
 	m_AttackState = new CAttackState();
 	m_CollectState = new CCollectState();
 
-	m_AICurrentState = m_WanderState;
+	m_WanderState->SetOwner (this);
+	m_FleeState->SetOwner (this);
+	m_AttackState->SetOwner (this);
+	m_CollectState->SetOwner (this);
 
-	m_AICurrentState->SetOwner (this);
+	m_AICurrentState = m_WanderState;
 
 	EnterState();
 	m_fViewRadius = 30.0f;
@@ -68,6 +72,8 @@ void CEnemy::EnterState ()
 
 void CEnemy::Update(float fElapsedTime)
 {
+	CLevel::GetInstance ()->CheckEnemyCollision (this);
+
 	if (m_AICurrentState)
 		m_AICurrentState->Update (fElapsedTime);
 	if(m_bHasCollidedWithSpeedRamp)
