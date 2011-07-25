@@ -496,9 +496,6 @@ vector<CBase*> CLevel::SetCarSpawn (vector<CBase*> pBases)
 				image_rect.bottom = 645;
 
 				car->SetHealthImageRect(&image_rect);
-
-				/*car->SetPowerUps (CGamePlayState::GetInstance ()->GetPowerUps ());
-				car->SetSpeedRamps (CGamePlayState::GetInstance ()->GetSpeedRamps ());*/
 				car->EnterState ();
 				
 				cars.push_back (car);
@@ -783,32 +780,97 @@ std::vector<CObstacle*> CLevel::SetObstacleSpawn ()
 
 bool CLevel::CheckEnemyCollision (CBase* pBase)
 {
-	//int StartIndex = (int)(((((CEnemy*)pBase)->GetViewRadius () / LevelMap->GetPixelHeight()) * LevelMap->GetMapWidth ()) + (((CEnemy*)pBase)->GetViewRadius () / LevelMap->GetPixelWidth()));
-	//int EndIndex = (int)(((((CEnemy*)pBase)->GetViewRadius () / LevelMap->GetPixelHeight()) * LevelMap->GetMapWidth()) + (((CEnemy*)pBase)->GetViewRadius () / LevelMap->GetPixelWidth()));
+	CTile** Events = LevelMap->GetEventsList();
 
-	//if (StartIndex < 0)
-	//	StartIndex = 0;
+	int XBegin = 0, YBegin = 0, XEnd = 0, YEnd;
 
-	//for (int i = StartIndex; i <  EndIndex; i++)
-	//{
-	//	if (pBase->GetType () == OBJECT_ENEMY)
-	//	{
-	//		//check if collision rect is in enemies radius;
-	//		//if(IntersectRect(&intersection, &LevelMap->GetCollisionRect(Index), &pBase->GetRect()))
-	//		{
-	//				((CEnemy*)pBase)->AddCollisionRect (LevelMap->GetCollisionRect(i));
-	//				//m_pES->SendEvent (LevelMap->GetCollisionList()[i].GetName (), pBase);
-	//		}
-	//	}
-	//}
+	XBegin = ((pBase->GetRect ().left - 30) / LevelMap->GetPixelWidth());
+	YBegin = ((pBase->GetRect ().top - 30) / LevelMap->GetPixelHeight());
+	XEnd = ((pBase->GetRect ().right + 30) / LevelMap->GetPixelWidth());
+	YEnd = ((pBase->GetRect ().bottom + 30) / LevelMap->GetPixelHeight());
 
-	//if (((CEnemy*)pBase)->GetCollisionRects ().size () > 0)
-	//{
-	//	return true;
-	//}
+	if (XBegin < 0)
+		XBegin = 0;
+	if (YBegin < 0)
+		YBegin = 0;
+	if (XEnd > LevelMap->GetMapWidth ())
+		XEnd = LevelMap->GetMapWidth ();
+	if (YEnd > LevelMap->GetMapHeight ())
+		YEnd = LevelMap->GetMapHeight ();
 
+	for (int YPos = YBegin; YPos < YEnd; YPos++)
+	{
+		for (int XPos = XBegin; XPos < XEnd; XPos++)
+		{
+			if (pBase->GetType () == OBJECT_PLAYER && (LevelMap->GetEventsList ())[YPos][XPos].GetType () != -1)
+			{
+				std::string name = (LevelMap->GetEventsList ())[YPos][XPos].GetName ();
+				if (name == "WallCollision")
+				{
+					float TopCenterX = ((CPlayer*)pBase)->GetCX1 ();
+					float TopCenterY = ((CPlayer*)pBase)->GetCY1 ();
+					float BottomCenterX = ((CPlayer*)pBase)->GetCX2 ();
+					float BottomCenterY = ((CPlayer*)pBase)->GetCY2 ();
 
-	
+					float radius = ((CPlayer*)pBase)->GetRadius ();
+
+					RECT Wall = LevelMap->GetCollisionRect(XPos, YPos);
+					tVector2D temp = ((CPlayer*)pBase)->GetOverallVelocity();
+
+					//check the top side of the wall
+					if ((BottomCenterY + radius >= Wall.top && BottomCenterY < Wall.bottom && (BottomCenterX >= Wall.left && BottomCenterX <= Wall.right)) ||
+						(TopCenterY + radius >= Wall.top && TopCenterY < Wall.bottom && (TopCenterX >= Wall.left && TopCenterX <= Wall.right)))
+					{
+						((CPlayer*)pBase)->SetPosY (((CPlayer*)pBase)->GetPosY()-0.5f);
+						temp.fY = -1.0f * ((CPlayer*)pBase)->GetOverallVelocity().fY * 0.6f;
+						((CPlayer*)pBase)->SetVelocity (temp);
+						((CPlayer*)pBase)->Rotate (((CPlayer*)pBase)->GetRotation ());
+						((CPlayer*)pBase)->SetSpeed (0.0f);
+
+						//change target
+					}
+					
+					if ((BottomCenterY - radius  <= Wall.bottom && BottomCenterY > Wall.top && (BottomCenterX >= Wall.left && BottomCenterX <= Wall.right)) ||
+						(TopCenterY - radius  <= Wall.bottom && TopCenterY > Wall.top && (TopCenterX >= Wall.left && TopCenterX <= Wall.right)))//check the bottom side of the wall
+					{
+						((CPlayer*)pBase)->SetPosY (((CPlayer*)pBase)->GetPosY() + 0.5f);
+						temp.fY = -1.0f * ((CPlayer*)pBase)->GetOverallVelocity().fY * 0.6f;
+						((CPlayer*)pBase)->SetVelocity (temp);
+						((CPlayer*)pBase)->Rotate (((CPlayer*)pBase)->GetRotation ());
+						((CPlayer*)pBase)->SetSpeed (0.0f);
+
+						//change target
+					}
+
+					if ((BottomCenterX + radius >= Wall.left && BottomCenterX < Wall.left && (BottomCenterY >= Wall.top && BottomCenterY <= Wall.bottom)) ||
+						(TopCenterX + radius >= Wall.left && TopCenterX < Wall.right && (TopCenterY >= Wall.top && TopCenterY <= Wall.bottom)))//check the Left side of the wall
+					{
+						((CPlayer*)pBase)->SetPosX (((CPlayer*)pBase)->GetPosX() - 0.5f);
+						temp.fX = -1.0f * ((CPlayer*)pBase)->GetOverallVelocity().fX * 0.6f;
+						((CPlayer*)pBase)->SetVelocity (temp);
+						((CPlayer*)pBase)->Rotate (((CPlayer*)pBase)->GetRotation ());
+						((CPlayer*)pBase)->SetSpeed (0.0f);
+
+						//change target
+					}
+					
+					if ((BottomCenterX - radius <= Wall.right && BottomCenterX > Wall.left &&(BottomCenterY >= Wall.top && BottomCenterY <= Wall.bottom)) ||
+						(TopCenterX - radius <= Wall.right && TopCenterX > Wall.left &&(TopCenterY >= Wall.top && TopCenterY <= Wall.bottom)))//check the Right side of the wall
+					{
+						((CPlayer*)pBase)->SetPosX (((CPlayer*)pBase)->GetPosX() + 0.5f);
+						temp.fX = -1.0f * ((CPlayer*)pBase)->GetOverallVelocity().fX * 0.6f;
+						((CPlayer*)pBase)->SetVelocity (temp);
+						((CPlayer*)pBase)->Rotate (((CPlayer*)pBase)->GetRotation ());
+						((CPlayer*)pBase)->SetSpeed (0.0f);
+
+						//change target
+
+					}
+				}
+			}
+		}
+	}
+
 	return false;
 }
 

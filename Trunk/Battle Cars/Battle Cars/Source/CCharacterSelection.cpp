@@ -274,7 +274,7 @@ void CCharacterSelection::Render()
 	case CAR_TRUCK:
 		{
 			m_pPF->Print( "REDRUCKER", 10, 200, 0.5f, D3DCOLOR_XRGB(0, 255, 0));
-			m_pPF->Print( "SPECIAL: FLAME SHEILD", 275, 475, 0.4f, D3DCOLOR_XRGB(103,197,166));
+			m_pPF->Print( "SPECIAL: LAND MINES", 275, 475, 0.4f, D3DCOLOR_XRGB(103,197,166));
 		}
 		break;
 	case CAR_NUM:
