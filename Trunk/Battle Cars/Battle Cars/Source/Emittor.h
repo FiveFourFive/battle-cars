@@ -85,6 +85,12 @@ private:
 
 	int ID;								// the ID of the emittor
 
+	int	tempA;
+	int	tempR;
+	int	tempG;
+	int	tempB;
+		
+
 
 public:
 
