@@ -255,7 +255,10 @@ bool CLevelSelectionState::LoadLevel(const char* szXmlFileName)
 
 		TiXmlElement* pDataName = pLevel->FirstChildElement("LevelDataName");
 		if( pDataName != NULL)
+		{
 			m_ListofLevels[index]->FileName = pDataName->GetText();
+			m_ListofLevels[index]->FileName += ".xml";
+		}
 		else
 			MessageBox(0,"Failed to load data name",0,0);
 

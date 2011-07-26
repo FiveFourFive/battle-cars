@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Emittors>
+  <Emittor>
+    <Name>sparkle</Name>
+    <NumberofParticles>30</NumberofParticles>
+    <MinLifeSpan>1</MinLifeSpan>
+    <MaxLifeSpan>1</MaxLifeSpan>
+    <StartColor A="255" R="255" G="255" B="255" />
+    <EndColor A="120" R="255" G="255" B="94" />
+    <XStartScale>0.001</XStartScale>
+    <XEndScale>2.0</XEndScale>
+    <YStartScale>0.001</YStartScale>
+    <YEndScale>2.0</YEndScale>
+    <MinXVelocity>-100</MinXVelocity>
+    <MaxXVelocity>100</MaxXVelocity>
+    <MinYVelocity>-100</MinYVelocity>
+    <MaxYVelocity>100</MaxYVelocity>
+    <XAcceleration>0</XAcceleration>
+    <YAcceleration>0</YAcceleration>
+    <Rotation>0</Rotation>
+    <SourceBlend>5</SourceBlend>
+    <DestinationBlend>2</DestinationBlend>
+    <ImageName>Sparkle2.png</ImageName>
+    <Continuous>true</Continuous>
+    <Bursting>false</Bursting>
+  </Emittor>
+</Emittors>

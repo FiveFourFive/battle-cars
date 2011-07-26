@@ -1,7 +1,6 @@
 Images of each map
 XML on the end of levels
 Score board to long
-Weapon Images need to be final
 Score Board jumping when multiple people have the same kill count
 when enemy dies you can drive over them and still collide
 everything rendering under the speed ramp

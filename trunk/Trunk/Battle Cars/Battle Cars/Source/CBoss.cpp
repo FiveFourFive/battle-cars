@@ -356,7 +356,7 @@ void CBoss::ChaseTarget(float fElapsedTime)
 	{
 		TargetVector.fX = m_Player1->GetPosX() - GetPosX();
 		TargetVector.fY = m_Player1->GetPosY() - GetPosY();
-		if(Vector2DLength(TargetVector) < 130.0f)
+		if(Vector2DLength(TargetVector) < 300.0f)
 			SetSpeed(0.0f);
 		float rotationAngle = AngleBetweenVectors(currentDirection, TargetVector);
 		float turnLeftOrRight = Steering(currentDirection, TargetVector);
