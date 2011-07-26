@@ -130,9 +130,9 @@ void CTimeChallengeMode::CheckWinLoss()
 	{
 		vector<CCar*>* scores;
 		scores = CGamePlayState::GetInstance()->GetList();
-		if(scores->back()->GetType() == OBJECT_PLAYER)
+		if(scores->front()->GetType() == OBJECT_PLAYER)
 		{
-			CPlayer* tempplayer = (CPlayer*)scores->back();
+			CPlayer* tempplayer = (CPlayer*)scores->front();
 			if( tempplayer->GetKillCount() >= 10)
 				CWinState::GetInstance()->SetWinner(tempplayer);
 			else
