@@ -721,13 +721,35 @@ bool CCharacterSelection::LoadCharacters()
 		pCharacterRoot->Attribute("right", (int*)(&temp_image_rect.right));
 		pCharacterRoot->Attribute("bottom", (int*)(&temp_image_rect.bottom));
 
-		pCharacterRoot->Attribute("h_left", (int*)(&health_rect.left));
-		pCharacterRoot->Attribute("h_top", (int*)(&health_rect.top));
-		pCharacterRoot->Attribute("h_right", (int*)(&health_rect.right));
-		pCharacterRoot->Attribute("h_bottom", (int*)(&health_rect.bottom));
+		pCharacterRoot->Attribute("h1_left", (int*)(&health_rect.left));
+		pCharacterRoot->Attribute("h1_top", (int*)(&health_rect.top));
+		pCharacterRoot->Attribute("h1_right", (int*)(&health_rect.right));
+		pCharacterRoot->Attribute("h1_bottom", (int*)(&health_rect.bottom));
+
+		character->SetHealthImageRect(&health_rect,0);
+
+		pCharacterRoot->Attribute("h2_left", (int*)(&health_rect.left));
+		pCharacterRoot->Attribute("h2_top", (int*)(&health_rect.top));
+		pCharacterRoot->Attribute("h2_right", (int*)(&health_rect.right));
+		pCharacterRoot->Attribute("h2_bottom", (int*)(&health_rect.bottom));
+
+		character->SetHealthImageRect(&health_rect, 1);
+
+		pCharacterRoot->Attribute("h3_left", (int*)(&health_rect.left));
+		pCharacterRoot->Attribute("h3_top", (int*)(&health_rect.top));
+		pCharacterRoot->Attribute("h3_right", (int*)(&health_rect.right));
+		pCharacterRoot->Attribute("h3_bottom", (int*)(&health_rect.bottom));
+
+		character->SetHealthImageRect(&health_rect, 2);
+
+		pCharacterRoot->Attribute("h4_left", (int*)(&health_rect.left));
+		pCharacterRoot->Attribute("h4_top", (int*)(&health_rect.top));
+		pCharacterRoot->Attribute("h4_right", (int*)(&health_rect.right));
+		pCharacterRoot->Attribute("h4_bottom", (int*)(&health_rect.bottom));
+
+		character->SetHealthImageRect(&health_rect, 3);
 
 		character->SetImageRect(&temp_image_rect);
-		character->SetHealthImageRect(&health_rect);
 
 		const char* buffer = pCharacterRoot->GetText();
 

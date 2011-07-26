@@ -58,7 +58,8 @@ private:
 	float image_scale;				// The scale to use for drawing.
 
 	RECT m_rImageRect;				// The rect to render.
-	RECT m_rHealthImageRect;		// The rect to use to display health/damage visually.
+	RECT m_rHealthImageRect[4];		// The rect to use to display health/damage visually.
+	int counter;
 
 	bool Collision_effect;			//Check whether effect has been applied yet or not.
 
@@ -109,7 +110,7 @@ public:
 	int GetImageHeight(void) { return m_nImageHeight; }
 	bool GetTurnable(void) { return m_bIsTurnable; }
 	RECT GetImageRect(){ return m_rImageRect;}
-	RECT GetHealthImageRect(){ return m_rHealthImageRect;}
+	RECT GetHealthImageRect(int index){ return m_rHealthImageRect[index];}
 
 	//setters
 	void SetTurnable(bool turnable) { m_bIsTurnable = turnable; }
@@ -165,7 +166,7 @@ public:
 	void SetImageWidth(int width) { m_nImageWidth = width; }
 	void SetImageHeight(int height) { m_nImageHeight = height; }
 	void SetImageRect(RECT* rect){ m_rImageRect = (*rect); }
-	void SetHealthImageRect(RECT* rect){ m_rHealthImageRect = (*rect);}
+	void SetHealthImageRect(RECT* rect, int index){ m_rHealthImageRect[index] = (*rect);}
 
 	void SetScale(float scale){ image_scale = scale;}
 
