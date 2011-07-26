@@ -374,20 +374,32 @@ void CGamerProfile::Render()
 	if( m_nProfileState == LOADSAVE_STATE)
 	{
 		if( m_nEntrySelection == 0 )
+		{
 			m_pPF->Print("Save", (int)(CGame::GetInstance()->GetScreenWidth() * 0.2f),(int)(CGame::GetInstance()->GetScreenHeight()*0.4f), 1.0f, D3DCOLOR_XRGB(0,255,0));
+			m_pPF->Print("Selecting this Option allows you to save your current profile. \nUse this option to save keybinds, sound settings, and Unlocked cars.", (int)(CGame::GetInstance()->GetScreenWidth() * 0.2f),(int)(CGame::GetInstance()->GetScreenHeight()*0.8f), 0.6f, D3DCOLOR_XRGB(0,255,0));
+		}
 		else																   
 			m_pPF->Print("Save", (int)(CGame::GetInstance()->GetScreenWidth() * 0.2f), (int)(CGame::GetInstance()->GetScreenHeight()*0.4f), 0.8f, D3DCOLOR_XRGB(200,0,0));
 
 		if( m_nEntrySelection == 1 )
+		{
 			m_pPF->Print("Load", (int)(CGame::GetInstance()->GetScreenWidth() * 0.4f),(int)( CGame::GetInstance()->GetScreenHeight()*0.4f), 1.0f, D3DCOLOR_XRGB(0,255,0));
+			m_pPF->Print("Selecting this Option allows you to Load up a profile. \nUse this option to load keybinds, sound settings and unlocked cars.", (int)(CGame::GetInstance()->GetScreenWidth() * 0.2f),(int)(CGame::GetInstance()->GetScreenHeight()*0.8f), 0.6f, D3DCOLOR_XRGB(0,255,0));
+		}
 		else
 			m_pPF->Print("Load", (int)(CGame::GetInstance()->GetScreenWidth() * 0.4f),(int)( CGame::GetInstance()->GetScreenHeight()*0.4f), 0.8f, D3DCOLOR_XRGB(200,0,0));
 
 		if( m_nEntrySelection == 2 )
+		{
 			m_pPF->Print("Edit Name", (int)(CGame::GetInstance()->GetScreenWidth() * 0.6f), (int)(CGame::GetInstance()->GetScreenHeight() * 0.4f), 1.0f, D3DCOLOR_XRGB(0,255,0));
+			m_pPF->Print("Selecting this Option allows you to Edit the current profiles name. \nUse this option to edit the profile name for highscore statistics.", (int)(CGame::GetInstance()->GetScreenWidth() * 0.2f),(int)(CGame::GetInstance()->GetScreenHeight()*0.8f), 0.6f, D3DCOLOR_XRGB(0,255,0));
+		}
 		else							   
 			m_pPF->Print("Edit Name", (int)(CGame::GetInstance()->GetScreenWidth() * 0.6f), (int)(CGame::GetInstance()->GetScreenHeight() * 0.4f), 0.8f, D3DCOLOR_XRGB(200,0,0));
 
+		char buffer[64];
+		sprintf_s(buffer, "Current Profile: %s", activeProfile->m_sUserName.c_str());
+		m_pPF->Print(buffer, (int)(CGame::GetInstance()->GetScreenWidth() * 0.1f), (int)(CGame::GetInstance()->GetScreenHeight() * 0.9f),0.8f, D3DCOLOR_XRGB(128,128,255));
 
 	}
 	else if( m_nProfileState == LOADSLOT_STATE || m_nProfileState == SAVESLOT_STATE )
@@ -415,6 +427,8 @@ void CGamerProfile::Render()
 			else
 				m_pPF->Print("--Empty Slot--", PosX, PosY[count], 0.5f, D3DCOLOR_XRGB(200,0,0));
 		}
+
+		m_pPF->Print(activeProfile->m_sUserName.c_str(), (int)(CGame::GetInstance()->GetScreenWidth() * 0.1f), (int)(CGame::GetInstance()->GetScreenHeight() * 0.9f),0.8f, D3DCOLOR_XRGB(128,128,255));
 	}
 	else if( m_nProfileState == EDITNAME_STATE )
 	{
@@ -423,6 +437,7 @@ void CGamerProfile::Render()
 		awesome += temp;
 		m_pPF->Print(awesome.c_str(), PosX + (26 * activeProfile->m_sUserName.length()) , PosY[2], 1.0f, D3DCOLOR_XRGB(128,128,255));
 
+		m_pPF->Print(activeProfile->m_sUserName.c_str(), (int)(CGame::GetInstance()->GetScreenWidth() * 0.1f), (int)(CGame::GetInstance()->GetScreenHeight() * 0.9f),0.8f, D3DCOLOR_XRGB(128,128,255));
 	}
 }
 

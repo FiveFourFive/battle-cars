@@ -168,9 +168,6 @@
     <ClCompile Include="Source\CPowerUp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\CGamerProfile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\CKeyBinds.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -234,9 +231,6 @@
     <ClCompile Include="Source\CHighScoreState.cpp">
       <Filter>Game States</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Gamer_Profile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\CAttackState.cpp">
       <Filter>AI States</Filter>
     </ClCompile>
@@ -245,6 +239,12 @@
     </ClCompile>
     <ClCompile Include="Source\CCollectState.cpp">
       <Filter>AI States</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Gamer_Profile.cpp">
+      <Filter>Game States</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CGamerProfile.cpp">
+      <Filter>Game States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -395,12 +395,6 @@
     <ClInclude Include="Source\CKeyboardKeyBinds.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Gamer_Profile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\CGamerProfile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\CLevelSelectionState.h">
       <Filter>Game States</Filter>
     </ClInclude>
@@ -460,6 +454,12 @@
     </ClInclude>
     <ClInclude Include="Source\CCollectState.h">
       <Filter>AI States</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CGamerProfile.h">
+      <Filter>Game States</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Gamer_Profile.h">
+      <Filter>Game States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
