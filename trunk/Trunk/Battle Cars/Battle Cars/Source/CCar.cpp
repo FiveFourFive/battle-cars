@@ -64,6 +64,7 @@ CCar::CCar(void)
 	m_fCollisionEffect = 0.0f;
 	m_fRespawnTimer = 0.0f;
 	image_scale = 1.0f;
+	counter = 0;
 
 	CEventSystem::GetInstance()->RegisterClient("damage",this);
 	CEventSystem::GetInstance()->RegisterClient("collision", this);
@@ -77,6 +78,26 @@ void CCar::Update(float fElapsedTime)
 	{
 		m_fRespawnTimer += fElapsedTime;
 		return;
+	}
+
+	if( this->GetType() != OBJECT_BOSS && this->GetType() != OBJECT_ENEMY)
+	{
+		if( GetHealth() == GetMaxHealth())
+		{
+			counter = 0;
+		}
+		else if( GetHealth() < 100.0f && GetHealth() >= 75.0f)
+		{
+			counter = 1;
+		}
+		else if( GetHealth() < 75.0f && GetHealth() >= 50.0f)
+		{
+			counter = 2;
+		}
+		else if( GetHealth() < 50.0f && GetHealth() >= 25.0f )
+		{
+			counter = 3;
+		}
 	}
 
 	m_fCollisionEffect += fElapsedTime;
@@ -166,11 +187,14 @@ void CCar::Render(CCamera* camera)
 	tempcar.right = (LONG)(tempcar.left + GetWidth());
 	tempcar.bottom = (LONG)(tempcar.top + GetHeight());
 	
-	SetImageWidth(GetHealthImageRect().right - GetHealthImageRect().left);
-	SetImageHeight(GetHealthImageRect().bottom - GetHealthImageRect().top);
+	SetImageWidth(GetHealthImageRect(counter).right - GetHealthImageRect(counter).left);
+	SetImageHeight(GetHealthImageRect(counter).bottom - GetHealthImageRect(counter).top);
+
+	SetWidth(GetHealthImageRect(counter).right - GetHealthImageRect(counter).left);
+	SetHeight(GetHealthImageRect(counter).bottom - GetHealthImageRect(counter).top);
 
 	m_pTM->Draw(m_nCarID,(int)(GetPosX()-(GetImageWidth()/2*image_scale)- (int)camera->GetCamX() + (int)camera->GetRenderPosX()),
-		(int)(GetPosY()-(GetImageHeight()/2*image_scale)- (int)camera->GetCamY() + (int)camera->GetRenderPosY()),image_scale,image_scale,&GetHealthImageRect(), float(GetImageWidth()/2),float(GetImageHeight()/2),GetRotation());
+		(int)(GetPosY()-(GetImageHeight()/2*image_scale)- (int)camera->GetCamY() + (int)camera->GetRenderPosY()),image_scale,image_scale,&GetHealthImageRect(counter), float(GetImageWidth()/2),float(GetImageHeight()/2),GetRotation());
 	//pD3D->DrawRect(tempcar,255,0,0);
 	//pD3D->DrawText("BEEP", (int)(GetPosX()- camera->GetCamX() + 10), (int)(GetPosY()- camera->GetCamY() + 35),255,255,255);
 	//pD3D->DrawLine((int)(GetPosX()- camera->GetCamX() + camera->GetRenderPosX()), (int)(GetPosY()- camera->GetCamY()+ camera->GetRenderPosY()), (int)(GetPosX()- camera->GetCamX() + camera->GetRenderPosX() + GetVelX()), (int)(GetPosY()- camera->GetCamY() + camera->GetRenderPosY() + GetVelY()),255,255,255);

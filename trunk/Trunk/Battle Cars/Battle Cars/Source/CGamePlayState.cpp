@@ -143,9 +143,9 @@ void CGamePlayState::Enter(void)
 	health_rect.right = 256;
 	health_rect.bottom = 256;
 
-	miniboss->SetHealthImageRect(&health_rect);
+	miniboss->SetHealthImageRect(&health_rect,0);
 	miniboss->SetScale(0.4f);
-	boss->SetHealthImageRect(&health_rect);
+	boss->SetHealthImageRect(&health_rect,0);
 	boss->SetScale(0.4f);
 
 	bosses.push_back(boss);
@@ -193,7 +193,7 @@ void CGamePlayState::Enter(void)
 		m_pOM->AddObject(miniboss);
 	}
 	
-	time = 45;
+	time =300;
 	m_fElapsedSecond = 0.0f;
 	score = 0;
 

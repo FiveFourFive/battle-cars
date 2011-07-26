@@ -491,7 +491,7 @@ vector<CBase*> CLevel::SetCarSpawn (vector<CBase*> pBases)
 				image_rect.right = 80;
 				image_rect.bottom = 645;
 
-				car->SetHealthImageRect(&image_rect);
+				car->SetHealthImageRect(&image_rect,0);
 				car->EnterState ();
 				
 				cars.push_back (car);
