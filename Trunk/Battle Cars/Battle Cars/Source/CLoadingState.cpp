@@ -18,6 +18,8 @@
 #include "CObjectManager.h"
 #include "CCharacterSelection.h"
 #include "CLevelSelectionState.h"
+#include "CMainMenuState.h"
+#include "CSGD_FModManager.h"
 
 
 CLoadingState * CLoadingState::GetInstance()
@@ -32,7 +34,7 @@ bool CLoadingState::HandleEnter()
 void CLoadingState::Enter(void)
 {	
 	timeStamp=(float)(timeGetTime());
-
+	CSGD_FModManager::GetInstance()->StopSound(CMainMenuState::GetInstance()->GetBackgroundMusicID());
 	m_nBGImageID = CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/gamestates images/mainmenu_bg.jpg");
 	m_nAnimID = CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/Weapons/BC_MG.png");
 	m_nBackgroundMusicID = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/Superbeast.mp3",SGD_FMOD_LOOPING);
