@@ -347,24 +347,24 @@ void CCharacterSelection::Render()
 	CSGD_Direct3D::GetInstance()->DrawRect( temp_render, 0,0,0);
 
 	if( isAvailable[CAR_MINI])
-		m_pPF->Print( "MIGHTY MINI", 10, 50, 0.5f, D3DCOLOR_XRGB(200, 0, 0));
+		m_pPF->Print( "Mighty Mini", 10, 50, 0.5f, D3DCOLOR_XRGB(200, 0, 0));
 	else
-		m_pPF->Print( "MIGHTY MINI", 10, 50, 0.5f, D3DCOLOR_XRGB(128, 128, 128));
+		m_pPF->Print( "Mighty Mini", 10, 50, 0.5f, D3DCOLOR_XRGB(128, 128, 128));
 
 	if( isAvailable[CAR_VETTE])
-		m_pPF->Print( "FLAMING FURY", 10, 100, 0.5f, D3DCOLOR_XRGB(200, 0, 0));
+		m_pPF->Print( "Flaming Fury", 10, 100, 0.5f, D3DCOLOR_XRGB(200, 0, 0));
 	else
-		m_pPF->Print( "FLAMING FURY", 10, 100, 0.5f, D3DCOLOR_XRGB(128, 128, 128));
+		m_pPF->Print( "Flaming Fury", 10, 100, 0.5f, D3DCOLOR_XRGB(128, 128, 128));
 
 	if( isAvailable[CAR_HUMMER])
-		m_pPF->Print( "THE HAMMER", 10, 150, 0.5f, D3DCOLOR_XRGB(200, 0, 0));
+		m_pPF->Print( "The Hammer", 10, 150, 0.5f, D3DCOLOR_XRGB(200, 0, 0));
 	else
-		m_pPF->Print( "THE HAMMER", 10, 150, 0.5f, D3DCOLOR_XRGB(128, 128, 128));
+		m_pPF->Print( "The Hammer", 10, 150, 0.5f, D3DCOLOR_XRGB(128, 128, 128));
 
 	if( isAvailable[CAR_TRUCK])
-		m_pPF->Print( "REDRUCKER", 10, 200, 0.5f, D3DCOLOR_XRGB(200, 0, 0));
+		m_pPF->Print( "Redrucker", 10, 200, 0.5f, D3DCOLOR_XRGB(200, 0, 0));
 	else
-		m_pPF->Print( "REDRUCKER", 10, 200, 0.5f, D3DCOLOR_XRGB(128, 128, 128));
+		m_pPF->Print( "Redrucker", 10, 200, 0.5f, D3DCOLOR_XRGB(128, 128, 128));
 
 
 	m_pPF->Print( "START", 10,250,0.5f,D3DCOLOR_XRGB(200,0,0));
@@ -373,26 +373,26 @@ void CCharacterSelection::Render()
 	{
 	case CAR_MINI:
 		{
-			m_pPF->Print( "MIGHTY MINI", 10, 50, 0.5f, D3DCOLOR_XRGB(0, 255, 0));
-			m_pPF->Print( "SPECIAL: SHOTGUN OF MINI ROCKETS", 275, 475, 0.4f, D3DCOLOR_XRGB(103,197,166));
+			m_pPF->Print( "Mighty Mini", 10, 50, 0.5f, D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print( "Special: Shotgun of mini rockets", 275, 475, 0.4f, D3DCOLOR_XRGB(103,197,166));
 		}
 		break;
 	case CAR_VETTE:
 		{
-			m_pPF->Print( "FLAMING FURY", 10, 100, 0.5f, D3DCOLOR_XRGB(0, 255, 0));
-			m_pPF->Print( "SPECIAL: FLAME THROWER", 275, 475, 0.4f, D3DCOLOR_XRGB(103,197,166));
+			m_pPF->Print( "Flaming FUry", 10, 100, 0.5f, D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print( "Special: Flame thrower", 275, 475, 0.4f, D3DCOLOR_XRGB(103,197,166));
 		}
 		break;
 	case CAR_HUMMER:
 		{
-			m_pPF->Print( "THE HAMMER", 10, 150, 0.5f, D3DCOLOR_XRGB(0, 255, 0));
-			m_pPF->Print( "SPECIAL: GATLING GUN", 275, 475, 0.4f, D3DCOLOR_XRGB(103,197,166));
+			m_pPF->Print( "The Hammer", 10, 150, 0.5f, D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print( "Special: Gatling gun", 275, 475, 0.4f, D3DCOLOR_XRGB(103,197,166));
 		}
 		break;
 	case CAR_TRUCK:
 		{
-			m_pPF->Print( "REDRUCKER", 10, 200, 0.5f, D3DCOLOR_XRGB(0, 255, 0));
-			m_pPF->Print( "SPECIAL: LAND MINES", 275, 475, 0.4f, D3DCOLOR_XRGB(103,197,166));
+			m_pPF->Print( "Redrucker", 10, 200, 0.5f, D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print( "Special: Land mines", 275, 475, 0.4f, D3DCOLOR_XRGB(103,197,166));
 		}
 		break;
 	case CAR_NUM:
@@ -411,7 +411,7 @@ void CCharacterSelection::Render()
 	render_health_rect.right = render_health_rect.left + width;
 	render_health_rect.bottom = render_health_rect.top + 40;
 
-	m_pPF->Print("HEALTH", 250, 150, 0.5f, D3DCOLOR_XRGB(200,0,0));
+	m_pPF->Print("Health", 250, 150, 0.5f, D3DCOLOR_XRGB(200,0,0));
 	CSGD_Direct3D::GetInstance()->DrawRect(render_health_rect, 128,128,0);
 	char buffer[32];
 	sprintf_s(buffer, "%.0f", (currPlayer->GetHealth() + currPlayer->GetArmor()));
@@ -424,7 +424,7 @@ void CCharacterSelection::Render()
 	render_speed_rect.right = render_speed_rect.left + width;
 	render_speed_rect.bottom = render_speed_rect.top + 40;
 
-	m_pPF->Print("SPEED", 250, 225, 0.5f, D3DCOLOR_XRGB(200,0,0));
+	m_pPF->Print("Speed", 250, 225, 0.5f, D3DCOLOR_XRGB(200,0,0));
 	CSGD_Direct3D::GetInstance()->DrawRect(render_speed_rect, 128,128,0);
 	sprintf_s(buffer, "%.0f", currPlayer->GetMaxSpeed());
 	m_pPF->Print(buffer, 500, 235, 1.0f, D3DCOLOR_XRGB(200,0,0));
@@ -436,7 +436,7 @@ void CCharacterSelection::Render()
 	render_acceleration_rect.right = render_acceleration_rect.left + width;
 	render_acceleration_rect.bottom = render_acceleration_rect.top + 40;
 
-	m_pPF->Print("ACCELERATION", 250, 300, 0.5f, D3DCOLOR_XRGB(200,0,0));
+	m_pPF->Print("Acceleration", 250, 300, 0.5f, D3DCOLOR_XRGB(200,0,0));
 	CSGD_Direct3D::GetInstance()->DrawRect(render_acceleration_rect, 128,128,0);
 	sprintf_s(buffer, "%.0f", currPlayer->GetAcceleration());
 	m_pPF->Print(buffer, 500, 310, 1.0f, D3DCOLOR_XRGB(200,0,0));
@@ -456,11 +456,11 @@ void CCharacterSelection::Render()
 
 	if( IsPlayer1Selecting() )
 	{
-		m_pPF->Print("PLAYER 1 IS CHOOSING", 250, 550, 0.5f, D3DCOLOR_XRGB(0,0,255));
+		m_pPF->Print("Player 1 is choosing", 250, 550, 0.5f, D3DCOLOR_XRGB(0,0,255));
 	}
 	else if( IsPlayer2Selecting() )
 	{
-		m_pPF->Print("PLAYER 2 IS CHOOSING", 250, 550, 0.5f, D3DCOLOR_XRGB(0,0,255));
+		m_pPF->Print("Player 2 is choosing", 250, 550, 0.5f, D3DCOLOR_XRGB(0,0,255));
 	}
 	else
 	{
