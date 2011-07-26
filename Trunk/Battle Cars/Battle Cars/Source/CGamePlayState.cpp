@@ -849,7 +849,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet->SetWidth((int)(32*pBullet->GetScale()));
 			pBullet->SetPosX(pCMS->GetPlayer()->GetPosX());
 			pBullet->SetPosY(pCMS->GetPlayer()->GetPosY());
-			pBullet->SetDamage(float(12*(pCMS->GetPlayer()->GetSpecialLevel())));
+			pBullet->SetDamage(float(20*(pCMS->GetPlayer()->GetSpecialLevel())));
 			pBullet->SetBulletType(PROJECTILE_MINI_MISSILE);
 			pBullet->SetBlastRadius(50.0f);
 			pBullet->SetRotation(pCMS->GetPlayer()->GetRotation());
@@ -863,7 +863,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet1->SetWidth((int)(32*pBullet->GetScale()));
 			pBullet1->SetPosX(pCMS->GetPlayer()->GetPosX());
 			pBullet1->SetPosY(pCMS->GetPlayer()->GetPosY());
-			pBullet1->SetDamage(float(12*(pCMS->GetPlayer()->GetSpecialLevel())));
+			pBullet1->SetDamage(float(20*(pCMS->GetPlayer()->GetSpecialLevel())));
 			pBullet1->SetBulletType(PROJECTILE_MINI_MISSILE);
 			pBullet1->SetBlastRadius(50.0f);
 			pBullet1->SetRotation(pCMS->GetPlayer()->GetRotation());
@@ -877,7 +877,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet2->SetWidth((int)(32*pBullet->GetScale()));
 			pBullet2->SetPosX(pCMS->GetPlayer()->GetPosX());
 			pBullet2->SetPosY(pCMS->GetPlayer()->GetPosY());
-			pBullet2->SetDamage(float(12*(pCMS->GetPlayer()->GetSpecialLevel())));
+			pBullet2->SetDamage(float(20*(pCMS->GetPlayer()->GetSpecialLevel())));
 			pBullet2->SetBulletType(PROJECTILE_MINI_MISSILE);
 			pBullet2->SetBlastRadius(50.0f);
 			pBullet2->SetRotation(pCMS->GetPlayer()->GetRotation());
@@ -891,7 +891,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet3->SetWidth((int)(32*pBullet->GetScale()));
 			pBullet3->SetPosX(pCMS->GetPlayer()->GetPosX());
 			pBullet3->SetPosY(pCMS->GetPlayer()->GetPosY());
-			pBullet3->SetDamage(float(12*(pCMS->GetPlayer()->GetSpecialLevel())));
+			pBullet3->SetDamage(float(20*(pCMS->GetPlayer()->GetSpecialLevel())));
 			pBullet3->SetBulletType(PROJECTILE_MINI_MISSILE);
 			pBullet3->SetBlastRadius(50.0f);
 			pBullet3->SetRotation(pCMS->GetPlayer()->GetRotation());
@@ -905,7 +905,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet4->SetWidth((int)(32*pBullet->GetScale()));
 			pBullet4->SetPosX(pCMS->GetPlayer()->GetPosX());
 			pBullet4->SetPosY(pCMS->GetPlayer()->GetPosY());
-			pBullet4->SetDamage(float(12*(pCMS->GetPlayer()->GetSpecialLevel())));
+			pBullet4->SetDamage(float(20*(pCMS->GetPlayer()->GetSpecialLevel())));
 			pBullet4->SetBulletType(PROJECTILE_MINI_MISSILE);
 			pBullet4->SetBlastRadius(50.0f);
 			pBullet4->SetRotation(pCMS->GetPlayer()->GetRotation());
@@ -979,7 +979,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pLandMine->SetMaxLife(30.0f);
 			pLandMine->SetHeight((int)(64*pLandMine->GetScale()));
 			pLandMine->SetWidth((int)(64*pLandMine->GetScale()));
-			pLandMine->SetDamage(float(15*(pTSM->GetPlayer()->GetSpecialLevel())));
+			pLandMine->SetDamage(float(25*(pTSM->GetPlayer()->GetSpecialLevel())));
 			pLandMine->SetBlastRadius(0.0f);
 			pLandMine->SetLandMineType(LM_LM);
 			pLandMine->SetVelX(0.0f);
@@ -992,7 +992,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pLandMine1->SetMaxLife(30.0f);
 			pLandMine1->SetHeight((int)(64*pLandMine->GetScale()));
 			pLandMine1->SetWidth((int)(64*pLandMine->GetScale()));
-			pLandMine1->SetDamage(float(15*(pTSM->GetPlayer()->GetSpecialLevel())));
+			pLandMine1->SetDamage(float(25*(pTSM->GetPlayer()->GetSpecialLevel())));
 			pLandMine1->SetBlastRadius(0.0f);
 			pLandMine1->SetLandMineType(LM_LM);
 			pLandMine1->SetVelX(0.0f);
@@ -1005,7 +1005,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pLandMine2->SetMaxLife(30.0f);
 			pLandMine2->SetHeight((int)(64*pLandMine->GetScale()));
 			pLandMine2->SetWidth((int)(64*pLandMine->GetScale()));
-			pLandMine2->SetDamage(float(15*(pTSM->GetPlayer()->GetSpecialLevel())));
+			pLandMine2->SetDamage(float(25*(pTSM->GetPlayer()->GetSpecialLevel())));
 			pLandMine2->SetBlastRadius(0.0f);
 			pLandMine2->SetLandMineType(LM_LM);
 			pLandMine2->SetVelX(0.0f);
@@ -1112,7 +1112,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet->SetWidth((int)(8*pBullet->GetScale()));
 			pBullet->SetPosX(pCVS->GetPlayer()->GetPosX());
 			pBullet->SetPosY(pCVS->GetPlayer()->GetPosY());
-			pBullet->SetDamage(.45f*(pCVS->GetPlayer()->GetSpecialLevel()));
+			pBullet->SetDamage(0.65f*(pCVS->GetPlayer()->GetSpecialLevel()));
 			pBullet->SetBulletType(PROJECTILE_BULLET);
 			pBullet->SetToRender(false);
 			pBullet1->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_FlameParticlePlaceholder.png"));
@@ -1124,7 +1124,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet1->SetWidth((int)(8*pBullet->GetScale()));
 			pBullet1->SetPosX(pCVS->GetPlayer()->GetPosX());
 			pBullet1->SetPosY(pCVS->GetPlayer()->GetPosY());
-			pBullet1->SetDamage(.45f*(pCVS->GetPlayer()->GetSpecialLevel()));
+			pBullet1->SetDamage(0.65f*(pCVS->GetPlayer()->GetSpecialLevel()));
 			pBullet1->SetBulletType(PROJECTILE_BULLET);
 			pBullet1->SetToRender(false);
 			pBullet2->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_FlameParticlePlaceholder.png"));
@@ -1136,7 +1136,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet2->SetWidth((int)(8*pBullet->GetScale()));
 			pBullet2->SetPosX(pCVS->GetPlayer()->GetPosX());
 			pBullet2->SetPosY(pCVS->GetPlayer()->GetPosY());
-			pBullet2->SetDamage(.45f*(pCVS->GetPlayer()->GetSpecialLevel()));
+			pBullet2->SetDamage(0.65f*(pCVS->GetPlayer()->GetSpecialLevel()));
 			pBullet2->SetBulletType(PROJECTILE_BULLET);
 			pBullet2->SetToRender(false);
 			pBullet3->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_FlameParticlePlaceholder.png"));
@@ -1148,7 +1148,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet3->SetWidth((int)(8*pBullet->GetScale()));
 			pBullet3->SetPosX(pCVS->GetPlayer()->GetPosX());
 			pBullet3->SetPosY(pCVS->GetPlayer()->GetPosY());
-			pBullet3->SetDamage(.45f*(pCVS->GetPlayer()->GetSpecialLevel()));
+			pBullet3->SetDamage(0.65f*(pCVS->GetPlayer()->GetSpecialLevel()));
 			pBullet3->SetBulletType(PROJECTILE_BULLET);
 			pBullet3->SetToRender(false);
 			pBullet4->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_FlameParticlePlaceholder.png"));
@@ -1160,7 +1160,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet4->SetWidth((int)(8*pBullet->GetScale()));
 			pBullet4->SetPosX(pCVS->GetPlayer()->GetPosX());
 			pBullet4->SetPosY(pCVS->GetPlayer()->GetPosY());
-			pBullet4->SetDamage(.45f*(pCVS->GetPlayer()->GetSpecialLevel()));
+			pBullet4->SetDamage(0.65f*(pCVS->GetPlayer()->GetSpecialLevel()));
 			pBullet4->SetBulletType(PROJECTILE_BULLET);
 			pBullet4->SetToRender(false);
 
@@ -1233,7 +1233,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet->SetMaxLife(3.0f);
 			pBullet->SetHeight((int)(32*pBullet->GetScale()));
 			pBullet->SetWidth((int)(16*pBullet->GetScale()));
-			pBullet->SetDamage(float(8*(pCHS->GetPlayer()->GetSpecialLevel())));
+			pBullet->SetDamage(float(12*(pCHS->GetPlayer()->GetSpecialLevel())));
 			pBullet->SetBulletType(PROJECTILE_BULLET);
 			pBullet->SetSlowRate(20.0f);
 			pBullet->SetRotation(pCHS->GetPlayer()->GetRotation());
