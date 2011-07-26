@@ -317,6 +317,11 @@ void ParticleManager::AttachToBase(CBase* base, Emittor* emittor)
 		MessageBox(0, "ERROR: Emittor was never initialized",0,0);
 
 	emittor->SetBase(base);
+
+	if( base != NULL)
+	{
+		emittor->SetPosition(base->GetPosX(), base->GetPosY());
+	}
 }
 
 void ParticleManager::AttachToBasePosition(CBase* base, Emittor* emittor, float offsetX, float offsetY)
