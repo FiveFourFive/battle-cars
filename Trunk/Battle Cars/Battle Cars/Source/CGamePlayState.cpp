@@ -193,7 +193,7 @@ void CGamePlayState::Enter(void)
 		m_pOM->AddObject(miniboss);
 	}
 	
-	time = 1000;
+	time = 20;
 	m_fElapsedSecond = 0.0f;
 	score = 0;
 
@@ -642,14 +642,6 @@ void CGamePlayState::Update(float fElapsedTime)
 
 void CGamePlayState::Render(void)
 {
-	RECT temp;					 ////
-	temp.left = 0;				 //////
-	temp.top = 0;				 // replace this with background image
-	temp.right = CGame::GetInstance()->GetScreenWidth();			 ////////
-	temp.bottom = CGame::GetInstance()->GetScreenHeight();			 //////
-	m_pD3D->GetSprite()->Flush();////
-	m_pD3D->DrawRect(temp,0,0,0);//
-
 
 	Level->Render (player->GetCamera ());
 	m_pOM->RenderObjects(player->GetCamera());
@@ -682,7 +674,7 @@ void CGamePlayState::Render(void)
 		char buffer[32];
 		float tempcount = 5.0f-m_fCountDown;
 		sprintf_s(buffer,"%.2f",tempcount);
-		m_pPF->Print(buffer,380,280,1.0,D3DCOLOR_XRGB(255, 255, 255));
+		m_pPF->Print(buffer, CGame::GetInstance()->GetScreenWidth()/2-50,280,1.0,D3DCOLOR_XRGB(255, 255, 255));
 	}
 
 	if( time >= 0 )
@@ -694,7 +686,17 @@ void CGamePlayState::Render(void)
 			sprintf_s(timebuff, "%i:%i%i", minutes,0, seconds);
 		else
 			sprintf_s(timebuff, "%i:%i", minutes, seconds);
-		m_pPF->Print(timebuff, 350, 30, 1.0, D3DCOLOR_XRGB(255,255,255)); 
+		if(time > 10)
+			m_pPF->Print(timebuff, CGame::GetInstance()->GetScreenWidth()/2-50, 30, 1.0f, D3DCOLOR_XRGB(255,255,255)); 
+		else
+		{
+			if(!m_pFM->IsSoundPlaying(m_nCountDown))
+				m_pFM->PlaySound(m_nCountDown);
+			if(float(time)/2.0f > 0)
+				m_pPF->Print(timebuff, CGame::GetInstance()->GetScreenWidth()/2-100, 30,2.0f, D3DCOLOR_XRGB(255,0,0));
+			else
+				m_pPF->Print(timebuff, CGame::GetInstance()->GetScreenWidth()/2-100,30,2.0f, D3DCOLOR_XRGB(255,255,255));
+		}
 	}
 	//for(int i = m_lScores.size()-1; i >= 0; i--)
 	//{

@@ -126,7 +126,7 @@ void CTimeChallengeMode::CheckCarStatus(CCar* car)
 
 void CTimeChallengeMode::CheckWinLoss()
 {
-	if(m_bGameOver )
+	if(m_bGameOver || (CGamePlayState::GetInstance()->GetTimeLeft() <= 0))
 	{
 		vector<CCar*>* scores;
 		scores = CGamePlayState::GetInstance()->GetList();
