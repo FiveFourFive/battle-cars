@@ -84,7 +84,7 @@ void CCharacterSelection::Exit()
 	m_pFM->UnloadSound(m_nIncorrectSelection);
 	m_pTM->UnloadTexture(m_nFontID);
 	delete m_pPF;
-	m_pFM->StopSound(CMainMenuState::GetInstance()->GetBackgroundMusicID());
+	//m_pFM->StopSound(CMainMenuState::GetInstance()->GetBackgroundMusicID());
 	/*for( unsigned int i = 0; i < m_vPlayerList.size(); i++)
 	{
 		delete m_vPlayerList[i];

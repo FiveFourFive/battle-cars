@@ -35,6 +35,10 @@ void CCollectionMode::CheckCarStatus(CCar* car)
 void CCollectionMode::CheckWinLoss(void)
 {
 	bool tempFlag = false, gameOver = false;
+	if(CGamePlayState::GetInstance()->GetTimeLeft() <= 0 )
+	{
+		CGame::GetInstance()->ChangeState(CLossState::GetInstance());
+	}
 	if(CGamePlayState::GetInstance()->GetComputerCollectables() + CGamePlayState::GetInstance()->GetPlayerCollectables() == 50)
 	{
 		if(CGamePlayState::GetInstance()->GetPlayerCollectables() > CGamePlayState::GetInstance()->GetComputerCollectables())
@@ -48,5 +52,6 @@ void CCollectionMode::CheckWinLoss(void)
 			CGame::GetInstance()->ChangeState(CLossState::GetInstance());
 		}
 	}
+	
 
 }
