@@ -309,7 +309,7 @@ void CGamePlayState::Enter(void)
 	m_lScores.push_back(player);
 	if(CNumPlayers::GetInstance()->GetNumberOfPlayers() == 2)
 		m_lScores.push_back(player2);
-	player->SetKillCount(55);
+	///player->SetKillCount(55);
 }
 
 void CGamePlayState::Exit(void)
