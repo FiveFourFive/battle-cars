@@ -472,6 +472,19 @@ void CBoss::FireAtTarget(float fElapsedTime)
 {
 	if(m_bFlameThrowerIsOn)
 	{
+		ParticleManager* PM = ParticleManager::GetInstance();
+		Emittor* flame_thrower = PM->GetActiveEmittor(GetFlameThrowerEmittorID());
+
+		tVector2D temp;
+		temp.fX = 0;
+		temp.fY = -1;
+		temp = Vector2DRotate(temp,GetRotation());
+		Vector2DNormalize(temp);
+		temp = temp * (350+ GetSpeed());
+		flame_thrower->SetAcceleration(temp.fX, temp.fY);
+
+		PM->AttachToBasePosition(this, flame_thrower,0, 0);
+
 		m_nFireBullets--;
 		CMessageSystem::GetInstance()->SendMsg(new CCreateBossVetteSpecial(this));
 		if(m_nFireBullets <= 0)
@@ -503,6 +516,23 @@ void CBoss::FireAtTarget(float fElapsedTime)
 			break;
 		case CAR_VETTE:
 			{
+				tVector2D temp;
+				temp.fX = 0;
+				temp.fY = -1;
+				temp = Vector2DRotate(temp,GetRotation());
+				Vector2DNormalize(temp);
+				temp = temp * (350+ GetSpeed());
+
+				ParticleManager* PM = ParticleManager::GetInstance();
+				Emittor* flame_thrower = PM->CreateEffect(PM->GetEmittor(FLAMETHROWER_EMITTOR), GetPosX(), GetPosY(), temp.fX, temp.fY);
+
+
+				if( flame_thrower )
+				{
+					SetFlameThrowerEmittorID( flame_thrower->GetID());
+					flame_thrower->SetTimeToDie(2.0f);
+				}
+
 				CMessageSystem::GetInstance()->SendMsg(new CCreateBossVetteSpecial(this));
 				m_bFlameThrowerIsOn = true;
 				m_nFireBullets = 20;
