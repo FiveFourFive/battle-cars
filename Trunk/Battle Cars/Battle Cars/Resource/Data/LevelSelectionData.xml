@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Levels>
         <Level>
-               <LevelDataName>Addicts_Mayhem.xml</LevelDataName>
+               <LevelDataName>Addicts_Mayhem</LevelDataName>
        </Level>
         <level>
-       		<LevelDataName>TutorialLevel.xml</LevelDataName>
+       		<LevelDataName>TutorialLevel</LevelDataName>
         </level>
 	<Level>
-               <LevelDataName>CrashCity.xml</LevelDataName>
+               <LevelDataName>CrashCity</LevelDataName>
         </Level>
         <level>
-        	<LevelDataName>Untitled.xml</LevelDataName>
+        	<LevelDataName>Untitled</LevelDataName>
         </level>
 </Levels>
 
