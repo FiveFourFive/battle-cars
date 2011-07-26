@@ -114,29 +114,27 @@ bool CMainMenuState::Input(void)
 		float y = xState.Gamepad.sThumbLY;
 		if(CGame::GetInstance()->GetInputDelay() >= 0.15f)
 		{
-			CGame::GetInstance()->ResetInputDelay();
+			
 		if(xState.Gamepad.wButtons & tempkeys->GetAccept())
 		{
+			CGame::GetInstance()->ResetInputDelay();
 			return this->HandleEnter();
 		}
 
 
 		if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_START)
 		{
-			//int x = 0;
-			//x = XINPUT_GAMEPAD_START;
-			//int y = 0;
-			//y = x;
+			CGame::GetInstance()->ResetInputDelay();
 			return this->HandleEnter();
 		}
 
 		}
 		if(CGame::GetInstance()->GetThumbDelay() >= 0.15f)
 		{
-			CGame::GetInstance()->ResetThumbDelay();
+		
 		if(x < 8000 && x > -8000 && y > 16000 || xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP)
 		{
-			
+			CGame::GetInstance()->ResetThumbDelay();
 			m_nSelection--;
 			m_pFM->PlaySound(m_nMenuMove);
 			if(m_nSelection < 0)
@@ -144,6 +142,7 @@ bool CMainMenuState::Input(void)
 		}
 		else if(x < 8000 && x > -8000 && y < -16000 || xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN)
 		{
+			CGame::GetInstance()->ResetThumbDelay();
 			m_nSelection++;
 			m_pFM->PlaySound(m_nMenuMove);
 			if(m_nSelection > 6)

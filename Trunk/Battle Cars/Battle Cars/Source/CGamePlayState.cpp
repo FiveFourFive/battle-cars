@@ -410,12 +410,12 @@ bool CGamePlayState::Input()
 
 		if(CGame::GetInstance()->GetInputDelay() >= 0.15f)
 		{
-			CGame::GetInstance()->ResetInputDelay();
+			
 			if(!m_bCountDown)
 			{
 				if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_X)
 				{
-
+					CGame::GetInstance()->ResetInputDelay();
 					m_pFM->PlaySound(m_nCountDown);
 					m_bCountDown = true;
 

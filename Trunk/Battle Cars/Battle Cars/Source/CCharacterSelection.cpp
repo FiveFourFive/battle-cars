@@ -125,13 +125,15 @@ bool CCharacterSelection::Input()
 			float y = xState.Gamepad.sThumbLY;
 			if(CGame::GetInstance()->GetInputDelay() >= 0.15f)
 			{
-				CGame::GetInstance()->ResetInputDelay();
+				
 				if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_X)
 				{
+					CGame::GetInstance()->ResetInputDelay();
 					return this->HandleEnter();
 				}
 				else if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_B)
 				{
+					CGame::GetInstance()->ResetInputDelay();
 					for( unsigned int i = 0; i < m_vPlayerList.size(); i++)
 					{
 						delete m_vPlayerList[i];
@@ -142,11 +144,12 @@ bool CCharacterSelection::Input()
 			}
 			if(CGame::GetInstance()->GetThumbDelay() >= 0.15f)
 			{
-				CGame::GetInstance()->ResetThumbDelay();
+				
 				if(x < 8000 && x > -8000 && y > 16000|| xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP)
 				{
 					if( IsPlayer1Selecting()  )
 					{
+						CGame::GetInstance()->ResetThumbDelay();
 						m_nSelection--;
 						m_pFM->PlaySound(m_nMenuMove);
 						if(m_nSelection < 0)
@@ -157,6 +160,7 @@ bool CCharacterSelection::Input()
 				}
 				else if(x < 8000 && x > -8000 && y < -16000|| xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN)
 				{
+					CGame::GetInstance()->ResetThumbDelay();
 					if( IsPlayer1Selecting()  )
 					{
 						m_nSelection++;
@@ -232,13 +236,15 @@ bool CCharacterSelection::Input()
 			float y = xState.Gamepad.sThumbLY;
 			if(CGame::GetInstance()->GetInputDelay() >= 0.15f)
 			{
-				CGame::GetInstance()->ResetInputDelay();
+				
 				if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_X)
 				{
+					CGame::GetInstance()->ResetInputDelay();
 					return this->HandleEnter();
 				}
 				else if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_B)
 				{
+					CGame::GetInstance()->ResetInputDelay();
 					for( unsigned int i = 0; i < m_vPlayerList.size(); i++)
 					{
 						delete m_vPlayerList[i];
@@ -249,11 +255,12 @@ bool CCharacterSelection::Input()
 			}
 			if(CGame::GetInstance()->GetThumbDelay() >= 0.15f)
 			{
-				CGame::GetInstance()->ResetThumbDelay();
+				
 				if(x < 8000 && x > -8000 && y > 16000|| xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP)
 				{
 					if(IsPlayer2Selecting() )
 					{
+						CGame::GetInstance()->ResetThumbDelay();
 						m_nSelection--;
 						m_pFM->PlaySound(m_nMenuMove);
 						if(m_nSelection < 0)
@@ -264,6 +271,7 @@ bool CCharacterSelection::Input()
 				}
 				else if(x < 8000 && x > -8000 && y < -16000|| xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN)
 				{
+					CGame::GetInstance()->ResetThumbDelay();
 					if(IsPlayer2Selecting() )
 					{
 						m_nSelection++;
