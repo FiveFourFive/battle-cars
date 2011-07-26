@@ -193,7 +193,7 @@ void CGamePlayState::Enter(void)
 
 	
 	
-	time = 60;
+	time = 1000;
 	m_fElapsedSecond = 0.0f;
 	score = 0;
 

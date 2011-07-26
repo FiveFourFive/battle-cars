@@ -6,5 +6,5 @@ aai 3
 aah 2
 aaf 2
 aab 1
+DEFAULT 1
 aac 0
-aag 0

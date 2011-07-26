@@ -19,6 +19,7 @@
 #include "CCharacterSelection.h"
 #include "CCar.h"
 #include "CGamePlayState.h"
+#include "CMap.h"
 
 
 CWanderState::CWanderState(const CWanderState&)
@@ -299,10 +300,12 @@ void CWanderState::Wander(float fElapsedTime)
 	{
 		if(!m_bHasTargets)
 		{
-		
+			int maxX = (CLevel::GetInstance ()->GetMap ()->GetMapWidth ()*CLevel::GetInstance ()->GetMap ()->GetPixelWidth () - 500);
+			int maxY = (CLevel::GetInstance ()->GetMap ()->GetMapHeight ()*CLevel::GetInstance ()->GetMap ()->GetPixelHeight () - 500);
+			int min = 500;
 			//tVector2D m_vTargetLocation;
-			m_fTargetX = float(rand()%1500+100);						// so that it works on every map GetTileWidth()*num of tiles horizontally - 100 (since we are using middle of car for position calculations)
-			m_fTargetY = float(rand()%1500+100);						// so that it works on every map GetTileHeight()*num of tiles vertically - 100 (since we are using middle of car for position calculations)
+			m_fTargetX = float(rand()% (maxX - min + 1) - min);						// so that it works on every map GetTileWidth()*num of tiles horizontally - 100 (since we are using middle of car for position calculations)
+			m_fTargetY = float(rand()% (maxY - min + 1) - min);						// so that it works on every map GetTileHeight()*num of tiles vertically - 100 (since we are using middle of car for position calculations)
 			m_bHasTargets = true;
 
 		}

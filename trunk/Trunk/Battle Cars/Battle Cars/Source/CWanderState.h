@@ -81,6 +81,7 @@ public:
 	void SetTarget2(CCar* pTarget) {m_Target2 = pTarget;}
 	CCar* GetTarget1() {return m_Target1;}
 	CCar* GetTarget2() {return m_Target2;}
+	void SetHasTarget (bool target) {m_bHasTargets = target;}
 	
 };
 
