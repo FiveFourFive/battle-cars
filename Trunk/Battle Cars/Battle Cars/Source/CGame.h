@@ -100,6 +100,7 @@ public:
 	CKeyboardKeyBinds* GetKeyboardKeyBinds(void) { return m_pKeyboardKB; }
 	float getSoundAVolume();
 	float getSoundBVolume();
+	float GetElapsedTime(){ return m_fElapsedTime;}
 
 	void SetSoundAVolume(float newvol);
 	void SetSoundBVolume(float newvol);

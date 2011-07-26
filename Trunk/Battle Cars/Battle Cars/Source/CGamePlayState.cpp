@@ -616,8 +616,8 @@ void CGamePlayState::Update(float fElapsedTime)
 		//Level->CheckCameraCollision (player->GetCamera ());
 		//Level->CheckWorldCollision (player);
 
-		m_pES->ProcessEvents ();
 		m_pPM->UpdateEmittors(fElapsedTime);
+		m_pES->ProcessEvents ();
 		m_pMS->ProcessMessages ();
 		
 	
@@ -817,7 +817,6 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet->SetDamage(35);
 			pBullet->SetBulletType(PROJECTILE_MISSILE);
 			pBullet->SetRotation(pCBM->GetPlayer()->GetRotation());
-			pGame->m_pOM->AddObject(pBullet);
 
 			ParticleManager* pPM = ParticleManager::GetInstance(); 
 			Emittor* tempemittor = pPM->CreateEffect(pPM->GetEmittor(MISSLE_EMITTOR), pBullet->GetPosX() - pBullet->GetWidth() * 0.5f, pBullet->GetPosY() - pBullet->GetHeight()*0.5f);
@@ -830,6 +829,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 
 			}
 
+			pGame->m_pOM->AddObject(pBullet);
 			pBullet->Release();
 		}
 		break;
@@ -1262,11 +1262,15 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			CGamePlayState* pGame = CGamePlayState::GetInstance();
 			if(tempbullet->GetBulletType() == PROJECTILE_BULLET)
 			{
- 				CGamePlayState::GetInstance()->m_pPM->GetEmittor(tempbullet->GetTracerEmittor())->SetBase(NULL);
+				if( tempbullet->GetTracerEmittor() > -1 )
+ 					CGamePlayState::GetInstance()->m_pPM->GetActiveEmittor(tempbullet->GetTracerEmittor())->SetBase(NULL);
 				pGame->m_pOM->RemoveObject(tempbullet);
 			}
 			else if(tempbullet->GetBulletType() == PROJECTILE_MISSILE || tempbullet->GetBulletType() == PROJECTILE_MINI_MISSILE)
 			{
+				if(tempbullet->GetTracerEmittor() > -1)
+					CGamePlayState::GetInstance()->m_pPM->GetActiveEmittor(tempbullet->GetTracerEmittor())->SetBase(NULL);
+
 #pragma region EXPLOSION_EFFECT
 				Emittor* smoke_emittor = PM->CreateEffect(PM->GetEmittor(EXPLOSION_SMOKE_EMITTOR), tempbullet->GetPosX(), tempbullet->GetPosY());
 				if( smoke_emittor )
@@ -1298,6 +1302,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 				}
 #pragma endregion
 				pGame->m_pOM->RemoveObject(tempbullet);
+				tempbullet = NULL;
 			}
 			else if(tempbullet->GetBulletType() == PROJECTILE_LANDMINE)
 			{

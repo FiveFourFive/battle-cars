@@ -412,7 +412,9 @@ bool CLevel::CheckBulletCollision (CBase* pBase)
 				{
 					if(IntersectRect(&intersection, &LevelMap->GetCollisionRect(XPos, YPos), &pBase->GetRect()))
 					{
+						
 						CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage((CBullet*)pBase));
+						
 
 						return true;
 					}
