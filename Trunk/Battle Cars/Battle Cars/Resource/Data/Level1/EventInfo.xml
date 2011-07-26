@@ -445,8 +445,8 @@
   <Event ID="NULL" XPos="199" YPos="12" Type="60">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="13" Type="60">CameraCollision</Event>
   <Event ID="NULL" XPos="2" YPos="13" Type="60">WallCollision</Event>
-  <Event ID="Crate" XPos="185" YPos="13" Type="76">ObstacleSpawn</Event>
-  <Event ID="Crate" XPos="187" YPos="13" Type="76">ObstacleSpawn</Event>
+  <Event ID="Crate" XPos="181" YPos="13" Type="76">ObstacleSpawn</Event>
+  <Event ID="Crate" XPos="188" YPos="13" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="197" YPos="13" Type="60">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="13" Type="60">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="14" Type="60">CameraCollision</Event>
@@ -508,6 +508,7 @@
   <Event ID="NULL" XPos="199" YPos="27" Type="60">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="28" Type="60">CameraCollision</Event>
   <Event ID="NULL" XPos="2" YPos="28" Type="60">WallCollision</Event>
+  <Event ID="Crate" XPos="65" YPos="28" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="197" YPos="28" Type="60">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="28" Type="60">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="29" Type="60">CameraCollision</Event>
@@ -521,12 +522,11 @@
   <Event ID="NULL" XPos="199" YPos="30" Type="60">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="31" Type="60">CameraCollision</Event>
   <Event ID="NULL" XPos="2" YPos="31" Type="60">WallCollision</Event>
-  <Event ID="Crate" XPos="63" YPos="31" Type="76">ObstacleSpawn</Event>
+  <Event ID="Crate" XPos="72" YPos="31" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="197" YPos="31" Type="60">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="31" Type="60">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="32" Type="60">CameraCollision</Event>
   <Event ID="NULL" XPos="2" YPos="32" Type="60">WallCollision</Event>
-  <Event ID="Crate" XPos="63" YPos="32" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="197" YPos="32" Type="60">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="32" Type="60">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="33" Type="60">CameraCollision</Event>
@@ -575,13 +575,13 @@
   <Event ID="NULL" XPos="199" YPos="42" Type="60">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="43" Type="60">CameraCollision</Event>
   <Event ID="NULL" XPos="2" YPos="43" Type="60">WallCollision</Event>
+  <Event ID="Crate" XPos="54" YPos="43" Type="76">ObstacleSpawn</Event>
+  <Event ID="Crate" XPos="60" YPos="43" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="197" YPos="43" Type="60">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="43" Type="60">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="44" Type="60">CameraCollision</Event>
   <Event ID="NULL" XPos="2" YPos="44" Type="60">WallCollision</Event>
   <Event ID="Down" XPos="35" YPos="44" Type="76">SpeedRampSpawn</Event>
-  <Event ID="Crate" XPos="59" YPos="44" Type="76">ObstacleSpawn</Event>
-  <Event ID="Crate" XPos="60" YPos="44" Type="76">ObstacleSpawn</Event>
   <Event ID="NULL" XPos="197" YPos="44" Type="60">WallCollision</Event>
   <Event ID="NULL" XPos="199" YPos="44" Type="60">CameraCollision</Event>
   <Event ID="NULL" XPos="0" YPos="45" Type="60">CameraCollision</Event>
