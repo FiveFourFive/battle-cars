@@ -343,34 +343,29 @@ bool CLevel::CheckObstacleCollision (CBase* pBase)
 
 						((CObstacle*)pBase)->SetVel (temp);
 
+						if (intersection.bottom - intersection.top > intersection.right - intersection.left) // left or right collision
+						{
+							if (((CObstacle*)pBase)->GetRect ().left <= LevelMap->GetCollisionRect(XPos, YPos).right)//right collision
+							{
+								((CObstacle*)pBase)->SetPosX (((CObstacle*)pBase)->GetPosX () - 2.0f);
+							}else if (((CObstacle*)pBase)->GetRect ().right >= LevelMap->GetCollisionRect(XPos, YPos).left)//left collision
+							{
+								((CObstacle*)pBase)->SetPosX (((CObstacle*)pBase)->GetPosX () + 2.0f);
+							}
+							return true;
+						}
+
 						if ((intersection.bottom - intersection.top) < (intersection.right - intersection.left))//top or bottom collision
 						{
 							if (((CObstacle*)pBase)->GetRect ().top <= LevelMap->GetCollisionRect(XPos, YPos).bottom)//bottom collision
 							{
 								((CObstacle*)pBase)->SetPosY (((CObstacle*)pBase)->GetPosY () + 2.0f);
-								return true;
-							}
-							if (((CObstacle*)pBase)->GetRect ().bottom >= LevelMap->GetCollisionRect(XPos, YPos).top)//top collision
+							}else if (((CObstacle*)pBase)->GetRect ().bottom >= LevelMap->GetCollisionRect(XPos, YPos).top)//top collision
 							{
 								((CObstacle*)pBase)->SetPosY (((CObstacle*)pBase)->GetPosY () - 2.0f);
-								return true;
 							}
+							return true;
 						}
-
-						if (intersection.bottom - intersection.top > intersection.right - intersection.left) // left or right collision
-						{
-							if (((CObstacle*)pBase)->GetRect ().left <= LevelMap->GetCollisionRect(XPos, YPos).right)//right collision
-							{
-								((CObstacle*)pBase)->SetPosX (((CObstacle*)pBase)->GetPosX () + 2.0f);
-								return true;
-							}
-							if (((CObstacle*)pBase)->GetRect ().right >= LevelMap->GetCollisionRect(XPos, YPos).left)//left collision
-							{
-								((CObstacle*)pBase)->SetPosX (((CObstacle*)pBase)->GetPosX () - 2.0f);
-								return true;
-							}
-						}
-
 					}
 				}
 			}
@@ -832,9 +827,11 @@ bool CLevel::CheckEnemyCollision (CBase* pBase)
 						if (((CEnemy*)pBase)->GetCurrentState () != ((CEnemy*)pBase)->GetWanderState ())
 						{
 							((CEnemy*)pBase)->GetWanderState ()->SetOwner ((CEnemy*)pBase);
+							((CEnemy*)pBase)->GetWanderState ()->SetHasTarget (false);
 							((CEnemy*)pBase)->SetCurrentState (((CEnemy*)pBase)->GetWanderState ());
 						}else
 						{
+							((CEnemy*)pBase)->GetWanderState ()->SetHasTarget (false);
 							((CWanderState*)((CEnemy*)pBase)->GetCurrentState ())->SetTarget1 (NULL);
 							((CWanderState*)((CEnemy*)pBase)->GetCurrentState ())->SetTarget2 (NULL);
 						}
@@ -853,9 +850,11 @@ bool CLevel::CheckEnemyCollision (CBase* pBase)
 						if (((CEnemy*)pBase)->GetCurrentState () != ((CEnemy*)pBase)->GetWanderState ())
 						{
 							((CEnemy*)pBase)->GetWanderState ()->SetOwner ((CEnemy*)pBase);
+							((CEnemy*)pBase)->GetWanderState ()->SetHasTarget (false);
 							((CEnemy*)pBase)->SetCurrentState (((CEnemy*)pBase)->GetWanderState ());
 						}else
 						{
+							((CEnemy*)pBase)->GetWanderState ()->SetHasTarget (false);
 							((CWanderState*)((CEnemy*)pBase)->GetCurrentState ())->SetTarget1 (NULL);
 							((CWanderState*)((CEnemy*)pBase)->GetCurrentState ())->SetTarget2 (NULL);
 						}
@@ -874,9 +873,11 @@ bool CLevel::CheckEnemyCollision (CBase* pBase)
 						if (((CEnemy*)pBase)->GetCurrentState () != ((CEnemy*)pBase)->GetWanderState ())
 						{
 							((CEnemy*)pBase)->GetWanderState ()->SetOwner ((CEnemy*)pBase);
+							((CEnemy*)pBase)->GetWanderState ()->SetHasTarget (false);
 							((CEnemy*)pBase)->SetCurrentState (((CEnemy*)pBase)->GetWanderState ());
 						}else
 						{
+							((CEnemy*)pBase)->GetWanderState ()->SetHasTarget (false);
 							((CWanderState*)((CEnemy*)pBase)->GetCurrentState ())->SetTarget1 (NULL);
 							((CWanderState*)((CEnemy*)pBase)->GetCurrentState ())->SetTarget2 (NULL);
 						}
@@ -895,10 +896,12 @@ bool CLevel::CheckEnemyCollision (CBase* pBase)
 						if (((CEnemy*)pBase)->GetCurrentState () != ((CEnemy*)pBase)->GetWanderState ())
 						{
 							((CEnemy*)pBase)->GetWanderState ()->SetOwner ((CEnemy*)pBase);
+							((CEnemy*)pBase)->GetWanderState ()->SetHasTarget (false);
 							((CEnemy*)pBase)->SetCurrentState (((CEnemy*)pBase)->GetWanderState ());
 							
 						}else
 						{
+							((CEnemy*)pBase)->GetWanderState ()->SetHasTarget (false);
 							((CWanderState*)((CEnemy*)pBase)->GetCurrentState ())->SetTarget1 (NULL);
 							((CWanderState*)((CEnemy*)pBase)->GetCurrentState ())->SetTarget2 (NULL);
 						}
