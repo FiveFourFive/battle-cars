@@ -5,15 +5,6 @@
 #include "CBullet.h"
 #include "CCar.h"
 
-namespace temp_variables
-{
-	int temp_alpha;
-	int temp_red;
-	int temp_green;
-	int temp_blue;
-
-	bool isSet = false;
-}
 
 Emittor::Emittor()
 {
@@ -188,28 +179,21 @@ void Emittor::ClearParticleList()
 
 void Emittor::UpdateColor(int i)
 {
-			int tempA = 0;
-            int tempR = 0;
-            int tempG = 0;
-            int tempB = 0;
 
-	// Possible way to get color values.
-	if( temp_variables::isSet == false)
-	{
-		temp_variables::isSet = true;
-		temp_variables::temp_alpha = ((m_StartColor >> 24) - (m_EndColor >> 24));
-		temp_variables::temp_red = ((m_StartColor >> 16) & 0xFF) -  ((m_EndColor >> 16) & 0xFF);
-		temp_variables::temp_green = ((m_StartColor >> 8) & 0xFF) - ((m_EndColor >> 8) & 0xFF);
-		temp_variables::temp_blue = (m_StartColor & 0xFF) - (m_EndColor & 0xFF);
-	}
 
-				tempA = ((m_StartColor >> 24) - (int)(temp_variables::temp_alpha * (m_vParticleList[i]->colorfade_timer / m_fEndLife)));
+			tempA = ((m_StartColor >> 24) - (m_EndColor >> 24));
+			tempR = ((m_StartColor >> 16) & 0xFF) -  ((m_EndColor >> 16) & 0xFF);
+			tempG = ((m_StartColor >> 8) & 0xFF) - ((m_EndColor >> 8) & 0xFF);
+			tempB = (m_StartColor & 0xFF) - (m_EndColor & 0xFF);
 
-                tempR = (((m_StartColor >> 16) & 0xFF) - (int)(temp_variables::temp_red * (m_vParticleList[i]->colorfade_timer / m_fEndLife)));
+
+				tempA = ((m_StartColor >> 24) - (int)(tempA * (m_vParticleList[i]->colorfade_timer / m_fEndLife)));
+
+                tempR = (((m_StartColor >> 16) & 0xFF) - (int)(tempR * (m_vParticleList[i]->colorfade_timer / m_fEndLife)));
 																					
-                tempG = (((m_StartColor >> 8 ) & 0xFF) - (int)(temp_variables::temp_green * (m_vParticleList[i]->colorfade_timer / m_fEndLife)));                       
+                tempG = (((m_StartColor >> 8 ) & 0xFF) - (int)(tempG * (m_vParticleList[i]->colorfade_timer / m_fEndLife)));                       
                                                   								
-                tempB = ((m_StartColor & 0xFF) - (int)(temp_variables::temp_blue * (m_vParticleList[i]->colorfade_timer / m_fEndLife)));
+                tempB = ((m_StartColor & 0xFF) - (int)(tempB * (m_vParticleList[i]->colorfade_timer / m_fEndLife)));
 
                 if (tempA > 255)
                     tempA = 255;
