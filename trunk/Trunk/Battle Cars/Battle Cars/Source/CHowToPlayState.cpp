@@ -56,6 +56,7 @@ void CHowToPlayState::Enter(void)
 	m_pFM = CSGD_FModManager::GetInstance();
 	m_nMenuSelect = m_pFM->LoadSound("resource/sounds/menuselect.mp3");
 	m_nMenuMove = m_pFM->LoadSound("resource/sounds/menuchange.mp3");
+	m_nBGImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/optionstate.jpg");
 
 	m_pFM->SetVolume(m_nMenuSelect,CGame::GetInstance()->getSoundAVolume());
 	m_pFM->SetVolume(m_nMenuMove,CGame::GetInstance()->getSoundAVolume());
@@ -118,15 +119,7 @@ void CHowToPlayState::Update(float fElapsedTime)
 void CHowToPlayState::Render(void)
 {
 	CSGD_Direct3D* pD3D = CSGD_Direct3D::GetInstance();
-
-	RECT temp;					 
-	temp.left = 0;				 
-	temp.top = 0;				 
-	temp.right = 800;			 
-	temp.bottom = 600;			 
-	pD3D->GetSprite()->Flush();
-	pD3D->DrawRect(temp,0,0,0);
-
+	m_pTM->Draw(m_nBGImageID, 0, 0, 1.5f, 1.8f);
 	m_pPF->Print("HOW TO PLAY",220,50,1.0f,D3DCOLOR_XRGB(255, 0, 0));
 	m_pPF->Print("Arrow Keys - MOVEMENT",100,100,0.5f,D3DCOLOR_XRGB(0, 0, 255));
 	m_pPF->Print("Spacebar - SHOOT",100,150,0.5f,D3DCOLOR_XRGB(0, 0, 255));
