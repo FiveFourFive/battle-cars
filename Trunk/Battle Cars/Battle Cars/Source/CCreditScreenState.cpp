@@ -49,7 +49,7 @@ void CCreditsScreenState::Enter()
 	m_pPF = new CPrintFont(m_nFontID);
 	m_nFontID = m_pTM->LoadTexture("resource/graphics/BC_Font.png",D3DCOLOR_XRGB(0, 0, 0));
 	
-	m_nImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/mainmenu_bg.jpg");
+	m_nImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/CreditScreenBGImage.jpg");
 	m_nSoundID = m_pFM->LoadSound("resource/sounds/neoncity.mp3");
 	m_pFM->SetVolume(m_nSoundID,CGame::GetInstance()->getSoundBVolume());
 	m_pFM->PlaySoundA(m_nSoundID);
@@ -108,7 +108,7 @@ void CCreditsScreenState::Update(float fElapsedTime)
 
 void CCreditsScreenState::Render()
 {
-	m_pTM->Draw(m_nImageID, 0, 0, 2.9f, 1.8f);
+	m_pTM->Draw(m_nImageID, 0, 0, 0.7f, 0.45f);
 	if(CGame::GetInstance()->ControllerInput())
 		m_pPF->Print("B To Skip",40,(int)(CGame::GetInstance()->GetScreenHeight()-70),1.0f,D3DCOLOR_XRGB(255,0,0));
 	else
