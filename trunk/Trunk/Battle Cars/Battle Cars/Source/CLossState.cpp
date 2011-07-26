@@ -127,8 +127,8 @@ void CLossState::Update(float fElapsedTime)
 void CLossState::Render(void)
 {
 	m_pTM->Draw(m_nBGImageID, 0, 0, 1.5f, 1.0f);
-	m_pPF->Print("GAME OVER",220,50,1.0f,D3DCOLOR_XRGB(255,0,0));
-	m_pPF->Print("FINAL SCORE: ", 100,150,1.0f,D3DCOLOR_XRGB(0,0,255));
+	m_pPF->Print("Game Over You Lose",220,50,1.0f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("Final Score: ", 100,150,1.0f,D3DCOLOR_XRGB(0,0,255));
 
 	char buffer[128];
 	int playerscore = CGame::GetInstance()->GetScore();
