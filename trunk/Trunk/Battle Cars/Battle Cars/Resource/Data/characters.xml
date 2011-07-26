@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <characters>
-            <character armor ="20" accel  ="160" maxspeed ="300" rate="0" left="560" top="5" right="695" bottom="265" h_left="5" h_top="350" h_right="65" h_bottom="460">sbs_cars_big.png</character>
-            <character armor ="40" accel ="130" maxspeed ="275" rate=".1" left="325" top="5" right="485" bottom="350" h_left="5" h_top="5" h_right="72" h_bottom="145">sbs_cars_big.png</character>
-            <character armor ="60" accel ="110" maxspeed ="220" rate=".2" left="5" top="10" right="260" bottom="455" h_left="5" h_top="150" h_right="100" h_bottom="330">sbs_cars_big.png</character>
-            <character armor ="80" accel ="90" maxspeed ="200" rate=".3" left="740" top="10" right="860" bottom="245" h_left="0" h_top="480" h_right="80" h_bottom="645">sbs_cars_big.png</character>
+            <character armor ="20" accel  ="560" maxspeed ="300" rate="0" left="560" top="5" right="695" bottom="265" h_left="5" h_top="350" h_right="65" h_bottom="460">sbs_cars_big.png</character>
+            <character armor ="40" accel ="490" maxspeed ="275" rate=".1" left="325" top="5" right="485" bottom="350" h_left="5" h_top="5" h_right="72" h_bottom="145">sbs_cars_big.png</character>
+            <character armor ="60" accel ="410" maxspeed ="220" rate=".2" left="5" top="10" right="260" bottom="455" h_left="5" h_top="150" h_right="100" h_bottom="330">sbs_cars_big.png</character>
+            <character armor ="80" accel ="380" maxspeed ="200" rate=".3" left="740" top="10" right="860" bottom="245" h_left="0" h_top="480" h_right="80" h_bottom="645">sbs_cars_big.png</character>
 </characters>
+
 
 
 

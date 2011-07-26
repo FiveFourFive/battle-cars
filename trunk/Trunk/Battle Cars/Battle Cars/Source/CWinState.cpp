@@ -90,6 +90,17 @@ void CWinState::Enter(void)
 	char* buffer = new char[38];
 	strcpy_s(buffer,38,name.c_str());
 
+	for(int i = 0; i < 4; i++)
+	{
+		m_bRoll = false;
+		if(tempprofile->cars[i] == false)
+		{
+			m_bRoll = true;
+			break;
+		}
+	}
+
+
 	addme.name = buffer;
 	addme.score = CGame::GetInstance()->GetScore();
 	CHighscoreState::GetInstance()->AddScore(addme);
@@ -160,6 +171,8 @@ bool CWinState::Input(void)
 void CWinState::Update(float fElapsedTime)
 {
 	m_fSlotTime += fElapsedTime;
+	if(m_bRoll)
+	{
 	if(m_fTotalTurns > 0 )
 	{
 
@@ -179,7 +192,7 @@ void CWinState::Update(float fElapsedTime)
 
 	}
 	}
-
+	}
 	m_pFM->Update();
 }
 
@@ -204,6 +217,8 @@ void CWinState::Render(void)
 	sprintf_s(buffer,"%f",m_fTotalTurns);
 	//m_pD3D->DrawText(buffer,400,280,255,255,255);
 	Gamer_Profile* tempprofile = CGamerProfile::GetInstance()->GetActiveProfile();
+	if(m_bRoll)
+	{
 	switch(m_nSlot)
 	{
 	case 0:
@@ -233,6 +248,7 @@ void CWinState::Render(void)
 	}
 	if(id >= 0)
 		m_pTM->Draw(id,800,250,1.0f,1.0f);
+	}
 	//m_pD3D->DrawRect(cars,color,0,0);
 
 
