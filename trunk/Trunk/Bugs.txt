@@ -9,7 +9,6 @@ Score Board jumping when multiple people have the same kill count
 when enemy dies you can drive over them and still collide
 everything rendering under the speed ramp
 particles spawn extra emittor
-crate collision
 particles render while car is gone
 player over taking crates and barrels
 particles render all at once then update
