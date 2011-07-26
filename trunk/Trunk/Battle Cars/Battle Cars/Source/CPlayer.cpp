@@ -480,7 +480,8 @@ void CPlayer::Update(float fElapsedTime)
 void CPlayer::Render(CCamera* camera)
 {
 	CSGD_Direct3D* pD3D = CSGD_Direct3D::GetInstance();
-
+	if(m_pController1)
+		m_pController1->Vibrate();
 	CCar::Render(camera);
 
 }
@@ -515,6 +516,8 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 		if(distance11 <= (GetRadius() + tempcar->GetRadius()) || distance21 <= (GetRadius() + tempcar->GetRadius())
 			|| distance12 <= (GetRadius() + tempcar->GetRadius()) || distance22 <= (GetRadius() + tempcar->GetRadius()))
 		{
+			this->GetController()->Vibrate(30000,30000);
+
 
 			SetTurnable(false);
 			tempcar->SetTurnable(false);

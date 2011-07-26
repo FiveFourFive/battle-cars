@@ -19,6 +19,7 @@
 #include "Emittor.h"
 #include "CGamePlayState.h"
 #include "CLevel.h"
+#include "CXboxInput.h"
 
 CEnemy::CEnemy(CXboxInput* pController) : CPlayer(pController)
 {
@@ -189,6 +190,11 @@ bool CEnemy::CheckCollision(IBaseInterface* pBase)
 		CCar* tempcar = (CCar*)pBase;
 		//float centerx = tempcar->GetPosX();
 		//float centery = tempcar->GetPosY();
+		if(pBase->GetType() == OBJECT_PLAYER)
+		{
+			CPlayer* tempplayer = (CPlayer*)pBase;
+			tempplayer->GetController()->Vibrate(30000,30000);
+		}
 		float centerx = tempcar->GetCX1();
 		float centery = tempcar->GetCY1();
 		float myx = GetCX1();
