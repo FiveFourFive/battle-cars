@@ -206,13 +206,16 @@ void CLevelSelectionState::Render()
 
 	for( int i = 0; i < LEVEL_MAX; i++)
 	{
+		string buffer = m_ListofLevels[i]->FileName;
+		buffer.erase(buffer.begin() + buffer.length() - 4, buffer.end());
+
 		if( i != m_nSelection)
 		{
-			m_pPF->Print(m_ListofLevels[i]->FileName.c_str(), 10, (i + 1) * 50, 0.5f, D3DCOLOR_XRGB(200, 0, 0));
+			m_pPF->Print(buffer.c_str(), 10, (i + 1) * 50, 0.5f, D3DCOLOR_XRGB(200, 0, 0));
 		}
 		else
 		{
-			m_pPF->Print(m_ListofLevels[i]->FileName.c_str(), 10, (i + 1) * 50, 0.5f, D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print(buffer.c_str(), 10, (i + 1) * 50, 0.5f, D3DCOLOR_XRGB(0, 255, 0));
 			m_pTM->Draw(render_ids[m_nCurrentFrame], 200, 250, 0.5f, 0.5f, NULL,0, 0, 0, color);
 		}
 	}
