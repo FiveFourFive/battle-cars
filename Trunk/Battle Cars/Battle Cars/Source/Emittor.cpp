@@ -53,8 +53,14 @@ void Emittor::Update(float fElapsedTime)
 					continue;
 				else
 				{
-					m_vParticleList[i]->isDead = false;
-
+					if( m_vParticleList[i]->isDead == true )
+					{
+						m_vParticleList[i]->isDead = false;
+						if( base )
+						{
+							m_vParticleList[i]->position = this->position;
+						}
+					}
 				}
 			}
 			else

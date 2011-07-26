@@ -473,7 +473,9 @@ void CBoss::FireAtTarget(float fElapsedTime)
 	if(m_bFlameThrowerIsOn)
 	{
 		ParticleManager* PM = ParticleManager::GetInstance();
-		Emittor* flame_thrower = PM->GetActiveEmittor(GetFlameThrowerEmittorID());
+		Emittor* flame_thrower = NULL;
+		if( GetFlameThrowerEmittorID() > -1)
+			 flame_thrower = PM->GetActiveEmittor(GetFlameThrowerEmittorID());
 
 		tVector2D temp;
 		temp.fX = 0;
@@ -484,14 +486,18 @@ void CBoss::FireAtTarget(float fElapsedTime)
 		if( flame_thrower)
 		{
 			flame_thrower->SetAcceleration(temp.fX, temp.fY);
-
-			PM->AttachToBasePosition(this, flame_thrower,0, 0);
+			PM->AttachToBase(this, flame_thrower);
 		}
 
 		m_nFireBullets--;
 		CMessageSystem::GetInstance()->SendMsg(new CCreateBossVetteSpecial(this));
 		if(m_nFireBullets <= 0)
+		{
+			flame_thrower->SetTimeToDie(0.0f);
+			flame_thrower->SetBase(NULL);
+			SetFlameThrowerEmittorID(-1);
 			m_bFlameThrowerIsOn = false;
+		}
 	}
 	else if(m_bGatlingIsOn)
 	{
