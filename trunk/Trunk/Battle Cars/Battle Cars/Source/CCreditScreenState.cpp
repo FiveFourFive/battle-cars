@@ -109,6 +109,10 @@ void CCreditsScreenState::Update(float fElapsedTime)
 void CCreditsScreenState::Render()
 {
 	m_pTM->Draw(m_nImageID, 0, 0, 2.9f, 1.8f);
+	if(CGame::GetInstance()->ControllerInput())
+		m_pPF->Print("B To Skip",40,(int)(CGame::GetInstance()->GetScreenHeight()-70),1.0f,D3DCOLOR_XRGB(255,0,0));
+	else
+		m_pPF->Print("ESC To Skip",40,(int)(CGame::GetInstance()->GetScreenHeight()-70),1.0f,D3DCOLOR_XRGB(255,0,0));
 	m_pPF->Print("Battle Cars: Mayhem and Destruction", (int)(CGame::GetInstance()->GetScreenWidth()*0.5f - 328), (int)y[0], 0.8f, D3DCOLOR_XRGB(0,255,0));
 	m_pPF->Print("Executive Producer", (int)(CGame::GetInstance()->GetScreenWidth()*0.5f - 328), (int)y[1], 0.8f, D3DCOLOR_XRGB(0,255,0));
 	m_pPF->Print("John O'Leske", (int)(CGame::GetInstance()->GetScreenWidth()*0.5f - 264), (int)y[2], 0.8f, D3DCOLOR_XRGB(0,255,0));
