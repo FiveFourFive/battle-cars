@@ -88,7 +88,7 @@ public:
 			RECT rLetter = CellAlgorithm(id);
 			//Draw to the screen	
 
-			CSGD_TextureManager::GetInstance()->Draw(m_nImageID, (int((nPosX-((m_nCharWidth*len)/2))+nOffsetX)*fScale), nPosY, fScale, fScale, &rLetter, 0,0,0, dwColor);
+			CSGD_TextureManager::GetInstance()->Draw(m_nImageID, (nPosX-(((m_nCharWidth*(int)fScale)*len)/2))+nOffsetX, nPosY, fScale, fScale, &rLetter, 0,0,0, dwColor);
 		}
 	}
 
