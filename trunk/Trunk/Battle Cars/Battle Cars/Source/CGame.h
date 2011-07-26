@@ -88,6 +88,7 @@ public:
 	CXboxInput* GetController1(void) { return m_pController1; }
 	CXboxInput* GetController2(void) { return m_pController2; }
 	bool ControllerInput(void) { return m_bController; }
+	bool Controller2Connected(void);
 	float GetInputDelay(void) { return m_fInputDelay; }
 	void ResetInputDelay(void) { m_fInputDelay = 0.0f; }
 	float GetThumbDelay(void) { return m_fThumbDelay; }

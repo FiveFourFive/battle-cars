@@ -186,7 +186,7 @@ void CPlayer::Update(float fElapsedTime)
 			m_bIsIcyGatlingOn = false;
 	}
 
-	if(CGame::GetInstance()->ControllerInput())
+	if(m_pController1->Connected())//CGame::GetInstance()->ControllerInput())
 	{
 		//m_pController1->ReadInputState();
 		XINPUT_STATE xState = m_pController1->GetState();
