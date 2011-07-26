@@ -120,9 +120,9 @@ bool COptionState::Input(void)
 		case WS_EFFECTS:
 			{
 				float soundA = CGame::GetInstance()->getSoundAVolume();
-				if(soundA > 0.0f)
+				if(soundA > 0.10f)
 				{
-					CGame::GetInstance()->SetSoundAVolume(soundA -0.01f);
+					CGame::GetInstance()->SetSoundAVolume(soundA -0.1f);
 					m_pFM->SetVolume(m_nSoundA,CGame::GetInstance()->getSoundAVolume());
 					m_pFM->SetVolume(m_nMenuSelect,CGame::GetInstance()->getSoundAVolume());
 					m_pFM->SetVolume(m_nMenuMove,CGame::GetInstance()->getSoundAVolume());
@@ -165,9 +165,9 @@ bool COptionState::Input(void)
 		case WS_EFFECTS:
 			{
 				float soundA = CGame::GetInstance()->getSoundAVolume();
-				if(soundA < 0.50f)
+				if(soundA < 1.0f)
 				{
-					CGame::GetInstance()->SetSoundAVolume(soundA + 0.01f);
+					CGame::GetInstance()->SetSoundAVolume(soundA + 0.1f);
 					m_pFM->SetVolume(m_nSoundA,CGame::GetInstance()->getSoundAVolume());
 					m_pFM->SetVolume(m_nMenuSelect,CGame::GetInstance()->getSoundAVolume());
 					m_pFM->SetVolume(m_nMenuMove,CGame::GetInstance()->getSoundAVolume());
@@ -240,9 +240,9 @@ bool COptionState::Input(void)
 		case WS_EFFECTS:
 			{
 				float soundA = CGame::GetInstance()->getSoundAVolume();
-				if(soundA > 0.0f)
+				if(soundA > 0.10f)
 				{
-					CGame::GetInstance()->SetSoundAVolume(soundA -0.01f);
+					CGame::GetInstance()->SetSoundAVolume(soundA -0.1f);
 					m_pFM->SetVolume(m_nSoundA,CGame::GetInstance()->getSoundAVolume());
 					m_pFM->SetVolume(m_nMenuSelect,CGame::GetInstance()->getSoundAVolume());
 					m_pFM->SetVolume(m_nMenuMove,CGame::GetInstance()->getSoundAVolume());
@@ -293,9 +293,9 @@ bool COptionState::Input(void)
 		case WS_EFFECTS:
 			{
 				float soundA = CGame::GetInstance()->getSoundAVolume();
-				if(soundA < 0.50f)
+				if(soundA < 1.0f)
 				{
-					CGame::GetInstance()->SetSoundAVolume(soundA + 0.01f);
+					CGame::GetInstance()->SetSoundAVolume(soundA + 0.1f);
 					m_pFM->SetVolume(m_nSoundA,CGame::GetInstance()->getSoundAVolume());
 					m_pFM->SetVolume(m_nMenuSelect,CGame::GetInstance()->getSoundAVolume());
 					m_pFM->SetVolume(m_nMenuMove,CGame::GetInstance()->getSoundAVolume());
