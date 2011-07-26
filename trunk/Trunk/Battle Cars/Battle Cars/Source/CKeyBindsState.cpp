@@ -42,6 +42,7 @@ void CKeyBindsState::Enter(void)
 
 	m_pPF = new CPrintFont(m_nFontID);
 	m_pFM = CSGD_FModManager::GetInstance();
+	m_nBGImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/optionstate.jpg");
 	m_nBackgroundMusicID = m_pFM->LoadSound("resource/sounds/FeelSoNumb.mp3",SGD_FMOD_LOOPING);
 	m_nMenuSelect = m_pFM->LoadSound("resource/sounds/menuselect.mp3");
 	m_nMenuMove = m_pFM->LoadSound("resource/sounds/menuchange.mp3");
@@ -240,14 +241,7 @@ void CKeyBindsState::Update(float fElapsedTime)
 
 void CKeyBindsState::Render(void)
 {
-	RECT temp;					 ////
-	temp.left = 0;				 //////
-	temp.top = 0;				 // replace this with background image
-	temp.right = 800;			 ////////
-	temp.bottom = 600;			 //////
-	m_pD3D->GetSprite()->Flush();////
-	m_pD3D->DrawRect(temp,0,0,0);//
-	
+	m_pTM->Draw(m_nBGImageID, 0, 0, 1.5f, 1.8f);
 	m_pPF->Print("KEY BINDINGS",220,50,1.0f,D3DCOLOR_XRGB(200, 0, 0));
 	
 	 

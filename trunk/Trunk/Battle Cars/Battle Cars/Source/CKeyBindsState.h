@@ -30,6 +30,7 @@ private:
 	int m_nMenuMove;
 	int m_nSoundA;
 	int m_nSoundB;
+	int m_nBGImageID;
 	float m_fDelay;
 	bool m_bSelected;
 	int m_nSelected;
