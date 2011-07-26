@@ -481,9 +481,12 @@ void CBoss::FireAtTarget(float fElapsedTime)
 		temp = Vector2DRotate(temp,GetRotation());
 		Vector2DNormalize(temp);
 		temp = temp * (350+ GetSpeed());
-		flame_thrower->SetAcceleration(temp.fX, temp.fY);
+		if( flame_thrower)
+		{
+			flame_thrower->SetAcceleration(temp.fX, temp.fY);
 
-		PM->AttachToBasePosition(this, flame_thrower,0, 0);
+			PM->AttachToBasePosition(this, flame_thrower,0, 0);
+		}
 
 		m_nFireBullets--;
 		CMessageSystem::GetInstance()->SendMsg(new CCreateBossVetteSpecial(this));
