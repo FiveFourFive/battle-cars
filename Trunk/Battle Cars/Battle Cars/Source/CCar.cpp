@@ -289,7 +289,7 @@ void CCar::PlayBullet(void)
 
 bool CCar::CheckCollision(IBaseInterface* pBase)
 {
-	RECT intersection;
+//	RECT intersection;
 	if(pBase == this)
 		return false;
 	if(pBase->GetType() == OBJECT_OBSTACLE || pBase->GetType() == OBJECT_BULLET)
