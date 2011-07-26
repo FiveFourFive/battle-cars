@@ -45,11 +45,12 @@ void CKeyBindsState::Enter(void)
 	m_nBackgroundMusicID = m_pFM->LoadSound("resource/sounds/FeelSoNumb.mp3",SGD_FMOD_LOOPING);
 	m_nMenuSelect = m_pFM->LoadSound("resource/sounds/menuselect.mp3");
 	m_nMenuMove = m_pFM->LoadSound("resource/sounds/menuchange.mp3");
-	m_nSoundA = m_pFM->LoadSound("resource/sounds/bullet1.mp3");
 	m_nSoundB = CMainMenuState::GetInstance()->GetBackgroundMusicID();
 	m_nSelection = 0;
 	m_nSelected = 0;
-
+	m_pFM->SetVolume(m_nMenuSelect,CGame::GetInstance()->getSoundAVolume());
+	m_pFM->SetVolume(m_nMenuMove,CGame::GetInstance()->getSoundAVolume());
+	m_pFM->SetVolume(m_nSoundB,CGame::GetInstance()->getSoundBVolume());
 	m_pKB = CGamerProfile::GetInstance()->GetActiveProfile()->m_pKB;
 	m_pKeyboardKB = CGamerProfile::GetInstance()->GetActiveProfile()->m_pKKB;
 	if(CGame::GetInstance()->ControllerInput())

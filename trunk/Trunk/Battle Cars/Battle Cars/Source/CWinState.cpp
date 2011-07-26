@@ -72,7 +72,9 @@ void CWinState::Enter(void)
 	m_nMenuSelect = m_pFM->LoadSound("resource/sounds/menuselect.mp3");
 	m_nMenuMove = m_pFM->LoadSound("resource/sounds/menuchange.mp3");
 	m_nBGImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/otherstates.jpg");
-
+		m_pFM->SetVolume(m_nBackgroundMusicID,CGame::GetInstance()->getSoundBVolume());
+	m_pFM->SetVolume(m_nMenuSelect,CGame::GetInstance()->getSoundAVolume());
+	m_pFM->SetVolume(m_nMenuMove,CGame::GetInstance()->getSoundAVolume());
 	miniID = m_pTM->LoadTexture("resource/graphics/BC_Mini.png");
 	vetteID = m_pTM->LoadTexture("resource/graphics/BC_Corvette.png");
 	humveeID = m_pTM->LoadTexture("resource/graphics/BC_Humvee.png");

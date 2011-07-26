@@ -51,7 +51,7 @@ void CCreditsScreenState::Enter()
 	
 	m_nImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/mainmenu_bg.jpg");
 	m_nSoundID = m_pFM->LoadSound("resource/sounds/neoncity.mp3");
-
+	m_pFM->SetVolume(m_nSoundID,CGame::GetInstance()->getSoundBVolume());
 	m_pFM->PlaySoundA(m_nSoundID);
 
 }

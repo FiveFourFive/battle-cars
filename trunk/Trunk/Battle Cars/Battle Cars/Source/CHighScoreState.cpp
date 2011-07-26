@@ -50,6 +50,8 @@ void CHighscoreState::Enter(void)
 	m_pFM = CSGD_FModManager::GetInstance();
 	m_nMenuSelect = m_pFM->LoadSound("resource/sounds/menuselect.mp3");
 	m_nMenuMove = m_pFM->LoadSound("resource/sounds/menuchange.mp3");
+	m_pFM->SetVolume(m_nMenuSelect,CGame::GetInstance()->getSoundAVolume());
+	m_pFM->SetVolume(m_nMenuMove,CGame::GetInstance()->getSoundAVolume());
 	LoadScores();
 	SortScores();
 }

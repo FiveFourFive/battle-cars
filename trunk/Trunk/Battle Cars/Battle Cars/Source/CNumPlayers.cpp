@@ -39,8 +39,15 @@ void CNumPlayers::Enter()
 	m_nMenuSelect = m_pFM->LoadSound("resource/sounds/menuselect.mp3");
 	m_nMenuMove = m_pFM->LoadSound("resource/sounds/menuchange.mp3");
 	m_nFontID = m_pTM->LoadTexture("resource/graphics/BC_Font.png",D3DCOLOR_XRGB(0, 0, 0));
-
+	m_nIncorrectSelection = m_pFM->LoadSound("resource/sounds/buzzer2.mp3");
 	m_nBGImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/mainmenu_bg.jpg");
+
+	m_pFM->SetVolume(m_nMenuSelect,CGame::GetInstance()->getSoundAVolume());
+	m_pFM->SetVolume(m_nMenuMove,CGame::GetInstance()->getSoundAVolume());
+	m_pFM->SetVolume(m_nIncorrectSelection,CGame::GetInstance()->getSoundAVolume());
+
+
+
 }
 
 CNumPlayers* CNumPlayers::GetInstance()
@@ -240,7 +247,7 @@ void CNumPlayers::Render()
 	m_pPF->Print("MAYHEM AND DESTRUCTION",50,100,1.0f,D3DCOLOR_XRGB(200, 0, 0));
 
 	m_pPF->Print("1 PLAYER",300,200,0.5f,D3DCOLOR_XRGB(200, 0, 0));
-	if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance())
+	if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance() || !CGame::GetInstance()->ControllerInput())
 	{
 		m_pPF->Print("2 PLAYER",300,250,0.5f,D3DCOLOR_XRGB(128, 128, 128));	
 	}
@@ -257,7 +264,13 @@ void CNumPlayers::Render()
 		m_pPF->Print("1 PLAYER",300,200,0.5f,D3DCOLOR_XRGB(0, 255, 0));
 		break;
 	case 1:
+
 		m_pPF->Print("2 PLAYER",300,250,0.5f,D3DCOLOR_XRGB(0, 255, 0));	
+		if(!CGame::GetInstance()->ControllerInput())
+		{
+			m_pPF->Print(" ---- 2 player requires at least one gamepad connected.",425,250,0.5f,D3DCOLOR_XRGB(255,255,255));
+		}
+
 		break;
 	case 2:
 		m_pPF->Print("BEGIN",300,300,0.5f,D3DCOLOR_XRGB(0, 255, 0));
@@ -280,8 +293,13 @@ bool CNumPlayers::HandleEnter(void)
 		m_nSelection = 2;
 		break;
 	case 1:
+		if(CGame::GetInstance()->ControllerInput())
+		{
 		m_nNumberOfPlayers = 2;
 		m_nSelection = 2;
+		}
+		else
+			m_pFM->PlaySound(m_nIncorrectSelection);
 		break;
 	case 2:
 		CGame::GetInstance()->AddState(CCharacterSelection::GetInstance());
