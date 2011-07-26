@@ -511,7 +511,7 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 		return false;
 	if(pBase->GetType() == OBJECT_OBSTACLE || pBase->GetType() == OBJECT_BULLET)
 		return false;
-	if(pBase->GetType() == OBJECT_ENEMY || pBase->GetType() == OBJECT_PLAYER)
+	if(pBase->GetType() == OBJECT_ENEMY || pBase->GetType() == OBJECT_PLAYER || pBase->GetType() == OBJECT_BOSS)
 	{
 		CCar* tempcar = (CCar*)pBase;
 		//float centerx = tempcar->GetPosX();
@@ -545,55 +545,47 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 			float hisfx = abs(othervel.fX);
 			float hisfy = abs(othervel.fY);
 
-			/*if(myfx <= 5 && myfy <= 5)
-			{
-				currentvel.fX = GetDirection().fX * 20;
-				currentvel.fY = GetDirection().fY * 20;
-			}
-			if(hisfx <= 5 && hisfy <= 5)
-			{
-				othervel.fX = tempcar->GetDirection().fX * 20;
-				othervel.fY = tempcar->GetDirection().fY * 20;
-			}*/
-			if(GetVelX() > 10)
-			{
-				SetPosX(GetPosX() + (GetVelX() * 0.001f * -1.0f));
-			}
-			else
-			{
-				float vel = GetDirection().fX * 20;
-				SetPosX(GetPosX() + (vel * 0.001f * -1.0f));
-			}
-			if(GetVelY() > 10)
-			{
-				SetPosY(GetPosY() + (GetVelY() * 0.001f * -1.0f));
-			}
-			else
-			{
-				float vel = GetDirection().fY * 20;
-				SetPosY(GetPosY() + (vel * 0.001f * -1.0f));
-			}
-			if(tempcar->GetVelX() > 10)
-			{
-				tempcar->SetPosX(tempcar->GetPosX() + (tempcar->GetVelX() * 0.001f * -1.0f));
-			}
-			else
-			{
-				float vel = tempcar->GetDirection().fX * 20;
-				tempcar->SetPosX(tempcar->GetPosX() + (vel * 0.001f * -1.0f));
-			}
-			if(tempcar->GetVelY() > 10)
-			{
-				tempcar->SetPosY(tempcar->GetPosY() + (tempcar->GetVelY() * 0.001f * -1.0f));
-			}
-			else
-			{
-				float vel = tempcar->GetDirection().fY * 20;
-				tempcar->SetPosY(tempcar->GetPosY() + (vel * 0.001f * -1.0f));
-			}
+			float myxpos = GetPosX();
+			float myypos = GetPosY();
+			float hisxpos = tempcar->GetPosX();
+			float hisypos = tempcar->GetPosY();
 
+			float xmove = 0;
+			float ymove = 0;
+
+			if(myxpos < hisxpos)
+				xmove = -1.0f;
+			else
+				xmove = 1.0f;
+			if(myypos < hisypos)
+				ymove = -1.0f;
+			else
+				ymove = 1.0f;
+			int count = 0;
+			while(distance11 <= (GetRadius() + tempcar->GetRadius() ) || distance21 <= (GetRadius() + tempcar->GetRadius() )
+				 || distance12 <= (GetRadius() + tempcar->GetRadius() ) || distance22 <= (GetRadius() + tempcar->GetRadius()))
+			{
+
+				SetPosX(GetPosX() + xmove);
+				SetPosY(GetPosY() + ymove);
+				myx = myx + xmove;
+				myy = myy + ymove;
+				myx2 = myx2 + xmove;
+				myy2 = myy2 + ymove;
+				//centerx = centerx + xmove;
+				//centery = centery + ymove;
+				//centerx2 =centerx2 + xmove;
+				//centery2 = centery2 + ymove;
+				count++;
+				if(count > 10)
+					break;
+				distance11 = sqrt(((centerx - myx)*(centerx - myx)) + ((centery - myy)*(centery - myy)));
+				distance21 = sqrt(((centerx2 - myx2)*(centerx2 - myx2)) + ((centery2 - myy2)*(centery2 - myy2)));
+				distance12 = sqrt(((centerx2 - myx)*(centerx2 - myx)) + ((centery2 - myy)*(centery2 - myy)));
+				distance22 = sqrt(((centerx - myx2)*(centerx - myx2)) + ((centery - myy2)*(centery - myy2)));
+			}
 			
-			tVector2D tobeapplied;
+			/*tVector2D tobeapplied;
 			tobeapplied.fX = 0;
 			tobeapplied.fY = 0;
 			if((myfx+myfy) > (hisfx+hisfy))
@@ -609,7 +601,7 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 				tobeapplied = othervel;
 				tempcar->SetVelocity(tobeapplied);
 				SetVelocity(tobeapplied * -1.0f);
-			}
+			}*/
 
 		
 			float myspeed = GetSpeed();
@@ -628,7 +620,10 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 				tempcar->SetSpeed(-1.0f * hisspeed);
 				SetSpeed(hisspeed);
 			}
-
+			SetSpeed(0);
+			tempcar->SetSpeed(0);
+			this->SetVelocity(othervel);
+			tempcar->SetVelocity(currentvel);
 			if( !GetCollisionEffect() )
 			{
 				CEventSystem::GetInstance()->SendEvent("collision", this);

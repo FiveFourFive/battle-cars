@@ -171,28 +171,37 @@ void CBoss::HandleEvent(CEvent* pEvent)
 
 bool CBoss::CheckCollision(IBaseInterface* pBase)
 {
-	if(this == pBase)
+	RECT intersection;
+	if(pBase == this)
 		return false;
 	if(pBase->GetType() == OBJECT_OBSTACLE || pBase->GetType() == OBJECT_BULLET)
 		return false;
 	if(pBase->GetType() == OBJECT_ENEMY || pBase->GetType() == OBJECT_PLAYER || pBase->GetType() == OBJECT_BOSS)
 	{
 		CCar* tempcar = (CCar*)pBase;
+		//float centerx = tempcar->GetPosX();
+		//float centery = tempcar->GetPosY();
 		float centerx = tempcar->GetCX1();
 		float centery = tempcar->GetCY1();
 		float myx = GetCX1();
 		float myy = GetCY1();
+
 		float centerx2 = tempcar->GetCX2();
 		float centery2 = tempcar->GetCY2();
 		float myx2 = GetCX2();
 		float myy2 = GetCY2();
+
 		float distance11 = sqrt(((centerx - myx)*(centerx - myx)) + ((centery - myy)*(centery - myy)));
 		float distance21 = sqrt(((centerx2 - myx2)*(centerx2 - myx2)) + ((centery2 - myy2)*(centery2 - myy2)));
 		float distance12 = sqrt(((centerx2 - myx)*(centerx2 - myx)) + ((centery2 - myy)*(centery2 - myy)));
 		float distance22 = sqrt(((centerx - myx2)*(centerx - myx2)) + ((centery - myy2)*(centery - myy2)));
+
 		if(distance11 <= (GetRadius() + tempcar->GetRadius()) || distance21 <= (GetRadius() + tempcar->GetRadius())
-		  || distance12 <= (GetRadius() + tempcar->GetRadius()) || distance22 <= (GetRadius() + tempcar->GetRadius()))
+			|| distance12 <= (GetRadius() + tempcar->GetRadius()) || distance22 <= (GetRadius() + tempcar->GetRadius()))
 		{
+
+			SetTurnable(false);
+			tempcar->SetTurnable(false);
 			tVector2D othervel = tempcar->GetOverallVelocity();
 			tVector2D currentvel = GetOverallVelocity();
 
@@ -200,8 +209,48 @@ bool CBoss::CheckCollision(IBaseInterface* pBase)
 			float myfy = abs(currentvel.fY);
 			float hisfx = abs(othervel.fX);
 			float hisfy = abs(othervel.fY);
+
+			float myxpos = GetPosX();
+			float myypos = GetPosY();
+			float hisxpos = tempcar->GetPosX();
+			float hisypos = tempcar->GetPosY();
+
+			float xmove = 0;
+			float ymove = 0;
+
+			if(myxpos < hisxpos)
+				xmove = -1.0f;
+			else
+				xmove = 1.0f;
+			if(myypos < hisypos)
+				ymove = -1.0f;
+			else
+				ymove = 1.0f;
+			int count = 0;
+			while(distance11 <= (GetRadius() + tempcar->GetRadius() ) || distance21 <= (GetRadius() + tempcar->GetRadius() )
+				 || distance12 <= (GetRadius() + tempcar->GetRadius() ) || distance22 <= (GetRadius() + tempcar->GetRadius()))
+			{
+
+				SetPosX(GetPosX() + xmove);
+				SetPosY(GetPosY() + ymove);
+				myx = myx + xmove;
+				myy = myy + ymove;
+				myx2 = myx2 + xmove;
+				myy2 = myy2 + ymove;
+				//centerx = centerx + xmove;
+				//centery = centery + ymove;
+				//centerx2 =centerx2 + xmove;
+				//centery2 = centery2 + ymove;
+				count++;
+				if(count > 10)
+					break;
+				distance11 = sqrt(((centerx - myx)*(centerx - myx)) + ((centery - myy)*(centery - myy)));
+				distance21 = sqrt(((centerx2 - myx2)*(centerx2 - myx2)) + ((centery2 - myy2)*(centery2 - myy2)));
+				distance12 = sqrt(((centerx2 - myx)*(centerx2 - myx)) + ((centery2 - myy)*(centery2 - myy)));
+				distance22 = sqrt(((centerx - myx2)*(centerx - myx2)) + ((centery - myy2)*(centery - myy2)));
+			}
 			
-			tVector2D tobeapplied;
+			/*tVector2D tobeapplied;
 			tobeapplied.fX = 0;
 			tobeapplied.fY = 0;
 			if((myfx+myfy) > (hisfx+hisfy))
@@ -217,12 +266,13 @@ bool CBoss::CheckCollision(IBaseInterface* pBase)
 				tobeapplied = othervel;
 				tempcar->SetVelocity(tobeapplied);
 				SetVelocity(tobeapplied * -1.0f);
-			}
+			}*/
 
 		
 			float myspeed = GetSpeed();
 			float hisspeed = tempcar->GetSpeed();
-			
+
+
 			if(myspeed > hisspeed)
 			{
 				myspeed = myspeed * 0.3f;
@@ -235,16 +285,21 @@ bool CBoss::CheckCollision(IBaseInterface* pBase)
 				tempcar->SetSpeed(-1.0f * hisspeed);
 				SetSpeed(hisspeed);
 			}
-
+			SetSpeed(0);
+			tempcar->SetSpeed(0);
+			this->SetVelocity(othervel);
+			tempcar->SetVelocity(currentvel);
 			if( !GetCollisionEffect() )
 			{
 				CEventSystem::GetInstance()->SendEvent("collision", this);
 				SetCollisionEffect(true);
 			}
+
 			return true;
 		}
+		
 	}
-	RECT intersection;
+	
 	if(IntersectRect(&intersection, &GetRect(), &pBase->GetRect()))
 	{
 		if(pBase->GetType() == OBJECT_SPEEDRAMP)
