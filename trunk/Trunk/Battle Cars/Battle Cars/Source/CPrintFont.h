@@ -67,16 +67,16 @@ public:
 			//char /find the id by offsetting the startchar
 			char ch=szTextToPrint[i];
 		
-			nOffsetX = (m_nCharWidth*i*(int)fScale);
+			nOffsetX = (m_nCharWidth*i*fScale);
 			if(ch == ' ')
 			{
-				nOffsetX = (m_nCharWidth*i*(int)fScale);
+				nOffsetX = (m_nCharWidth*i*fScale);
 				continue;
 			}
 			else if (ch=='\n')
 			{
 				nOffsetX = 0;
-				nPosY+= m_nCharHeight *(int)fScale;
+				nPosY+= m_nCharHeight *fScale;
 			
 				continue;
 			}
@@ -88,7 +88,7 @@ public:
 			RECT rLetter = CellAlgorithm(id);
 			//Draw to the screen	
 
-			CSGD_TextureManager::GetInstance()->Draw(m_nImageID, (nPosX-(((int)(m_nCharWidth*fScale)*len)/2))+nOffsetX, nPosY, fScale, fScale, &rLetter, 0,0,0, dwColor);
+			CSGD_TextureManager::GetInstance()->Draw(m_nImageID, (nPosX-(((m_nCharWidth*fScale)*len)/2))+nOffsetX, nPosY, fScale, fScale, &rLetter, 0,0,0, dwColor);
 		}
 	}
 
