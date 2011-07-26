@@ -401,6 +401,11 @@ void CGamerProfile::Render()
 		sprintf_s(buffer, "Current Profile: %s", activeProfile->m_sUserName.c_str());
 		m_pPF->Print(buffer, (int)(CGame::GetInstance()->GetScreenWidth() * 0.1f), (int)(CGame::GetInstance()->GetScreenHeight() * 0.9f),0.8f, D3DCOLOR_XRGB(128,128,255));
 
+		if(CGame::GetInstance()->ControllerInput())
+			m_pPF->Print("B To Exit",40,(int)(CGame::GetInstance()->GetScreenHeight()-70),1.0f,D3DCOLOR_XRGB(255,0,0));
+		else
+			m_pPF->Print("ESC To Exit",(int)(CGame::GetInstance()->GetScreenWidth() * 0.7f),(int)(CGame::GetInstance()->GetScreenHeight()*0.7f),1.0f,D3DCOLOR_XRGB(255,0,0));
+
 	}
 	else if( m_nProfileState == LOADSLOT_STATE || m_nProfileState == SAVESLOT_STATE )
 	{

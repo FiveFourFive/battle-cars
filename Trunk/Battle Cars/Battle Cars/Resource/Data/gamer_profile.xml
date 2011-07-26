@@ -10,9 +10,9 @@
         <cars mini="1" vette="0" humvee="1" truck="0" />
         <Sounds SFX="50" Background="50" />
     </Gamer_Profile>
-    <Gamer_Profile>Hey
-        <Controller_Keybinds shoot="16384" change_weapon="256" kshoot="57" kaccelerate="200" kbreak="208" kleft="203" kright="205" kchange_weapon="29" />
-        <cars mini="1" vette="0" humvee="1" truck="0" />
-        <Sounds SFX="20" Background="50" />
+    <Gamer_Profile>Zach
+        <Controller_Keybinds shoot="16384" change_weapon="256" kshoot="57" kaccelerate="17" kbreak="31" kleft="30" kright="32" kchange_weapon="15" />
+        <cars mini="1" vette="1" humvee="1" truck="1" />
+        <Sounds SFX="50" Background="50" />
     </Gamer_Profile>
 </Gamer_Profiles>
