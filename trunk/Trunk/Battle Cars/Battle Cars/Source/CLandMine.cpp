@@ -45,14 +45,17 @@ bool CLandMine::CheckCollision(IBaseInterface* pBase)
 	RECT intersection;
 	if(this->GetOwner() == pBase)
 		return false;
+	if(pBase == this)
+		return false;
 	if(IntersectRect(&intersection, &GetRect(), &pBase->GetRect()))
 	{
-		if(pBase->GetType() == OBJECT_PLAYER || pBase->GetType() == OBJECT_ENEMY || pBase->GetType() == OBJECT_BOSS)
+		if(pBase->GetType() == OBJECT_PLAYER || pBase->GetType() == OBJECT_ENEMY || pBase->GetType() == OBJECT_BOSS || pBase->GetType() == PROJECTILE_BULLET || pBase->GetType() == OBJECT_BULLET)
 		{
 			//send damage event
 			if(m_nLandMineType == LM_LM)
 			{
 				CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
+				CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage((CBullet*)pBase));
 				CEventSystem::GetInstance()->SendEvent("damage",pBase,this);
 			}
 		}

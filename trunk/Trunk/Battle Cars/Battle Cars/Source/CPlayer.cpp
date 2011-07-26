@@ -350,7 +350,7 @@ void CPlayer::Update(float fElapsedTime)
 	{
 		CKeyboardKeyBinds* tempkeys = CGamerProfile::GetInstance()->GetActiveProfile()->m_pKKB;
 
-		if(m_pDI->KeyDown(tempkeys->Getforward()))// || m_pDI->JoystickGetRStickDirDown(DIR_UP))
+		if(m_pDI->KeyDown(tempkeys->Getforward()) || m_pDI->JoystickGetRStickDirDown(DIR_UP))
 			{
 				SetAccelerating(true);
 				if(GetSpeed() < GetMaxSpeed())
