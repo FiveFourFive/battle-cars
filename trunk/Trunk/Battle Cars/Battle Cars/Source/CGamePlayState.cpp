@@ -118,7 +118,13 @@ void CGamePlayState::Enter(void)
 	m_pController2 = CGame::GetInstance()->GetController2();
 
 	CGame::GetInstance()->ResetInputDelay();
-
+	player = CCharacterSelection::GetInstance()->GetPlayer1();
+	player->Rotate(0.0f);
+	player->SetPlayerNum(1);
+	player->SetType(OBJECT_PLAYER);
+	player->Rotate(0);
+	
+	cars.push_back (player);
 	CBoss* boss = new CBoss(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
 	CBoss* miniboss = new CBoss(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
 	miniboss->SetMiniBoss(true);
@@ -144,19 +150,11 @@ void CGamePlayState::Enter(void)
 
 	bosses.push_back(boss);
 	bosses.push_back(miniboss);
-
-	player = CCharacterSelection::GetInstance()->GetPlayer1();
-	player->Rotate(0.0f);
-	player->SetPlayerNum(1);
-	player->SetType(OBJECT_PLAYER);
-	player->Rotate(0);
-	
-	cars.push_back (player);
 	
 
 	if(!m_bCollectionChallenge)
 	{
-		m_pOM->AddObject(miniboss);
+		
 
 		characters = CCharacterSelection::GetInstance()->GetList();
 
@@ -177,6 +175,7 @@ void CGamePlayState::Enter(void)
 				player2index = rand()%4;
 			player2 = characters[player2index];
 		}
+		m_pOM->AddObject(miniboss);
 	}
 	
 	m_bCountDown = false;

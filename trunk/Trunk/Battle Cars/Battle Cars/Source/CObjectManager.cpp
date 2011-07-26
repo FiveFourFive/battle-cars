@@ -65,8 +65,8 @@ void CObjectManager::UpdateObjects(float fElapsedTime)
 void CObjectManager::RenderObjects(CCamera* camera)
 {
 	CSGD_Direct3D* pD3D = CSGD_Direct3D::GetInstance();
-
-	for(size_t i = 0; i < m_vObjectList.size(); i++)
+	if(m_vObjectList.size() >= 0)
+	for(int i = m_vObjectList.size()-1; i >= 0; i--)
 	{
 		m_vObjectList[i]->Render(camera);
 
@@ -127,6 +127,7 @@ void CObjectManager::RenderObjects(CCamera* camera)
 			}
 		}
 	}
+
 }
 
 void CObjectManager::AddObject(IBaseInterface* pObject)
