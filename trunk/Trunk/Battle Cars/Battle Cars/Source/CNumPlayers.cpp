@@ -74,22 +74,25 @@ bool CNumPlayers::Input()
 		float y = xState.Gamepad.sThumbLY;
 		if(CGame::GetInstance()->GetInputDelay() >= 0.15f)
 		{
-			CGame::GetInstance()->ResetInputDelay();
+			
 			if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_X)
 			{
+				CGame::GetInstance()->ResetInputDelay();
 				HandleEnter();
 			}
 			if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_B)
 			{
+				CGame::GetInstance()->ResetInputDelay();
 				CGame::GetInstance()->RemoveState(this);
 			}
 
 		}
 		if(CGame::GetInstance()->GetThumbDelay() >= 0.15f)
 		{
-			CGame::GetInstance()->ResetThumbDelay();
+			
 			if(x < 8000 && x > -8000 && y > 16000 || xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP)
 			{
+				CGame::GetInstance()->ResetThumbDelay();
 				m_nSelection--;
 				if( m_nNumberOfPlayers >= 1)
 				{
@@ -122,7 +125,7 @@ bool CNumPlayers::Input()
 			else if(x < 8000 && x > -8000 && y < -16000 || xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN)
 			{
 				m_nSelection++;
-
+				CGame::GetInstance()->ResetThumbDelay();
 				if( m_nNumberOfPlayers >= 1)
 				{
 					if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance())
@@ -247,7 +250,7 @@ void CNumPlayers::Render()
 	m_pPF->Print("MAYHEM AND DESTRUCTION",50,100,1.0f,D3DCOLOR_XRGB(200, 0, 0));
 
 	m_pPF->Print("1 PLAYER",300,200,0.5f,D3DCOLOR_XRGB(200, 0, 0));
-	if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance() || !CGame::GetInstance()->ControllerInput())
+	if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance() || !CGame::GetInstance()->Controller2Connected())
 	{
 		m_pPF->Print("2 PLAYER",300,250,0.5f,D3DCOLOR_XRGB(128, 128, 128));	
 	}
@@ -266,7 +269,7 @@ void CNumPlayers::Render()
 	case 1:
 
 		m_pPF->Print("2 PLAYER",300,250,0.5f,D3DCOLOR_XRGB(0, 255, 0));	
-		if(!CGame::GetInstance()->ControllerInput() || CGame::GetInstance()->Controller2Connected())
+		if(!CGame::GetInstance()->ControllerInput() || !CGame::GetInstance()->Controller2Connected())
 		{
 			m_pPF->Print(" ---- 2 player requires at least one gamepad connected.",425,250,0.5f,D3DCOLOR_XRGB(255,255,255));
 		}

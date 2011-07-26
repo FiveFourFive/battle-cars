@@ -76,22 +76,24 @@ bool COptionState::Input(void)
 		float y = xState.Gamepad.sThumbLY;
 		if(CGame::GetInstance()->GetInputDelay() >= 0.15f)
 		{
-			CGame::GetInstance()->ResetInputDelay();
+			
 		if(xState.Gamepad.wButtons & tempkeys->GetAccept())
 		{
+			CGame::GetInstance()->ResetInputDelay();
 			return this->HandleEnter();
 		}
 		else if(xState.Gamepad.wButtons & tempkeys->GetBack())
 		{
+			CGame::GetInstance()->ResetInputDelay();
 			CGame::GetInstance()->RemoveState(this);
 		}
 		}
 		if(CGame::GetInstance()->GetThumbDelay() >= 0.15f)
 		{
-			CGame::GetInstance()->ResetThumbDelay();
+			
 		if(x < 8000 && x > -8000 && y > 16000|| xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP)
 		{
-			
+			CGame::GetInstance()->ResetThumbDelay();
 			m_nSelection--;
 			m_pFM->PlaySound(m_nMenuMove);
 			if(m_nSelection < 0)
@@ -99,6 +101,7 @@ bool COptionState::Input(void)
 		}
 		else if(x < 8000 && x > -8000 && y < -16000|| xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN)
 		{
+			CGame::GetInstance()->ResetThumbDelay();
 			m_nSelection++;
 			m_pFM->PlaySound(m_nMenuMove);
 			if(m_nSelection > 5)
@@ -110,6 +113,7 @@ bool COptionState::Input(void)
 		
 	if(x < -16000)
 	{
+		CGame::GetInstance()->ResetThumbDelay();
 		m_fDelay = 0.0f;
 		switch(m_nSelection)
 		{
@@ -154,6 +158,7 @@ bool COptionState::Input(void)
 	}
 	if(x > 16000)
 	{
+		CGame::GetInstance()->ResetThumbDelay();
 		m_fDelay = 0.0f;
 		switch(m_nSelection)
 		{

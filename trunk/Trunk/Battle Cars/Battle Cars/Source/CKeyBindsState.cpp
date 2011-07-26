@@ -75,14 +75,15 @@ bool CKeyBindsState::Input(void)
 		float y = xState.Gamepad.sThumbLY;
 		if(CGame::GetInstance()->GetInputDelay() >= 0.15f)
 		{
-			CGame::GetInstance()->ResetInputDelay();
+			
 			if(xState.Gamepad.wButtons & m_pKB->GetAccept())
 			{
+				CGame::GetInstance()->ResetInputDelay();
 				HandleEnter();
 			}
 		if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_A)
 		{
-			
+			CGame::GetInstance()->ResetInputDelay();
 			switch(m_nSelection)
 			{
 			case WS_SHOOT:
@@ -96,6 +97,7 @@ bool CKeyBindsState::Input(void)
 		}
 		else if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_B)
 		{
+			CGame::GetInstance()->ResetInputDelay();
 			switch(m_nSelection)
 			{
 			case WS_SHOOT:
@@ -109,6 +111,7 @@ bool CKeyBindsState::Input(void)
 		}
 		else if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_Y)
 		{
+			CGame::GetInstance()->ResetInputDelay();
 			switch(m_nSelection)
 			{
 
@@ -123,6 +126,7 @@ bool CKeyBindsState::Input(void)
 		}
 		else if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_X)
 		{
+			CGame::GetInstance()->ResetInputDelay();
 			switch(m_nSelection)
 			{
 			case WS_SHOOT:
@@ -136,6 +140,7 @@ bool CKeyBindsState::Input(void)
 		}
 		else if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_LEFT_SHOULDER)
 		{
+			CGame::GetInstance()->ResetInputDelay();
 			switch(m_nSelection)
 			{
 			case WS_SHOOT:
@@ -149,6 +154,7 @@ bool CKeyBindsState::Input(void)
 		}
 		else if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER)
 		{
+			CGame::GetInstance()->ResetInputDelay();
 			switch(m_nSelection)
 			{
 			case WS_SHOOT:
@@ -163,10 +169,10 @@ bool CKeyBindsState::Input(void)
 		}
 		if(CGame::GetInstance()->GetThumbDelay() >= 0.15f)
 		{
-			CGame::GetInstance()->ResetThumbDelay();
+			
 		if(x < 8000 && x > -8000 && y > 16000|| xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP)
 		{
-			
+			CGame::GetInstance()->ResetThumbDelay();
 			m_nSelection--;
 			m_pFM->PlaySound(m_nMenuMove);
 			if(m_nSelection < 0)
@@ -174,6 +180,7 @@ bool CKeyBindsState::Input(void)
 		}
 		else if(x < 8000 && x > -8000 && y < -16000|| xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN)
 		{
+			CGame::GetInstance()->ResetThumbDelay();
 			m_nSelection++;
 			m_pFM->PlaySound(m_nMenuMove);
 			if(m_nSelection > m_nMaxOptions)

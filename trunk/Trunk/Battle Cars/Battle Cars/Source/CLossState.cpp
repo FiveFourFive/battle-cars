@@ -84,13 +84,15 @@ bool CLossState::Input(void)
 		float y = xState.Gamepad.sThumbLY;
 		if(CGame::GetInstance()->GetInputDelay() >= 0.15f)
 		{
-			CGame::GetInstance()->ResetInputDelay();
+			
 			if(xState.Gamepad.wButtons & tempkeys->GetBack())
 			{
+				CGame::GetInstance()->ResetInputDelay();
 				return HandleEnter();
 			}
 			if(xState.Gamepad.wButtons & tempkeys->GetAccept())
 			{
+				CGame::GetInstance()->ResetInputDelay();
 				return HandleEnter();
 			}
 

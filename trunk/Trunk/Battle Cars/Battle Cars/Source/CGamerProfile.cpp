@@ -110,25 +110,29 @@ bool CGamerProfile::Input()
 
 				if(CGame::GetInstance()->GetInputDelay() >= 0.15f)
 				{
-					CGame::GetInstance()->ResetInputDelay();
+					
 					if( m_nProfileState == LOADSAVE_STATE)
 					{
 						if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_LEFT)
 						{
+							CGame::GetInstance()->ResetInputDelay();
 							m_pFM->PlaySoundA(m_nMenuMove);
 							m_nEntrySelection--;
 						}
 						if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_RIGHT)
 						{
+							CGame::GetInstance()->ResetInputDelay();
 							m_pFM->PlaySoundA(m_nMenuMove);
 							m_nEntrySelection++;
 						}
 						if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_X)
 						{
+							CGame::GetInstance()->ResetInputDelay();
 							HandleEnter();
 						}
 						if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_B)
 						{
+							CGame::GetInstance()->ResetInputDelay();
 							m_pFM->PlaySoundA(m_nMenuSelect);
 							CGame::GetInstance()->ChangeState(CMainMenuState::GetInstance());
 						}
@@ -137,6 +141,7 @@ bool CGamerProfile::Input()
 					{
 							if( xState.Gamepad.wButtons & XINPUT_GAMEPAD_LEFT_SHOULDER)
 							{
+								CGame::GetInstance()->ResetInputDelay();
 								if( activeProfile->m_sUserName.size() > 0)
 								{
 									activeProfile->m_sUserName.erase(activeProfile->m_sUserName.begin() + activeProfile->m_sUserName.size() - 1);
@@ -145,12 +150,14 @@ bool CGamerProfile::Input()
 							}
 							if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_X)
 							{
+								CGame::GetInstance()->ResetInputDelay();
 								m_pFM->PlaySoundA(m_nMenuSelect);
 								activeProfile->m_sUserName += temp;
 								temp = 'A';
 							}
 							if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_B)
 							{
+								CGame::GetInstance()->ResetInputDelay();
 								m_nProfileState = LOADSAVE_STATE;
 								m_pFM->PlaySoundA(m_nMenuSelect);
 							}
@@ -159,22 +166,26 @@ bool CGamerProfile::Input()
 					{
 						if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN)
 						{
+							CGame::GetInstance()->ResetInputDelay();
 							CurrPos -= 100;
 							m_pFM->PlaySoundA(m_nMenuMove);
 
 						}
 						if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP)
 						{
+							CGame::GetInstance()->ResetInputDelay();
 							CurrPos += 100;
 							m_pFM->PlaySoundA(m_nMenuMove);
 
 						}
 						if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_X)
 						{
+							CGame::GetInstance()->ResetInputDelay();
 							HandleEnter();
 						}
 						if( xState.Gamepad.wButtons & XINPUT_GAMEPAD_B)
 						{
+							CGame::GetInstance()->ResetInputDelay();
 							m_nProfileState = LOADSAVE_STATE;
 							m_pFM->PlaySoundA(m_nMenuSelect);
 						}
@@ -182,18 +193,20 @@ bool CGamerProfile::Input()
 				}
 				if(CGame::GetInstance()->GetThumbDelay() >= 0.15f)
 				{
-					CGame::GetInstance()->ResetThumbDelay();
+					
 
 					if( m_nProfileState == LOADSAVE_STATE)
 					{
 						if( x < -16000 )
 						{
+							CGame::GetInstance()->ResetThumbDelay();
 							m_nEntrySelection--;
 							m_pFM->PlaySoundA(m_nMenuMove);
 
 						}
 						if( x > 16000 )
 						{
+							CGame::GetInstance()->ResetThumbDelay();
 							m_nEntrySelection++;
 							m_pFM->PlaySoundA(m_nMenuMove);
 
@@ -203,11 +216,13 @@ bool CGamerProfile::Input()
 					{
 						if(x < 8000 && x > -8000 && y > 16000|| xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN)
 						{
+							CGame::GetInstance()->ResetThumbDelay();
 							m_pFM->PlaySoundA(m_nMenuMove);
 							temp++;
 						}
 						else if(x < 8000 && x > -8000 && y < -16000|| xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP)
 						{
+							CGame::GetInstance()->ResetThumbDelay();
 							m_pFM->PlaySoundA(m_nMenuMove);
 							temp--;
 						}
@@ -216,11 +231,13 @@ bool CGamerProfile::Input()
 					{
 						if(x < 8000 && x > -8000 && y > 16000)
 						{
+							CGame::GetInstance()->ResetThumbDelay();
 							m_pFM->PlaySoundA(m_nMenuMove);
 							CurrPos -= 100;
 						}
 						else if(x < 8000 && x > -8000 && y < -16000)
 						{
+							CGame::GetInstance()->ResetThumbDelay();
 							m_pFM->PlaySoundA(m_nMenuMove);
 							CurrPos += 100;
 						}
@@ -231,7 +248,6 @@ bool CGamerProfile::Input()
 		{
 			if(CGame::GetInstance()->GetInputDelay() >= 0.15f)
 			{
-				CGame::GetInstance()->ResetInputDelay();
 
 				if( m_nProfileState == LOADSAVE_STATE)
 				{
@@ -239,18 +255,23 @@ bool CGamerProfile::Input()
 					{
 						m_nEntrySelection--;
 						m_pFM->PlaySoundA(m_nMenuMove);
+						CGame::GetInstance()->ResetInputDelay();
 					}
 					if(  m_pDI->KeyDown(DIK_RIGHT)||m_pDI->JoystickGetLStickDirDown(DIR_RIGHT))
 					{
 						m_nEntrySelection++;
 						m_pFM->PlaySoundA(m_nMenuMove);
+						CGame::GetInstance()->ResetInputDelay();
 					}
 					if( m_pDI->KeyDown(DIK_RETURN)||m_pDI->JoystickButtonPressed(0))
+					{
+						CGame::GetInstance()->ResetInputDelay();
 						HandleEnter();
-
+					}
 					if( m_pDI->KeyDown(DIK_ESCAPE)||m_pDI->JoystickButtonPressed(1))
 					{
 						m_pFM->PlaySoundA(m_nMenuSelect);
+						CGame::GetInstance()->ResetInputDelay();
 						CGame::GetInstance()->ChangeState(CMainMenuState::GetInstance());
 					}
 				}
@@ -258,6 +279,7 @@ bool CGamerProfile::Input()
 				{
 					if( m_pDI->KeyDown(DIK_BACKSPACE)||m_pDI->JoystickButtonPressed(1))
 					{
+						CGame::GetInstance()->ResetInputDelay();
 						if( activeProfile->m_sUserName.size() > 0)
 						{
 							activeProfile->m_sUserName.erase(activeProfile->m_sUserName.begin() + activeProfile->m_sUserName.size() - 1);
@@ -266,17 +288,20 @@ bool CGamerProfile::Input()
 					}
 					if(  m_pDI->KeyDown(DIK_UP)||m_pDI->JoystickGetLStickDirDown(DIR_UP))
 					{
+						CGame::GetInstance()->ResetInputDelay();
 						temp++;
 						m_pFM->PlaySoundA(m_nMenuMove);
 					}
 					if(  m_pDI->KeyDown(DIK_DOWN)||m_pDI->JoystickGetLStickDirDown(DIR_DOWN))
 					{
+						CGame::GetInstance()->ResetInputDelay();
 						temp--;
 						m_pFM->PlaySoundA(m_nMenuMove);
 					}
 
 					if( m_pDI->KeyDown(DIK_RETURN)||m_pDI->JoystickButtonPressed(0))
 					{
+						CGame::GetInstance()->ResetInputDelay();
 						m_pFM->PlaySoundA(m_nMenuSelect);
 						activeProfile->m_sUserName += temp;
 						temp = 'A';
@@ -284,6 +309,7 @@ bool CGamerProfile::Input()
 
 					if( m_pDI->KeyDown(DIK_ESCAPE)||m_pDI->JoystickButtonPressed(1))
 					{
+						CGame::GetInstance()->ResetInputDelay();
 						m_pFM->PlaySoundA(m_nMenuSelect);
 						m_nProfileState = LOADSAVE_STATE;
 					}
@@ -292,18 +318,24 @@ bool CGamerProfile::Input()
 				{
 					if( m_pDI->KeyDown(DIK_UP))
 					{
+						CGame::GetInstance()->ResetInputDelay();
 						CurrPos -= 100;
 						m_pFM->PlaySoundA(m_nMenuMove);
 					}
 					if( m_pDI->KeyDown(DIK_DOWN))
 					{
+						CGame::GetInstance()->ResetInputDelay();
 						CurrPos += 100;
 						m_pFM->PlaySoundA(m_nMenuMove);
 					}
 					if( m_pDI->KeyDown(DIK_RETURN)||m_pDI->JoystickButtonPressed(0))
+					{
+						CGame::GetInstance()->ResetInputDelay();
 						HandleEnter();
+					}
 					if( m_pDI->KeyDown(DIK_ESCAPE)||m_pDI->JoystickButtonPressed(1))
 					{
+						CGame::GetInstance()->ResetInputDelay();
 						m_pFM->PlaySoundA(m_nMenuSelect);
 						m_nProfileState = LOADSAVE_STATE;
 					}
