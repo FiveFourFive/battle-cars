@@ -94,16 +94,17 @@ void CPlayer::Update(float fElapsedTime)
 
 	if( GetHealth() <= 0.0f)
 	{
-		SetRespawnTimer(GetRespawnTimer() + fElapsedTime);/*
+		SetRespawnTimer(GetRespawnTimer() + fElapsedTime);
 		if( GetFlameThrowerEmittorID() > -1)
 		{
-			ParticleManager::GetInstance()->GetActiveEmittor(GetFlameThrowerEmittorID())->SetTimeToDie(0.0f);
-		}*/
+			Emittor* flame_thrower = ParticleManager::GetInstance()->GetActiveEmittor(GetFlameThrowerEmittorID());
+			if(flame_thrower)
+				flame_thrower->SetTimeToDie(0.0f);
+		}
 		m_bIsFlameThrowerOn = false;
-		//SetFlameThrowerEmittorID(-1);
+		SetFlameThrowerEmittorID(-1);
 		return;
 	}
-
 
 	m_fFireTimer += fElapsedTime;
 	static float m_ftimer;
@@ -170,6 +171,7 @@ void CPlayer::Update(float fElapsedTime)
 		else
 		{
 			m_bIsFlameThrowerOn = false;
+			SetFlameThrowerEmittorID(-1);
 			isSet = false;
 		}
 	}

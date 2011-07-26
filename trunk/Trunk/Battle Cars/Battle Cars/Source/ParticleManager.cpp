@@ -323,7 +323,7 @@ void ParticleManager::AttachToBasePosition(CBase* base, Emittor* emittor, float 
 {
 	if( base )
 	{
-		emittor->SetBase(base);
+ 		emittor->SetBase(base);
 		emittor->SetPosition( base->GetPosX() + offsetX, base->GetPosY() + offsetY);
 	}
 	else

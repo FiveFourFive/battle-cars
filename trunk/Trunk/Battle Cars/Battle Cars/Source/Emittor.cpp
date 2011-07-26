@@ -4,6 +4,7 @@
 #include "CSGD_TextureManager.h"
 #include "CBullet.h"
 #include "CCar.h"
+#include "CGame.h"
 
 
 Emittor::Emittor()
@@ -62,8 +63,8 @@ void Emittor::Update(float fElapsedTime)
 
 			}
 
-			m_vParticleList[i]->position.fX += (m_vParticleList[i]->velocity.fX + (m_vParticleList[i]->acceleration.fX * fElapsedTime));
-			m_vParticleList[i]->position.fY += (m_vParticleList[i]->velocity.fY + (m_vParticleList[i]->acceleration.fY * fElapsedTime));
+			m_vParticleList[i]->position.fX += (m_vParticleList[i]->velocity.fX + (this->acceleration.fX * fElapsedTime));
+			m_vParticleList[i]->position.fY += (m_vParticleList[i]->velocity.fY + (this->acceleration.fY * fElapsedTime));
             
 			if( base )
 			{
@@ -72,12 +73,6 @@ void Emittor::Update(float fElapsedTime)
 					CBullet* bullet = (CBullet*)base;
 					m_vParticleList[i]->position.fX += -(bullet->GetVelX() * 0.01f);
 					m_vParticleList[i]->position.fY += -(bullet->GetVelY() * 0.01f);
-				}
-				else
-				{
-					CCar* car = (CCar*)base;
-					m_vParticleList[i]->position.fX += car->GetVelX();
-					m_vParticleList[i]->position.fY += car->GetVelY();
 				}
 			}
 
@@ -238,8 +233,7 @@ void Emittor::SetBase(CBase* base)
 {
 	if( this != NULL)
 	{
-		if( this->base != NULL)
-			this->base = base;
+		this->base = base;
 	}
 }
 
@@ -278,9 +272,8 @@ void Emittor::InitializeParticleList()
 			temp->maxlife = RAND_FLOAT(m_fMinLife, m_fEndLife);
 			temp->spawnDelay = RAND_FLOAT(0.0f, 1.0f);
 			
-			temp->velocity.fX = (RAND_FLOAT(minVelocity.fX, maxVelocity.fX)) * 0.001f;
-			temp->velocity.fY = (RAND_FLOAT(minVelocity.fY, maxVelocity.fY)) * 0.001f;
-			temp->acceleration = this->acceleration;
+			temp->velocity.fX = (RAND_FLOAT(minVelocity.fX, maxVelocity.fX)) * CGame::GetInstance()->GetElapsedTime();
+			temp->velocity.fY = (RAND_FLOAT(minVelocity.fY, maxVelocity.fY)) * CGame::GetInstance()->GetElapsedTime();
 			temp->scaleX = m_StartScaleX;
 			temp->scaleY = m_StartScaleY;
 			temp->rotation = 0.0f;
@@ -290,15 +283,17 @@ void Emittor::InitializeParticleList()
 			temp->scaleY_timer = 0.0f;
 			temp->spawn_timer = 0.0f;
 
-			temp->isDead = false;
+			temp->isDead = true;
 
 			m_vParticleList.push_back(temp);
         }
 
 	int count = 0;
-	while( count < 20 )
+	while( count < (int)(m_nMaxNumber * 0.4f) )
 	{
-		m_vParticleList[rand()%m_nMaxNumber]->isDead = true;
+		int index = rand()%m_nMaxNumber;
+		m_vParticleList[index]->isDead = false;
+		m_vParticleList[index]->spawn_timer = m_vParticleList[index]->spawnDelay;
 		count++;
 	}
 }
