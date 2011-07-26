@@ -486,7 +486,10 @@ bool CCharacterSelection::HandleEnter()
 						m_player2->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/rocket_icon.png"));
 					}
 					else
+					{
+						if(!m_pFM->GetInstance()->IsSoundPlaying(m_nIncorrectSelection))
 						m_pFM->PlaySoundA(m_nIncorrectSelection);
+					}
 				}
 				break;
 			case CAR_VETTE:
@@ -499,7 +502,10 @@ bool CCharacterSelection::HandleEnter()
 						m_player2->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/flamerthrower_icon.png"));
 					}
 					else
+					{
+						if(!m_pFM->GetInstance()->IsSoundPlaying(m_nIncorrectSelection))
 						m_pFM->PlaySoundA(m_nIncorrectSelection);
+					}
 				}
 				break;
 			case CAR_HUMMER:
@@ -512,7 +518,10 @@ bool CCharacterSelection::HandleEnter()
 						m_player2->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/minigun_icon.png"));
 					}
 					else
+					{
+						if(!m_pFM->GetInstance()->IsSoundPlaying(m_nIncorrectSelection))
 						m_pFM->PlaySoundA(m_nIncorrectSelection);
+					}
 				}
 				break;
 			case CAR_TRUCK:
@@ -525,7 +534,10 @@ bool CCharacterSelection::HandleEnter()
 						m_player2->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/mine_icon.png"));
 					}
 					else
+					{
+						if(!m_pFM->GetInstance()->IsSoundPlaying(m_nIncorrectSelection))
 						m_pFM->PlaySoundA(m_nIncorrectSelection);
+					}
 				}
 				break;
 			}
@@ -546,7 +558,10 @@ bool CCharacterSelection::HandleEnter()
 						m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/rocket_icon.png"));
 					}
 					else
+					{
+						if(!m_pFM->GetInstance()->IsSoundPlaying(m_nIncorrectSelection))
 						m_pFM->PlaySoundA(m_nIncorrectSelection);
+					}
 				}
 				break;
 			case CAR_VETTE:
@@ -560,7 +575,10 @@ bool CCharacterSelection::HandleEnter()
 						m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/flamerthrower_icon.png"));
 					}
 					else
+					{
+						if(!m_pFM->GetInstance()->IsSoundPlaying(m_nIncorrectSelection))
 						m_pFM->PlaySoundA(m_nIncorrectSelection);
+					}
 				}
 				break;
 			case CAR_HUMMER:
@@ -574,7 +592,10 @@ bool CCharacterSelection::HandleEnter()
 						m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/minigun_icon.png"));
 					}
 					else
+					{
+						if(!m_pFM->GetInstance()->IsSoundPlaying(m_nIncorrectSelection))
 						m_pFM->PlaySoundA(m_nIncorrectSelection);
+					}
 				}
 				break;
 			case CAR_TRUCK:
@@ -588,7 +609,10 @@ bool CCharacterSelection::HandleEnter()
 						m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/mine_icon.png"));
 					}
 					else
+					{
+						if(!m_pFM->GetInstance()->IsSoundPlaying(m_nIncorrectSelection))
 						m_pFM->PlaySoundA(m_nIncorrectSelection);
+					}
 				}
 				break;
 			}
@@ -621,7 +645,10 @@ bool CCharacterSelection::HandleEnter()
 						m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/rocket_icon.png"));
 					}
 					else
+					{
+						if(!m_pFM->GetInstance()->IsSoundPlaying(m_nIncorrectSelection))
 						m_pFM->PlaySoundA(m_nIncorrectSelection);
+					}
 				}
 				break;
 			case CAR_VETTE:
@@ -634,7 +661,10 @@ bool CCharacterSelection::HandleEnter()
 						m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/flamerthrower_icon.png"));
 					}
 					else
+					{
+						if(!m_pFM->GetInstance()->IsSoundPlaying(m_nIncorrectSelection))
 						m_pFM->PlaySoundA(m_nIncorrectSelection);
+					}
 				}
 				break;
 			case CAR_HUMMER:
@@ -647,7 +677,10 @@ bool CCharacterSelection::HandleEnter()
 						m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/minigun_icon.png"));
 					}
 					else
+					{
+						if(!m_pFM->GetInstance()->IsSoundPlaying(m_nIncorrectSelection))
 						m_pFM->PlaySoundA(m_nIncorrectSelection);
+					}
 				}
 				break;
 			case CAR_TRUCK:
@@ -660,7 +693,10 @@ bool CCharacterSelection::HandleEnter()
 						m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/mine_icon.png"));
 					}
 					else
+					{
+						if(!m_pFM->GetInstance()->IsSoundPlaying(m_nIncorrectSelection))
 						m_pFM->PlaySoundA(m_nIncorrectSelection);
+					}
 				}
 				break;
 			}
