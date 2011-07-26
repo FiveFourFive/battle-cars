@@ -99,8 +99,11 @@ void CWinState::Enter(void)
 			break;
 		}
 	}
-
-
+	carsID = m_pWinner->GetImageID();
+	mini = m_pWinner->GetImageRect();
+	vette = m_pWinner->GetImageRect();
+	humvee = m_pWinner->GetImageRect();
+	truck = m_pWinner->GetImageRect();
 	addme.name = buffer;
 	addme.score = CGame::GetInstance()->GetScore();
 	CHighscoreState::GetInstance()->AddScore(addme);
@@ -217,6 +220,7 @@ void CWinState::Render(void)
 	sprintf_s(buffer,"%f",m_fTotalTurns);
 	//m_pD3D->DrawText(buffer,400,280,255,255,255);
 	Gamer_Profile* tempprofile = CGamerProfile::GetInstance()->GetActiveProfile();
+	RECT todraw;
 	if(m_bRoll)
 	{
 	switch(m_nSlot)
@@ -224,30 +228,36 @@ void CWinState::Render(void)
 	case 0:
 		if(tempprofile->cars[0] == 0)
 		{
+			todraw = mini;
 			id = miniID;
 		break;
 		}
 	case 1:
 		if(tempprofile->cars[1] == 0)
 		{
+			todraw = vette;
 		id = vetteID;
 		break;
 		}
 	case 2:
 		if(tempprofile->cars[2] == 0)
 		{
+			todraw = humvee;
 		id = humveeID;
 		break;
 		}
 	case 3:
 		if(tempprofile->cars[3] == 0)
 		{
+			todraw = truck;
 		id = truckID;
 		break;
 		}
 	}
 	if(id >= 0)
-		m_pTM->Draw(id,800,250,1.0f,1.0f);
+	{
+		m_pTM->Draw(carsID,800,250,1.0f,1.0f,&todraw);
+	}
 	}
 	//m_pD3D->DrawRect(cars,color,0,0);
 

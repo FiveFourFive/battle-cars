@@ -564,9 +564,14 @@ void CGamePlayState::Update(float fElapsedTime)
 			m_fElapsedSecond = 0.0f;
 			time -= 1;
 		}
-
+		
 		if(!m_bCollectionChallenge)
 		{
+			if(time <= 30)
+			{
+				m_bMiniBossHasDied = false;
+				bosses[1]->SetHealth(0);
+			}
 			if(m_bMiniBossHasDied)
 			{
 				m_fRespawnMiniBossTimer += fElapsedTime;

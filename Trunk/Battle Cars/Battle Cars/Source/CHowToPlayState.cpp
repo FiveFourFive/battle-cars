@@ -119,7 +119,7 @@ void CHowToPlayState::Update(float fElapsedTime)
 void CHowToPlayState::Render(void)
 {
 	CSGD_Direct3D* pD3D = CSGD_Direct3D::GetInstance();
-	m_pTM->Draw(m_nBGImageID, 0, 0, 1.5f, 1.8f);
+	m_pTM->Draw(m_nBGImageID, 0, 0, 1.0f, 1.0f);
 	m_pPF->Print("HOW TO PLAY",220,50,1.0f,D3DCOLOR_XRGB(255, 0, 0));
 	m_pPF->Print("Arrow Keys - MOVEMENT",100,100,0.5f,D3DCOLOR_XRGB(0, 0, 255));
 	m_pPF->Print("Spacebar - SHOOT",100,150,0.5f,D3DCOLOR_XRGB(0, 0, 255));

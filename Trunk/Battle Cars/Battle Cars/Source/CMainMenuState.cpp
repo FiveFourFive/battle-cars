@@ -188,38 +188,38 @@ void CMainMenuState::Render(void)
 
 	m_pTM->Draw(m_nBGImageID, 0,0, 2.9f, 1.8f);
 	
-	m_pPF->Print("BATTLE CARS",220,50,1.0f,D3DCOLOR_XRGB(200, 0, 0));
-	m_pPF->Print("MAYHEM AND DESTRUCTION",50,100,1.0f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->PrintCentered("BATTLE CARS",CGame::GetInstance()->GetScreenWidth()/2,50,2.0f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->PrintCentered("MAYHEM AND DESTRUCTION",CGame::GetInstance()->GetScreenWidth()/2,100,2.0f,D3DCOLOR_XRGB(200, 0, 0));
 
-	m_pPF->Print("Play",300,200,0.5f,D3DCOLOR_XRGB(200, 0, 0));
-	m_pPF->Print("Options",300,250,0.5f,D3DCOLOR_XRGB(200, 0, 0));	
-	m_pPF->Print("How To Play",300,300,0.5f,D3DCOLOR_XRGB(200, 0, 0));
-	m_pPF->Print("Gamer Profile",300,350,0.5f,D3DCOLOR_XRGB(200, 0, 0));
-	m_pPF->Print("Highscores",300,400,0.5f,D3DCOLOR_XRGB(200, 0, 0));
-	m_pPF->Print("Credits",300,450,0.5f,D3DCOLOR_XRGB(200, 0, 0));
-	m_pPF->Print("Exit",300,500,0.5f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->PrintCentered("Play",CGame::GetInstance()->GetScreenWidth()/2,200,1.0f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->PrintCentered("Options",CGame::GetInstance()->GetScreenWidth()/2,250,1.0f,D3DCOLOR_XRGB(200, 0, 0));	
+	m_pPF->PrintCentered("How To Play",CGame::GetInstance()->GetScreenWidth()/2,300,1.0f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->PrintCentered("Gamer Profile",CGame::GetInstance()->GetScreenWidth()/2,350,1.0f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->PrintCentered("Highscores",CGame::GetInstance()->GetScreenWidth()/2,400,1.0f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->PrintCentered("Credits",CGame::GetInstance()->GetScreenWidth()/2,450,1.0f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->PrintCentered("Exit",CGame::GetInstance()->GetScreenWidth()/2,500,1.0f,D3DCOLOR_XRGB(200, 0, 0));
 	switch(m_nSelection)
 		{
 		case PLAY:			
-			m_pPF->Print("Play",300,200,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->PrintCentered("Play",CGame::GetInstance()->GetScreenWidth()/2,200,1.0f,D3DCOLOR_XRGB(0, 255, 0));
 			break;
 		case OPTIONS:
-			m_pPF->Print("Options",300,250,0.5f,D3DCOLOR_XRGB(0, 255, 0));	
+			m_pPF->PrintCentered("Options",CGame::GetInstance()->GetScreenWidth()/2,250,1.0f,D3DCOLOR_XRGB(0, 255, 0));	
 			break;
 		case HOW_TO_PLAY:
-			m_pPF->Print("How To Play",300,300,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->PrintCentered("How To Play",CGame::GetInstance()->GetScreenWidth()/2,300,1.0f,D3DCOLOR_XRGB(0, 255, 0));
 			break;
 		case GAMER_PROFILE:
-			m_pPF->Print("Gamer Profile",300,350,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->PrintCentered("Gamer Profile",CGame::GetInstance()->GetScreenWidth()/2,350,1.0f,D3DCOLOR_XRGB(0, 255, 0));
 			break;
 		case HIGH_SCORES:
-			m_pPF->Print("Highscores",300,400,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->PrintCentered("Highscores",CGame::GetInstance()->GetScreenWidth()/2,400,1.0f,D3DCOLOR_XRGB(0, 255, 0));
 			break;
 		case CREDITS:
-			m_pPF->Print("Credits",300,450,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->PrintCentered("Credits",CGame::GetInstance()->GetScreenWidth()/2,450,1.0f,D3DCOLOR_XRGB(0, 255, 0));
 			break;
 		case EXIT:
-			m_pPF->Print("Exit",300,500,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->PrintCentered("Exit",CGame::GetInstance()->GetScreenWidth()/2,500,1.0f,D3DCOLOR_XRGB(0, 255, 0));
 			break;
 		}
 }

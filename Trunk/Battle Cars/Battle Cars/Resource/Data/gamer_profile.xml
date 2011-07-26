@@ -2,7 +2,7 @@
 <Gamer_Profiles>
     <Gamer_Profile>DEFAULT
         <Controller_Keybinds shoot="16384" change_weapon="256" kshoot="57" kaccelerate="200" kbreak="208" kleft="203" kright="205" kchange_weapon="29" />
-        <cars mini="1" vette="1" humvee="1" truck="1" />
+        <cars mini="1" vette="0" humvee="1" truck="0" />
         <Sounds SFX="50" Background="60" />
     </Gamer_Profile>
     <Gamer_Profile>wADeEAAAAA

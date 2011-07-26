@@ -2,6 +2,7 @@
 #define _CWINSTATE_H
 
 #include "IGameState.h"
+#include <Windows.h>
 class CSGD_TextureManager;
 class CPrintFont;
 class CSGD_FModManager;
@@ -41,6 +42,11 @@ private:
 	int humveeID;
 	int truckID;
 	int id;
+	int carsID;
+	RECT mini;
+	RECT vette;
+	RECT humvee;
+	RECT truck;
 
 	CPlayer* m_pWinner;
 
