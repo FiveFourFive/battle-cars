@@ -56,6 +56,41 @@ public:
 		x += (int)(m_nCharWidth * scale);
 		}					
 	}
+	
+	void PrintCentered(const char* szTextToPrint, int nPosX, int nPosY, float fScale, DWORD dwColor)
+	{
+		int nOffsetX = 0;
+		//loop through the string 1 char at a time
+		int len = strlen(szTextToPrint);
+		for(int i=0; i < len ; i++)
+		{
+			//char /find the id by offsetting the startchar
+			char ch=szTextToPrint[i];
+		
+			nOffsetX = (m_nCharWidth*i*(int)fScale);
+			if(ch == ' ')
+			{
+				nOffsetX = (m_nCharWidth*i*(int)fScale);
+				continue;
+			}
+			else if (ch=='\n')
+			{
+				nOffsetX = 0;
+				nPosY+= m_nCharHeight *(int)fScale;
+			
+				continue;
+			}
+		
+			int id = (int)(ch - m_cStartChar);
+
+			//use CellAlgorithm to get RECT for Letter
+		
+			RECT rLetter = CellAlgorithm(id);
+			//Draw to the screen	
+
+			CSGD_TextureManager::GetInstance()->Draw(m_nImageID, (nPosX-((m_nCharWidth*len)/2))+nOffsetX, nPosY, fScale, fScale, &rLetter, 0,0,0, dwColor);
+		}
+	}
 
 
 };
