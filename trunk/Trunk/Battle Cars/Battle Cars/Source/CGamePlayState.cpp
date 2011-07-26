@@ -236,7 +236,7 @@ void CGamePlayState::Enter(void)
 		collectionChallengeBoss->SetAcceleration(10.0f);
 		collectionChallengeBoss->SetHealth(150.0f);
 		collectionChallengeBoss->SetMaxHealth(150.0f);
-		collectionChallengeBoss->SetCarId(m_pTM->LoadTexture("resource/graphics/BattleCars_MiniBossPlaceHolder.png"));
+		collectionChallengeBoss->SetCarId(m_pTM->LoadTexture("resource/graphics/BattleCars_MiniBossPlaceHolder.png",D3DCOLOR_XRGB(0,0,0)));
 		collectionChallengeBoss->ChangeState(collectionChallengeBoss->GetCollectState ());
 	}
 	else
@@ -857,7 +857,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			CBullet* pBullet3 = new CBullet();
 			CBullet* pBullet4 = new CBullet();
 			//Missile 1
-			pBullet->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniMissilePlaceholder.png",D3DCOLOR_XRGB(255,255,255)));
+			pBullet->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniMissilePlaceholder.png",D3DCOLOR_XRGB(255,0,255)));
 			pBullet->SetScale(0.5f);
 			pBullet->SetOwner(pCMS->GetPlayer());
 			pBullet->SetCurLife(0.0f);
@@ -871,7 +871,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet->SetBlastRadius(50.0f);
 			pBullet->SetRotation(pCMS->GetPlayer()->GetRotation());
 			//Missile 2
-			pBullet1->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniMissilePlaceholder.png"));
+			pBullet1->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniMissilePlaceholder.png",D3DCOLOR_XRGB(255,0,255)));
 			pBullet1->SetScale(0.5f);
 			pBullet1->SetOwner(pCMS->GetPlayer());
 			pBullet1->SetCurLife(0.0f);
@@ -885,7 +885,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet1->SetBlastRadius(50.0f);
 			pBullet1->SetRotation(pCMS->GetPlayer()->GetRotation());
 			//Missile 3
-			pBullet2->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniMissilePlaceholder.png"));
+			pBullet2->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniMissilePlaceholder.png",D3DCOLOR_XRGB(255,0,255)));
 			pBullet2->SetScale(0.5f);
 			pBullet2->SetOwner(pCMS->GetPlayer());
 			pBullet2->SetCurLife(0.0f);
@@ -899,7 +899,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet2->SetBlastRadius(50.0f);
 			pBullet2->SetRotation(pCMS->GetPlayer()->GetRotation());
 			//Missile 4
-			pBullet3->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniMissilePlaceholder.png"));
+			pBullet3->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniMissilePlaceholder.png",D3DCOLOR_XRGB(255,0,255)));
 			pBullet3->SetScale(0.5f);
 			pBullet3->SetOwner(pCMS->GetPlayer());
 			pBullet3->SetCurLife(0.0f);
@@ -913,7 +913,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet3->SetBlastRadius(50.0f);
 			pBullet3->SetRotation(pCMS->GetPlayer()->GetRotation());
 			//Missile 5
-			pBullet4->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniMissilePlaceholder.png"));
+			pBullet4->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniMissilePlaceholder.png",D3DCOLOR_XRGB(255,0,255)));
 			pBullet4->SetScale(0.5f);
 			pBullet4->SetOwner(pCMS->GetPlayer());
 			pBullet4->SetCurLife(0.0f);
@@ -1413,7 +1413,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 				CBullet* pBullet3 = new CBullet();
 				CBullet* pBullet4 = new CBullet();
 				//Missile 1
-				pBullet->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniMissilePlaceholder.png"));
+				pBullet->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniMissilePlaceholder.png",D3DCOLOR_XRGB(255,0,255)));
 				pBullet->SetScale(0.5f);
 				pBullet->SetOwner(pBMS->GetBoss());
 				pBullet->SetCurLife(0.0f);
@@ -1427,7 +1427,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 				pBullet->SetBlastRadius(50.0f);
 				pBullet->SetRotation(pBMS->GetBoss()->GetRotation());
 				//Missile 2
-				pBullet1->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniMissilePlaceholder.png"));
+				pBullet1->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniMissilePlaceholder.png",D3DCOLOR_XRGB(255,0,255)));
 				pBullet1->SetScale(0.5f);
 				pBullet1->SetOwner(pBMS->GetBoss());
 				pBullet1->SetCurLife(0.0f);
@@ -1441,7 +1441,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 				pBullet1->SetBlastRadius(50.0f);
 				pBullet1->SetRotation(pBMS->GetBoss()->GetRotation());
 				//Missile 3
-				pBullet2->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniMissilePlaceholder.png"));
+				pBullet2->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniMissilePlaceholder.png",D3DCOLOR_XRGB(255,0,255)));
 				pBullet2->SetScale(0.5f);
 				pBullet2->SetOwner(pBMS->GetBoss());
 				pBullet2->SetCurLife(0.0f);
@@ -1455,7 +1455,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 				pBullet2->SetBlastRadius(50.0f);
 				pBullet2->SetRotation(pBMS->GetBoss()->GetRotation());
 				//Missile 4
-				pBullet3->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniMissilePlaceholder.png"));
+				pBullet3->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniMissilePlaceholder.png",D3DCOLOR_XRGB(255,0,255)));
 				pBullet3->SetScale(0.5f);
 				pBullet3->SetOwner(pBMS->GetBoss());
 				pBullet3->SetCurLife(0.0f);
@@ -1469,7 +1469,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 				pBullet3->SetBlastRadius(50.0f);
 				pBullet3->SetRotation(pBMS->GetBoss()->GetRotation());
 				//Missile 5
-				pBullet4->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniMissilePlaceholder.png"));
+				pBullet4->SetImageID (CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniMissilePlaceholder.png",D3DCOLOR_XRGB(255,0,255)));
 				pBullet4->SetScale(0.5f);
 				pBullet4->SetOwner(pBMS->GetBoss());
 				pBullet4->SetCurLife(0.0f);

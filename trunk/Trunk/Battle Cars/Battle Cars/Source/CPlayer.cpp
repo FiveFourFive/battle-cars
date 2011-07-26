@@ -207,6 +207,7 @@ void CPlayer::Update(float fElapsedTime)
 			
 			if(xState.Gamepad.wButtons & tempkeys->GetShoot())
 			{
+
 				m_fFireTimer = 0.0f;
 				CMessageSystem* pMS = CMessageSystem::GetInstance();
 				switch(GetSelectedWeapon())
@@ -273,6 +274,7 @@ void CPlayer::Update(float fElapsedTime)
 			}
 			if(xState.Gamepad.wButtons & tempkeys->GetChangeWeapon() )
 			{
+				CGame::GetInstance()->ResetInputDelay();
 				IncrementWeapon();
 				if(GetSelectedWeapon() > 2)
 					SetSelectedWeapon(0);
@@ -295,12 +297,6 @@ void CPlayer::Update(float fElapsedTime)
 				SetSpeed(GetSpeed() - (GetAcceleration() * fElapsedTime));
 		}
 		
-
-		if(CGame::GetInstance()->GetInputDelay() >= 0.15f)
-		{
-			//CGame::GetInstance()->ResetInputDelay();
-
-		}
 		if(CGame::GetInstance()->GetThumbDelay() >= 0.00f)
 		{
 			//CGame::GetInstance()->ResetThumbDelay();
@@ -308,6 +304,7 @@ void CPlayer::Update(float fElapsedTime)
 			{
 			if(x < -16000 || xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_LEFT)// && y < 15000 && y > -15000)
 			{
+				CGame::GetInstance()->ResetThumbDelay();
 				SetRotation(GetRotation() - (GetRotationRate() * fElapsedTime));
 				tVector2D tempdir = GetDirection();
 				tempdir.fX = 0;
@@ -319,6 +316,7 @@ void CPlayer::Update(float fElapsedTime)
 			}
 			else if(x > 16000|| xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_RIGHT)// && y < 15000 && y > -15000)
 			{
+				CGame::GetInstance()->ResetThumbDelay();
 				SetRotation(GetRotation() + (GetRotationRate() * fElapsedTime));
 				tVector2D tempdir = GetDirection();
 				tempdir.fX = 0;
