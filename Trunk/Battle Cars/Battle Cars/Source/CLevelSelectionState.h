@@ -32,7 +32,7 @@ private:
 	int m_nMenuSelect;
 	int m_nMenuMove;
 	
-	int m_nMovieID[6];		// The image ID's for the video being played
+	int m_nMovieID[12];		// The image ID's for the video being played
 	int render_ids[3];		// The id's currently being rendered.
 	float m_fMovieTimer;	// The timer until the movie image changes.
 	D3DCOLOR color;			// The fading color value.
@@ -57,7 +57,6 @@ public:
 	void Update(float fElapsedTime);
 	void Render(void);
 	bool HandleEnter(void);
-	void CleanUp(void);
 	void LoadVideo();
 
 	///////////////////////////////////////////////////

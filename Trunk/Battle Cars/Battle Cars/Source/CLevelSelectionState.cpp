@@ -64,7 +64,7 @@ void CLevelSelectionState::Enter()
 	isSet = false;
 	m_nCurrentFrame = 0;
 
-	for( int i = 0; i < 6; i++)
+	for( int i = 0; i < 12; i++)
 	{
 		m_nMovieID[i]=-1;
 	}
@@ -79,6 +79,12 @@ void CLevelSelectionState::Enter()
 	m_nMovieID[3] = m_pTM->LoadTexture("resource/videos/level2/1.bmp", D3DCOLOR_ARGB(255,0,255,255));
 	m_nMovieID[4] = m_pTM->LoadTexture("resource/videos/level2/2.bmp", D3DCOLOR_ARGB(255,0,255,255));
 	m_nMovieID[5] = m_pTM->LoadTexture("resource/videos/level2/3.bmp", D3DCOLOR_ARGB(255,0,255,255));
+	m_nMovieID[6] = m_pTM->LoadTexture("resource/videos/level3/1.bmp", D3DCOLOR_ARGB(255,0,255,255));
+	m_nMovieID[7] = m_pTM->LoadTexture("resource/videos/level3/2.bmp", D3DCOLOR_ARGB(255,0,255,255));
+	m_nMovieID[8] = m_pTM->LoadTexture("resource/videos/level3/3.bmp", D3DCOLOR_ARGB(255,0,255,255));
+	m_nMovieID[9] = m_pTM->LoadTexture("resource/videos/level4/1.bmp", D3DCOLOR_ARGB(255,0,255,255));
+	m_nMovieID[10] = m_pTM->LoadTexture("resource/videos/level4/2.bmp", D3DCOLOR_ARGB(255,0,255,255));
+	m_nMovieID[11] = m_pTM->LoadTexture("resource/videos/level4/3.bmp", D3DCOLOR_ARGB(255,0,255,255));
 }
 
 void CLevelSelectionState::Exit()
@@ -174,7 +180,7 @@ void CLevelSelectionState::Update(float fElapsedTime)
 	LoadVideo();
 
 	m_fMovieTimer += fElapsedTime;
-	if( m_fMovieTimer >= 6.0f )
+	if( m_fMovieTimer >= 9.0f )
 	{
 		m_fMovieTimer = 0.0f;
 		m_nCurrentFrame++;
@@ -187,7 +193,7 @@ void CLevelSelectionState::Update(float fElapsedTime)
 		unsigned char Alpha = unsigned char(((255 - 0) * (m_fMovieTimer / 3.0f)));
 		color = D3DCOLOR_ARGB(Alpha, 255,255,255);
 	}
-	else if( m_fMovieTimer > 3.0f)
+	else if( m_fMovieTimer > 6.0f)
 	{
 		unsigned char Alpha = unsigned char(255 - ((255 - 0) * (m_fMovieTimer / 3.0f)));
 		if( Alpha == 0 )
@@ -229,11 +235,6 @@ bool CLevelSelectionState::HandleEnter()
 	return true;
 }
 
-
-void CLevelSelectionState::CleanUp()
-{
-
-}
 
 bool CLevelSelectionState::LoadLevel(const char* szXmlFileName)
 {
@@ -298,16 +299,16 @@ void CLevelSelectionState::LoadVideo()
 
 		case LEVEL_THREE:
 			{
-				render_ids[0] = m_nMovieID[3];
-				render_ids[1] = m_nMovieID[4];
-				render_ids[2] = m_nMovieID[5];
+				render_ids[0] = m_nMovieID[6];
+				render_ids[1] = m_nMovieID[7];
+				render_ids[2] = m_nMovieID[8];
 			}
 			break;
 			case LEVEL_FOUR:
 			{
-				render_ids[0] = m_nMovieID[3];
-				render_ids[1] = m_nMovieID[4];
-				render_ids[2] = m_nMovieID[5];
+				render_ids[0] = m_nMovieID[9];
+				render_ids[1] = m_nMovieID[10];
+				render_ids[2] = m_nMovieID[11];
 			}
 			break;
 		}

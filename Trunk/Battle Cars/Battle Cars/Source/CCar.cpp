@@ -190,8 +190,8 @@ void CCar::Render(CCamera* camera)
 	SetImageWidth(GetHealthImageRect(counter).right - GetHealthImageRect(counter).left);
 	SetImageHeight(GetHealthImageRect(counter).bottom - GetHealthImageRect(counter).top);
 
-	SetWidth((GetHealthImageRect(counter).right - GetHealthImageRect(counter).left) * image_scale);
-	SetHeight((GetHealthImageRect(counter).bottom - GetHealthImageRect(counter).top) *image_scale);
+	SetWidth((int)((GetHealthImageRect(counter).right - GetHealthImageRect(counter).left) * image_scale));
+	SetHeight((int)((GetHealthImageRect(counter).bottom - GetHealthImageRect(counter).top) *image_scale));
 
 	m_pTM->Draw(m_nCarID,(int)(GetPosX()-(GetImageWidth()/2*image_scale)- (int)camera->GetCamX() + (int)camera->GetRenderPosX()),
 		(int)(GetPosY()-(GetImageHeight()/2*image_scale)- (int)camera->GetCamY() + (int)camera->GetRenderPosY()),image_scale,image_scale,&GetHealthImageRect(counter), float(GetImageWidth()/2),float(GetImageHeight()/2),GetRotation());
