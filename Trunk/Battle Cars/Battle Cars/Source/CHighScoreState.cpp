@@ -142,6 +142,11 @@ void CHighscoreState::Render(void)
 		//m_pPF->Print(buffer,100,100 + (50*i),1.0f,D3DCOLOR_XRGB(255,255,255));
 	}
 
+	if(CGame::GetInstance()->ControllerInput())
+		m_pPF->Print("B To Exit",40,(int)(CGame::GetInstance()->GetScreenHeight()-70),1.0f,D3DCOLOR_XRGB(255,0,0));
+	else
+		m_pPF->Print("ESC To Exit",(int)(CGame::GetInstance()->GetScreenWidth() * 0.1f),(int)(CGame::GetInstance()->GetScreenHeight()*0.8f),1.0f,D3DCOLOR_XRGB(255,0,0));
+
 }
 
 void CHighscoreState::SortScores(void)
