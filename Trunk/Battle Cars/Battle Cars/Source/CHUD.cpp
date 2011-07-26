@@ -67,21 +67,21 @@ void CHUD::Render(void)
 	CSGD_Direct3D::GetInstance()->GetSprite()->Flush();
 	health.left = (LONG)(0 + 128 + pCamera->GetRenderPosX() + (CGame::GetInstance()->GetScreenWidth()*0.05f));
 	health.top = (LONG)(0 + pCamera->GetHeight() - 80 - pCamera->GetRenderPosY() - (CGame::GetInstance()->GetScreenHeight()*0.05f));
-	health.right = (LONG)(health.left + (m_pOwner->GetHealth()/m_pOwner->GetMaxHealth()) * 100);
+	health.right = (LONG)(health.left + (m_pOwner->GetHealth()/m_pOwner->GetMaxHealth()) * 120);
 	health.bottom = (LONG)(health.top + 30);
 	pD3D->DrawRect(health,0,255,0);
 
 	shield.left =   (LONG)(0 + 128 + pCamera->GetRenderPosX() + (CGame::GetInstance()->GetScreenWidth()*0.05f));
 	shield.top =   (LONG)(0 + pCamera->GetHeight() - 80 - pCamera->GetRenderPosY() - (CGame::GetInstance()->GetScreenHeight()*0.05f));
-	shield.right = (LONG)(shield.left + (m_pOwner->GetShieldBar()/m_pOwner->GetMaxShield()) * 100);
+	shield.right = (LONG)(shield.left + (m_pOwner->GetShieldBar()/m_pOwner->GetMaxShield()) * 120);
 	shield.bottom =  (LONG)(shield.top + 30);
 	pD3D->DrawRect(shield,105,105,105);
 
-	m_pTM->Draw(m_nHealthID, int(128 + pCamera->GetRenderPosX() + (CGame::GetInstance()->GetScreenWidth()*0.05f)),int(pCamera->GetHeight() - 50 - pCamera->GetRenderPosY() - (CGame::GetInstance()->GetScreenHeight()*0.05f)),1.0f,.5f);
+	m_pTM->Draw(m_nHealthID, int(128 + pCamera->GetRenderPosX() + (CGame::GetInstance()->GetScreenWidth()*0.05f)),int(pCamera->GetHeight() - 50 - pCamera->GetRenderPosY() - (CGame::GetInstance()->GetScreenHeight()*0.05f)),0.75f,.5f);
 	CSGD_Direct3D::GetInstance()->GetSprite()->Flush();
 	power.left =   (LONG)(0 + 128 + pCamera->GetRenderPosX() + (CGame::GetInstance()->GetScreenWidth()*0.05f));
 	power.top =  (LONG)(8 + pCamera->GetHeight() - 50 - pCamera->GetRenderPosY() - (CGame::GetInstance()->GetScreenHeight()*0.05f));
-	power.right =  (LONG)(power.left + (int)((m_pOwner->GetPowerUpBar()/m_pOwner->GetMaxPowerUp()) * 80));
+	power.right =  (LONG)(power.left + (int)((m_pOwner->GetPowerUpBar()/m_pOwner->GetMaxPowerUp()) * 90));
 	power.bottom = (LONG)( power.top + 14);
 	pD3D->DrawRect(power,0,80,255);
 
