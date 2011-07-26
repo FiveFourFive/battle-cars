@@ -665,7 +665,7 @@ void CGamePlayState::Render(void)
 	{
 		char buffer[100];
 		sprintf_s(buffer, "%d", m_nCollectableTotalPlayer);
-		m_pPF->Print(buffer, 10, 10, 1.0f, D3DCOLOR_XRGB(255, 255, 255)); 
+	//	m_pPF->Print(buffer, 10, 10, 1.0f, D3DCOLOR_XRGB(255, 255, 255)); 
 
 	}
 
@@ -698,44 +698,24 @@ void CGamePlayState::Render(void)
 				m_pPF->Print(timebuff, CGame::GetInstance()->GetScreenWidth()/2-100,30,2.0f, D3DCOLOR_XRGB(255,255,255));
 		}
 	}
-	//for(int i = m_lScores.size()-1; i >= 0; i--)
-	//{
-	//	char buffer[32];
-	//	DWORD color = 0;
-	//	sprintf_s(buffer,"%i) %i",i+1,m_lScores[i]->GetKillCount());
-	//	if(m_lScores[i]->GetType() == OBJECT_PLAYER)
-	//	{
-	//		color = D3DCOLOR_ARGB(255,0,255,0);
-	//	}
-	//	//color = 255;
-	//	m_pPF->Print(buffer,2,370+(12*i),1.0f,color);
-	//}
-	//
+
 
 	if( CNumPlayers::GetInstance()->GetNumberOfPlayers() == 2)
 	{
 		if( COptionState::GetInstance()->IsVertical())
 		{
 			m_pD3D->DrawLine(int(CGame::GetInstance()->GetScreenWidth() * 0.5f) - CLevel::GetInstance()->GetMap()->GetPixelWidth(), 0, int(CGame::GetInstance()->GetScreenWidth() * 0.5f)- CLevel::GetInstance()->GetMap()->GetPixelWidth(), CGame::GetInstance()->GetScreenHeight(), 255,0,0);
-			/*player2->GetCamera()->AttachTo(player2, CGame::GetInstance()->GetScreenWidth()*0.25f, CGame::GetInstance()->GetScreenHeight()*0.25f);
-			player->GetCamera()->AttachTo(player, CGame::GetInstance()->GetScreenWidth()*0.25f, CGame::GetInstance()->GetScreenHeight()*0.25f);*/
+	
 		}
 		else
 		{
 			m_pD3D->DrawLine(0, int(CGame::GetInstance()->GetScreenHeight()*0.5f) - CLevel::GetInstance()->GetMap()->GetPixelHeight(), CGame::GetInstance()->GetScreenWidth(), int(CGame::GetInstance()->GetScreenHeight()*0.5f)- CLevel::GetInstance()->GetMap()->GetPixelHeight(), 255,0,0);
-			/*player2->GetCamera()->AttachTo(player2, CGame::GetInstance()->GetScreenWidth()*0.5f, CGame::GetInstance()->GetScreenHeight()*0.5f);
-			player->GetCamera()->AttachTo(player, CGame::GetInstance()->GetScreenWidth()*0.5f, CGame::GetInstance()->GetScreenHeight()*0.5f);*/
+			
 		}
 
 	}
 
 	
-
-
-	//
-	//m_pTM->Draw(m_nMiniMapUnderlayIndex,CGame::GetInstance()->GetScreenWidth()-192,0,.75f,.75f);
-	//m_pTM->Draw(m_nMiniMapMiddlelayIndex,CGame::GetInstance()->GetScreenWidth()-192,0,.75f,.75f);
-	//m_pTM->Draw(m_nMiniMapOverlayIndex,CGame::GetInstance()->GetScreenWidth()-192,0,.75f,.75f);
 
 }
 

@@ -482,40 +482,7 @@ void CPlayer::Render(CCamera* camera)
 	CSGD_Direct3D* pD3D = CSGD_Direct3D::GetInstance();
 
 	CCar::Render(camera);
-	char buffer[128];
-	sprintf_s(buffer,"%i",GetSpecialLevel());
-	pD3D->DrawText(buffer,10,10,255,255,255);
-	pD3D->GetSprite()->Flush();
 
-	RECT temp_rect;
-
-	temp_rect.left = LONG(GetPosX() - camera->GetCamX() + camera->GetRenderPosX());
-	temp_rect.top = LONG(GetPosY() - camera->GetCamY() + camera->GetRenderPosY());
-	temp_rect.right = temp_rect.left + 10;
-	temp_rect.bottom = temp_rect.top + 10;
-	//pD3D->DrawRect(temp_rect, 128,128,128);
-
-		RECT center;
-	center.left = LONG(GetPosX() + GetWidth()/2);
-	center.top = LONG(GetPosY());
-	center.right = center.left + 10;
-	center.bottom = center.top + 10;
-	//pD3D->DrawRect(center,0,0,0);
-	//pD3D->DrawRect(temp_rect, 0,255,255);
-
-	//pD3D->GetSprite()->Flush();
-	//temp_rect.left = this->GetCX1 () - camera->GetCamX() + camera->GetRenderPosX();
-	//temp_rect.top = this->GetCY1 () - camera->GetCamY() + camera->GetRenderPosY();
-	//temp_rect.right = temp_rect.left + 5;
-	//temp_rect.bottom = temp_rect.top + 5;
-	//pD3D->DrawRect(temp_rect, 255,0,0);
-
-	//pD3D->GetSprite()->Flush();
-	//temp_rect.left = this->GetCX2 () - camera->GetCamX() + camera->GetRenderPosX();
-	//temp_rect.top = this->GetCY2 () - camera->GetCamY() + camera->GetRenderPosY();
-	//temp_rect.right = temp_rect.left + 5;
-	//temp_rect.bottom = temp_rect.top + 5;
-	//pD3D->DrawRect(temp_rect, 0,255,0);
 }
 
 bool CPlayer::CheckCollision(IBaseInterface* pBase)
