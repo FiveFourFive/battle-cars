@@ -480,7 +480,7 @@ vector<CBase*> CLevel::SetCarSpawn (vector<CBase*> pBases)
 				car->SetSpeed(0.0f);
 				car->SetMaxHealth(150.0f);
 				car->SetType(OBJECT_ENEMY);
-				car->SetPlayerType(CAR_TRUCK);
+				car->SetPlayerType(rand() % (CAR_TRUCK - CAR_MINI+1) - CAR_MINI);
 				car->SetKillCount(0);
 				car->Rotate(0.0f);
 				car->SetMaxSpeed(200.0f);
