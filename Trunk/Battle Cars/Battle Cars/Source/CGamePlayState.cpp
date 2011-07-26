@@ -145,20 +145,6 @@ void CGamePlayState::Enter(void)
 	bosses.push_back(boss);
 	bosses.push_back(miniboss);
 
-	//dummy = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
-	//dummy->SetHealth(100.0f);
-	//dummy->SetShieldBar(0.0f);
-	//dummy->SetVelX(0.0f);
-	//dummy->SetVelY(0.0f);
-	//dummy->SetSpeed(0.0f);
-	//dummy->SetMaxHealth(100.0f);
-	//dummy->SetType(OBJECT_ENEMY);
-	//dummy->SetKillCount(0);
-	//dummy->Rotate(0.0f);
-	//dummy->SetPowerUps(power_ups);
-	//dummy->SetMaxSpeed(200.0f);
-	//dummy->EnterState ();
-
 	player = CCharacterSelection::GetInstance()->GetPlayer1();
 	player->Rotate(0.0f);
 	player->SetPlayerNum(1);
@@ -226,7 +212,8 @@ void CGamePlayState::Enter(void)
 	m_nBgMusicID = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/Superbeast.mp3",SGD_FMOD_LOOPING);
 	m_nCountDown = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/Countdown.mp3");
 	m_nCountDownEnd = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/Countdowntone.mp3");
-
+	m_pFM->SetVolume(m_nCountDown,CGame::GetInstance()->getSoundAVolume());
+	m_pFM->SetVolume(m_nCountDownEnd,CGame::GetInstance()->getSoundBVolume());
 
 	m_nMiniMapOverlayIndex=m_pTM->LoadTexture("resource/graphics/HUDS/minimap_overlay.png");
 	m_nMiniMapMiddlelayIndex=m_pTM->LoadTexture("resource/graphics/HUDS/minimap_middlelay.png");
@@ -313,6 +300,8 @@ void CGamePlayState::Enter(void)
 		player->GetCamera()->SetHeight(CGame::GetInstance()->GetScreenHeight());
 		player->GetCamera()->Update();
 	}
+
+	m_pFM->SetVolume(m_nBgMusicID,CGame::GetInstance()->getSoundBVolume());
 
 	Level->ResetSpawns ();
 	m_lScores.push_back(player);

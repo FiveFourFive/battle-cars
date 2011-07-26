@@ -53,7 +53,8 @@ void CLevelSelectionState::Enter()
 	m_nMenuSelect = m_pFM->LoadSound("resource/sounds/menuselect.mp3");
 	m_nMenuMove = m_pFM->LoadSound("resource/sounds/menuchange.mp3");
 	m_nFontID = m_pTM->LoadTexture("resource/graphics/BC_Font.png",D3DCOLOR_XRGB(0, 0, 0));
-
+	m_pFM->SetVolume(m_nMenuSelect,CGame::GetInstance()->getSoundAVolume());
+	m_pFM->SetVolume(m_nMenuMove,CGame::GetInstance()->getSoundAVolume());
 	m_pPF = new CPrintFont(m_nFontID);
 
 	m_nBGImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/mainmenu_bg.jpg");

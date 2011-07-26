@@ -24,7 +24,7 @@ private:
 	int m_nMenuMove;
 	int m_nBGImageID;
 	int m_nNumberOfPlayers;
-
+	int m_nIncorrectSelection;
 
 	CNumPlayers(void);
 	~CNumPlayers(void);

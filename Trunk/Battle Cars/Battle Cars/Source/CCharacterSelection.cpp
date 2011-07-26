@@ -63,6 +63,10 @@ void CCharacterSelection::Enter()
 	m_nIncorrectSelection = m_pFM->LoadSound("resource/sounds/buzzer2.mp3");
 	m_nFontID = m_pTM->LoadTexture("resource/graphics/BC_Font.png",D3DCOLOR_XRGB(0, 0, 0));
 
+	m_pFM->SetVolume(m_nMenuSelect,CGame::GetInstance()->getSoundAVolume());
+	m_pFM->SetVolume(m_nMenuMove,CGame::GetInstance()->getSoundAVolume());
+	m_pFM->SetVolume(m_nIncorrectSelection,CGame::GetInstance()->getSoundAVolume());
+	
 	m_pPF = new CPrintFont(m_nFontID);
 
 	currPlayer = m_vPlayerList[0];

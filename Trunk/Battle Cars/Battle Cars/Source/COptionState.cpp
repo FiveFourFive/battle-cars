@@ -55,6 +55,9 @@ void COptionState::Enter(void)
 	m_nSoundA = m_pFM->LoadSound("resource/sounds/bullet1.mp3");
 	m_nSoundB = CMainMenuState::GetInstance()->GetBackgroundMusicID();
 
+	m_pFM->SetVolume(m_nBackgroundMusicID,CGame::GetInstance()->getSoundBVolume());
+	m_pFM->SetVolume(m_nMenuSelect,CGame::GetInstance()->getSoundAVolume());
+	m_pFM->SetVolume(m_nMenuMove,CGame::GetInstance()->getSoundAVolume());
 	m_nBGImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/optionstate.jpg");
 	
 	//m_pFM->PlaySound(m_nBackgroundMusicID);
@@ -130,6 +133,10 @@ bool COptionState::Input(void)
 				{
 					CGame::GetInstance()->SetSoundBVolume(soundB -0.10f);
 					m_pFM->SetVolume(m_nSoundB,CGame::GetInstance()->getSoundBVolume());
+					if(CGamePlayState::GetInstance()->GetBackgroundMusicID() != -1)
+					{
+						m_pFM->SetVolume(CGamePlayState::GetInstance()->GetBackgroundMusicID(),CGame::GetInstance()->getSoundBVolume());
+					}
 				}
 				break;
 			}
@@ -170,6 +177,10 @@ bool COptionState::Input(void)
 				{
 					CGame::GetInstance()->SetSoundBVolume(soundB +0.10f);
 					m_pFM->SetVolume(m_nSoundB,CGame::GetInstance()->getSoundBVolume());
+					if(CGamePlayState::GetInstance()->GetBackgroundMusicID() != -1)
+					{
+						m_pFM->SetVolume(CGamePlayState::GetInstance()->GetBackgroundMusicID(),CGame::GetInstance()->getSoundBVolume());
+					}
 				}
 				break;
 			}
@@ -241,6 +252,10 @@ bool COptionState::Input(void)
 				{
 					CGame::GetInstance()->SetSoundBVolume(soundB -0.10f);
 					m_pFM->SetVolume(m_nSoundB,CGame::GetInstance()->getSoundBVolume());
+					if(CGamePlayState::GetInstance()->GetBackgroundMusicID() != -1)
+					{
+						m_pFM->SetVolume(CGamePlayState::GetInstance()->GetBackgroundMusicID(),CGame::GetInstance()->getSoundBVolume());
+					}
 				}
 				break;
 			}
@@ -290,6 +305,10 @@ bool COptionState::Input(void)
 				{
 					CGame::GetInstance()->SetSoundBVolume(soundB +0.10f);
 					m_pFM->SetVolume(m_nSoundB,CGame::GetInstance()->getSoundBVolume());
+					if(CGamePlayState::GetInstance()->GetBackgroundMusicID() != -1)
+					{
+						m_pFM->SetVolume(CGamePlayState::GetInstance()->GetBackgroundMusicID(),CGame::GetInstance()->getSoundBVolume());
+					}
 				}
 				break;
 			}

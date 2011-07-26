@@ -182,6 +182,8 @@ public:
 
 	int GetBarrelImageID () {return m_nBarrelID;}
 	int GetCrateImageID () {return m_nCrateID;}
+
+	int GetBackgroundMusicID(void) { return m_nBgMusicID; }
 };
 
 
