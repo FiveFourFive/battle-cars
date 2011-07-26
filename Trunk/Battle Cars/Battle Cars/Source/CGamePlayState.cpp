@@ -119,6 +119,7 @@ void CGamePlayState::Enter(void)
 
 	CGame::GetInstance()->ResetInputDelay();
 	player = CCharacterSelection::GetInstance()->GetPlayer1();
+	//m_pOM->AddObject(player);
 	player->Rotate(0.0f);
 	player->SetPlayerNum(1);
 	player->SetType(OBJECT_PLAYER);
@@ -166,7 +167,7 @@ void CGamePlayState::Enter(void)
 	m_fCountDown = 0.0f;
 	m_nCollectableTotalComputer = 0;
 	m_nCollectableTotalPlayer = 0;
-
+cars = Level->SetCarSpawn (cars);
 	if(!m_bCollectionChallenge)
 	{
 		
@@ -242,7 +243,7 @@ void CGamePlayState::Enter(void)
 	else
 		collectionChallengeBoss = NULL;
 
-	cars = Level->SetCarSpawn (cars);
+	
 	obstacles = Level->SetObstacleSpawn ();
 	ramps = Level->SetSpeedRampSpawn ();
 	power_ups = Level->SetPowerUpSpawn ();
