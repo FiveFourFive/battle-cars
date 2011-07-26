@@ -35,7 +35,7 @@ private:
 	int m_nNumSlots;
 	int m_nSlot;
 	int m_nBGImageID;
-
+	bool m_bRoll;
 	int miniID;
 	int vetteID;
 	int humveeID;

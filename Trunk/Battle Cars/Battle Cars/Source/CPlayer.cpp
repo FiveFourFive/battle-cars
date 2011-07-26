@@ -354,7 +354,7 @@ void CPlayer::Update(float fElapsedTime)
 			{
 				SetAccelerating(true);
 				if(GetSpeed() < GetMaxSpeed())
-					SetSpeed(GetSpeed() + (500 * fElapsedTime));
+					SetSpeed(GetSpeed() + (GetAcceleration() * fElapsedTime));
 			}
 			else
 				SetAccelerating(false);
@@ -363,7 +363,7 @@ void CPlayer::Update(float fElapsedTime)
 		if(m_pDI->KeyDown(tempkeys->Getbackward())||m_pDI->JoystickGetRStickDirDown(DIR_DOWN))
 			{
 				if(GetSpeed() > (-0.5f * GetMaxSpeed()))
-					SetSpeed(GetSpeed() - (500 * fElapsedTime));
+					SetSpeed(GetSpeed() - (GetAcceleration() * fElapsedTime));
 			}
 
 		if(GetTurnable())

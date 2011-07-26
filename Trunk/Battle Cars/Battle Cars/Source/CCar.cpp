@@ -91,19 +91,19 @@ void CCar::Update(float fElapsedTime)
 	{
 		// adjusting these changes the time it takes for the velocity 
 		// to get back to the direction vector
-		tempvel.fX -= tempvel.fX * 0.05f;
+		tempvel.fX -= tempvel.fX * 0.03f;
 	}
 	if(tempvel.fY > 0)
 	{
-		tempvel.fY -= tempvel.fY * 0.05f;
+		tempvel.fY -= tempvel.fY * 0.03f;
 	}
 	if(tempvel.fX < 0)
 	{
-		tempvel.fX -= tempvel.fX * 0.05f;
+		tempvel.fX -= tempvel.fX * 0.03f;
 	}
 	if(tempvel.fY < 0)
 	{
-		tempvel.fY -= tempvel.fY * 0.05f;
+		tempvel.fY -= tempvel.fY * 0.03f;
 	}
 
 	if(tempvel.fX < 3.0f && tempvel.fX > -3.0f)
@@ -116,11 +116,11 @@ void CCar::Update(float fElapsedTime)
 	}
 	if(GetSpeed() > 0 && !m_bAccelerating)
 	{
-		SetSpeed(GetSpeed() - 1.0f);
+		SetSpeed(GetSpeed() - 0.5f);
 	}
 	if(GetSpeed() < 0)
 	{
-		SetSpeed(GetSpeed() + 1.0f);
+		SetSpeed(GetSpeed() + 0.5f);
 	}
 	if(GetSpeed() < 1.0f && GetSpeed() > -1.0f)
 		SetSpeed(0);
