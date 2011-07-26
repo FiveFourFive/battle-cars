@@ -33,9 +33,12 @@ void PowerUp::Update(float fElapsedTime)
 
 void PowerUp::Render(CCamera* camera)
 {
-	if( (GetPosX()- camera->GetCamX()) < 0 || (GetPosX() - camera->GetCamX()) > camera->GetWidth() || GetPosY() - camera->GetCamY() < 0 ||
-		GetPosY() - camera->GetCamY() > camera->GetHeight())
+	RECT intersect;
+
+	if (!(IntersectRect (&intersect, &GetRect(), &camera->GetRect ())))
+	{
 		return;
+	}
 
 	if(m_bActive)
 	{

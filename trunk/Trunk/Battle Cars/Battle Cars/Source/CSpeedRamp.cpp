@@ -21,10 +21,12 @@ void CSpeedRamp::Update(float fElapsedTime)
 
 void CSpeedRamp::Render(CCamera* camera)
 {
-	if( (GetPosX()- camera->GetCamX()) < 0 || (GetPosX() - camera->GetCamX()) > camera->GetWidth() || GetPosY() - camera->GetCamY() < 0 ||
-		GetPosY() - camera->GetCamY() > camera->GetHeight())
-		return;
+	RECT intersect;
 
+	if (!(IntersectRect (&intersect, &GetRect(), &camera->GetRect ())))
+	{
+		return;
+	}
 //	RECT tempdraw;
 	//CSGD_Direct3D* pD3D = CSGD_Direct3D::GetInstance();
 	//tempdraw.left = (int)(GetPosX() - camera->GetCamX() + (int)camera->GetRenderPosX());

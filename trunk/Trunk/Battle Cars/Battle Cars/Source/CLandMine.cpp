@@ -29,8 +29,13 @@ void CLandMine::Update(float fElapsedTime)
 
 void CLandMine::Render(CCamera* camera)
 {
-	if((GetPosX() - camera->GetCamX()) < 0 || (GetPosX() - camera->GetCamX()) > camera->GetRenderPosX() + camera->GetWidth())
+	RECT intersect;
+
+	if (!(IntersectRect (&intersect, &GetRect(), &camera->GetRect ())))
+	{
 		return;
+	}
+
 	RECT temppos;
 	temppos.left = (LONG)(GetPosX() - camera->GetCamX() + camera->GetRenderPosX());
 	temppos.top = (LONG)(GetPosY() - camera->GetCamY() + camera->GetRenderPosY());
