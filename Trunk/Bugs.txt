@@ -1,10 +1,7 @@
 Images of each map
 XML on the end of levels
-Flame Sheild for Redrucker
-Enemy runs through walls
 Score board to long
 Weapon Images need to be final
-Mini boss fires to far away
 Score Board jumping when multiple people have the same kill count
 when enemy dies you can drive over them and still collide
 everything rendering under the speed ramp
