@@ -249,14 +249,14 @@ void CNumPlayers::Render()
 	m_pPF->Print("BATTLE CARS",220,50,1.0f,D3DCOLOR_XRGB(200, 0, 0));
 	m_pPF->Print("MAYHEM AND DESTRUCTION",50,100,1.0f,D3DCOLOR_XRGB(200, 0, 0));
 
-	m_pPF->Print("1 PLAYER",300,200,0.5f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->Print("1 Player",300,200,0.5f,D3DCOLOR_XRGB(200, 0, 0));
 	if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance() || !CGame::GetInstance()->Controller2Connected())
 	{
-		m_pPF->Print("2 PLAYER",300,250,0.5f,D3DCOLOR_XRGB(128, 128, 128));	
+		m_pPF->Print("2 Player",300,250,0.5f,D3DCOLOR_XRGB(128, 128, 128));	
 	}
 	else
 	{
-		m_pPF->Print("2 PLAYER",300,250,0.5f,D3DCOLOR_XRGB(200, 0, 0));	
+		m_pPF->Print("2 Player",300,250,0.5f,D3DCOLOR_XRGB(200, 0, 0));	
 	}
 	m_pPF->Print("BEGIN",300,300,0.5f,D3DCOLOR_XRGB(200, 0, 0));
 
@@ -264,11 +264,11 @@ void CNumPlayers::Render()
 	switch(m_nSelection)
 	{
 	case 0:			
-		m_pPF->Print("1 PLAYER",300,200,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+		m_pPF->Print("1 Player",300,200,0.5f,D3DCOLOR_XRGB(0, 255, 0));
 		break;
 	case 1:
 
-		m_pPF->Print("2 PLAYER",300,250,0.5f,D3DCOLOR_XRGB(0, 255, 0));	
+		m_pPF->Print("2 Player",300,250,0.5f,D3DCOLOR_XRGB(0, 255, 0));	
 		if(!CGame::GetInstance()->ControllerInput() || !CGame::GetInstance()->Controller2Connected())
 		{
 			m_pPF->Print(" ---- 2 player requires at least one gamepad connected.",425,250,0.5f,D3DCOLOR_XRGB(255,255,255));

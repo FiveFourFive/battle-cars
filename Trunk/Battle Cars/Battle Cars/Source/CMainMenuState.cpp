@@ -191,35 +191,35 @@ void CMainMenuState::Render(void)
 	m_pPF->Print("BATTLE CARS",220,50,1.0f,D3DCOLOR_XRGB(200, 0, 0));
 	m_pPF->Print("MAYHEM AND DESTRUCTION",50,100,1.0f,D3DCOLOR_XRGB(200, 0, 0));
 
-	m_pPF->Print("PLAY",300,200,0.5f,D3DCOLOR_XRGB(200, 0, 0));
-	m_pPF->Print("OPTIONS",300,250,0.5f,D3DCOLOR_XRGB(200, 0, 0));	
-	m_pPF->Print("HOW TO PLAY",300,300,0.5f,D3DCOLOR_XRGB(200, 0, 0));
-	m_pPF->Print("GAMER PROFILE",300,350,0.5f,D3DCOLOR_XRGB(200, 0, 0));
-	m_pPF->Print("HIGHSCORES",300,400,0.5f,D3DCOLOR_XRGB(200, 0, 0));
-	m_pPF->Print("CREDITS",300,450,0.5f,D3DCOLOR_XRGB(200, 0, 0));
-	m_pPF->Print("EXIT",300,500,0.5f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->Print("Play",300,200,0.5f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->Print("Options",300,250,0.5f,D3DCOLOR_XRGB(200, 0, 0));	
+	m_pPF->Print("How To Play",300,300,0.5f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->Print("Gamer Profile",300,350,0.5f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->Print("Highscores",300,400,0.5f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->Print("Credits",300,450,0.5f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->Print("Exit",300,500,0.5f,D3DCOLOR_XRGB(200, 0, 0));
 	switch(m_nSelection)
 		{
 		case PLAY:			
-			m_pPF->Print("PLAY",300,200,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print("Play",300,200,0.5f,D3DCOLOR_XRGB(0, 255, 0));
 			break;
 		case OPTIONS:
-			m_pPF->Print("OPTIONS",300,250,0.5f,D3DCOLOR_XRGB(0, 255, 0));	
+			m_pPF->Print("Options",300,250,0.5f,D3DCOLOR_XRGB(0, 255, 0));	
 			break;
 		case HOW_TO_PLAY:
-			m_pPF->Print("HOW TO PLAY",300,300,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print("How To Play",300,300,0.5f,D3DCOLOR_XRGB(0, 255, 0));
 			break;
 		case GAMER_PROFILE:
-			m_pPF->Print("GAMER PROFILE",300,350,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print("Gamer Profile",300,350,0.5f,D3DCOLOR_XRGB(0, 255, 0));
 			break;
 		case HIGH_SCORES:
-			m_pPF->Print("HIGHSCORES",300,400,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print("Highscores",300,400,0.5f,D3DCOLOR_XRGB(0, 255, 0));
 			break;
 		case CREDITS:
-			m_pPF->Print("CREDITS",300,450,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print("Credits",300,450,0.5f,D3DCOLOR_XRGB(0, 255, 0));
 			break;
 		case EXIT:
-			m_pPF->Print("EXIT",300,500,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print("Exit",300,500,0.5f,D3DCOLOR_XRGB(0, 255, 0));
 			break;
 		}
 }
