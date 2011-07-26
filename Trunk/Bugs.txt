@@ -5,7 +5,6 @@ particles spawn extra emittor
 particles render while car is gone
 player over take crates and barrels
 particles render all at once then update
-second players speed is off
 mini map doesnt show both player
 2player scores need differnet colors
 collision is off 
