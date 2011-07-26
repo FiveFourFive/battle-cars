@@ -345,24 +345,24 @@ bool CLevel::CheckObstacleCollision (CBase* pBase)
 
 						if (intersection.bottom - intersection.top > intersection.right - intersection.left) // left or right collision
 						{
-							if (((CObstacle*)pBase)->GetRect ().left <= LevelMap->GetCollisionRect(XPos, YPos).right)//right collision
+							if (((CObstacle*)pBase)->GetRect ().left <= LevelMap->GetCollisionRect(XPos, YPos).right)//Right of obstacle and left of wall collision
 							{
-								((CObstacle*)pBase)->SetPosX (((CObstacle*)pBase)->GetPosX () - 2.0f);
-							}else if (((CObstacle*)pBase)->GetRect ().right >= LevelMap->GetCollisionRect(XPos, YPos).left)//left collision
+								((CObstacle*)pBase)->SetPosX (((CObstacle*)pBase)->GetPosX () - 4.0f);
+							}else if (((CObstacle*)pBase)->GetRect ().right >= LevelMap->GetCollisionRect(XPos, YPos).left)//left of obstacle and right of wall collision
 							{
-								((CObstacle*)pBase)->SetPosX (((CObstacle*)pBase)->GetPosX () + 2.0f);
+								((CObstacle*)pBase)->SetPosX (((CObstacle*)pBase)->GetPosX () + 4.0f);
 							}
 							return true;
 						}
 
 						if ((intersection.bottom - intersection.top) < (intersection.right - intersection.left))//top or bottom collision
 						{
-							if (((CObstacle*)pBase)->GetRect ().top <= LevelMap->GetCollisionRect(XPos, YPos).bottom)//bottom collision
+							if (((CObstacle*)pBase)->GetRect ().bottom >= LevelMap->GetCollisionRect(XPos, YPos).top )//Bottom of obstacle and Top of wall collision
 							{
-								((CObstacle*)pBase)->SetPosY (((CObstacle*)pBase)->GetPosY () + 2.0f);
-							}else if (((CObstacle*)pBase)->GetRect ().bottom >= LevelMap->GetCollisionRect(XPos, YPos).top)//top collision
+								((CObstacle*)pBase)->SetPosY (((CObstacle*)pBase)->GetPosY () - 4.0f);
+							}else if (((CObstacle*)pBase)->GetRect ().top <= LevelMap->GetCollisionRect(XPos, YPos).bottom)//Top of Obstacle and bottom of wall collision
 							{
-								((CObstacle*)pBase)->SetPosY (((CObstacle*)pBase)->GetPosY () - 2.0f);
+								((CObstacle*)pBase)->SetPosY (((CObstacle*)pBase)->GetPosY () + 4.0f);
 							}
 							return true;
 						}
