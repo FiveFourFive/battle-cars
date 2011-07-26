@@ -40,9 +40,12 @@ void CBase::Update(float fElapsedTime)
 
 void CBase::Render(CCamera* camera)
 {
-	if( (GetPosX() - camera->GetCamX()) < 0 || (GetPosX() - camera->GetCamX()) > camera->GetRenderPosX() + camera->GetWidth() || (GetPosY() - camera->GetCamY() + 2 < 0) 
-		|| (GetPosY() - camera->GetCamY()) > camera->GetRenderPosY() + camera->GetHeight() )
+	RECT intersect;
+
+	if (!(IntersectRect (&intersect, &GetRect(), &camera->GetRect ())))
+	{
 		return;
+	}
 
 	CSGD_TextureManager::GetInstance()->Draw(GetImageID(),int(GetPosX()-camera->GetCamX() + camera->GetRenderPosX() - (GetWidth()/2)), int(GetPosY()-camera->GetCamY() + camera->GetRenderPosY() - (GetHeight()/2)),1.0f,1.0f);
 }

@@ -1,5 +1,3 @@
-Images of each map
-XML on the end of levels
 Score board to long
 Score Board jumping when multiple people have the same kill count
 when enemy dies you can drive over them and still collide

@@ -173,9 +173,12 @@ void CCar::Update(float fElapsedTime)
 
 void CCar::Render(CCamera* camera)
 {
-	if( (GetRect().left - camera->GetCamX()) + 2 < 0 || (GetRect().left - camera->GetCamX()) > camera->GetRenderPosX() + camera->GetWidth() 
-		|| (GetRect().top - camera->GetCamY() + 2 < 0) || (GetRect().top - camera->GetCamY()) > camera->GetRenderPosY() + camera->GetHeight() )
+	RECT intersect;
+
+	if (!(IntersectRect (&intersect, &GetRect(), &camera->GetRect ())))
+	{
 		return;
+	}
 
 	CSGD_Direct3D* pD3D = CSGD_Direct3D::GetInstance();
 	CSGD_TextureManager* m_pTM = CSGD_TextureManager::GetInstance();
