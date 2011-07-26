@@ -41,7 +41,7 @@ private:
 
 	int m_nFlameThrower;		// The Emittor ID to the flamethrower particle effect.
 	bool isSet;					// Is the emittor Set?
-
+	bool controller;
 	int m_nPlayerNum;
 
 public:

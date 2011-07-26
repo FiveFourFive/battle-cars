@@ -37,7 +37,7 @@ CPlayer::CPlayer(CXboxInput* pController)
 
 	Weapons.push_back ( CSGD_TextureManager::GetInstance()->LoadTexture("Resource/Graphics/HUDS/Weapon_Icons/Pistoal_PlaceHolder.png"));
 	Weapons.push_back ( CSGD_TextureManager::GetInstance()->LoadTexture("Resource/Graphics/HUDS/Weapon_Icons/ranged08.png"));
-
+	controller = false;
 	m_pCamera = new CCamera();
 	m_pHUD = new CHUD();
 	m_pHUD->SetOwner(this);
@@ -185,8 +185,24 @@ void CPlayer::Update(float fElapsedTime)
 		if(m_fIcyBullets <= 0.0f)
 			m_bIsIcyGatlingOn = false;
 	}
-
-	if(m_pController1->Connected())//CGame::GetInstance()->ControllerInput())
+	if(m_nPlayerNum == 1)
+	{
+		if(CGame::GetInstance()->ControllerInput())
+			controller = true;
+		else
+			controller = false;
+		
+	}
+	else
+		if(m_nPlayerNum == 2)
+		{
+			if(CGame::GetInstance()->Controller2Connected())
+				controller = true;
+			else
+			controller = false;
+		}
+		
+	if(controller)//CGame::GetInstance()->ControllerInput())
 	{
 		//m_pController1->ReadInputState();
 		XINPUT_STATE xState = m_pController1->GetState();
@@ -334,7 +350,7 @@ void CPlayer::Update(float fElapsedTime)
 	{
 		CKeyboardKeyBinds* tempkeys = CGamerProfile::GetInstance()->GetActiveProfile()->m_pKKB;
 
-		if(m_pDI->KeyDown(tempkeys->Getforward()) || m_pDI->JoystickGetLStickDirDown(DIR_UP))
+		if(m_pDI->KeyDown(tempkeys->Getforward()) || m_pDI->JoystickGetRStickDirDown(DIR_UP))
 			{
 				SetAccelerating(true);
 				if(GetSpeed() < GetMaxSpeed())
@@ -344,7 +360,7 @@ void CPlayer::Update(float fElapsedTime)
 				SetAccelerating(false);
 
 		
-		if(m_pDI->KeyDown(tempkeys->Getbackward())||m_pDI->JoystickGetLStickDirDown(DIR_DOWN))
+		if(m_pDI->KeyDown(tempkeys->Getbackward())||m_pDI->JoystickGetRStickDirDown(DIR_DOWN))
 			{
 				if(GetSpeed() > (-0.5f * GetMaxSpeed()))
 					SetSpeed(GetSpeed() - (GetAcceleration() * fElapsedTime));
@@ -352,7 +368,7 @@ void CPlayer::Update(float fElapsedTime)
 
 		if(GetTurnable())
 		{
-		if(m_pDI->KeyDown(tempkeys->GetLeft())||m_pDI->JoystickGetLStickDirDown(DIR_LEFT))
+		if(m_pDI->KeyDown(tempkeys->GetLeft())||m_pDI->JoystickGetRStickDirDown(DIR_LEFT))
 		{
 			
 			SetRotation(GetRotation() - (GetRotationRate() * fElapsedTime));
@@ -365,7 +381,7 @@ void CPlayer::Update(float fElapsedTime)
 			Rotate(GetRotation());
 		}
 
-		if(m_pDI->KeyDown(tempkeys->GetRight())||m_pDI->JoystickGetLStickDirDown(DIR_RIGHT))
+		if(m_pDI->KeyDown(tempkeys->GetRight())||m_pDI->JoystickGetRStickDirDown(DIR_RIGHT))
 		{
 			SetRotation(GetRotation() + (GetRotationRate() * fElapsedTime));
 			tVector2D tempdir = GetDirection();
