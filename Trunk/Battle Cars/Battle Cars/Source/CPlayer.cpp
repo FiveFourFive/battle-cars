@@ -681,8 +681,6 @@ void CPlayer::HandleEvent(CEvent* pEvent)
 		else if(pEvent->GetEventID() == "powerup_power")
 		{
 			if(GetPowerUpBar() < GetMaxPowerUp())
-				SetPowerUpBar(GetPowerUpBar() + 50);
-			if(GetPowerUpBar() > GetMaxPowerUp())
 				SetPowerUpBar(GetMaxPowerUp());
 		}
 		else if( pEvent->GetEventID() == "collision")
