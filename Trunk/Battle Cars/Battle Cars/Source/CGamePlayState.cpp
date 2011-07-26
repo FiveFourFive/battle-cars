@@ -152,6 +152,21 @@ void CGamePlayState::Enter(void)
 	bosses.push_back(miniboss);
 	
 
+
+	
+	m_bCountDown = false;
+	m_fEnlarge = 0.0f;
+	m_bPlaying = false;
+	m_bBossHasSpawned = false;
+	m_bBossHasDied = false;
+	m_bMiniBossHasDied = false;
+	m_bMiniBossHasSpawned = false;
+	m_fRespawnMiniBossTimer = 0.0f;
+	m_fRespawnBossTimer = 0.0f;
+	m_fCountDown = 0.0f;
+	m_nCollectableTotalComputer = 0;
+	m_nCollectableTotalPlayer = 0;
+
 	if(!m_bCollectionChallenge)
 	{
 		
@@ -177,21 +192,6 @@ void CGamePlayState::Enter(void)
 		}
 		m_pOM->AddObject(miniboss);
 	}
-	
-	m_bCountDown = false;
-	m_fEnlarge = 0.0f;
-	m_bPlaying = false;
-	m_bBossHasSpawned = false;
-	m_bBossHasDied = false;
-	m_bMiniBossHasDied = false;
-	m_bMiniBossHasSpawned = false;
-	m_fRespawnMiniBossTimer = 0.0f;
-	m_fRespawnBossTimer = 0.0f;
-	m_fCountDown = 0.0f;
-	m_nCollectableTotalComputer = 0;
-	m_nCollectableTotalPlayer = 0;
-
-	
 	
 	time = 1000;
 	m_fElapsedSecond = 0.0f;
@@ -301,6 +301,9 @@ void CGamePlayState::Enter(void)
 	}
 
 	m_pFM->SetVolume(m_nBgMusicID,CGame::GetInstance()->getSoundBVolume());
+
+	
+
 
 	Level->ResetSpawns ();
 	m_lScores.push_back(player);

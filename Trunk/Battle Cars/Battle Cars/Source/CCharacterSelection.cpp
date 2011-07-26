@@ -38,11 +38,11 @@ CCharacterSelection::~CCharacterSelection()
 {
 	/*for( unsigned int i = 0; i < m_vPlayerList.size(); i++)
 	{
-		if( m_vPlayerList[i])
-		{
-			delete m_vPlayerList[i];
-			m_vPlayerList[i] = NULL;
-		}
+	if( m_vPlayerList[i])
+	{
+	delete m_vPlayerList[i];
+	m_vPlayerList[i] = NULL;
+	}
 	}*/
 }
 
@@ -57,7 +57,7 @@ void CCharacterSelection::Enter()
 	{
 		isAvailable[i] = true;
 	}
-	
+
 	m_nMenuSelect = m_pFM->LoadSound("resource/sounds/menuselect.mp3");
 	m_nMenuMove = m_pFM->LoadSound("resource/sounds/menuchange.mp3");
 	m_nIncorrectSelection = m_pFM->LoadSound("resource/sounds/buzzer2.mp3");
@@ -66,7 +66,7 @@ void CCharacterSelection::Enter()
 	m_pFM->SetVolume(m_nMenuSelect,CGame::GetInstance()->getSoundAVolume());
 	m_pFM->SetVolume(m_nMenuMove,CGame::GetInstance()->getSoundAVolume());
 	m_pFM->SetVolume(m_nIncorrectSelection,CGame::GetInstance()->getSoundAVolume());
-	
+
 	m_pPF = new CPrintFont(m_nFontID);
 
 	currPlayer = m_vPlayerList[0];
@@ -91,8 +91,8 @@ void CCharacterSelection::Exit()
 	//m_pFM->StopSound(CMainMenuState::GetInstance()->GetBackgroundMusicID());
 	/*for( unsigned int i = 0; i < m_vPlayerList.size(); i++)
 	{
-		delete m_vPlayerList[i];
-		m_vPlayerList[i] = NULL;
+	delete m_vPlayerList[i];
+	m_vPlayerList[i] = NULL;
 	}*/
 }
 
@@ -108,46 +108,44 @@ bool CCharacterSelection::Input()
 	{
 		m_nSelection = 4;
 	}
-
-	if(CGame::GetInstance()->ControllerInput())
+	if(IsPlayer1Selecting() && !IsPlayer2Selecting() || !IsPlayer1Selecting() && !IsPlayer2Selecting())
 	{
-		XINPUT_STATE xState = CGame::GetInstance()->GetController1()->GetState();
-
-		//m_pController1->ReadInputState();
-		if( CNumPlayers::GetInstance()->GetNumberOfPlayers() == 2)
+		if(CGame::GetInstance()->ControllerInput())
 		{
+			XINPUT_STATE xState = CGame::GetInstance()->GetController1()->GetState();
+
+			//m_pController1->ReadInputState();
+
 			if( IsPlayer1Selecting() )
 				xState = CGame::GetInstance()->GetController1()->GetState();
-			if(IsPlayer2Selecting() )
-				xState = CGame::GetInstance()->GetController2()->GetState();
-		}
-			
 
-		float x = xState.Gamepad.sThumbLX;
-		float y = xState.Gamepad.sThumbLY;
-		if(CGame::GetInstance()->GetInputDelay() >= 0.15f)
-		{
-			CGame::GetInstance()->ResetInputDelay();
-			if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_X)
+
+
+			float x = xState.Gamepad.sThumbLX;
+			float y = xState.Gamepad.sThumbLY;
+			if(CGame::GetInstance()->GetInputDelay() >= 0.15f)
 			{
-				return this->HandleEnter();
-			}
-			else if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_B)
-			{
-				for( unsigned int i = 0; i < m_vPlayerList.size(); i++)
+				CGame::GetInstance()->ResetInputDelay();
+				if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_X)
 				{
-					delete m_vPlayerList[i];
-					m_vPlayerList[i] = NULL;
+					return this->HandleEnter();
 				}
-				CGame::GetInstance()->RemoveState(this);
+				else if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_B)
+				{
+					for( unsigned int i = 0; i < m_vPlayerList.size(); i++)
+					{
+						delete m_vPlayerList[i];
+						m_vPlayerList[i] = NULL;
+					}
+					CGame::GetInstance()->RemoveState(this);
+				}
 			}
-		}
-		if(CGame::GetInstance()->GetThumbDelay() >= 0.15f)
-		{
+			if(CGame::GetInstance()->GetThumbDelay() >= 0.15f)
+			{
 				CGame::GetInstance()->ResetThumbDelay();
 				if(x < 8000 && x > -8000 && y > 16000|| xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP)
 				{
-					if( IsPlayer1Selecting() || IsPlayer2Selecting() )
+					if( IsPlayer1Selecting()  )
 					{
 						m_nSelection--;
 						m_pFM->PlaySound(m_nMenuMove);
@@ -159,7 +157,7 @@ bool CCharacterSelection::Input()
 				}
 				else if(x < 8000 && x > -8000 && y < -16000|| xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN)
 				{
-					if( IsPlayer1Selecting() || IsPlayer2Selecting() )
+					if( IsPlayer1Selecting()  )
 					{
 						m_nSelection++;
 						m_pFM->PlaySound(m_nMenuMove);
@@ -169,52 +167,160 @@ bool CCharacterSelection::Input()
 						currPlayer = m_vPlayerList[m_nSelection];
 					}
 				}
+			}
+		}
+		else
+		{
+			if(m_pDI->KeyPressed(DIK_ESCAPE)||m_pDI->JoystickButtonPressed(1))
+			{
+				for( unsigned int i = 0; i < m_vPlayerList.size(); i++)
+				{
+					delete m_vPlayerList[i];
+					m_vPlayerList[i] = NULL;
+				}
+				CGame::GetInstance()->RemoveState(this);
+			}
+
+			if(m_pDI->KeyPressed(DIK_RETURN)||m_pDI->JoystickButtonPressed(0))
+			{
+				return this->HandleEnter();
+			}
+
+			if(m_pDI->KeyPressed(DIK_UP)||m_pDI->JoystickGetLStickDirDown(DIR_UP))
+			{
+				if( IsPlayer1Selecting()  )
+				{
+					m_nSelection--;
+					m_pFM->PlaySound(m_nMenuMove);
+					if(m_nSelection < 0)
+						m_nSelection = 3;
+
+					currPlayer = m_vPlayerList[m_nSelection];
+				}
+			}
+
+			if(m_pDI->KeyPressed(DIK_DOWN)||m_pDI->JoystickGetLStickDirDown(DIR_DOWN))
+			{
+				if( IsPlayer1Selecting()  )
+				{
+					m_nSelection++;
+					m_pFM->PlaySound(m_nMenuMove);
+					if(m_nSelection > 3)
+						m_nSelection = 0;
+
+					currPlayer = m_vPlayerList[m_nSelection];
+				}
+			}
+
+
 		}
 	}
 	else
 	{
-		if(m_pDI->KeyPressed(DIK_ESCAPE)||m_pDI->JoystickButtonPressed(1))
+		if(CGame::GetInstance()->Controller2Connected())
 		{
-			for( unsigned int i = 0; i < m_vPlayerList.size(); i++)
+			XINPUT_STATE xState = CGame::GetInstance()->GetController2()->GetState();
+
+			//m_pController1->ReadInputState();
+
+			if(IsPlayer2Selecting() )
+				xState = CGame::GetInstance()->GetController2()->GetState();
+
+
+
+			float x = xState.Gamepad.sThumbLX;
+			float y = xState.Gamepad.sThumbLY;
+			if(CGame::GetInstance()->GetInputDelay() >= 0.15f)
 			{
-				delete m_vPlayerList[i];
-				m_vPlayerList[i] = NULL;
+				CGame::GetInstance()->ResetInputDelay();
+				if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_X)
+				{
+					return this->HandleEnter();
+				}
+				else if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_B)
+				{
+					for( unsigned int i = 0; i < m_vPlayerList.size(); i++)
+					{
+						delete m_vPlayerList[i];
+						m_vPlayerList[i] = NULL;
+					}
+					CGame::GetInstance()->RemoveState(this);
+				}
 			}
-			CGame::GetInstance()->RemoveState(this);
-		}
-
-		if(m_pDI->KeyPressed(DIK_RETURN)||m_pDI->JoystickButtonPressed(0))
-		{
-			return this->HandleEnter();
-		}
-
-		if(m_pDI->KeyPressed(DIK_UP)||m_pDI->JoystickGetLStickDirDown(DIR_UP))
-		{
-			if( IsPlayer1Selecting() || IsPlayer2Selecting() )
+			if(CGame::GetInstance()->GetThumbDelay() >= 0.15f)
 			{
-				m_nSelection--;
-				m_pFM->PlaySound(m_nMenuMove);
-				if(m_nSelection < 0)
-					m_nSelection = 3;
+				CGame::GetInstance()->ResetThumbDelay();
+				if(x < 8000 && x > -8000 && y > 16000|| xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP)
+				{
+					if(IsPlayer2Selecting() )
+					{
+						m_nSelection--;
+						m_pFM->PlaySound(m_nMenuMove);
+						if(m_nSelection < 0)
+							m_nSelection = 3;
 
-				currPlayer = m_vPlayerList[m_nSelection];
+						currPlayer = m_vPlayerList[m_nSelection];
+					}
+				}
+				else if(x < 8000 && x > -8000 && y < -16000|| xState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN)
+				{
+					if(IsPlayer2Selecting() )
+					{
+						m_nSelection++;
+						m_pFM->PlaySound(m_nMenuMove);
+						if(m_nSelection > 3)
+							m_nSelection = 0;
+
+						currPlayer = m_vPlayerList[m_nSelection];
+					}
+				}
 			}
 		}
-
-		if(m_pDI->KeyPressed(DIK_DOWN)||m_pDI->JoystickGetLStickDirDown(DIR_DOWN))
+		else
 		{
-			if( IsPlayer1Selecting() || IsPlayer2Selecting() )
+			if(m_pDI->KeyPressed(DIK_ESCAPE)||m_pDI->JoystickButtonPressed(1))
 			{
-				m_nSelection++;
-				m_pFM->PlaySound(m_nMenuMove);
-				if(m_nSelection > 3)
-					m_nSelection = 0;
-
-				currPlayer = m_vPlayerList[m_nSelection];
+				for( unsigned int i = 0; i < m_vPlayerList.size(); i++)
+				{
+					delete m_vPlayerList[i];
+					m_vPlayerList[i] = NULL;
+				}
+				CGame::GetInstance()->RemoveState(this);
 			}
+
+			if(m_pDI->KeyPressed(DIK_RETURN)||m_pDI->JoystickButtonPressed(0))
+			{
+				return this->HandleEnter();
+			}
+
+			if(m_pDI->KeyPressed(DIK_UP))
+			{
+				if(IsPlayer2Selecting() )
+				{
+					m_nSelection--;
+					m_pFM->PlaySound(m_nMenuMove);
+					if(m_nSelection < 0)
+						m_nSelection = 3;
+
+					currPlayer = m_vPlayerList[m_nSelection];
+				}
+			}
+
+			if(m_pDI->KeyPressed(DIK_DOWN))
+			{
+				if(IsPlayer2Selecting() )
+				{
+					m_nSelection++;
+					m_pFM->PlaySound(m_nMenuMove);
+					if(m_nSelection > 3)
+						m_nSelection = 0;
+
+					currPlayer = m_vPlayerList[m_nSelection];
+				}
+			}
+
+
 		}
-
-
 	}
 	return true;
 }
@@ -357,129 +463,129 @@ void CCharacterSelection::Render()
 bool CCharacterSelection::HandleEnter()
 {
 	if( CNumPlayers::GetInstance()->GetNumberOfPlayers() == 2)
+	{
+		if( !IsPlayer1Selecting() && IsPlayer2Selecting())
 		{
-			if( !IsPlayer1Selecting() && IsPlayer2Selecting())
+			switch( m_nSelection )
 			{
-				switch( m_nSelection )
+			case CAR_MINI:
 				{
-				case CAR_MINI:
+					if( isAvailable[CAR_MINI] )
 					{
-						if( isAvailable[CAR_MINI] )
-						{
-							m_player2 = m_vPlayerList[CAR_MINI];
-							m_bPlayer2_turn = false;
-							isAvailable[CAR_MINI] = false;
-							m_player2->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/rocket_icon.png"));
-						}
-						else
-							m_pFM->PlaySoundA(m_nIncorrectSelection);
+						m_player2 = m_vPlayerList[CAR_MINI];
+						m_bPlayer2_turn = false;
+						isAvailable[CAR_MINI] = false;
+						m_player2->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/rocket_icon.png"));
 					}
-					break;
-				case CAR_VETTE:
-					{
-						if( isAvailable[CAR_VETTE] )
-						{
-							m_player2 = m_vPlayerList[CAR_VETTE];
-							m_bPlayer2_turn = false;
-							isAvailable[CAR_VETTE] = false;
-							m_player2->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/flamerthrower_icon.png"));
-						}
-						else
-							m_pFM->PlaySoundA(m_nIncorrectSelection);
-					}
-					break;
-				case CAR_HUMMER:
-					{
-						if( isAvailable[CAR_HUMMER] )
-						{
-							m_player2 = m_vPlayerList[CAR_HUMMER];
-							m_bPlayer2_turn = false;
-							isAvailable[CAR_HUMMER] = false;
-							m_player2->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/minigun_icon.png"));
-						}
-						else
-							m_pFM->PlaySoundA(m_nIncorrectSelection);
-					}
-					break;
-				case CAR_TRUCK:
-					{
-						if( isAvailable[CAR_TRUCK] )
-						{
-							m_player2 = m_vPlayerList[CAR_TRUCK];
-							m_bPlayer2_turn = false;
-							isAvailable[CAR_TRUCK] = false;
-							m_player2->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/mine_icon.png"));
-						}
-						else
-							m_pFM->PlaySoundA(m_nIncorrectSelection);
-					}
-					break;
+					else
+						m_pFM->PlaySoundA(m_nIncorrectSelection);
 				}
+				break;
+			case CAR_VETTE:
+				{
+					if( isAvailable[CAR_VETTE] )
+					{
+						m_player2 = m_vPlayerList[CAR_VETTE];
+						m_bPlayer2_turn = false;
+						isAvailable[CAR_VETTE] = false;
+						m_player2->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/flamerthrower_icon.png"));
+					}
+					else
+						m_pFM->PlaySoundA(m_nIncorrectSelection);
+				}
+				break;
+			case CAR_HUMMER:
+				{
+					if( isAvailable[CAR_HUMMER] )
+					{
+						m_player2 = m_vPlayerList[CAR_HUMMER];
+						m_bPlayer2_turn = false;
+						isAvailable[CAR_HUMMER] = false;
+						m_player2->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/minigun_icon.png"));
+					}
+					else
+						m_pFM->PlaySoundA(m_nIncorrectSelection);
+				}
+				break;
+			case CAR_TRUCK:
+				{
+					if( isAvailable[CAR_TRUCK] )
+					{
+						m_player2 = m_vPlayerList[CAR_TRUCK];
+						m_bPlayer2_turn = false;
+						isAvailable[CAR_TRUCK] = false;
+						m_player2->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/mine_icon.png"));
+					}
+					else
+						m_pFM->PlaySoundA(m_nIncorrectSelection);
+				}
+				break;
 			}
+		}
 
-			if( IsPlayer1Selecting() && !IsPlayer2Selecting())
+		if( IsPlayer1Selecting() && !IsPlayer2Selecting())
+		{
+			switch( m_nSelection )
 			{
-				switch( m_nSelection )
+			case CAR_MINI:
 				{
-				case CAR_MINI:
+					if( isAvailable[CAR_MINI] )
 					{
-						if( isAvailable[CAR_MINI] )
-						{
-							m_player1 = m_vPlayerList[CAR_MINI];
-							m_bPlayer1_turn = false;
-							m_bPlayer2_turn = true;
-							isAvailable[CAR_MINI] = false;
-							m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/rocket_icon.png"));
-						}
-						else
-							m_pFM->PlaySoundA(m_nIncorrectSelection);
+						m_player1 = m_vPlayerList[CAR_MINI];
+						m_bPlayer1_turn = false;
+						m_bPlayer2_turn = true;
+						isAvailable[CAR_MINI] = false;
+						m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/rocket_icon.png"));
 					}
-					break;
-				case CAR_VETTE:
-					{
-						if( isAvailable[CAR_VETTE] )
-						{
-							m_player1 = m_vPlayerList[CAR_VETTE];
-							m_bPlayer1_turn = false;
-							m_bPlayer2_turn = true;
-							isAvailable[CAR_VETTE] = false;
-							m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/flamerthrower_icon.png"));
-						}
-						else
-							m_pFM->PlaySoundA(m_nIncorrectSelection);
-					}
-					break;
-				case CAR_HUMMER:
-					{
-						if( isAvailable[CAR_HUMMER] )
-						{
-							m_player1 = m_vPlayerList[CAR_HUMMER];
-							m_bPlayer1_turn = false;
-							m_bPlayer2_turn = true;
-							isAvailable[CAR_HUMMER] = false;
-							m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/minigun_icon.png"));
-						}
-						else
-							m_pFM->PlaySoundA(m_nIncorrectSelection);
-					}
-					break;
-				case CAR_TRUCK:
-					{
-						if( isAvailable[CAR_TRUCK] )
-						{
-							m_player1 = m_vPlayerList[CAR_TRUCK];
-							m_bPlayer1_turn = false;
-							m_bPlayer2_turn = true;
-							isAvailable[CAR_TRUCK] = false;
-							m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/mine_icon.png"));
-						}
-						else
-							m_pFM->PlaySoundA(m_nIncorrectSelection);
-					}
-					break;
+					else
+						m_pFM->PlaySoundA(m_nIncorrectSelection);
 				}
+				break;
+			case CAR_VETTE:
+				{
+					if( isAvailable[CAR_VETTE] )
+					{
+						m_player1 = m_vPlayerList[CAR_VETTE];
+						m_bPlayer1_turn = false;
+						m_bPlayer2_turn = true;
+						isAvailable[CAR_VETTE] = false;
+						m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/flamerthrower_icon.png"));
+					}
+					else
+						m_pFM->PlaySoundA(m_nIncorrectSelection);
+				}
+				break;
+			case CAR_HUMMER:
+				{
+					if( isAvailable[CAR_HUMMER] )
+					{
+						m_player1 = m_vPlayerList[CAR_HUMMER];
+						m_bPlayer1_turn = false;
+						m_bPlayer2_turn = true;
+						isAvailable[CAR_HUMMER] = false;
+						m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/minigun_icon.png"));
+					}
+					else
+						m_pFM->PlaySoundA(m_nIncorrectSelection);
+				}
+				break;
+			case CAR_TRUCK:
+				{
+					if( isAvailable[CAR_TRUCK] )
+					{
+						m_player1 = m_vPlayerList[CAR_TRUCK];
+						m_bPlayer1_turn = false;
+						m_bPlayer2_turn = true;
+						isAvailable[CAR_TRUCK] = false;
+						m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/mine_icon.png"));
+					}
+					else
+						m_pFM->PlaySoundA(m_nIncorrectSelection);
+				}
+				break;
 			}
-			
+		}
+
 
 		if( !IsPlayer1Selecting() && !IsPlayer2Selecting())
 		{
@@ -494,63 +600,63 @@ bool CCharacterSelection::HandleEnter()
 	else
 	{
 		if( IsPlayer1Selecting())
+		{
+			switch( m_nSelection )
 			{
-				switch( m_nSelection )
+			case CAR_MINI:
 				{
-				case CAR_MINI:
+					if( isAvailable[CAR_MINI] )
 					{
-						if( isAvailable[CAR_MINI] )
-						{
-							m_player1 = m_vPlayerList[CAR_MINI];
-							m_bPlayer1_turn = false;
-							isAvailable[CAR_MINI] = false;
-							m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/rocket_icon.png"));
-						}
-						else
-							m_pFM->PlaySoundA(m_nIncorrectSelection);
+						m_player1 = m_vPlayerList[CAR_MINI];
+						m_bPlayer1_turn = false;
+						isAvailable[CAR_MINI] = false;
+						m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/rocket_icon.png"));
 					}
-					break;
-				case CAR_VETTE:
-					{
-						if( isAvailable[CAR_VETTE] )
-						{
-							m_player1 = m_vPlayerList[CAR_VETTE];
-							m_bPlayer1_turn = false;
-							isAvailable[CAR_VETTE] = false;
-							m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/flamerthrower_icon.png"));
-						}
-						else
-							m_pFM->PlaySoundA(m_nIncorrectSelection);
-					}
-					break;
-				case CAR_HUMMER:
-					{
-						if( isAvailable[CAR_HUMMER] )
-						{
-							m_player1 = m_vPlayerList[CAR_HUMMER];
-							m_bPlayer1_turn = false;
-							isAvailable[CAR_HUMMER] = false;
-							m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/minigun_icon.png"));
-						}
-						else
-							m_pFM->PlaySoundA(m_nIncorrectSelection);
-					}
-					break;
-				case CAR_TRUCK:
-					{
-						if( isAvailable[CAR_TRUCK] )
-						{
-							m_player1 = m_vPlayerList[CAR_TRUCK];
-							m_bPlayer1_turn = false;
-							isAvailable[CAR_TRUCK] = false;
-							m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/mine_icon.png"));
-						}
-						else
-							m_pFM->PlaySoundA(m_nIncorrectSelection);
-					}
-					break;
+					else
+						m_pFM->PlaySoundA(m_nIncorrectSelection);
 				}
+				break;
+			case CAR_VETTE:
+				{
+					if( isAvailable[CAR_VETTE] )
+					{
+						m_player1 = m_vPlayerList[CAR_VETTE];
+						m_bPlayer1_turn = false;
+						isAvailable[CAR_VETTE] = false;
+						m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/flamerthrower_icon.png"));
+					}
+					else
+						m_pFM->PlaySoundA(m_nIncorrectSelection);
+				}
+				break;
+			case CAR_HUMMER:
+				{
+					if( isAvailable[CAR_HUMMER] )
+					{
+						m_player1 = m_vPlayerList[CAR_HUMMER];
+						m_bPlayer1_turn = false;
+						isAvailable[CAR_HUMMER] = false;
+						m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/minigun_icon.png"));
+					}
+					else
+						m_pFM->PlaySoundA(m_nIncorrectSelection);
+				}
+				break;
+			case CAR_TRUCK:
+				{
+					if( isAvailable[CAR_TRUCK] )
+					{
+						m_player1 = m_vPlayerList[CAR_TRUCK];
+						m_bPlayer1_turn = false;
+						isAvailable[CAR_TRUCK] = false;
+						m_player1->AddWeaponIcon(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/HUDS/Weapon_Icons/mine_icon.png"));
+					}
+					else
+						m_pFM->PlaySoundA(m_nIncorrectSelection);
+				}
+				break;
 			}
+		}
 
 		if( !IsPlayer1Selecting())
 		{
@@ -635,7 +741,7 @@ bool CCharacterSelection::LoadCharacters()
 		temp_buffer += buffer;
 		character->SetImageID(m_pTM->LoadTexture(temp_buffer.c_str()));
 		character->SetCarId(m_pTM->LoadTexture("resource/graphics/sbs_sprites_cars.png"));
-		
+
 		counter++;
 		m_vPlayerList.push_back(character);
 		pCharacterRoot = pCharacterRoot->NextSiblingElement("character");

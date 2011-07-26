@@ -266,7 +266,7 @@ void CNumPlayers::Render()
 	case 1:
 
 		m_pPF->Print("2 PLAYER",300,250,0.5f,D3DCOLOR_XRGB(0, 255, 0));	
-		if(!CGame::GetInstance()->ControllerInput())
+		if(!CGame::GetInstance()->ControllerInput() || CGame::GetInstance()->Controller2Connected())
 		{
 			m_pPF->Print(" ---- 2 player requires at least one gamepad connected.",425,250,0.5f,D3DCOLOR_XRGB(255,255,255));
 		}
@@ -293,7 +293,7 @@ bool CNumPlayers::HandleEnter(void)
 		m_nSelection = 2;
 		break;
 	case 1:
-		if(CGame::GetInstance()->ControllerInput())
+		if(CGame::GetInstance()->ControllerInput() || CGame::GetInstance()->Controller2Connected())
 		{
 		m_nNumberOfPlayers = 2;
 		m_nSelection = 2;

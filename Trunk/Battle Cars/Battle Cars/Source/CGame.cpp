@@ -292,3 +292,8 @@ void CGame::SetPanning(float left)
 {
 	m_panning = left;
 }
+
+bool CGame::Controller2Connected(void)
+{
+	return m_pController2->Connected();
+}
