@@ -195,8 +195,7 @@ void CPlayer::Update(float fElapsedTime)
 			controller = false;
 		
 	}
-	else
-		if(m_nPlayerNum == 2)
+	else if(m_nPlayerNum == 2)
 		{
 			if(CGame::GetInstance()->Controller2Connected())
 				controller = true;
@@ -352,7 +351,7 @@ void CPlayer::Update(float fElapsedTime)
 	{
 		CKeyboardKeyBinds* tempkeys = CGamerProfile::GetInstance()->GetActiveProfile()->m_pKKB;
 
-		if(m_pDI->KeyDown(tempkeys->Getforward()) || m_pDI->JoystickGetRStickDirDown(DIR_UP))
+		if(m_pDI->KeyDown(tempkeys->Getforward()))
 			{
 				SetAccelerating(true);
 				if(GetSpeed() < GetMaxSpeed())
@@ -362,7 +361,7 @@ void CPlayer::Update(float fElapsedTime)
 				SetAccelerating(false);
 
 		
-		if(m_pDI->KeyDown(tempkeys->Getbackward())||m_pDI->JoystickGetRStickDirDown(DIR_DOWN))
+		if(m_pDI->KeyDown(tempkeys->Getbackward()))
 			{
 				if(GetSpeed() > (-0.5f * GetMaxSpeed()))
 					SetSpeed(GetSpeed() - (GetAcceleration() * fElapsedTime));
@@ -370,7 +369,7 @@ void CPlayer::Update(float fElapsedTime)
 
 		if(GetTurnable())
 		{
-		if(m_pDI->KeyDown(tempkeys->GetLeft())||m_pDI->JoystickGetRStickDirDown(DIR_LEFT))
+		if(m_pDI->KeyDown(tempkeys->GetLeft()))
 		{
 			
 			SetRotation(GetRotation() - (GetRotationRate() * fElapsedTime));
@@ -383,7 +382,7 @@ void CPlayer::Update(float fElapsedTime)
 			Rotate(GetRotation());
 		}
 
-		if(m_pDI->KeyDown(tempkeys->GetRight())||m_pDI->JoystickGetRStickDirDown(DIR_RIGHT))
+		if(m_pDI->KeyDown(tempkeys->GetRight()))
 		{
 			SetRotation(GetRotation() + (GetRotationRate() * fElapsedTime));
 			tVector2D tempdir = GetDirection();
@@ -395,7 +394,7 @@ void CPlayer::Update(float fElapsedTime)
 			Rotate(GetRotation());
 		}
 		}
-		if(m_pDI->KeyDown(tempkeys->GetShoot())||m_pDI->JoystickButtonPressed(0))
+		if(m_pDI->KeyDown(tempkeys->GetShoot()))
 		{
 			float firerate;
 			if(GetSelectedWeapon() == WEAPON_PISTOL)
@@ -460,7 +459,7 @@ void CPlayer::Update(float fElapsedTime)
 				}
 			}
 		}
-		if(m_pDI->KeyPressed(tempkeys->GetChangeWeapon())||m_pDI->JoystickButtonPressed(3))
+		if(m_pDI->KeyPressed(tempkeys->GetChangeWeapon()))
 		{
 			IncrementWeapon();
 				if(GetSelectedWeapon() > 2)

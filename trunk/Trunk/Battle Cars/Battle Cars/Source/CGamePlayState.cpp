@@ -176,7 +176,7 @@ void CGamePlayState::Enter(void)
 		if(CNumPlayers::GetInstance()->GetNumberOfPlayers() > 1)
 		{
 			player2 = CCharacterSelection::GetInstance()->GetPlayer2();
-			m_pOM->AddObject(player2);
+			//m_pOM->AddObject(player2);
 			player2->Rotate(0.0f);
 			player2->SetPosX(500);
 			player2->SetPosY(400);
