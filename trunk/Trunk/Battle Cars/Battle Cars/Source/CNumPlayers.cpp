@@ -11,6 +11,7 @@
 #include "CCharacterSelection.h"
 #include "CGamePlayState.h"
 #include "CTimeChallengeMode.h"
+#include "CCollectionMode.h"
 
 CNumPlayers::CNumPlayers()
 {
@@ -96,7 +97,7 @@ bool CNumPlayers::Input()
 				m_nSelection--;
 				if( m_nNumberOfPlayers >= 1)
 				{
-					if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance())
+					if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance() || CGamePlayState::GetInstance()->GetGameMode() == CCollectionMode::GetInstance())
 					{
 							m_nSelection = 2;
 					}
@@ -108,7 +109,7 @@ bool CNumPlayers::Input()
 				}
 				else
 				{
-					if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance())
+					if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance() || CGamePlayState::GetInstance()->GetGameMode() == CCollectionMode::GetInstance())
 					{
 						if( m_nSelection < 0 )
 							m_nSelection = 0;
@@ -128,7 +129,7 @@ bool CNumPlayers::Input()
 				CGame::GetInstance()->ResetThumbDelay();
 				if( m_nNumberOfPlayers >= 1)
 				{
-					if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance())
+					if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance() || CGamePlayState::GetInstance()->GetGameMode() == CCollectionMode::GetInstance())
 					{
 							m_nSelection = 2;
 					}
@@ -140,7 +141,7 @@ bool CNumPlayers::Input()
 				}
 				else
 				{
-					if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance())
+					if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance() || CGamePlayState::GetInstance()->GetGameMode() == CCollectionMode::GetInstance())
 					{
 						if( m_nSelection > 0 )
 							m_nSelection = 0;
@@ -165,7 +166,7 @@ bool CNumPlayers::Input()
 
 			if( m_nNumberOfPlayers >= 1)
 				{
-					if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance())
+					if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance() || CGamePlayState::GetInstance()->GetGameMode() == CCollectionMode::GetInstance())
 					{
 							m_nSelection = 2;
 					}
@@ -177,7 +178,7 @@ bool CNumPlayers::Input()
 				}
 				else
 				{
-					if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance())
+					if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance() || CGamePlayState::GetInstance()->GetGameMode() == CCollectionMode::GetInstance())
 					{
 						if( m_nSelection < 0 )
 							m_nSelection = 0;
@@ -196,7 +197,7 @@ bool CNumPlayers::Input()
 
 			if( m_nNumberOfPlayers >= 1)
 				{
-					if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance())
+					if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance() || CGamePlayState::GetInstance()->GetGameMode() == CCollectionMode::GetInstance())
 					{
 							m_nSelection = 2;
 					}
@@ -208,7 +209,7 @@ bool CNumPlayers::Input()
 				}
 				else
 				{
-					if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance())
+					if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance() || CGamePlayState::GetInstance()->GetGameMode() == CCollectionMode::GetInstance())
 					{
 						if( m_nSelection > 0 )
 							m_nSelection = 0;
