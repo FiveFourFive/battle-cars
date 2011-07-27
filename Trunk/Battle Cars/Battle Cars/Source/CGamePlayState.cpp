@@ -191,6 +191,7 @@ void CGamePlayState::Enter(void)
 				player2index = rand()%4;
 			player2 = characters[player2index];
 		}
+		cars.push_back (miniboss);
 		m_pOM->AddObject(miniboss);
 	}
 	
@@ -229,12 +230,12 @@ void CGamePlayState::Enter(void)
 			m_pOM->AddObject(collectable);
 		}
 		CCollectionMode::GetInstance()->SetCollectables(collectables);
-		collectionChallengeBoss = new CBoss(CCharacterSelection::GetInstance()->GetPlayer1()->GetController()); 
+		collectionChallengeBoss = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController()); 
 		collectionChallengeBoss->SetPosX(500.0f);
 		collectionChallengeBoss->SetPosY(500.0f);
 		collectionChallengeBoss->SetSpeed(0.0f);
 		collectionChallengeBoss->SetMaxSpeed(200.0f);
-		collectionChallengeBoss->SetAcceleration(10.0f);
+		collectionChallengeBoss->SetAcceleration(100.0f);
 		collectionChallengeBoss->SetHealth(150.0f);
 		collectionChallengeBoss->SetMaxHealth(150.0f);
 		collectionChallengeBoss->SetCarId(m_pTM->LoadTexture("Resource/Graphics/BattleCars_MiniBossPlaceHolder.png"));
@@ -248,6 +249,8 @@ void CGamePlayState::Enter(void)
 		collectionChallengeBoss->SetHealthImageRect(&health_rect,0);
 		collectionChallengeBoss->SetScale(0.4f);
 
+		//cars.push_back (collectionChallengeBoss);
+		m_lScores.push_back (collectionChallengeBoss);
 		m_pOM->AddObject(collectionChallengeBoss);
 	}
 	else
@@ -277,6 +280,8 @@ void CGamePlayState::Enter(void)
 			player->GetCamera()->SetHeight((int)(CGame::GetInstance()->GetScreenHeight()*0.5f));
 		}
 
+		if (player2)
+		{
 			if( COptionState::GetInstance()->IsVertical())
 			{
 				player2->GetCamera ()->AttachTo(player2,CGame::GetInstance()->GetScreenWidth()*0.25f,CGame::GetInstance()->GetScreenHeight()*0.5f);
@@ -289,10 +294,11 @@ void CGamePlayState::Enter(void)
 				player2->GetCamera()->SetWidth((int)(CGame::GetInstance()->GetScreenWidth()));
 				player2->GetCamera()->SetHeight((int)(CGame::GetInstance()->GetScreenHeight()*0.5f));
 			}
-
+		}
 
 		player->GetCamera()->Update();
-		player2->GetCamera()->Update();
+		if (player2)
+			player2->GetCamera()->Update();
 	}
 	else
 	{
@@ -310,10 +316,16 @@ void CGamePlayState::Enter(void)
 
 
 	Level->ResetSpawns ();
-	m_lScores.push_back(player);
-	if(CNumPlayers::GetInstance()->GetNumberOfPlayers() == 2)
-		m_lScores.push_back(player2);
-	player->SetKillCount(0);
+	//m_lScores.push_back(player);
+	//if(CNumPlayers::GetInstance()->GetNumberOfPlayers() == 2)
+	//	m_lScores.push_back(player2);
+
+	for (int i = 0; i < (int)cars.size (); i++)
+	{
+		m_lScores.push_back ((CCar*)cars[i]);
+	}
+
+	//player->SetKillCount(2);
 }
 
 void CGamePlayState::Exit(void)
@@ -329,9 +341,7 @@ void CGamePlayState::Exit(void)
 	collectables.clear();
 
 	for(unsigned int i = 0; i < characters.size(); i++)
-	{
-		if(characters[i]->GetPlayerNum() == 1)
-			CGame::GetInstance()->SetScore(characters[i]->GetKillCount());
+	{						
 		characters[i]->Release();
 		characters[i] = NULL;
 	}
@@ -339,6 +349,21 @@ void CGamePlayState::Exit(void)
 
 	for(unsigned int i = 0; i < cars.size(); i++)
 	{
+		if (cars[i]->GetType () == OBJECT_PLAYER)
+		{
+			if(((CPlayer*)cars[i])->GetPlayerNum() == 1)
+			{
+				if (this->m_pMode == CCollectionMode::GetInstance ())
+				{
+					CGame::GetInstance()->SetScore(((CPlayer*)cars[i])->GetCollected());
+				}
+				else
+				{
+					CGame::GetInstance()->SetScore(((CPlayer*)cars[i])->GetKillCount());
+				}
+			}
+		}
+
 		if (cars[i] != player && cars[i] != player2 && cars[i]->GetType () != OBJECT_BOSS)
 		{
 			cars[i]->Release();

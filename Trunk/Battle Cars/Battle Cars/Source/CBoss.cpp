@@ -8,6 +8,7 @@
 #include "CCharacterSelection.h"
 #include "CSGD_TextureManager.h"
 #include "CGamePlayState.h"
+#include "CCollectionMode.h"
 
 CBoss::CBoss(CXboxInput* pController) : CEnemy(pController)
 {
@@ -316,6 +317,11 @@ bool CBoss::CheckCollision(IBaseInterface* pBase)
 
 void CBoss::SelectTarget()
 {
+	if (CGamePlayState::GetInstance ()->GetGameMode () == CCollectionMode::GetInstance ())
+	{
+		m_bHasTarget = false;
+	}
+
 	if(!m_bHasTarget)
 	{
 		tVector2D target1Distance, target2Distance;

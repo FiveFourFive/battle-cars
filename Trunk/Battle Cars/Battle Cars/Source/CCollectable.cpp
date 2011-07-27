@@ -11,12 +11,15 @@
 CCollectable::CCollectable()
 {
 	m_nType = OBJECT_COLLECTABLE;
-	int minX = 160;
-	int minY = 160;
-	int maxX = 6240;//((CLevel::GetInstance ()->GetMap()->GetMapWidth ()) - 30) * (CLevel::GetInstance ()->GetMap()->GetPixelWidth ());
-	int maxY = 6240;//((CLevel::GetInstance ()->GetMap()->GetMapHeight ()) - 30) * (CLevel::GetInstance ()->GetMap()->GetPixelHeight ());
-	SetPosX((float)(rand()% (maxX - minX + 32) + minX));
-	SetPosY((float)(rand()% (maxY - minY + 32) + minY));
+	int minX = 5;
+	int minY = 5;
+	int maxX = ((CLevel::GetInstance ()->GetMap()->GetMapWidth ()) - 5);
+	int maxY = ((CLevel::GetInstance ()->GetMap()->GetMapHeight ()) - 5);
+	SetPosX((float)(rand()% (maxX - minX + 1) + minX));
+	SetPosY((float)(rand()% (maxY - minY + 1) + minY));
+
+	SetPosX (GetPosX () * CLevel::GetInstance ()->GetMap ()->GetPixelWidth ());
+	SetPosY (GetPosY () * CLevel::GetInstance ()->GetMap ()->GetPixelHeight ());
 
 	if (this->GetPosX () < 160 || this->GetPosY () < 160)
 	{
