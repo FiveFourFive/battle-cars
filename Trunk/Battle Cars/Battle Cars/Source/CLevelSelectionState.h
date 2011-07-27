@@ -32,14 +32,15 @@ private:
 	int m_nMenuSelect;
 	int m_nMenuMove;
 	
-	int m_nMovieID[12];		// The image ID's for the video being played
-	int render_ids[3];		// The id's currently being rendered.
+	int m_nMovieID[8];		// The image ID's for the video being played
+	int render_ids[2];		// The id's currently being rendered.
 	float m_fMovieTimer;	// The timer until the movie image changes.
 	D3DCOLOR color;			// The fading color value.
 	bool isSet;				// Tell whether to load video or not.
 	int m_nCurrentFrame;	// Current video frame to render.
 
 	int m_nBGImageID;
+	unsigned char Alpha;	// Alpha value to draw images with.
 
 	SLevel* m_ListofLevels[LEVEL_MAX];
 
