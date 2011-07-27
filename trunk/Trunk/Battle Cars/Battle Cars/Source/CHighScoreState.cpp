@@ -46,7 +46,7 @@ void CHighscoreState::Enter(void)
 	m_pController1 = CGame::GetInstance()->GetController1();
 	m_nFontID = m_pTM->LoadTexture("resource/graphics/BC_Font.png",D3DCOLOR_XRGB(0, 0, 0));
 	m_pPF = new CPrintFont(m_nFontID);
-
+	m_nBGImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/optionstate.jpg");
 	m_pFM = CSGD_FModManager::GetInstance();
 	m_nMenuSelect = m_pFM->LoadSound("resource/sounds/menuselect.mp3");
 	m_nMenuMove = m_pFM->LoadSound("resource/sounds/menuchange.mp3");
@@ -112,14 +112,7 @@ void CHighscoreState::Update(float fElapsedTime)
 void CHighscoreState::Render(void)
 {
 	CSGD_Direct3D* pD3D = CSGD_Direct3D::GetInstance();
-
-	RECT temp;					 
-	temp.left = 0;				 
-	temp.top = 0;				 
-	temp.right = 800;			 
-	temp.bottom = 600;			 
-	pD3D->GetSprite()->Flush();
-	pD3D->DrawRect(temp,0,0,0);
+	m_pTM->Draw(m_nBGImageID,0,0,1.0f,1.0f);
 
 	m_pPF->Print("Top 10 High Scores",520,100,1.0f,D3DCOLOR_XRGB(255,0,0));
 

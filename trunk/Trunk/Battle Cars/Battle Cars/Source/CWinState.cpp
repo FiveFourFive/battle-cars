@@ -269,7 +269,7 @@ void CWinState::Render(void)
 	}
 	else
 	{
-		m_pPF->Print("All Cars Unlcoked!",800,250,1.0f,D3DCOLOR_XRGB(255,0,0));
+		m_pPF->Print("All Cars Unlocked!",800,400,1.0f,D3DCOLOR_XRGB(255,0,0));
 	}
 	//m_pD3D->DrawRect(cars,color,0,0);
 
