@@ -188,11 +188,7 @@ bool CEnemy::CheckCollision(IBaseInterface* pBase)
 		CCar* tempcar = (CCar*)pBase;
 		//float centerx = tempcar->GetPosX();
 		//float centery = tempcar->GetPosY();
-		if(pBase->GetType() == OBJECT_PLAYER)
-		{
-			CPlayer* tempplayer = (CPlayer*)pBase;
-			tempplayer->GetController()->Vibrate(30000,30000);
-		}
+		
 		float centerx = tempcar->GetCX1();
 		float centery = tempcar->GetCY1();
 		float myx = GetCX1();
@@ -211,7 +207,11 @@ bool CEnemy::CheckCollision(IBaseInterface* pBase)
 		if(distance11 <= (GetRadius() + tempcar->GetRadius()) || distance21 <= (GetRadius() + tempcar->GetRadius())
 			|| distance12 <= (GetRadius() + tempcar->GetRadius()) || distance22 <= (GetRadius() + tempcar->GetRadius()))
 		{
-
+if(pBase->GetType() == OBJECT_PLAYER)
+		{
+			CPlayer* tempplayer = (CPlayer*)pBase;
+			tempplayer->GetController()->Vibrate(30000,30000);
+		}
 			SetTurnable(false);
 			tempcar->SetTurnable(false);
 			tVector2D othervel = tempcar->GetOverallVelocity();
