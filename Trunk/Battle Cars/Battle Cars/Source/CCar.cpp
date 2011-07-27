@@ -113,26 +113,26 @@ void CCar::Update(float fElapsedTime)
 	{
 		// adjusting these changes the time it takes for the velocity 
 		// to get back to the direction vector
-		tempvel.fX -= tempvel.fX * 0.03f;
+		tempvel.fX -= 5.0f;
 	}
 	if(tempvel.fY > 0)
 	{
-		tempvel.fY -= tempvel.fY * 0.03f;
+		tempvel.fY -= 5.0f;
 	}
 	if(tempvel.fX < 0)
 	{
-		tempvel.fX -= tempvel.fX * 0.03f;
+		tempvel.fX += 5.0f;
 	}
 	if(tempvel.fY < 0)
 	{
-		tempvel.fY -= tempvel.fY * 0.03f;
+		tempvel.fY += 5.0f;
 	}
 
-	if(tempvel.fX < 3.0f && tempvel.fX > -3.0f)
+	if(tempvel.fX < 6.0f && tempvel.fX > -6.0f)
 	{
 		tempvel.fX = 0.0f;
 	}
-	if(tempvel.fY < 3.0f && tempvel.fY > -3.0f)
+	if(tempvel.fY < 6.0f && tempvel.fY > -6.0f)
 	{
 		tempvel.fY = 0.0f;
 	}
@@ -417,8 +417,9 @@ bool CCar::CheckCollision(IBaseInterface* pBase)
 				CEventSystem::GetInstance()->SendEvent("collision", this);
 				SetCollisionEffect(true);
 			}
-
-			return true;
+			tempcar->Rotate(tempcar->GetRotation());
+			Rotate(GetRotation());
+			//return true;
 		}
 		
 	}
