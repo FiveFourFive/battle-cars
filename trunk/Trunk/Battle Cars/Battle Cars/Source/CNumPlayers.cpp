@@ -59,7 +59,7 @@ CNumPlayers* CNumPlayers::GetInstance()
 void CNumPlayers::Exit()
 {
 	delete m_pPF;
-
+	this->m_nNumberOfPlayers = 0;
 }
 
 bool CNumPlayers::Input()
@@ -75,7 +75,7 @@ bool CNumPlayers::Input()
 		if(CGame::GetInstance()->GetInputDelay() >= 0.15f)
 		{
 			
-			if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_X)
+			if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_A)
 			{
 				CGame::GetInstance()->ResetInputDelay();
 				HandleEnter();

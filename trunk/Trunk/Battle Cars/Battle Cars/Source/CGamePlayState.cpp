@@ -218,6 +218,7 @@ void CGamePlayState::Enter(void)
 	m_nMiniMapOverlayIndex=m_pTM->LoadTexture("resource/graphics/HUDS/minimap_overlay.png");
 	m_nMiniMapMiddlelayIndex=m_pTM->LoadTexture("resource/graphics/HUDS/minimap_middlelay.png");
 	m_nMiniMapUnderlayIndex=m_pTM->LoadTexture("resource/graphics/HUDS/minimap_underlay.png");
+
 	if(m_bCollectionChallenge)
 	{
 		//Create the collectables
@@ -273,9 +274,6 @@ void CGamePlayState::Enter(void)
 			player->GetCamera()->SetHeight((int)(CGame::GetInstance()->GetScreenHeight()*0.5f));
 		}
 
-		
-
-	Level->ResetSpawns ();
 			if( COptionState::GetInstance()->IsVertical())
 			{
 				player2->GetCamera ()->AttachTo(player2,CGame::GetInstance()->GetScreenWidth()*0.25f,CGame::GetInstance()->GetScreenHeight()*0.5f);
@@ -414,7 +412,7 @@ bool CGamePlayState::Input()
 			
 			if(!m_bCountDown)
 			{
-				if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_X)
+				if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_A)
 				{
 					CGame::GetInstance()->ResetInputDelay();
 					m_pFM->PlaySound(m_nCountDown);
@@ -613,10 +611,6 @@ void CGamePlayState::Update(float fElapsedTime)
 		}
 		m_pFM->Update();
 		m_pOM->UpdateObjects(fElapsedTime);
-
-		//Level->CheckCameraCollision (player->GetCamera ());
-		//Level->CheckWorldCollision (player);
-
 		m_pPM->UpdateEmittors(fElapsedTime);
 		m_pES->ProcessEvents ();
 		m_pMS->ProcessMessages ();

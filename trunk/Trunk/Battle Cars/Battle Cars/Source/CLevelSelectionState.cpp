@@ -107,7 +107,7 @@ bool CLevelSelectionState::Input()
 		if(CGame::GetInstance()->GetInputDelay() >= 0.15f)
 		{
 			
-			if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_X)
+			if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_A)
 			{
 				CGame::GetInstance()->ResetInputDelay();
 				return this->HandleEnter();

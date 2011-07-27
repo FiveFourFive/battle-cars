@@ -125,7 +125,7 @@ bool CGamerProfile::Input()
 							m_pFM->PlaySoundA(m_nMenuMove);
 							m_nEntrySelection++;
 						}
-						if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_X)
+						if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_A)
 						{
 							CGame::GetInstance()->ResetInputDelay();
 							HandleEnter();
