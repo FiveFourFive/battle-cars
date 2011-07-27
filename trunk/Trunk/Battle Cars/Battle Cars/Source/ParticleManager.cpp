@@ -326,16 +326,18 @@ void ParticleManager::AttachToBase(CBase* base, Emittor* emittor)
 
 void ParticleManager::AttachToBasePosition(CBase* base, Emittor* emittor, float offsetX, float offsetY)
 {
-	if( base )
+	if (emittor)
 	{
- 		emittor->SetBase(base);
-		emittor->SetPosition( base->GetPosX() + offsetX, base->GetPosY() + offsetY);
+		if( base )
+		{
+ 			emittor->SetBase(base);
+			emittor->SetPosition( base->GetPosX() + offsetX, base->GetPosY() + offsetY);
+		}
+		else
+		{
+			emittor->SetPosition(offsetX, offsetY);
+		}
 	}
-	else
-	{
-		emittor->SetPosition(offsetX, offsetY);
-	}
-
 }
 
 void ParticleManager::ShutDownParticleManager()

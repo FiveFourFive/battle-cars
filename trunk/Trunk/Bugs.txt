@@ -1,10 +1,6 @@
-Score board to long
-Score Board jumping when multiple people have the same kill count
 when enemy dies you can drive over them and still collide
 particles spawn extra emittor
 particles render while car is gone
 player over take crates and barrels
-particles render all at once then update
 mini map doesnt show both player
-2player scores need differnet colors
 collision is off 

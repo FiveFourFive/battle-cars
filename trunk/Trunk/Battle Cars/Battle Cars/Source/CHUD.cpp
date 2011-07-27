@@ -7,6 +7,8 @@
 #include "CGamePlayState.h"
 #include <vector>
 #include "CGame.h"
+#include "CNumPlayers.h"
+
 CHUD::CHUD(void)
 {
 	m_pPF = new CPrintFont(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BC_Font.png",D3DCOLOR_XRGB(0, 0, 0)));
@@ -92,7 +94,15 @@ void CHUD::Render(void)
 	vector<CCar*> scores = CGamePlayState::GetInstance()->GetScores();
 	char buffer[32];
 	DWORD color = 0;
-	for(unsigned int i = 0; i < scores.size(); i++)
+
+	int MaxScoreBoard = scores.size();
+
+	if (MaxScoreBoard > 5)
+	{
+		MaxScoreBoard = 5;
+	}
+
+	for(unsigned int i = 0; i < MaxScoreBoard; i++)
 	{
 
 		sprintf_s(buffer,"%i)%i",i+1,scores[i]->GetKillCount());
@@ -101,7 +111,17 @@ void CHUD::Render(void)
 			color = D3DCOLOR_ARGB(255,0,255,0);
 		}
 		else
+		{
+		if (CNumPlayers::GetInstance()->GetNumberOfPlayers () == 2)
+		{
+			if (scores[i] == CGamePlayState::GetInstance ()->GetPlayer2 ())
+			{
+				color = D3DCOLOR_ARGB(255,0,255,255);
+			}
+		}
+		else
 			color = D3DCOLOR_ARGB(255,255,0,0);
+		}
 		m_pPF->Print(buffer,int((CGame::GetInstance()->GetScreenWidth()*0.05f) + pCamera->GetRenderPosX()),int(pCamera->GetHeight() - 240 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY()+(20*i)),1.0f,color);
 
 	}
