@@ -98,7 +98,7 @@ void CHUD::Render(void)
 		MaxScoreBoard = 5;
 	}
 
-	for(unsigned int i = 0; i < MaxScoreBoard; i++)
+	for(int i = 0; i < MaxScoreBoard; i++)
 	{
 
 		sprintf_s(buffer,"%i)%i",i+1,scores[i]->GetKillCount());
