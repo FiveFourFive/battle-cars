@@ -50,7 +50,7 @@ void CGameModeSelectionState::Enter(void)
 	m_nFontID = m_pTM->LoadTexture("resource/graphics/BC_Font.png",D3DCOLOR_XRGB(0, 0, 0));
 	m_pPF = new CPrintFont(m_nFontID);
 
-	m_nBGImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/mainmenu_bg.jpg");
+	m_nBGImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/optionstate.jpg");
 }
 
 void CGameModeSelectionState::Exit(void)
@@ -151,37 +151,37 @@ void CGameModeSelectionState::Update(float fElapsedTIme)
 void CGameModeSelectionState::Render(void)
 {
 	CSGD_Direct3D::GetInstance()->GetSprite()->Flush();
-	m_pTM->Draw(m_nBGImageID, 0,0,2.9f, 1.8f);
+	m_pTM->Draw(m_nBGImageID, 0,0,1.0f, 1.0f);
 
-	m_pPF->Print("Game Mode Selection", 50,100,1.0f,D3DCOLOR_XRGB(255,0,0));
-	m_pPF->Print("Deathmatch",100,200,0.8f,D3DCOLOR_XRGB(255,0,0));
-	m_pPF->Print("Time Trial",100,300,0.8f,D3DCOLOR_XRGB(255,0,0));
-	m_pPF->Print("Collection",100,400,0.8f,D3DCOLOR_XRGB(255,0,0));
-	m_pPF->Print("Tutorial",100,500,0.8f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->PrintCentered("Game Mode Selection", CGame::GetInstance()->GetScreenWidth()/2,50,2.0f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("Deathmatch",80,200,1.0f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("Time Trial",80,300,1.0f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("Collection",80,400,1.0f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("Tutorial",80,500,1.0f,D3DCOLOR_XRGB(255,0,0));
 
 	switch(m_nSelection)
 	{
 	case WS_DM:
-		m_pPF->Print("Deathmatch",100,200,0.8f,D3DCOLOR_XRGB(0,255,0));
-		m_pPF->Print(" --- Fight for a set amount of time in a map of your choosing. The winner", 300,200,0.5f,D3DCOLOR_XRGB(0,255,0));
-		m_pPF->Print("	   is determined based on the number of kills made during the game.",300,230,0.5f,D3DCOLOR_XRGB(0,255,0));
+		m_pPF->Print("Deathmatch",80,200,1.0f,D3DCOLOR_XRGB(0,255,0));
+		m_pPF->Print(" --- Fight for a set amount of time in a map of your choosing. The winner", 340,200,0.5f,D3DCOLOR_XRGB(0,255,0));
+		m_pPF->Print("	   is determined based on the number of kills made during the game.",340,230,0.5f,D3DCOLOR_XRGB(0,255,0));
 
 		break;
 	case WS_TT:
-		m_pPF->Print("Time Trial",100,300,0.8f,D3DCOLOR_XRGB(0,255,0));
-		m_pPF->Print(" --- Fight for your survival, Kill as many enemies until you die ", 300, 300, 0.5f, D3DCOLOR_XRGB(0,255,0));
-		m_pPF->Print("     or until time runs out. You win if you kill at least 20 enemies.", 300, 330, 0.5f, D3DCOLOR_XRGB(0,255,0));
+		m_pPF->Print("Time Trial",80,300,1.0f,D3DCOLOR_XRGB(0,255,0));
+		m_pPF->Print(" --- Fight for your survival, Kill as many enemies until you die ", 340, 300, 0.5f, D3DCOLOR_XRGB(0,255,0));
+		m_pPF->Print("     or until time runs out. You win if you kill at least 20 enemies.", 340, 330, 0.5f, D3DCOLOR_XRGB(0,255,0));
 
 		break;
 	case WS_CC:
-		m_pPF->Print("Collection",100,400,0.8f,D3DCOLOR_XRGB(0,255,0));
-		m_pPF->Print(" --- Race against an opponent as you try to collect as much cash as you can ", 300, 400, 0.5f, D3DCOLOR_XRGB(0,255,0));
-		m_pPF->Print("     collect the most and win!.", 300, 430, 0.5f, D3DCOLOR_XRGB(0,255,0));
+		m_pPF->Print("Collection",80,400,1.0f,D3DCOLOR_XRGB(0,255,0));
+		m_pPF->Print(" --- Race against an opponent as you try to collect as much cash as you can ", 340, 400, 0.5f, D3DCOLOR_XRGB(0,255,0));
+		m_pPF->Print("     collect the most and win!.", 340, 430, 0.5f, D3DCOLOR_XRGB(0,255,0));
 		break;
 	case WS_TUT:
-		m_pPF->Print("Tutorial",100,500,0.8f,D3DCOLOR_XRGB(0,255,0));
-		m_pPF->Print(" --- New to the game? learn the rules and controls of the game in this", 300, 500, 0.5f, D3DCOLOR_XRGB(0,255,0));
-		m_pPF->Print("     In-depth Tutorial level.", 300, 530, 0.5f, D3DCOLOR_XRGB(0,255,0));
+		m_pPF->Print("Tutorial",80,500,1.0f,D3DCOLOR_XRGB(0,255,0));
+		m_pPF->Print(" --- New to the game? learn the rules and controls of the game in this", 340, 500, 0.5f, D3DCOLOR_XRGB(0,255,0));
+		m_pPF->Print("     In-depth Tutorial level.", 340, 530, 0.5f, D3DCOLOR_XRGB(0,255,0));
 		break;
 
 	}

@@ -40,7 +40,7 @@ void CNumPlayers::Enter()
 	m_nMenuMove = m_pFM->LoadSound("resource/sounds/menuchange.mp3");
 	m_nFontID = m_pTM->LoadTexture("resource/graphics/BC_Font.png",D3DCOLOR_XRGB(0, 0, 0));
 	m_nIncorrectSelection = m_pFM->LoadSound("resource/sounds/buzzer2.mp3");
-	m_nBGImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/mainmenu_bg.jpg");
+	m_nBGImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/optionstate.jpg");
 
 	m_pFM->SetVolume(m_nMenuSelect,CGame::GetInstance()->getSoundAVolume());
 	m_pFM->SetVolume(m_nMenuMove,CGame::GetInstance()->getSoundAVolume());
@@ -244,7 +244,7 @@ void CNumPlayers::Render()
 {
 	CSGD_Direct3D::GetInstance()->GetSprite()->Flush();
 
-	m_pTM->Draw(m_nBGImageID, 0,0, 2.9f, 1.8f);
+	m_pTM->Draw(m_nBGImageID, 0,0, 1.0f, 1.0f);
 	
 	m_pPF->Print("BATTLE CARS",220,50,1.0f,D3DCOLOR_XRGB(200, 0, 0));
 	m_pPF->Print("MAYHEM AND DESTRUCTION",50,100,1.0f,D3DCOLOR_XRGB(200, 0, 0));

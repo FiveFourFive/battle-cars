@@ -180,6 +180,7 @@ void CGamePlayState::Enter(void)
 			player2->Rotate(0.0f);
 			player2->SetPosX(500);
 			player2->SetPosY(400);
+			player2->SetPlayerNum(2);
 			player2->SetController(m_pController2);
 			cars.push_back (player2);
 		}

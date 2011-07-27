@@ -346,125 +346,127 @@ void CCharacterSelection::Render()
 	RECT temp_render = {0, 0, CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight()};
 	CSGD_Direct3D::GetInstance()->DrawRect( temp_render, 0,0,0);
 
+	m_pPF->PrintCentered("Car Selection",CGame::GetInstance()->GetScreenWidth()/2,50,2.0f,D3DCOLOR_XRGB(255,0,0));
+
 	if( isAvailable[CAR_MINI])
-		m_pPF->Print( "Mighty Mini", 10, 50, 0.5f, D3DCOLOR_XRGB(200, 0, 0));
+		m_pPF->Print( "Mighty Mini", 10, 250, 1.0f, D3DCOLOR_XRGB(200, 0, 0));
 	else
-		m_pPF->Print( "Mighty Mini", 10, 50, 0.5f, D3DCOLOR_XRGB(128, 128, 128));
+		m_pPF->Print( "Mighty Mini", 10, 250, 1.0f, D3DCOLOR_XRGB(128, 128, 128));
 
 	if( isAvailable[CAR_VETTE])
-		m_pPF->Print( "Flaming Fury", 10, 100, 0.5f, D3DCOLOR_XRGB(200, 0, 0));
+		m_pPF->Print( "Flaming Fury", 10, 300, 1.0f, D3DCOLOR_XRGB(200, 0, 0));
 	else
-		m_pPF->Print( "Flaming Fury", 10, 100, 0.5f, D3DCOLOR_XRGB(128, 128, 128));
+		m_pPF->Print( "Flaming Fury", 10, 300, 1.0f, D3DCOLOR_XRGB(128, 128, 128));
 
 	if( isAvailable[CAR_HUMMER])
-		m_pPF->Print( "The Hammer", 10, 150, 0.5f, D3DCOLOR_XRGB(200, 0, 0));
+		m_pPF->Print( "The Hammer", 10, 350, 1.0f, D3DCOLOR_XRGB(200, 0, 0));
 	else
-		m_pPF->Print( "The Hammer", 10, 150, 0.5f, D3DCOLOR_XRGB(128, 128, 128));
+		m_pPF->Print( "The Hammer", 10, 350, 1.0f, D3DCOLOR_XRGB(128, 128, 128));
 
 	if( isAvailable[CAR_TRUCK])
-		m_pPF->Print( "Redrucker", 10, 200, 0.5f, D3DCOLOR_XRGB(200, 0, 0));
+		m_pPF->Print( "Redrucker", 10, 400, 1.0f, D3DCOLOR_XRGB(200, 0, 0));
 	else
-		m_pPF->Print( "Redrucker", 10, 200, 0.5f, D3DCOLOR_XRGB(128, 128, 128));
+		m_pPF->Print( "Redrucker", 10, 400, 1.0f, D3DCOLOR_XRGB(128, 128, 128));
 
 
-	m_pPF->Print( "START", 10,250,0.5f,D3DCOLOR_XRGB(200,0,0));
+	m_pPF->Print( "START", 10,450,1.0f,D3DCOLOR_XRGB(200,0,0));
 
 	switch( m_nSelection )
 	{
 	case CAR_MINI:
 		{
-			m_pPF->Print( "Mighty Mini", 10, 50, 0.5f, D3DCOLOR_XRGB(0, 255, 0));
-			m_pPF->Print( "Special: Shotgun of mini rockets", 275, 475, 0.4f, D3DCOLOR_XRGB(103,197,166));
+			m_pPF->Print( "Mighty Mini", 10, 250, 1.0f, D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print( "Special: Shotgun of mini rockets", 275, 675, 0.9f, D3DCOLOR_XRGB(103,197,166));
 		}
 		break;
 	case CAR_VETTE:
 		{
-			m_pPF->Print( "Flaming FUry", 10, 100, 0.5f, D3DCOLOR_XRGB(0, 255, 0));
-			m_pPF->Print( "Special: Flame thrower", 275, 475, 0.4f, D3DCOLOR_XRGB(103,197,166));
+			m_pPF->Print( "Flaming FUry", 10, 300, 1.0f, D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print( "Special: Flame thrower", 275, 675, 0.9f, D3DCOLOR_XRGB(103,197,166));
 		}
 		break;
 	case CAR_HUMMER:
 		{
-			m_pPF->Print( "The Hammer", 10, 150, 0.5f, D3DCOLOR_XRGB(0, 255, 0));
-			m_pPF->Print( "Special: Gatling gun", 275, 475, 0.4f, D3DCOLOR_XRGB(103,197,166));
+			m_pPF->Print( "The Hammer", 10, 350, 1.0f, D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print( "Special: Gatling gun", 275, 675, 0.9f, D3DCOLOR_XRGB(103,197,166));
 		}
 		break;
 	case CAR_TRUCK:
 		{
-			m_pPF->Print( "Redrucker", 10, 200, 0.5f, D3DCOLOR_XRGB(0, 255, 0));
-			m_pPF->Print( "Special: Land mines", 275, 475, 0.4f, D3DCOLOR_XRGB(103,197,166));
+			m_pPF->Print( "Redrucker", 10, 400, 1.0f, D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print( "Special: Land mines", 275, 675, 0.9f, D3DCOLOR_XRGB(103,197,166));
 		}
 		break;
 	case CAR_NUM:
 		{
-			m_pPF->Print( "START", 10,250,0.5f,D3DCOLOR_XRGB(0,255,0));
+			m_pPF->Print( "START", 10,450,1.0f,D3DCOLOR_XRGB(0,255,0));
 		}
 		break;
 	}
 
-	m_pTM->Draw(currPlayer->GetImageID(), 650, 25, 1.0f, 1.0f, &currPlayer->GetImageRect());
+	m_pTM->Draw(currPlayer->GetImageID(), (CGame::GetInstance()->GetScreenWidth()/4)*3, 300, 1.0f, 1.0f, &currPlayer->GetImageRect());
 
 	RECT render_health_rect;
-	render_health_rect.left = 450;
-	render_health_rect.top = 150;
+	render_health_rect.left = 650;
+	render_health_rect.top = 250;
 	int width = (int)Lerp(0.0f, 100.0f, ((currPlayer->GetHealth() + currPlayer->GetArmor())/ 180.0f));
 	render_health_rect.right = render_health_rect.left + width;
 	render_health_rect.bottom = render_health_rect.top + 40;
 
-	m_pPF->Print("Health", 250, 150, 0.5f, D3DCOLOR_XRGB(200,0,0));
+	m_pPF->Print("Health", 450, 250, 1.0f, D3DCOLOR_XRGB(200,0,0));
 	CSGD_Direct3D::GetInstance()->DrawRect(render_health_rect, 128,128,0);
 	char buffer[32];
 	sprintf_s(buffer, "%.0f", (currPlayer->GetHealth() + currPlayer->GetArmor()));
-	m_pPF->Print(buffer, 500, 160, 1.0f, D3DCOLOR_XRGB(200,0,0));
+	m_pPF->Print(buffer, 650, 260, 1.0f, D3DCOLOR_XRGB(200,0,0));
 
 	RECT render_speed_rect;
-	render_speed_rect.left = 450;
-	render_speed_rect.top = 225;
-	width = (int)Lerp(0.0f, 100.0f,(currPlayer->GetMaxSpeed() / 250.0f));
+	render_speed_rect.left = 650;
+	render_speed_rect.top = 325;
+	width = (int)Lerp(0.0f, 100.0f,(currPlayer->GetMaxSpeed() / 300.0f));
 	render_speed_rect.right = render_speed_rect.left + width;
 	render_speed_rect.bottom = render_speed_rect.top + 40;
 
-	m_pPF->Print("Speed", 250, 225, 0.5f, D3DCOLOR_XRGB(200,0,0));
+	m_pPF->Print("Speed", 450, 325, 1.0f, D3DCOLOR_XRGB(200,0,0));
 	CSGD_Direct3D::GetInstance()->DrawRect(render_speed_rect, 128,128,0);
 	sprintf_s(buffer, "%.0f", currPlayer->GetMaxSpeed());
-	m_pPF->Print(buffer, 500, 235, 1.0f, D3DCOLOR_XRGB(200,0,0));
+	m_pPF->Print(buffer, 650, 325, 1.0f, D3DCOLOR_XRGB(200,0,0));
 
 	RECT render_acceleration_rect;
-	render_acceleration_rect.left = 450;
-	render_acceleration_rect.top = 300;
-	width = (int)Lerp(0.0f, 100.0f, (currPlayer->GetAcceleration() / 120.0f));
+	render_acceleration_rect.left = 650;
+	render_acceleration_rect.top = 400;
+	width = (int)Lerp(0.0f, 100.0f, (currPlayer->GetAcceleration() / 560.0f));
 	render_acceleration_rect.right = render_acceleration_rect.left + width;
 	render_acceleration_rect.bottom = render_acceleration_rect.top + 40;
 
-	m_pPF->Print("Acceleration", 250, 300, 0.5f, D3DCOLOR_XRGB(200,0,0));
+	m_pPF->Print("Accel.", 450, 400, 1.0f, D3DCOLOR_XRGB(200,0,0));
 	CSGD_Direct3D::GetInstance()->DrawRect(render_acceleration_rect, 128,128,0);
 	sprintf_s(buffer, "%.0f", currPlayer->GetAcceleration());
-	m_pPF->Print(buffer, 500, 310, 1.0f, D3DCOLOR_XRGB(200,0,0));
+	m_pPF->Print(buffer, 650, 410, 1.0f, D3DCOLOR_XRGB(200,0,0));
 
 	RECT render_agility_rect;
-	render_agility_rect.left = 450;
-	render_agility_rect.top = 375;
+	render_agility_rect.left = 650;
+	render_agility_rect.top = 475;
 	width = (int)Lerp(0.0f, 100.0f, (currPlayer->GetRotationRate() / 3.14f));
 	render_agility_rect.right = render_agility_rect.left + width;
 	render_agility_rect.bottom = render_agility_rect.top + 40;
 
-	m_pPF->Print("AGILITY", 250, 375, 0.5f, D3DCOLOR_XRGB(200,0,0));
+	m_pPF->Print("AGILITY", 450, 475, 1.0f, D3DCOLOR_XRGB(200,0,0));
 	CSGD_Direct3D::GetInstance()->DrawRect(render_agility_rect, 128,128,0);
 	sprintf_s(buffer, "%.2f", currPlayer->GetRotationRate());
-	m_pPF->Print(buffer, 500, 385, 1.0f, D3DCOLOR_XRGB(200,0,0));
+	m_pPF->Print(buffer, 650, 485, 1.0f, D3DCOLOR_XRGB(200,0,0));
 
 
 	if( IsPlayer1Selecting() )
 	{
-		m_pPF->Print("Player 1 is choosing", 250, 550, 0.5f, D3DCOLOR_XRGB(0,0,255));
+		m_pPF->Print("Player 1 is choosing", 250, 750, 1.0f, D3DCOLOR_XRGB(0,0,255));
 	}
 	else if( IsPlayer2Selecting() )
 	{
-		m_pPF->Print("Player 2 is choosing", 250, 550, 0.5f, D3DCOLOR_XRGB(0,0,255));
+		m_pPF->Print("Player 2 is choosing", 250, 750, 1.0f, D3DCOLOR_XRGB(0,0,255));
 	}
 	else
 	{
-		m_pPF->Print("SELECT BEGIN TO START THE GAME", 250, 550, 0.5f, D3DCOLOR_XRGB(0,0,255));
+		m_pPF->Print("SELECT BEGIN TO START THE GAME", 250, 750, 1.0f, D3DCOLOR_XRGB(0,0,255));
 	}
 }
 
