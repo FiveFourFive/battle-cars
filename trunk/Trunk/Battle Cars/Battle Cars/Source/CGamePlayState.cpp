@@ -125,6 +125,9 @@ void CGamePlayState::Enter(void)
 	player->Rotate(0);
 	
 	cars.push_back (player);
+
+	cars = Level->SetCarSpawn (cars);
+
 	CBoss* boss = new CBoss(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
 	CBoss* miniboss = new CBoss(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
 	miniboss->SetMiniBoss(true);
@@ -250,12 +253,6 @@ void CGamePlayState::Enter(void)
 	else
 		collectionChallengeBoss = NULL;
 
-	cars = Level->SetCarSpawn (cars);
-	obstacles = Level->SetObstacleSpawn ();
-	ramps = Level->SetSpeedRampSpawn ();
-	power_ups = Level->SetPowerUpSpawn ();
-	
-
 	for (size_t i = 0; i < cars.size (); i++)
 	{
 		if (cars[i]->GetType () != OBJECT_PLAYER)
@@ -307,7 +304,9 @@ void CGamePlayState::Enter(void)
 
 	m_pFM->SetVolume(m_nBgMusicID,CGame::GetInstance()->getSoundBVolume());
 
-	
+	obstacles = Level->SetObstacleSpawn ();
+	ramps = Level->SetSpeedRampSpawn ();
+	power_ups = Level->SetPowerUpSpawn ();
 
 
 	Level->ResetSpawns ();

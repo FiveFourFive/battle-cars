@@ -49,6 +49,9 @@
     <Filter Include="My Amplifier Results">
       <UniqueIdentifier>{1f1105c7-fa32-4d6d-9e02-3098b353f2aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Particle Management">
+      <UniqueIdentifier>{563c94fb-af8b-43f9-a27d-184503c16336}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\WinMain.cpp">
@@ -128,12 +131,6 @@
     </ClCompile>
     <ClCompile Include="Source\CEventSystem.cpp">
       <Filter>Event System</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Emittor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ParticleManager.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\CXboxInput.cpp">
       <Filter>Source Files</Filter>
@@ -246,6 +243,12 @@
     <ClCompile Include="Source\CGamerProfile.cpp">
       <Filter>Game States</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ParticleManager.cpp">
+      <Filter>Particle Management</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Emittor.cpp">
+      <Filter>Particle Management</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\CStopWatch.h">
@@ -337,12 +340,6 @@
     </ClInclude>
     <ClInclude Include="Source\CEventSystem.h">
       <Filter>Event System</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Emittor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ParticleManager.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\CXboxInput.h">
       <Filter>Header Files</Filter>
@@ -460,6 +457,12 @@
     </ClInclude>
     <ClInclude Include="Source\Gamer_Profile.h">
       <Filter>Game States</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Emittor.h">
+      <Filter>Particle Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ParticleManager.h">
+      <Filter>Particle Management</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

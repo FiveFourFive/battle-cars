@@ -482,18 +482,143 @@ vector<CBase*> CLevel::SetCarSpawn (vector<CBase*> pBases)
 				car->SetSpeed(0.0f);
 				car->SetMaxHealth(150.0f);
 				car->SetType(OBJECT_ENEMY);
-				car->SetPlayerType(rand() % (CAR_TRUCK - CAR_MINI+1) - CAR_MINI);
+				car->SetPlayerType(rand() % (CAR_TRUCK - CAR_MINI+1) - CAR_MINI);			// (Max - Min + 1) - Min
 				car->SetKillCount(0);
 				car->Rotate(0.0f);
 				car->SetMaxSpeed(200.0f);
 
 				RECT image_rect;
-				image_rect.left =0;
-				image_rect.top = 480;
-				image_rect.right = 80;
-				image_rect.bottom = 645;
 
-				car->SetHealthImageRect(&image_rect,0);
+				switch(car->GetPlayerType())
+				{
+				case CAR_MINI:
+					{
+						image_rect.left = 5;
+						image_rect.top = 350;
+						image_rect.right = 65;
+						image_rect.bottom = 460;
+
+						car->SetHealthImageRect(&image_rect, 0);
+
+						image_rect.left =70;
+						image_rect.top = 350;
+						image_rect.right = 125;
+						image_rect.bottom = 460;
+
+						car->SetHealthImageRect(&image_rect, 1);
+
+						image_rect.left = 135;
+						image_rect.top = 350;
+						image_rect.right = 195;
+						image_rect.bottom = 460;
+
+						car->SetHealthImageRect(&image_rect, 2);
+
+						image_rect.left = 195;
+						image_rect.top = 350;
+						image_rect.right = 265;
+						image_rect.bottom = 460;
+
+						car->SetHealthImageRect(&image_rect, 3);
+
+					}
+					break;
+				case CAR_VETTE:
+					{
+						image_rect.left = 5;
+						image_rect.top = 5;
+						image_rect.right = 72;
+						image_rect.bottom = 145;
+
+						car->SetHealthImageRect(&image_rect, 0);
+
+						image_rect.left = 75;
+						image_rect.top = 5;
+						image_rect.right = 150;
+						image_rect.bottom = 145;
+
+						car->SetHealthImageRect(&image_rect, 1);
+
+						image_rect.left = 150;
+						image_rect.top = 5;
+						image_rect.right = 230;
+						image_rect.bottom = 145;
+
+						car->SetHealthImageRect(&image_rect, 2);
+
+						image_rect.left = 230;
+						image_rect.top = 5;
+						image_rect.right = 305;
+						image_rect.bottom = 145;
+
+						car->SetHealthImageRect(&image_rect, 3);
+					}
+					break;
+				case CAR_HUMMER:
+					{
+						image_rect.left = 5;
+						image_rect.top = 150;
+						image_rect.right = 100;
+						image_rect.bottom = 330;
+
+						car->SetHealthImageRect(&image_rect, 0);
+
+						image_rect.left = 105;
+						image_rect.top = 150;
+						image_rect.right = 220;
+						image_rect.bottom = 330;
+
+						car->SetHealthImageRect(&image_rect, 1);
+
+						image_rect.left = 220;
+						image_rect.top = 150;
+						image_rect.right = 325;
+						image_rect.bottom = 330;
+
+						car->SetHealthImageRect(&image_rect, 2);
+
+						image_rect.left = 330;
+						image_rect.top = 150;
+						image_rect.right = 435;
+						image_rect.bottom = 330;
+
+						car->SetHealthImageRect(&image_rect, 3);
+					}
+					break;
+				case CAR_TRUCK:
+					{
+
+						image_rect.left = 0;
+						image_rect.top = 480;
+						image_rect.right = 80;
+						image_rect.bottom = 645;
+
+						car->SetHealthImageRect(&image_rect, 0);
+
+						image_rect.left = 80;
+						image_rect.top = 480;
+						image_rect.right = 165;
+						image_rect.bottom = 645;
+
+						car->SetHealthImageRect(&image_rect, 1);
+
+						image_rect.left = 165;
+						image_rect.top = 480;
+						image_rect.right = 255;
+						image_rect.bottom = 645;
+
+						car->SetHealthImageRect(&image_rect, 2);
+
+						image_rect.left = 255;
+						image_rect.top = 480;
+						image_rect.right = 345;
+						image_rect.bottom = 645;
+
+						car->SetHealthImageRect(&image_rect, 3);
+					}
+					break;
+				}
+				
 				car->EnterState ();
 				
 				cars.push_back (car);
