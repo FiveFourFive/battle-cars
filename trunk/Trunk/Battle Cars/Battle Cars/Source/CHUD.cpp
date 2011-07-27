@@ -19,6 +19,8 @@ CHUD::CHUD(void)
 
 	m_nScoreBoardID=m_pTM->LoadTexture("resource/graphics/huds/score_hud.png");
 	m_nHealthID = m_pTM->LoadTexture("resource/graphics/huds/health_bar_underlay.png");
+	m_nMiniBG = m_pTM->LoadTexture("resource/graphics/huds/minimap_underlay.png");
+	m_nMiniBG2 = m_pTM->LoadTexture("resource/graphics/huds/minimap_middlelay.png");
 }
 
 CHUD::~CHUD(void)
@@ -46,19 +48,21 @@ void CHUD::Render(void)
 	m_pTM->Draw(m_nScoreBoardID, int((CGame::GetInstance()->GetScreenWidth()*0.05f) + pCamera->GetRenderPosX()), int(pCamera->GetHeight() - 250 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY()),1.2f,1.5f);
 
 	m_pTM->Draw(m_nPistolID,int((CGame::GetInstance()->GetScreenWidth()*0.05f) + pCamera->GetRenderPosX()), int(pCamera->GetHeight() - 100 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY()));
-
+	
 	m_fMiniMapPosX = 0 + pCamera->GetWidth() - 170 - (CGame::GetInstance()->GetScreenWidth()*0.05f) + pCamera->GetRenderPosX();
 	m_fMiniMapPosY = 0 + pCamera->GetHeight() - 150 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY();
 	minimap.left =	(LONG)(m_fMiniMapPosX);
 	minimap.top =	(LONG)(m_fMiniMapPosY);
 	minimap.right = (LONG)(minimap.left + 140);
 	minimap.bottom =(LONG)(minimap.top + 150);
-	pD3D->DrawRect(minimap,255,255,255);
+	//pD3D->DrawRect(minimap,255,255,255);
 	m_fMiniMapPosX = 0 + pCamera->GetWidth() - 160 - (CGame::GetInstance()->GetScreenWidth()*0.05f) + pCamera->GetRenderPosX();
 	minimap.left =	(LONG)(m_fMiniMapPosX);
 	minimap.top =	(LONG)(m_fMiniMapPosY);
 	minimap.right = (LONG)(minimap.left + 140);
 	minimap.bottom =(LONG)(minimap.top + 150);
+	m_pTM->Draw(m_nMiniBG,minimap.left-64,minimap.top-64,1.0f,1.0f);
+	m_pTM->Draw(m_nMiniBG2,minimap.left-64,minimap.top-64,1.0f,1.0f);
 	m_pTM->Draw(m_nMiniMapID,minimap.left-64,minimap.top-64,1.0f,1.0f);
 	
 

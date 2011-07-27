@@ -17,6 +17,8 @@ private:
 	int m_nHealthID;
 	int m_nPistolID;
 	int m_nMissileID;
+	int m_nMiniBG;
+	int m_nMiniBG2;
 
 	float m_fMiniMapPosX;
 	float m_fMiniMapPosY;
