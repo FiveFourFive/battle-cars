@@ -493,10 +493,13 @@ void CBoss::FireAtTarget(float fElapsedTime)
 		CMessageSystem::GetInstance()->SendMsg(new CCreateBossVetteSpecial(this));
 		if(m_nFireBullets <= 0)
 		{
-			flame_thrower->SetTimeToDie(0.0f);
-			flame_thrower->SetBase(NULL);
-			SetFlameThrowerEmittorID(-1);
-			m_bFlameThrowerIsOn = false;
+			if (flame_thrower)
+			{
+				flame_thrower->SetTimeToDie(0.0f);
+				flame_thrower->SetBase(NULL);
+				SetFlameThrowerEmittorID(-1);
+				m_bFlameThrowerIsOn = false;
+			}
 		}
 	}
 	else if(m_bGatlingIsOn)

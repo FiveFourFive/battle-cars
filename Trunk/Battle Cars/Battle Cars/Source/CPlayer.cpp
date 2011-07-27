@@ -57,7 +57,7 @@ CPlayer::CPlayer(CXboxInput* pController)
 
 	SetFlameThrowerEmittorID(-1);
 
-	CEventSystem::GetInstance()->RegisterClient("collision", this);
+	//CEventSystem::GetInstance()->RegisterClient("collision", this);
 	SetCollisionEffect(false);
 
 	isSet = false;

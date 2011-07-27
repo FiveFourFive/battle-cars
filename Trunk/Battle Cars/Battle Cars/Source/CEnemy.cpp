@@ -26,6 +26,8 @@ CEnemy::CEnemy(CXboxInput* pController) : CPlayer(pController)
 	m_nType = OBJECT_ENEMY;
 	m_pES = CEventSystem::GetInstance ();
 
+	//m_pES->RegisterClient ("CameraCollision", this);
+
 	m_WanderState = new CWanderState();
 	m_FleeState = new CFleeState();
 	m_AttackState = new CAttackState();
