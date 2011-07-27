@@ -72,7 +72,7 @@ void Emittor::Update(float fElapsedTime)
 			m_vParticleList[i]->position.fX += (m_vParticleList[i]->velocity.fX + (this->acceleration.fX * fElapsedTime));
 			m_vParticleList[i]->position.fY += (m_vParticleList[i]->velocity.fY + (this->acceleration.fY * fElapsedTime));
             
-			if( base )
+		/*	if( base )
 			{
 				if( base->GetType() == OBJECT_BULLET )
 				{
@@ -80,7 +80,7 @@ void Emittor::Update(float fElapsedTime)
 					m_vParticleList[i]->position.fX += -(bullet->GetVelX() * 0.01f);
 					m_vParticleList[i]->position.fY += -(bullet->GetVelY() * 0.01f);
 				}
-			}
+			}*/
 
 			m_vParticleList[i]->currLife += fElapsedTime;
 			m_vParticleList[i]->colorfade_timer += fElapsedTime;

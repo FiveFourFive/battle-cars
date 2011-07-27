@@ -68,6 +68,7 @@ void CObstacle::Update(float fElapsedTime)
 		{
 			if( !ParticleCreated )
 			{
+				ParticleCreated = true;
 				ParticleManager* PM = ParticleManager::GetInstance();
 				Emittor* blow_emittor = PM->CreateEffect(PM->GetEmittor(BARREL_EMITTOR), this->GetPosX(), this->GetPosY());
 
@@ -77,24 +78,30 @@ void CObstacle::Update(float fElapsedTime)
 					blow_emittor->SetTimeToDie(5.0f);
 					PM->AttachToBasePosition(this, blow_emittor);
 				}
-				ParticleCreated = true;
 			}
 
 			if( m_fBlowUpTimer > 0.0f)
 			{
 				ParticleManager* PM = ParticleManager::GetInstance();
-
 				m_fBlowUpTimer -= fElapsedTime;
-				PM->AttachToBasePosition(this, PM->GetActiveEmittor(m_nBarrelBurstingID));
+				Emittor* blow_emittor = PM->GetActiveEmittor(m_nBarrelBurstingID);
+				PM->AttachToBasePosition(this, blow_emittor);
 			}
 
 			if( m_fBlowUpTimer <= 0.0f)
 			{
 				m_fRespawnTimer-= fElapsedTime;
-
 				if( m_bActive )
 				{
 					ParticleManager* PM = ParticleManager::GetInstance();
+					if( m_nBarrelBurstingID > -1 )
+					{
+						Emittor* barrel = PM->GetActiveEmittor(m_nBarrelBurstingID );
+						barrel->SetTimeToDie(0.0f);
+						barrel->SetBase(NULL);
+						m_nBarrelBurstingID = -1;
+					}
+
 #pragma region EXPLOSION_EFFECT
 					Emittor* smoke_emittor = PM->CreateEffect(PM->GetEmittor(EXPLOSION_SMOKE_EMITTOR), this->GetPosX(), this->GetPosY());
 					if( smoke_emittor )
