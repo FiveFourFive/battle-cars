@@ -2,5 +2,4 @@ when enemy dies you can drive over them and still collide
 particles spawn extra emittor
 particles render while car is gone
 player over take crates and barrels
-mini map doesnt show both players
 collision is off 

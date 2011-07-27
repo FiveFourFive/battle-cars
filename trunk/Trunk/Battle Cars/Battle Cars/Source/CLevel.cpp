@@ -29,6 +29,7 @@
 #include <vector>
 #include "CCharacterSelection.h"
 #include "CWanderState.h"
+#include "CCollectionMode.h"
 
 CLevel::CLevel()
 {
@@ -621,10 +622,13 @@ vector<CBase*> CLevel::SetCarSpawn (vector<CBase*> pBases)
 				
 				car->EnterState ();
 				
+				if (CGamePlayState::GetInstance ()->GetGameMode () == CCollectionMode::GetInstance ())
+					car->ChangeState (car->GetCollectState ());
+
 				cars.push_back (car);
 				CObjectManager::GetInstance ()->AddObject(car);
-				std::vector<CCar*>* templist = CGamePlayState::GetInstance()->GetList();
-				templist->push_back(car);
+				/*std::vector<CCar*>* templist = CGamePlayState::GetInstance()->GetList();
+				templist->push_back(car);*/
 			}
 
 			index++;

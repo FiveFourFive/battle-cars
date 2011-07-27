@@ -32,6 +32,7 @@ CNumPlayers::~CNumPlayers()
 
 void CNumPlayers::Enter()
 {
+	m_nNumberOfPlayers = 0;
 	m_pDI = CSGD_DirectInput::GetInstance();
 	m_pTM = CSGD_TextureManager::GetInstance();
 	m_pFM = CSGD_FModManager::GetInstance();

@@ -68,7 +68,10 @@ void CEventSystem::DispatchEvent(CEvent *pEvent)
 	for(multimap<EVENTID, IListener*>::iterator mmIter = range.first;
 					mmIter != range.second; mmIter++)
 	{
-		(*mmIter).second->HandleEvent(pEvent);
+		void* temp =  (*mmIter).second;
+		
+		if ((*mmIter).second)
+			(*mmIter).second->HandleEvent(pEvent);
 	}
 }
 
