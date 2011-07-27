@@ -81,7 +81,7 @@ void CCar::Update(float fElapsedTime)
 		return;
 	}
 
-	if( this->GetType() != OBJECT_BOSS && this->GetType() != OBJECT_ENEMY)
+	if( this->GetType() != OBJECT_BOSS )
 	{
 		if( GetHealth() == GetMaxHealth())
 		{
