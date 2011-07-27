@@ -136,6 +136,8 @@ void CCreditsScreenState::Render()
 
 	m_pPF->Print("Special Thanks To:", (int)(CGame::GetInstance()->GetScreenWidth()*0.5f - 328),(int) y[17], 0.8f, D3DCOLOR_XRGB(255,106,6));
 	m_pPF->Print("Dave Brown", (int)(CGame::GetInstance()->GetScreenWidth()*  0.1f   + 64),(int) y[18], 0.8f, D3DCOLOR_XRGB(255,106,6));
+	m_pPF->Print("Zachary Bolthouse", (int)(CGame::GetInstance()->GetScreenWidth()*  0.1f   + 64),(int) y[19], 0.8f, D3DCOLOR_XRGB(255,106,6));
+
 
 
 	
