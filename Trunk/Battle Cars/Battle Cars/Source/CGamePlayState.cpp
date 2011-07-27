@@ -194,7 +194,7 @@ void CGamePlayState::Enter(void)
 		m_pOM->AddObject(miniboss);
 	}
 	
-	time =300;
+	time = 1205;
 	m_fElapsedSecond = 0.0f;
 	score = 0;
 
@@ -308,7 +308,7 @@ void CGamePlayState::Enter(void)
 	m_lScores.push_back(player);
 	if(CNumPlayers::GetInstance()->GetNumberOfPlayers() == 2)
 		m_lScores.push_back(player2);
-	///player->SetKillCount(55);
+	player->SetKillCount(2);
 }
 
 void CGamePlayState::Exit(void)

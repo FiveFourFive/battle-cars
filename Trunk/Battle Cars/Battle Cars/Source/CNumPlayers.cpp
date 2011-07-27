@@ -246,43 +246,44 @@ void CNumPlayers::Render()
 
 	m_pTM->Draw(m_nBGImageID, 0,0, 1.0f, 1.0f);
 	
-	m_pPF->Print("BATTLE CARS",220,50,1.0f,D3DCOLOR_XRGB(200, 0, 0));
-	m_pPF->Print("MAYHEM AND DESTRUCTION",50,100,1.0f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->PrintCentered("BATTLE CARS",CGame::GetInstance()->GetScreenWidth()/2,50,2.0f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->PrintCentered("MAYHEM AND DESTRUCTION",CGame::GetInstance()->GetScreenWidth()/2,100,2.0f,D3DCOLOR_XRGB(200, 0, 0));
 
-	m_pPF->Print("1 Player",300,200,0.5f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->PrintCentered("1 Player",CGame::GetInstance()->GetScreenWidth()/2,250,1.0f,D3DCOLOR_XRGB(200, 0, 0));
 	if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance() || !CGame::GetInstance()->Controller2Connected())
 	{
-		m_pPF->Print("2 Player",300,250,0.5f,D3DCOLOR_XRGB(128, 128, 128));	
+		m_pPF->PrintCentered("2 Player",CGame::GetInstance()->GetScreenWidth()/2,350,1.0f,D3DCOLOR_XRGB(128, 128, 128));	
 	}
 	else
 	{
-		m_pPF->Print("2 Player",300,250,0.5f,D3DCOLOR_XRGB(200, 0, 0));	
+		m_pPF->PrintCentered("2 Player",CGame::GetInstance()->GetScreenWidth()/2,350,1.0f,D3DCOLOR_XRGB(200, 0, 0));	
 	}
-	m_pPF->Print("BEGIN",300,300,0.5f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->PrintCentered("BEGIN",CGame::GetInstance()->GetScreenWidth()/2,500,1.0f,D3DCOLOR_XRGB(200, 0, 0));
 
 
 	switch(m_nSelection)
 	{
 	case 0:			
-		m_pPF->Print("1 Player",300,200,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+		m_pPF->PrintCentered("1 Player",CGame::GetInstance()->GetScreenWidth()/2,250,1.0f,D3DCOLOR_XRGB(0, 255, 0));
 		break;
 	case 1:
 
-		m_pPF->Print("2 Player",300,250,0.5f,D3DCOLOR_XRGB(0, 255, 0));	
+		m_pPF->PrintCentered("2 Player",CGame::GetInstance()->GetScreenWidth()/2,350,1.0f,D3DCOLOR_XRGB(0, 255, 0));	
 		if(!CGame::GetInstance()->ControllerInput() || !CGame::GetInstance()->Controller2Connected())
 		{
-			m_pPF->Print(" ---- 2 player requires at least one gamepad connected.",425,250,0.5f,D3DCOLOR_XRGB(255,255,255));
+			m_pPF->Print(" ---- 2 player requires atleast",CGame::GetInstance()->GetScreenWidth()/2 + 100,350,0.5f,D3DCOLOR_XRGB(255,255,255));
+			m_pPF->Print("      player one to use a gamepad.",CGame::GetInstance()->GetScreenWidth()/2 + 100,375,0.5f,D3DCOLOR_XRGB(255,255,255));
 		}
 
 		break;
 	case 2:
-		m_pPF->Print("BEGIN",300,300,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+		m_pPF->PrintCentered("BEGIN",CGame::GetInstance()->GetScreenWidth()/2,500,1.0f,D3DCOLOR_XRGB(0, 255, 0));
 		break;
 	}
 
 	char buffer[32];
 	sprintf_s(buffer, "NUMBER OF PLAYERS: %i", m_nNumberOfPlayers);
-	m_pPF->Print(buffer, 100, 500, 1.0f, D3DCOLOR_XRGB(0, 255, 128));
+	m_pPF->PrintCentered(buffer, CGame::GetInstance()->GetScreenWidth()/2, 600, 2.0f, D3DCOLOR_XRGB(0, 255, 128));
 
 	
 }

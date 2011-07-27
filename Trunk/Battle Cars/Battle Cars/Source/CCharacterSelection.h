@@ -27,7 +27,7 @@ private:
 	CPlayer* m_player1;
 	CPlayer* m_player2;
 
-
+	int m_nBGImageID;
 	int	m_nFontID;
 	int m_nSelection;
 	int m_nMenuSelect;

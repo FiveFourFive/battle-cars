@@ -62,7 +62,7 @@ void CCharacterSelection::Enter()
 	m_nMenuMove = m_pFM->LoadSound("resource/sounds/menuchange.mp3");
 	m_nIncorrectSelection = m_pFM->LoadSound("resource/sounds/buzzer2.mp3");
 	m_nFontID = m_pTM->LoadTexture("resource/graphics/BC_Font.png",D3DCOLOR_XRGB(0, 0, 0));
-
+	m_nBGImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/optionstate.jpg");
 	m_pFM->SetVolume(m_nMenuSelect,CGame::GetInstance()->getSoundAVolume());
 	m_pFM->SetVolume(m_nMenuMove,CGame::GetInstance()->getSoundAVolume());
 	m_pFM->SetVolume(m_nIncorrectSelection,CGame::GetInstance()->getSoundAVolume());
@@ -342,64 +342,63 @@ void CCharacterSelection::Update(float fElapsedTime)
 void CCharacterSelection::Render()
 {
 	CSGD_Direct3D::GetInstance()->GetSprite()->Flush();
-
-	RECT temp_render = {0, 0, CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight()};
-	CSGD_Direct3D::GetInstance()->DrawRect( temp_render, 0,0,0);
+	m_pTM->Draw(m_nBGImageID,0,0,1.0f,1.0f);
+	CSGD_Direct3D::GetInstance()->GetSprite()->Flush();
 
 	m_pPF->PrintCentered("Car Selection",CGame::GetInstance()->GetScreenWidth()/2,50,2.0f,D3DCOLOR_XRGB(255,0,0));
 
 	if( isAvailable[CAR_MINI])
-		m_pPF->Print( "Mighty Mini", 10, 250, 1.0f, D3DCOLOR_XRGB(200, 0, 0));
+		m_pPF->Print( "Mighty Mini", 30, 250, 1.0f, D3DCOLOR_XRGB(200, 0, 0));
 	else
-		m_pPF->Print( "Mighty Mini", 10, 250, 1.0f, D3DCOLOR_XRGB(128, 128, 128));
+		m_pPF->Print( "Mighty Mini", 30, 250, 1.0f, D3DCOLOR_XRGB(128, 128, 128));
 
 	if( isAvailable[CAR_VETTE])
-		m_pPF->Print( "Flaming Fury", 10, 300, 1.0f, D3DCOLOR_XRGB(200, 0, 0));
+		m_pPF->Print( "Flaming Fury", 30, 300, 1.0f, D3DCOLOR_XRGB(200, 0, 0));
 	else
-		m_pPF->Print( "Flaming Fury", 10, 300, 1.0f, D3DCOLOR_XRGB(128, 128, 128));
+		m_pPF->Print( "Flaming Fury", 30, 300, 1.0f, D3DCOLOR_XRGB(128, 128, 128));
 
 	if( isAvailable[CAR_HUMMER])
-		m_pPF->Print( "The Hammer", 10, 350, 1.0f, D3DCOLOR_XRGB(200, 0, 0));
+		m_pPF->Print( "The Hammer", 30, 350, 1.0f, D3DCOLOR_XRGB(200, 0, 0));
 	else
-		m_pPF->Print( "The Hammer", 10, 350, 1.0f, D3DCOLOR_XRGB(128, 128, 128));
+		m_pPF->Print( "The Hammer", 30, 350, 1.0f, D3DCOLOR_XRGB(128, 128, 128));
 
 	if( isAvailable[CAR_TRUCK])
-		m_pPF->Print( "Redrucker", 10, 400, 1.0f, D3DCOLOR_XRGB(200, 0, 0));
+		m_pPF->Print( "Redrucker", 30, 400, 1.0f, D3DCOLOR_XRGB(200, 0, 0));
 	else
-		m_pPF->Print( "Redrucker", 10, 400, 1.0f, D3DCOLOR_XRGB(128, 128, 128));
+		m_pPF->Print( "Redrucker", 30, 400, 1.0f, D3DCOLOR_XRGB(128, 128, 128));
 
 
-	m_pPF->Print( "START", 10,450,1.0f,D3DCOLOR_XRGB(200,0,0));
+	m_pPF->Print( "START", 30,450,1.0f,D3DCOLOR_XRGB(200,0,0));
 
 	switch( m_nSelection )
 	{
 	case CAR_MINI:
 		{
-			m_pPF->Print( "Mighty Mini", 10, 250, 1.0f, D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print( "Mighty Mini", 30, 250, 1.0f, D3DCOLOR_XRGB(0, 255, 0));
 			m_pPF->Print( "Special: Shotgun of mini rockets", 275, 675, 0.9f, D3DCOLOR_XRGB(103,197,166));
 		}
 		break;
 	case CAR_VETTE:
 		{
-			m_pPF->Print( "Flaming FUry", 10, 300, 1.0f, D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print( "Flaming FUry", 30, 300, 1.0f, D3DCOLOR_XRGB(0, 255, 0));
 			m_pPF->Print( "Special: Flame thrower", 275, 675, 0.9f, D3DCOLOR_XRGB(103,197,166));
 		}
 		break;
 	case CAR_HUMMER:
 		{
-			m_pPF->Print( "The Hammer", 10, 350, 1.0f, D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print( "The Hammer", 30, 350, 1.0f, D3DCOLOR_XRGB(0, 255, 0));
 			m_pPF->Print( "Special: Gatling gun", 275, 675, 0.9f, D3DCOLOR_XRGB(103,197,166));
 		}
 		break;
 	case CAR_TRUCK:
 		{
-			m_pPF->Print( "Redrucker", 10, 400, 1.0f, D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print( "Redrucker", 30, 400, 1.0f, D3DCOLOR_XRGB(0, 255, 0));
 			m_pPF->Print( "Special: Land mines", 275, 675, 0.9f, D3DCOLOR_XRGB(103,197,166));
 		}
 		break;
 	case CAR_NUM:
 		{
-			m_pPF->Print( "START", 10,450,1.0f,D3DCOLOR_XRGB(0,255,0));
+			m_pPF->Print( "START", 30,450,1.0f,D3DCOLOR_XRGB(0,255,0));
 		}
 		break;
 	}
