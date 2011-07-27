@@ -99,7 +99,10 @@ void CPlayer::Update(float fElapsedTime)
 		{
 			Emittor* flame_thrower = ParticleManager::GetInstance()->GetActiveEmittor(GetFlameThrowerEmittorID());
 			if(flame_thrower)
+			{
 				flame_thrower->SetTimeToDie(0.0f);
+				flame_thrower->SetBase(NULL);
+			}
 		}
 		m_bIsFlameThrowerOn = false;
 		SetFlameThrowerEmittorID(-1);

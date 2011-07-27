@@ -1106,7 +1106,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet->SetScale(1.0f);
 			pBullet->SetOwner(pCVS->GetPlayer());
 			pBullet->SetCurLife(0.0f);
-			pBullet->SetMaxLife(1.5f);
+			pBullet->SetMaxLife(1.0f);
 			pBullet->SetHeight((int)(8*pBullet->GetScale()));
 			pBullet->SetWidth((int)(8*pBullet->GetScale()));
 			pBullet->SetPosX(pCVS->GetPlayer()->GetPosX());
@@ -1118,7 +1118,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet1->SetScale(1.0f);
 			pBullet1->SetOwner(pCVS->GetPlayer());
 			pBullet1->SetCurLife(0.0f);
-			pBullet1->SetMaxLife(1.5f);
+			pBullet1->SetMaxLife(1.0f);
 			pBullet1->SetHeight((int)(8*pBullet->GetScale()));
 			pBullet1->SetWidth((int)(8*pBullet->GetScale()));
 			pBullet1->SetPosX(pCVS->GetPlayer()->GetPosX());
@@ -1130,7 +1130,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet2->SetScale(1.0f);
 			pBullet2->SetOwner(pCVS->GetPlayer());
 			pBullet2->SetCurLife(0.0f);
-			pBullet2->SetMaxLife(1.5f);
+			pBullet2->SetMaxLife(1.0f);
 			pBullet2->SetHeight((int)(8*pBullet->GetScale()));
 			pBullet2->SetWidth((int)(8*pBullet->GetScale()));
 			pBullet2->SetPosX(pCVS->GetPlayer()->GetPosX());
@@ -1142,7 +1142,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet3->SetScale(1.0f);
 			pBullet3->SetOwner(pCVS->GetPlayer());
 			pBullet3->SetCurLife(0.0f);
-			pBullet3->SetMaxLife(1.5f);
+			pBullet3->SetMaxLife(1.0f);
 			pBullet3->SetHeight((int)(8*pBullet->GetScale()));
 			pBullet3->SetWidth((int)(8*pBullet->GetScale()));
 			pBullet3->SetPosX(pCVS->GetPlayer()->GetPosX());
@@ -1154,7 +1154,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			pBullet4->SetScale(1.0f);
 			pBullet4->SetOwner(pCVS->GetPlayer());
 			pBullet4->SetCurLife(0.0f);
-			pBullet4->SetMaxLife(1.5f);
+			pBullet4->SetMaxLife(1.0f);
 			pBullet4->SetHeight((int)(8*pBullet->GetScale()));
 			pBullet4->SetWidth((int)(8*pBullet->GetScale()));
 			pBullet4->SetPosX(pCVS->GetPlayer()->GetPosX());

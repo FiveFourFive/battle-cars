@@ -41,17 +41,6 @@ void ParticleManager::UpdateEmittors(float fElapsedTime)
 	if( this == NULL)
 		return;
 
-	//for( unsigned int i = 0; i < m_GameEmittors.size(); i++)
-	//{
-	//	if( m_GameEmittors[i] )
-	//		
-	//		if( m_GameEmittors[i]->GetCurrentLife() >= m_GameEmittors[i]->GetTimeToDie())
-	//		{
-	//			m_GameEmittors.erase(m_GameEmittors.begin() + i, m_GameEmittors.begin() + i+1);
-	//			
-	//		}
-	//}
-
 	for( unsigned int i = 0; i < m_ActiveEmittors.size(); i++)
 	{
 		if( m_ActiveEmittors[i])
@@ -76,7 +65,14 @@ void ParticleManager::RenderEmittors(CCamera* camera)
 	for( unsigned int i = 0; i < m_ActiveEmittors.size(); i++)
 	{
 		m_ActiveEmittors[i]->Render(camera);
-		
+		//
+		//RECT render_rect;
+		//render_rect.left = m_ActiveEmittors[i]->GetPosition().fX - camera->GetCamX();
+		//render_rect.top = m_ActiveEmittors[i]->GetPosition().fY - camera->GetCamY();
+		//render_rect.right = render_rect.left + 20;
+		//render_rect.bottom = render_rect.top + 20;
+
+		//D3D->DrawRect(render_rect, 0, 255,255);
 	}
 }
 

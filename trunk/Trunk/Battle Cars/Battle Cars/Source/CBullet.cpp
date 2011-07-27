@@ -38,14 +38,24 @@ void CBullet::Update(float fElapsedTime)
 		ParticleManager* pPM = ParticleManager::GetInstance();
 
 		if( trace_particle > -1 )
-			pPM->AttachToBasePosition(this, pPM->GetActiveEmittor(trace_particle));
+		{
+			Emittor* tracer_effect = pPM->GetActiveEmittor(trace_particle);
+			if( tracer_effect)
+				pPM->AttachToBasePosition(this, tracer_effect);
+		}
 
 		if(m_fCurLife >= m_fMaxLife)
 		{
 			if( trace_particle > -1)
 			{
-				pPM->GetActiveEmittor(trace_particle)->SetTimeToDie(0.0f);
-				pPM->GetActiveEmittor(trace_particle)->SetBase(NULL);
+				Emittor* tracer_effect = pPM->GetActiveEmittor(trace_particle);
+				if( tracer_effect)
+				{
+					tracer_effect->SetTimeToDie(0.0f);
+					tracer_effect->SetBase(NULL);
+				}
+				trace_particle = -1;
+				
 			}
 			CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
 		}
@@ -80,12 +90,17 @@ bool CBullet::CheckCollision(IBaseInterface* pBase)
 		if(pBase->GetType() == OBJECT_PLAYER)
 		{
 			CPlayer* tempplayer = (CPlayer*)pBase;
-			CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
 			if( trace_particle > -1)
 			{
-				pPM->GetActiveEmittor(trace_particle)->SetTimeToDie(0.0f);
-				pPM->GetActiveEmittor(trace_particle)->SetBase(NULL);
+				Emittor* tracer_effect = pPM->GetActiveEmittor(trace_particle);
+				if( tracer_effect)
+				{
+					tracer_effect->SetTimeToDie(0.0f);
+					tracer_effect->SetBase(NULL);
+				}
+				trace_particle = -1;
 			}
+			CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
 			// handle what happens to player)
 			CEventSystem::GetInstance()->SendEvent("damage",pBase,this);
 			return true;
@@ -95,12 +110,17 @@ bool CBullet::CheckCollision(IBaseInterface* pBase)
 			if(GetOwner()->GetType() == OBJECT_PLAYER || GetOwner()->GetType() == OBJECT_ENEMY)
 			{
 			CEnemy* tempenemy = (CEnemy*)pBase;
-			CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
 			if( trace_particle > -1)
 			{
-				pPM->GetActiveEmittor(trace_particle)->SetTimeToDie(0.0f);
-				pPM->GetActiveEmittor(trace_particle)->SetBase(NULL);
+				Emittor* tracer_effect = pPM->GetActiveEmittor(trace_particle);
+				if( tracer_effect)
+				{
+					tracer_effect->SetTimeToDie(0.0f);
+					tracer_effect->SetBase(NULL);
+				}
+				trace_particle = -1;
 			}
+			CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
 			// handle what happens to enemy
 			CEventSystem::GetInstance()->SendEvent("damage",pBase,this);
 			return true;
@@ -110,12 +130,17 @@ bool CBullet::CheckCollision(IBaseInterface* pBase)
 		}
 		else if(pBase->GetType() == OBJECT_OBSTACLE)
 		{
-			CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
 			if( trace_particle > -1)
 			{
-				pPM->GetActiveEmittor(trace_particle)->SetTimeToDie(0.0f);
-				pPM->GetActiveEmittor(trace_particle)->SetBase(NULL);
+				Emittor* tracer_effect = pPM->GetActiveEmittor(trace_particle);
+				if( tracer_effect)
+				{
+					tracer_effect->SetTimeToDie(0.0f);
+					tracer_effect->SetBase(NULL);
+				}
+				trace_particle = -1;
 			}
+			CMessageSystem::GetInstance()->SendMsg(new CDestroyBulletMessage(this));
 			CObstacle* tempobs = (CObstacle*)pBase;
 			tVector2D obsvel = tempobs->GetVel();
 			obsvel.fX = this->GetVelX() * 0.4f;
