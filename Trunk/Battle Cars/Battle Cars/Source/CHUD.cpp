@@ -8,6 +8,7 @@
 #include <vector>
 #include "CGame.h"
 #include "CNumPlayers.h"
+#include "CCollectionMode.h"
 
 CHUD::CHUD(void)
 {
@@ -100,8 +101,14 @@ void CHUD::Render(void)
 
 	for(int i = 0; i < MaxScoreBoard; i++)
 	{
-
-		sprintf_s(buffer,"%i)%i",i+1,scores[i]->GetKillCount());
+		if (CGamePlayState::GetInstance ()->GetMode () == CCollectionMode::GetInstance ())
+		{
+			sprintf_s(buffer,"%i)%i",i+1,scores[i]->GetCollected ());
+		}
+		else
+		{
+			sprintf_s(buffer,"%i)%i",i+1,scores[i]->GetKillCount());
+		}
   		if(scores[i]->GetType() == OBJECT_PLAYER)
 		{
 			color = D3DCOLOR_ARGB(255,0,255,0);

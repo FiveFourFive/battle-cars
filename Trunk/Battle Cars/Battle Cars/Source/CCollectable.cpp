@@ -4,6 +4,8 @@
 #include "CCamera.h"
 #include "CGamePlayState.h"
 #include "CLevel.h"
+#include "CPlayer.h"
+#include "CEnemy.h"
 #include "CMap.h"
 
 CCollectable::CCollectable()
@@ -13,8 +15,14 @@ CCollectable::CCollectable()
 	int minY = 160;
 	int maxX = 6240;//((CLevel::GetInstance ()->GetMap()->GetMapWidth ()) - 30) * (CLevel::GetInstance ()->GetMap()->GetPixelWidth ());
 	int maxY = 6240;//((CLevel::GetInstance ()->GetMap()->GetMapHeight ()) - 30) * (CLevel::GetInstance ()->GetMap()->GetPixelHeight ());
-	SetPosX((float)(rand()% (maxX - minX + 1) - minX));
-	SetPosY((float)(rand()% (maxY - minY + 1) - minY));
+	SetPosX((float)(rand()% (maxX - minX + 32) + minX));
+	SetPosY((float)(rand()% (maxY - minY + 32) + minY));
+
+	if (this->GetPosX () < 160 || this->GetPosY () < 160)
+	{
+		int temp = 0;
+		temp = 128;
+	}
 	SetWidth(128);
 	SetHeight(128);
 	
@@ -46,19 +54,23 @@ bool CCollectable::CheckCollision(IBaseInterface* pBase)
 		RECT collision;
 		if(IntersectRect(&collision, &GetRect(), &pBase->GetRect()))
 		{
-			
-			if(pBase->GetType() == OBJECT_PLAYER && m_bActive)
+			if (m_bActive)
 			{
-				//Play a sound here as well
 				m_bActive = false;
-				CGamePlayState::GetInstance()->SetPlayerCollectables(CGamePlayState::GetInstance()->GetPlayerCollectables() + 1);
+				((CCar*)pBase)->SetCollected (((CCar*)pBase)->GetCollected () + 1);
 			}
-			else if(pBase->GetType() == OBJECT_ENEMY && m_bActive)
-			{
-				//play a sound here as well
-				m_bActive = false;
-				CGamePlayState::GetInstance()->SetComputerCollectables(CGamePlayState::GetInstance()->GetComputerCollectables()+1);
-			}
+			//if(pBase->GetType() == OBJECT_PLAYER && m_bActive)
+			//{
+			//	//Play a sound here as well
+			//	
+			//	CGamePlayState::GetInstance()->GetPlayer1 ()->SetCollected (CGamePlayState::GetInstance()->GetPlayer1 ()->GetCollected () + 1);
+			//}
+			//else if(pBase->GetType() == OBJECT_ENEMY && m_bActive)
+			//{
+			//	//play a sound here as well
+			//	m_bActive = false;
+			//	CGamePlayState::GetInstance()->GetCollectionBoss()->SetCollected (CGamePlayState::GetInstance()->GetCollectionBoss ()->GetCollected () + 1);
+			//}
 		}
 	}
 	return false;

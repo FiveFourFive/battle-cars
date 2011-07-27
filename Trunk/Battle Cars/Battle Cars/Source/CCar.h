@@ -63,6 +63,8 @@ private:
 
 	bool Collision_effect;			//Check whether effect has been applied yet or not.
 
+	int m_nCollected;
+
 public:
 	CCar(void);
 	void Update(float fElapsedTime);
@@ -111,8 +113,10 @@ public:
 	bool GetTurnable(void) { return m_bIsTurnable; }
 	RECT GetImageRect(){ return m_rImageRect;}
 	RECT GetHealthImageRect(int index){ return m_rHealthImageRect[index];}
+	int GetCollected (void) {return m_nCollected;}
 
 	//setters
+	void SetCollected (int collected) {m_nCollected = collected;}
 	void SetTurnable(bool turnable) { m_bIsTurnable = turnable; }
 	void SetOverallVelocity(tVector2D vel) { m_tOverallVelocity = vel; }
 
