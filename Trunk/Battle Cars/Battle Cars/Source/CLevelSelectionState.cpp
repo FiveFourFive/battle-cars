@@ -57,7 +57,7 @@ void CLevelSelectionState::Enter()
 	m_pFM->SetVolume(m_nMenuMove,CGame::GetInstance()->getSoundAVolume());
 	m_pPF = new CPrintFont(m_nFontID);
 
-	m_nBGImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/mainmenu_bg.jpg");
+	m_nBGImageID = m_pTM->LoadTexture("resource/graphics/gamestates images/optionstate.jpg");
 	m_nSelection = 0;
 
 	color = D3DCOLOR_ARGB(255,255,255,255);
@@ -208,7 +208,9 @@ void CLevelSelectionState::Render()
 {
 	CSGD_Direct3D::GetInstance()->GetSprite()->Flush();
 
-	m_pTM->Draw(m_nBGImageID, 0, 0, 2.9f, 1.8f);
+	m_pTM->Draw(m_nBGImageID, 0, 0, 1.0f, 1.0f);
+
+	m_pPF->PrintCentered("Level Selection",CGame::GetInstance()->GetScreenWidth()/2,50,2.0f,D3DCOLOR_XRGB(255,0,0));
 
 	for( int i = 0; i < LEVEL_MAX; i++)
 	{
@@ -217,12 +219,12 @@ void CLevelSelectionState::Render()
 
 		if( i != m_nSelection)
 		{
-			m_pPF->Print(buffer.c_str(), 10, (i + 1) * 50, 0.5f, D3DCOLOR_XRGB(200, 0, 0));
+			m_pPF->Print(buffer.c_str(), 30, (i + 1) * 100 + 100, 1.0f, D3DCOLOR_XRGB(200, 0, 0));
 		}
 		else
 		{
-			m_pPF->Print(buffer.c_str(), 10, (i + 1) * 50, 0.5f, D3DCOLOR_XRGB(0, 255, 0));
-			m_pTM->Draw(render_ids[m_nCurrentFrame], 200, 250, 0.5f, 0.5f, NULL,0, 0, 0, color);
+			m_pPF->Print(buffer.c_str(), 30, (i + 1) * 100 + 100, 1.0f, D3DCOLOR_XRGB(0, 255, 0));
+			m_pTM->Draw(render_ids[m_nCurrentFrame], 450, 250, 0.4f, 0.4f, NULL,0, 0, 0, color);
 		}
 	}
 

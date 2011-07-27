@@ -295,5 +295,6 @@ void CGame::SetPanning(float left)
 
 bool CGame::Controller2Connected(void)
 {
-	return m_pController2->Connected();
+	bool connected = m_pController2->Connected();
+	return connected;
 }

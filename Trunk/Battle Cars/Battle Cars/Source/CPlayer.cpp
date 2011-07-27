@@ -197,6 +197,7 @@ void CPlayer::Update(float fElapsedTime)
 	}
 	else if(m_nPlayerNum == 2)
 		{
+
 			if(CGame::GetInstance()->Controller2Connected())
 				controller = true;
 			else
