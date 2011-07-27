@@ -150,10 +150,7 @@ void CGamePlayState::Enter(void)
 
 	bosses.push_back(boss);
 	bosses.push_back(miniboss);
-	
 
-
-	
 	m_bCountDown = false;
 	m_fEnlarge = 0.0f;
 	m_bPlaying = false;
@@ -229,8 +226,7 @@ void CGamePlayState::Enter(void)
 			m_pOM->AddObject(collectable);
 		}
 		CCollectionMode::GetInstance()->SetCollectables(collectables);
-		collectionChallengeBoss = new CEnemy(CCharacterSelection::GetInstance()->GetPlayer1()->GetController()); 
-		m_pOM->AddObject(collectionChallengeBoss);
+		collectionChallengeBoss = new CBoss(CCharacterSelection::GetInstance()->GetPlayer1()->GetController()); 
 		collectionChallengeBoss->SetPosX(500.0f);
 		collectionChallengeBoss->SetPosY(500.0f);
 		collectionChallengeBoss->SetSpeed(0.0f);
@@ -238,8 +234,18 @@ void CGamePlayState::Enter(void)
 		collectionChallengeBoss->SetAcceleration(10.0f);
 		collectionChallengeBoss->SetHealth(150.0f);
 		collectionChallengeBoss->SetMaxHealth(150.0f);
-		collectionChallengeBoss->SetCarId(m_pTM->LoadTexture("resource/graphics/BattleCars_MiniBossPlaceHolder.png",D3DCOLOR_XRGB(0,0,0)));
+		collectionChallengeBoss->SetCarId(m_pTM->LoadTexture("Resource/Graphics/BattleCars_MiniBossPlaceHolder.png"));
 		collectionChallengeBoss->ChangeState(collectionChallengeBoss->GetCollectState ());
+		RECT health_rect;
+		health_rect.left = 5;
+		health_rect.top = 0;
+		health_rect.right = 256;
+		health_rect.bottom = 256;
+
+		collectionChallengeBoss->SetHealthImageRect(&health_rect,0);
+		collectionChallengeBoss->SetScale(0.4f);
+
+		m_pOM->AddObject(collectionChallengeBoss);
 	}
 	else
 		collectionChallengeBoss = NULL;
@@ -1845,7 +1851,16 @@ void CGamePlayState::SortScores(void)
 	{
 		for(int j = i; j >= 0; j--)
 		{
-			if(m_lScores[i]->GetKillCount() > m_lScores[j]->GetKillCount())
+			if(m_bCollectionChallenge)
+			{
+				if (m_lScores[i]->GetCollected () > m_lScores[j]->GetCollected ())
+				{
+					CCar* tempcar;
+					tempcar = m_lScores[i];
+					m_lScores[i] = m_lScores[j];
+					m_lScores[j] = tempcar;
+				}
+			}else if(m_lScores[i]->GetKillCount() > m_lScores[j]->GetKillCount())
 			{
 				CCar* tempcar;
 				tempcar = m_lScores[i];
@@ -1854,7 +1869,6 @@ void CGamePlayState::SortScores(void)
 			}
 		}
 	}
-
 }
 
 void CGamePlayState::Setvolume(void)

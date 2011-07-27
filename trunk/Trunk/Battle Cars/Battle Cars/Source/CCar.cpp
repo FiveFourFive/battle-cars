@@ -19,6 +19,7 @@
 
 CCar::CCar(void)
 {
+	m_nCollected = 0;
 	m_fAccelerationRate = 200.0f;
 	m_fRotationRate = 3.14f;
 	m_fSpeed = 0.0f;
