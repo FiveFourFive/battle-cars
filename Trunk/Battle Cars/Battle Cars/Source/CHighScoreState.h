@@ -32,7 +32,7 @@ private:
 	int m_nSelection;
 	int m_nMenuSelect;
 	int m_nMenuMove;
-
+	int m_nBGImageID;
 	CHighscoreState(void);
 	~CHighscoreState(void);
 	CHighscoreState(const CHighscoreState&);
