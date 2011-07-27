@@ -820,7 +820,7 @@ void CGamePlayState::MessageProc(CBaseMessage* pMsg)
 			{
 				pBullet->SetTracerEmittor(tempemittor->GetID());
 				tempemittor->SetTimeToDie(pBullet->GetMaxLife());
-				pPM->AttachToBasePosition(pBullet, tempemittor, 0, 0);
+				pPM->AttachToBasePosition(pBullet, tempemittor);
 
 			}
 

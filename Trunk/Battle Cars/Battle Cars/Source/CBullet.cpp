@@ -40,8 +40,15 @@ void CBullet::Update(float fElapsedTime)
 		if( trace_particle > -1 )
 		{
 			Emittor* tracer_effect = pPM->GetActiveEmittor(trace_particle);
+
+			float tempX1 = GetPosX();
+			float tempY1 = GetPosY() + ((GetHeight()/2));
+			float cx = GetPosX();
+			float posx = cx + (cos(GetRotation())) * (tempX1 - cx) - sin(GetRotation()) * (tempY1 - GetPosY());
+			float posy = GetPosY() + (sin(GetRotation())) * (tempX1 - cx) + cos(GetRotation()) * (tempY1 - GetPosY());
+
 			if( tracer_effect)
-				pPM->AttachToBasePosition(this, tracer_effect);
+				pPM->AttachToBasePosition(NULL, tracer_effect, posx, posy);
 		}
 
 		if(m_fCurLife >= m_fMaxLife)
@@ -70,7 +77,7 @@ void CBullet::Render(CCamera* camera)
 
 	if( m_bToRender )
 		m_pTM->Draw(GetImageID(),int(GetPosX() - camera->GetCamX() + camera->GetRenderPosX()),int(GetPosY() - camera->GetCamY() + camera->GetRenderPosY()),m_fScale,m_fScale, 
-			NULL,m_pTM->GetTextureWidth(GetImageID())*0.5f, m_pTM->GetTextureHeight(GetImageID())*0.5f, GetRotation());
+			NULL,m_pTM->GetTextureWidth(GetImageID()) *0.5f,m_pTM->GetTextureHeight(GetImageID())*0.5f, GetRotation());
 	//m_pTM->Draw(GetImageID(),(int)GetPosX(),(int)GetPosY(),0.5f,0.5f,NULL,GetPosX()-(GetWidth()),GetPosY()-(GetHeight()),m_fRotation);
 
 }
