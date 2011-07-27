@@ -139,6 +139,7 @@ void CDeathmatchMode::CheckWinLoss(void)
 		{
 			CPlayer* tempplayer = (CPlayer*)scores->front();
 			CWinState::GetInstance()->SetWinner(tempplayer);
+			tempplayer->AddRef();
 			if(tempplayer->GetPlayerNum() == 1)
 			{
 				CGame::GetInstance()->ChangeState(CWinState::GetInstance());
