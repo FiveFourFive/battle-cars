@@ -618,8 +618,9 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 				CEventSystem::GetInstance()->SendEvent("collision", this);
 				SetCollisionEffect(true);
 			}
-
-			return true;
+			tempcar->Rotate(tempcar->GetRotation());
+			Rotate(GetRotation());
+			//return true;
 		}
 		
 	}
@@ -633,13 +634,13 @@ bool CPlayer::CheckCollision(IBaseInterface* pBase)
 			SetSpeed(0);
 			CSpeedRamp* tempramp = (CSpeedRamp*)pBase;
 			tVector2D myvel = GetVelocity();
-			tVector2D boostvel = (tempramp->GetVelDir() * (GetMaxSpeed() + 50) );
+			tVector2D boostvel = (tempramp->GetVelDir() * 50 );
 			myvel.fX = myvel.fX + boostvel.fX;
 			myvel.fY = myvel.fY + boostvel.fY;
 			SetVelocity(myvel);
 			SetSpeed(GetMaxSpeed());
 			//SetSpeed(GetMaxSpeed() + 300.0f);
-			return true;
+			//return true;
 		}
 
 

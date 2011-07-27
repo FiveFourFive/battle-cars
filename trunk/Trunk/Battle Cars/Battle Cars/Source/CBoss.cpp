@@ -294,8 +294,9 @@ bool CBoss::CheckCollision(IBaseInterface* pBase)
 				CEventSystem::GetInstance()->SendEvent("collision", this);
 				SetCollisionEffect(true);
 			}
-
-			return true;
+			tempcar->Rotate(tempcar->GetRotation());
+			Rotate(GetRotation());
+			//return true;
 		}
 		
 	}
@@ -307,7 +308,7 @@ bool CBoss::CheckCollision(IBaseInterface* pBase)
 			SetSpeed(0);
 			CSpeedRamp* tempramp = (CSpeedRamp*)pBase;
 			SetVelocity((tempramp->GetVelDir() * (GetMaxSpeed() + 50) ));
-			return true;
+			//return true;
 		}
 	}
 	return false;

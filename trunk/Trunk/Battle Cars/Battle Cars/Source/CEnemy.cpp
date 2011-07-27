@@ -308,8 +308,9 @@ if(pBase->GetType() == OBJECT_PLAYER)
 				CEventSystem::GetInstance()->SendEvent("collision", this);
 				SetCollisionEffect(true);
 			}
-
-			return true;
+			tempcar->Rotate(tempcar->GetRotation());
+			Rotate(GetRotation());
+			//return true;
 		}
 		
 	}
@@ -320,9 +321,9 @@ if(pBase->GetType() == OBJECT_PLAYER)
 		{
 			SetSpeed(0);
 			CSpeedRamp* tempramp = (CSpeedRamp*)pBase;
-			SetVelocity((tempramp->GetVelDir() * (GetMaxSpeed() + 50) ));
+			SetVelocity((tempramp->GetVelDir() * 100 ));
 			m_bHasCollidedWithSpeedRamp = true;
-			return true;
+			//return true;
 		}
 	}
 	return false;
