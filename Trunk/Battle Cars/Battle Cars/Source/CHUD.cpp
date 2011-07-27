@@ -18,10 +18,6 @@ CHUD::CHUD(void)
 
 	m_nScoreBoardID=m_pTM->LoadTexture("resource/graphics/huds/score_hud.png");
 	m_nHealthID = m_pTM->LoadTexture("resource/graphics/huds/health_bar_underlay.png");
-	//m_nHealthID = m_pTM->LoadTexture("resource
-//	m_nScoreBoardID
-	//m_nPistolID = m_pTM->LoadTexture("reoursce
-	//m_nMissileID
 }
 
 CHUD::~CHUD(void)

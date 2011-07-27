@@ -17,6 +17,7 @@
 #include "CHUD.h"
 #include "CPowerUp.h"
 #include "CCollectable.h"
+#include "CNumPlayers.h"
 
 #include "CGame.h"
 #include "CLevel.h"
@@ -121,6 +122,12 @@ void CObjectManager::RenderObjects(CCamera* camera)
 						CCollectable* collectable = (CCollectable*)m_vObjectList[index];
 						if( collectable->IsActive())
 							pD3D->DrawRect(draw_rect,0,255,0); 
+					}else if (CNumPlayers::GetInstance ()->GetNumberOfPlayers () == 2)
+					{
+						if (m_vObjectList[index]->GetType () == OBJECT_PLAYER)
+						{
+							pD3D->DrawRect(draw_rect,0,255,255); 
+						}
 					}
 				
 				}
