@@ -46,7 +46,8 @@ void CNumPlayers::Enter()
 	m_pFM->SetVolume(m_nMenuMove,CGame::GetInstance()->getSoundAVolume());
 	m_pFM->SetVolume(m_nIncorrectSelection,CGame::GetInstance()->getSoundAVolume());
 
-
+	m_nSelection = 0;
+	this->m_nNumberOfPlayers = 0;
 
 }
 
@@ -59,7 +60,6 @@ CNumPlayers* CNumPlayers::GetInstance()
 void CNumPlayers::Exit()
 {
 	delete m_pPF;
-	this->m_nNumberOfPlayers = 0;
 }
 
 bool CNumPlayers::Input()
