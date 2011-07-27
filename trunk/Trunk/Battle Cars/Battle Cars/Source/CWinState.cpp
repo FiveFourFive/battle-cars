@@ -100,10 +100,6 @@ void CWinState::Enter(void)
 		}
 	}
 	carsID = m_pWinner->GetImageID();
-	mini = m_pWinner->GetImageRect();
-	vette = m_pWinner->GetImageRect();
-	humvee = m_pWinner->GetImageRect();
-	truck = m_pWinner->GetImageRect();
 	addme.name = buffer;
 	addme.score = CGame::GetInstance()->GetScore();
 	CHighscoreState::GetInstance()->AddScore(addme);
@@ -228,28 +224,40 @@ void CWinState::Render(void)
 	case 0:
 		if(tempprofile->cars[0] == 0)
 		{
-			todraw = mini;
+			todraw.left = 512;
+			todraw.top = 0;
+			todraw.right = todraw.left + 256;
+			todraw.bottom = todraw.top + 512;
 			id = miniID;
 		break;
 		}
 	case 1:
 		if(tempprofile->cars[1] == 0)
 		{
-			todraw = vette;
+			todraw.left = 256;
+			todraw.top = 0;
+			todraw.right = todraw.left + 256;
+			todraw.bottom = todraw.top + 512;
 		id = vetteID;
 		break;
 		}
 	case 2:
 		if(tempprofile->cars[2] == 0)
 		{
-			todraw = humvee;
+			todraw.left = 0;
+			todraw.top = 0;
+			todraw.right = todraw.left + 256;
+			todraw.bottom = todraw.top + 512;
 		id = humveeID;
 		break;
 		}
 	case 3:
 		if(tempprofile->cars[3] == 0)
 		{
-			todraw = truck;
+			todraw.left = 768;
+			todraw.top = 0;
+			todraw.right = todraw.left + 256;
+			todraw.bottom = todraw.top + 512;
 		id = truckID;
 		break;
 		}
@@ -258,6 +266,10 @@ void CWinState::Render(void)
 	{
 		m_pTM->Draw(carsID,800,250,1.0f,1.0f,&todraw);
 	}
+	}
+	else
+	{
+		m_pPF->Print("All Cars Unlcoked!",800,250,1.0f,D3DCOLOR_XRGB(255,0,0));
 	}
 	//m_pD3D->DrawRect(cars,color,0,0);
 

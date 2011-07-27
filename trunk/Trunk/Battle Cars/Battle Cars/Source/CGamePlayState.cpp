@@ -194,7 +194,7 @@ void CGamePlayState::Enter(void)
 		m_pOM->AddObject(miniboss);
 	}
 	
-	time = 1205;
+	time = 5;
 	m_fElapsedSecond = 0.0f;
 	score = 0;
 
@@ -335,8 +335,10 @@ void CGamePlayState::Exit(void)
 	for(unsigned int i = 0; i < cars.size(); i++)
 	{
 		if (cars[i] != player && cars[i] != player2 && cars[i]->GetType () != OBJECT_BOSS)
-		cars[i]->Release();
-		cars[i] = NULL;
+		{
+			cars[i]->Release();
+			cars[i] = NULL;
+		}
 	}
 	cars.clear();
 
