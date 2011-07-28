@@ -72,6 +72,13 @@ CCar::CCar(void)
 	CEventSystem::GetInstance()->RegisterClient("weapon_level",this);
 }
 
+CCar::~CCar()
+{
+	CEventSystem::GetInstance()->UnregisterClient("damage",this);
+	CEventSystem::GetInstance()->UnregisterClient("collision", this);
+	CEventSystem::GetInstance()->UnregisterClient("weapon_level",this);
+}
+
 
 void CCar::Update(float fElapsedTime)
 {
