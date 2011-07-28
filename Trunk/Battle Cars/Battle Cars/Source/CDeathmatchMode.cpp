@@ -135,7 +135,7 @@ void CDeathmatchMode::CheckWinLoss(void)
 	{
 		vector<CCar*>* scores;
 		scores = CGamePlayState::GetInstance()->GetList();
-		if(scores->front()->GetType() == OBJECT_PLAYER)
+		/*if(scores->front()->GetType() == OBJECT_PLAYER)
 		{
 			CPlayer* tempplayer = (CPlayer*)scores->front();
 			CWinState::GetInstance()->SetWinner(tempplayer);
@@ -154,6 +154,39 @@ void CDeathmatchMode::CheckWinLoss(void)
 		else
 		{
 			CWinState::GetInstance()->SetWinner(NULL);
+			CGame::GetInstance()->ChangeState(CLossState::GetInstance());
+		}*/
+
+		if (scores->front ()->GetKillCount () > 0)
+		{
+			if (scores->front () == CGamePlayState::GetInstance ()->GetPlayer1 ())
+			{
+				CGamePlayState::GetInstance ()->GetPlayer1 ()->AddRef ();
+				CWinState::GetInstance()->SetWinner(CGamePlayState::GetInstance ()->GetPlayer1 ());
+				CGame::GetInstance()->ChangeState(CWinState::GetInstance());
+			
+			}else if (scores->front () == CGamePlayState::GetInstance ()->GetPlayer2 ())
+			{
+				CGamePlayState::GetInstance ()->GetPlayer2 ()->AddRef ();
+				CWinState::GetInstance()->SetWinner(CGamePlayState::GetInstance ()->GetPlayer2 ());
+				CGame::GetInstance()->ChangeState(CWinState::GetInstance());
+
+			}else
+			{
+				CWinState::GetInstance()->SetWinner(NULL);
+				CGamePlayState::GetInstance ()->GetPlayer1 ()->AddRef ();
+				CGamePlayState::GetInstance ()->GetPlayer2 ()->AddRef ();
+				CLossState::GetInstance()->SetLosser1 (CGamePlayState::GetInstance ()->GetPlayer1 ());
+				CLossState::GetInstance()->SetLosser2 (CGamePlayState::GetInstance ()->GetPlayer2 ());
+				CGame::GetInstance()->ChangeState(CLossState::GetInstance());
+			}
+		}else
+		{
+			CWinState::GetInstance()->SetWinner(NULL);
+			CGamePlayState::GetInstance ()->GetPlayer1 ()->AddRef ();
+			CGamePlayState::GetInstance ()->GetPlayer2 ()->AddRef ();
+			CLossState::GetInstance()->SetLosser1 (CGamePlayState::GetInstance ()->GetPlayer1 ());
+			CLossState::GetInstance()->SetLosser2 (CGamePlayState::GetInstance ()->GetPlayer2 ());
 			CGame::GetInstance()->ChangeState(CLossState::GetInstance());
 		}
 	}

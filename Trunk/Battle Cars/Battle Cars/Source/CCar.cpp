@@ -182,7 +182,8 @@ void CCar::Update(float fElapsedTime)
 void CCar::Render(CCamera* camera)
 {
 	RECT intersect;
-
+	RECT asdf = GetRect();
+	RECT cam = camera->GetRect ();
 	if (!(IntersectRect (&intersect, &GetRect(), &camera->GetRect ())))
 	{
 		return;
@@ -507,6 +508,9 @@ bool CCar::InBounds(float fElapsedTime)
 
 RECT CCar::GetRect()
 {
+	int width = GetWidth();
+	int height = GetHeight();
+
 	RECT temp_rect;
 	temp_rect.left = (int)GetPosX() - (int)(GetWidth() * 0.5f);
 	temp_rect.top = (int)GetPosY() - (int)(GetHeight() * 0.5f);

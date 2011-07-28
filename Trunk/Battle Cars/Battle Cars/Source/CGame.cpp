@@ -174,6 +174,7 @@ void CGame::Update(float fElapsedTime)
 		m_bController = true;
 	else
 		m_bController = false;
+
 	m_vGameStates.back()->Update(fElapsedTime);
 }
 
@@ -221,14 +222,14 @@ void CGame::RemoveState(IGameState* state)
 void CGame::Pause(void)
 {
 	CGamePlayState* tempgame = CGamePlayState::GetInstance();
-	for(int i = 0; i < m_vGameStates.size(); i++)
+	for(int i = 0; i < (int)m_vGameStates.size(); i++)
 	{
 		if(m_vGameStates[i] == CPauseMenuState::GetInstance())
 		{
 			return;
 		}
 	}
-	for(int i = 0; i < m_vGameStates.size(); i++)
+	for(int i = 0; i < (int)m_vGameStates.size(); i++)
 	{
 		if(m_vGameStates[i] == tempgame)
 		{

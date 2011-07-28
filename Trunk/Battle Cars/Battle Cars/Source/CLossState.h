@@ -2,6 +2,7 @@
 #define _CLOSSSTATE_H
 
 #include "IGameState.h"
+#include "CPlayer.h"
 
 class CSGD_TextureManager;
 class CPrintFont;
@@ -29,6 +30,9 @@ private:
 	int m_nMenuMove;
 	int m_nBGImageID;
 
+	CPlayer* m_pLosser1;
+	CPlayer* m_pLosser2;
+
 	CLossState(void);
 	~CLossState(void);
 	CLossState(const CLossState&);
@@ -44,6 +48,9 @@ public:
 
 	void Enter(void);
 	void Exit(void);
+
+	void SetLosser1 (CPlayer* player) {m_pLosser1 = player;}
+	void SetLosser2 (CPlayer* player) {m_pLosser2 = player;}
 
 
 };

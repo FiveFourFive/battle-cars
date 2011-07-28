@@ -133,8 +133,11 @@ void CGamePlayState::Enter(void)
 	miniboss->SetPosX(float(rand()%1400+200));
 	miniboss->SetPosY(float(rand()%1400+200));
 	miniboss->SetCarId(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniBossPlaceHolder.png"));
+
+	player->SetName ("Player 1");
 	cars.push_back (player);
-if(!m_bCollectionChallenge)
+
+	if(!m_bCollectionChallenge)
 	{
 		
 
@@ -149,6 +152,7 @@ if(!m_bCollectionChallenge)
 			player2->SetPosY(400);
 			player2->SetPlayerNum(2);
 			player2->SetController(m_pController2);
+			player2->SetName ("Player 2");
 			cars.push_back (player2);
 		}
 		else
@@ -158,6 +162,7 @@ if(!m_bCollectionChallenge)
 				player2index = rand()%4;
 			player2 = characters[player2index];
 		}
+		cars.push_back (miniboss);
 		m_pOM->AddObject(miniboss);
 	}
 	cars = Level->SetCarSpawn (cars);
@@ -171,8 +176,14 @@ if(!m_bCollectionChallenge)
 	health_rect.bottom = 256;
 
 	miniboss->SetHealthImageRect(&health_rect,0);
+	miniboss->SetHealthImageRect(&health_rect,1);
+	miniboss->SetHealthImageRect(&health_rect,2);
+	miniboss->SetHealthImageRect(&health_rect,3);
 	miniboss->SetScale(0.4f);
 	boss->SetHealthImageRect(&health_rect,0);
+	boss->SetHealthImageRect(&health_rect,1);
+	boss->SetHealthImageRect(&health_rect,2);
+	boss->SetHealthImageRect(&health_rect,3);
 	boss->SetScale(0.4f);
 
 	bosses.push_back(boss);
@@ -193,39 +204,39 @@ if(!m_bCollectionChallenge)
 	m_nCrateID = m_pTM->LoadTexture("resource/graphics/crate.png");
 	m_nBarrelID = m_pTM->LoadTexture("resource/graphics/steeldrum.png");
 
-	if(!m_bCollectionChallenge)
-	{
-		
+	//if(!m_bCollectionChallenge)
+	//{
+	//	
 
-		characters = CCharacterSelection::GetInstance()->GetList();
+	//	characters = CCharacterSelection::GetInstance()->GetList();
 
-		if(CNumPlayers::GetInstance()->GetNumberOfPlayers() > 1)
-		{
-			player2 = CCharacterSelection::GetInstance()->GetPlayer2();
-			//m_pOM->AddObject(player2);
-			player2->Rotate(0.0f);
-			player2->SetPosX(500);
-			player2->SetPosY(400);
-			player2->SetPlayerNum(2);
-			player2->SetController(m_pController2);
-			cars.push_back (player2);
-		}
-		else
-		{
-			int player2index = rand()%4;
-			while(player2index == CCharacterSelection::GetInstance()->GetPlayer1()->GetPlayerType())
-				player2index = rand()%4;
-			player2 = characters[player2index];
-		}
-		cars.push_back (miniboss);
-		m_pOM->AddObject(miniboss);
-	}
+	//	if(CNumPlayers::GetInstance()->GetNumberOfPlayers() > 1)
+	//	{
+	//		player2 = CCharacterSelection::GetInstance()->GetPlayer2();
+	//		//m_pOM->AddObject(player2);
+	//		player2->Rotate(0.0f);
+	//		player2->SetPosX(500);
+	//		player2->SetPosY(400);
+	//		player2->SetPlayerNum(2);
+	//		player2->SetController(m_pController2);
+	//		cars.push_back (player2);
+	//	}
+	//	else
+	//	{
+	//		int player2index = rand()%4;
+	//		while(player2index == CCharacterSelection::GetInstance()->GetPlayer1()->GetPlayerType())
+	//			player2index = rand()%4;
+	//		player2 = characters[player2index];
+	//	}
+	//	
+	//}
+
 	m_nBgMusicID = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/Superbeast.mp3",SGD_FMOD_LOOPING);
 	m_nCountDown = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/Countdown.mp3");
 	m_nCountDownEnd = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/Countdowntone.mp3");
 	
 	
-	time = 300;
+	time = 100;
 	m_fElapsedSecond = 0.0f;
 	score = 0;
 
@@ -278,9 +289,11 @@ if(!m_bCollectionChallenge)
 		health_rect.bottom = 256;
 
 		collectionChallengeBoss->SetHealthImageRect(&health_rect,0);
+		collectionChallengeBoss->SetHealthImageRect(&health_rect,1);
+		collectionChallengeBoss->SetHealthImageRect(&health_rect,2);
+		collectionChallengeBoss->SetHealthImageRect(&health_rect,3);
 		collectionChallengeBoss->SetScale(0.4f);
 
-		//cars.push_back (collectionChallengeBoss);
 		m_lScores.push_back (collectionChallengeBoss);
 		m_pOM->AddObject(collectionChallengeBoss);
 	}
@@ -357,7 +370,7 @@ if(!m_bCollectionChallenge)
 		m_lScores.push_back ((CCar*)cars[i]);
 	}
 
-	//player->SetKillCount(2);
+	//player->SetKillCount (50);
 }
 
 void CGamePlayState::Exit(void)
