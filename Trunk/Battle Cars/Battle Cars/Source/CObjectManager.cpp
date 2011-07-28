@@ -105,7 +105,7 @@ void CObjectManager::RenderObjects(CCamera* camera)
 					}
 					else if( m_vObjectList[index]->GetType() == OBJECT_BOSS)
 					{
-						pD3D->DrawRect(draw_rect,255,255,255); 
+						pD3D->DrawRect(draw_rect,0,0,0); 
 					}
 					else if( m_vObjectList[index]->GetType() == OBJECT_POWERUP )
 					{

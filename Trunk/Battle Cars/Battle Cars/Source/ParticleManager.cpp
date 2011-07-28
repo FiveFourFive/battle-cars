@@ -316,6 +316,7 @@ void ParticleManager::AttachToBase(CBase* base, Emittor* emittor)
 
 	if( base != NULL)
 	{
+		emittor->SetBase(base);
 		emittor->SetPosition(base->GetPosX(), base->GetPosY());
 	}
 }
