@@ -130,6 +130,7 @@
     <ClCompile Include="Source\CSGD_TextureManager.cpp" />
     <ClCompile Include="Source\CSpeedRamp.cpp" />
     <ClCompile Include="Source\CStopWatch.cpp" />
+    <ClCompile Include="Source\CThread.cpp" />
     <ClCompile Include="Source\CTile.cpp" />
     <ClCompile Include="Source\CTimeChallengeMode.cpp" />
     <ClCompile Include="Source\CTutorialMode.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="Source\CSGD_TextureManager.h" />
     <ClInclude Include="Source\CSpeedRamp.h" />
     <ClInclude Include="Source\CStopWatch.h" />
+    <ClInclude Include="Source\CThread.h" />
     <ClInclude Include="Source\CTile.h" />
     <ClInclude Include="Source\CTimeChallengeMode.h" />
     <ClInclude Include="Source\CTutorialMode.h" />

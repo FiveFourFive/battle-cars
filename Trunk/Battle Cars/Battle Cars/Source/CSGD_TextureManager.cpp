@@ -381,12 +381,30 @@ bool CSGD_TextureManager::Draw(int nID, int nX, int nY, float fScaleX, float fSc
 	if (FAILED(m_lpSprite->Draw(m_Textures[nID].texture, pSection, NULL, NULL, dwColor)))
 		DXERROR("Failed to draw the texture.");
 
+
+
+
+
+
+
+
+
+
+
+	
 	// Move the world back to identity.
+	
 	D3DXMatrixIdentity(&combined);
 	m_lpSprite->SetTransform(&combined);
 
+	
 	// success.
-	return true;
+	
+	
+	
+	
+	
+				return true;
 }
 
 #pragma warning (default : 4996)

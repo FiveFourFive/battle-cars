@@ -23,7 +23,8 @@
 #pragma comment(lib, "dbghelp.lib")
 
 #include "CGame.h"		// for our Game
-
+#include "CPauseMenuState.h"
+#include "CGamePlayState.h"
 const char* g_szWINDOW_CLASS_NAME	= "Game Window";			//	Window Class Name.
 
 const char* g_szWINDOW_TITLE		= "Battle Cars: Mayhem and Destruction";	//	Window Title.
@@ -105,6 +106,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			else // losing focus
 			{
 				// pause game code here
+				CGame::GetInstance()->Pause();
 			}
 		}
 		break;

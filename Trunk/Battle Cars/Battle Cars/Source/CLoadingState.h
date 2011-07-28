@@ -23,14 +23,13 @@ private:
 	float timeStamp;
 	bool HandleEnter(void);
 public:
+	bool loading;
 	static CLoadingState* GetInstance();
-
 	bool Input(void);
 	void Update(float fElapsedTime);
 	void Render(void);
 	void Enter(void);
 	void Exit(void);
-
 };
 
 

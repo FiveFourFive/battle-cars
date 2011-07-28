@@ -20,8 +20,9 @@
 #include "CLevelSelectionState.h"
 #include "CMainMenuState.h"
 #include "CSGD_FModManager.h"
-
-
+#include "CCharacterSelection.h"
+#include "CNumPlayers.h"
+#include "CThread.h"
 CLoadingState * CLoadingState::GetInstance()
 {
 	static CLoadingState instance;
@@ -31,8 +32,37 @@ bool CLoadingState::HandleEnter()
 {
 	return true;
 }
+unsigned int __stdcall Load(void* load)
+{
+
+
+
+	ParticleManager::GetInstance()->LoadEmittor("resource/data/collision.xml");
+	ParticleManager::GetInstance()->LoadEmittor("resource/data/missle_flame.xml");
+	ParticleManager::GetInstance()->LoadEmittor("resource/data/explosion.xml");
+	ParticleManager::GetInstance()->LoadEmittor("resource/data/car_exploded.xml");
+	ParticleManager::GetInstance()->LoadEmittor("resource/data/FlameThrower.xml");
+	ParticleManager::GetInstance()->LoadEmittor("resource/data/barrel_explode.xml");
+
+	CGamePlayState::GetInstance()->SetLevel();
+
+	CMessageSystem::GetInstance()->SendMsg (new CCreateLevelMessage());
+	CMessageSystem::GetInstance()->ProcessMessages ();
+	*((bool*)load) = true;
+	return 0;
+}
 void CLoadingState::Enter(void)
 {	
+	loading = false;
+
+	/*CGamePlayState::GetInstance()->GetCars().push_back(CCharacterSelection::GetInstance()->GetPlayer1());
+	if(CNumPlayers::GetInstance()->GetNumberOfPlayers() > 1)
+	{
+		CGamePlayState::GetInstance()->GetCars().push_back(CCharacterSelection::GetInstance()->GetPlayer2());
+	}*/
+
+	CThreadSystem::GetInstance()->StartThread(Load,(void*)&loading);
+
 	timeStamp=(float)(timeGetTime());
 	CSGD_FModManager::GetInstance()->StopSound(CMainMenuState::GetInstance()->GetBackgroundMusicID());
 	m_nBGImageID = CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/gamestates images/mainmenu_bg.jpg");
@@ -42,16 +72,17 @@ void CLoadingState::Enter(void)
 	m_nCountDownEnd = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/Countdowntone.mp3");
 	//CSGD_FModManager::GetInstance()->PlaySound(m_nBackgroundMusicID);
 
-	ParticleManager::GetInstance()->LoadEmittor("resource/data/collision.xml");
-	ParticleManager::GetInstance()->LoadEmittor("resource/data/missle_flame.xml");
-	ParticleManager::GetInstance()->LoadEmittor("resource/data/explosion.xml");
-	ParticleManager::GetInstance()->LoadEmittor("resource/data/car_exploded.xml");
-	ParticleManager::GetInstance()->LoadEmittor("resource/data/FlameThrower.xml");
-	ParticleManager::GetInstance()->LoadEmittor("resource/data/barrel_explode.xml");
+	//ParticleManager::GetInstance()->LoadEmittor("resource/data/collision.xml");
+	//ParticleManager::GetInstance()->LoadEmittor("resource/data/missle_flame.xml");
+	//ParticleManager::GetInstance()->LoadEmittor("resource/data/explosion.xml");
+	//ParticleManager::GetInstance()->LoadEmittor("resource/data/car_exploded.xml");
+	//ParticleManager::GetInstance()->LoadEmittor("resource/data/FlameThrower.xml");
+	//ParticleManager::GetInstance()->LoadEmittor("resource/data/barrel_explode.xml");
 
 	pFont = new CPrintFont(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BC_Font.png",D3DCOLOR_XRGB(0, 0, 0)));
 
 }
+
 
 void CLoadingState::Exit(void)
 {
@@ -65,7 +96,7 @@ bool CLoadingState::Input(void)
 
 void CLoadingState::Update(float fElapsedTime)
 {
-	if(timeGetTime()-timeStamp>8000)
+	if((loading))
 	{
 		timeStamp=(float)(timeGetTime());
 		

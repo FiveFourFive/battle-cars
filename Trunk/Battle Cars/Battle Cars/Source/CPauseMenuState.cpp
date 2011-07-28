@@ -120,20 +120,20 @@ void CPauseMenuState::Update(float fElapsedTime)
 
 void CPauseMenuState::Render(void)
 {
-	m_pPF->Print("PAUSED",220,50,1.0f,D3DCOLOR_XRGB(200, 0, 0));
-	m_pPF->Print("RESUME",300,200,0.5f,D3DCOLOR_XRGB(200, 0, 0));
-	m_pPF->Print("OPTIONS",300,250,0.5f,D3DCOLOR_XRGB(200, 0, 0));	
-	m_pPF->Print("QUIT",300,300,0.5f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->PrintCentered("PAUSED",CGame::GetInstance()->GetScreenWidth()/2,50,2.0f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->PrintCentered("RESUME",CGame::GetInstance()->GetScreenWidth()/2,250,1.0f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->PrintCentered("OPTIONS",CGame::GetInstance()->GetScreenWidth()/2,300,1.0f,D3DCOLOR_XRGB(200, 0, 0));	
+	m_pPF->PrintCentered("QUIT",CGame::GetInstance()->GetScreenWidth()/2,350,1.0f,D3DCOLOR_XRGB(200, 0, 0));
 	switch(m_nSelection)
 		{
 		case RESUME:			
-			m_pPF->Print("RESUME",300,200,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->PrintCentered("RESUME",CGame::GetInstance()->GetScreenWidth()/2,250,1.0f,D3DCOLOR_XRGB(0, 255, 0));
 			break;
 		case OPTIONS:
-			m_pPF->Print("OPTIONS",300,250,0.5f,D3DCOLOR_XRGB(0, 255, 0));	
+			m_pPF->PrintCentered("OPTIONS",CGame::GetInstance()->GetScreenWidth()/2,300,1.0f,D3DCOLOR_XRGB(0, 255, 0));	
 			break;
 		case QUIT:
-			m_pPF->Print("QUIT",300,300,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->PrintCentered("QUIT",CGame::GetInstance()->GetScreenWidth()/2,350,1.0f,D3DCOLOR_XRGB(0, 255, 0));
 			break;
 		}
 

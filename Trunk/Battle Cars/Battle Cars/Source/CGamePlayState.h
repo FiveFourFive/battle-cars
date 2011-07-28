@@ -143,7 +143,7 @@ public:
 
 	void Enter(void);
 	void Exit(void);
-
+	
 	std::vector<CCar*>* GetList(void) { return &m_lScores; }
 	vector<CCar*> GetScores(void) { return m_lScores; }
 	void SetScores(vector<CCar*> vscores) { m_lScores = vscores; }
@@ -184,6 +184,12 @@ public:
 	int GetCrateImageID () {return m_nCrateID;}
 
 	int GetBackgroundMusicID(void) { return m_nBgMusicID; }
+
+	void SetLevel(void)
+	{
+		Level = CLevel::GetInstance ();
+
+	}
 };
 
 

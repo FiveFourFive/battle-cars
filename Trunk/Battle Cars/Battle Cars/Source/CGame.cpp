@@ -16,6 +16,8 @@
 #include "CXboxInput.h"
 #include "CKeyboardKeyBinds.h"
 #include "CGamerProfile.h"
+#include "CGamePlayState.h"
+#include "CPauseMenuState.h"
 //#include <XInput.h>
 CGame::CGame()
 {
@@ -80,6 +82,7 @@ void CGame::Initialize(HWND hWnd, HINSTANCE hInstance, int nScreenWidth, int nSc
 	m_pTM->InitTextureManager( m_pD3D->GetDirect3DDevice(), m_pD3D->GetSprite());
 	m_pFM->InitFModManager(hWnd);
 	m_pDI->InitDirectInput(hWnd, hInstance, DI_KEYBOARD | DI_JOYSTICKS/*| DI_MOUSE*/, 0);
+	CMessageSystem::GetInstance()->InitMessageSystem (CGamePlayState::MessageProc);
 	// Initialize States
 	m_pMainMenuState = CMainMenuState::GetInstance();
 	this->AddState(m_pMainMenuState);
@@ -213,6 +216,26 @@ void CGame::RemoveState(IGameState* state)
 	m_vGameStates.back()->Exit();
 	m_vGameStates.pop_back();
 
+}
+
+void CGame::Pause(void)
+{
+	CGamePlayState* tempgame = CGamePlayState::GetInstance();
+	for(int i = 0; i < m_vGameStates.size(); i++)
+	{
+		if(m_vGameStates[i] == CPauseMenuState::GetInstance())
+		{
+			return;
+		}
+	}
+	for(int i = 0; i < m_vGameStates.size(); i++)
+	{
+		if(m_vGameStates[i] == tempgame)
+		{
+			AddState(CPauseMenuState::GetInstance());
+			break;
+		}
+	}
 }
 
 void CGame::ClearStates(IGameState* state)
