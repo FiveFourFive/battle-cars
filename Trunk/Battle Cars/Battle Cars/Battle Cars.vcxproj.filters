@@ -249,6 +249,9 @@
     <ClCompile Include="Source\CCamera.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CThread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\CStopWatch.h">
@@ -464,9 +467,23 @@
     <ClInclude Include="Source\CCamera.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Source\CThread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="My Amplifier Results\r000hs\r000hs.ampl" />
     <None Include="My Amplifier Results\r001hs\r001hs.ampl" />
+    <None Include="Resource\Graphics\BattleCarsIcon.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Battle Cars.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

@@ -149,6 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="resource1.h" />
     <ClInclude Include="Source\CAnimation.h" />
     <ClInclude Include="Source\CAttackState.h" />
     <ClInclude Include="Source\CBase.h" />
@@ -224,6 +225,10 @@
   <ItemGroup>
     <None Include="My Amplifier Results\r000hs\r000hs.ampl" />
     <None Include="My Amplifier Results\r001hs\r001hs.ampl" />
+    <None Include="Resource\Graphics\BattleCarsIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Battle Cars.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
