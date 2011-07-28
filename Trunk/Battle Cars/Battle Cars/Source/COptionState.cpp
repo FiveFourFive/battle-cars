@@ -355,61 +355,61 @@ void COptionState::Render(void)
 {								 
 	m_pTM->Draw(m_nBGImageID, 0, 0, 1.0f, 1.0f);
 	
-	m_pPF->PrintCentered("OPTIONS",CGame::GetInstance()->GetScreenWidth()/2,50,1.0f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->PrintCentered("OPTIONS",CGame::GetInstance()->GetScreenWidth()/2,50,2.0f,D3DCOLOR_XRGB(200, 0, 0));
 
 	char buffer[32];
 	int tempvol;
-	m_pPF->Print("SFX",CGame::GetInstance()->GetScreenWidth()/5 * 2,200,0.5f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->Print("SFX",CGame::GetInstance()->GetScreenWidth()/5 * 2,250,1.0f,D3DCOLOR_XRGB(200, 0, 0));
 	tempvol = (int)(CGame::GetInstance()->getSoundAVolume() * 100);
 	sprintf_s(buffer,"%i",tempvol);
-	m_pPF->Print(buffer,CGame::GetInstance()->GetScreenWidth()/5 * 3 ,200,0.5f,D3DCOLOR_XRGB(255,255,255));
+	m_pPF->Print(buffer,CGame::GetInstance()->GetScreenWidth()/6 * 4 ,250,1.0f,D3DCOLOR_XRGB(255,255,255));
 	
-	m_pPF->Print("MUSIC",CGame::GetInstance()->GetScreenWidth()/5 * 2,250,0.5f,D3DCOLOR_XRGB(200, 0, 0));	
+	m_pPF->Print("MUSIC",CGame::GetInstance()->GetScreenWidth()/5 * 2,300,1.0f,D3DCOLOR_XRGB(200, 0, 0));	
 	tempvol = (int)(CGame::GetInstance()->getSoundBVolume() * 100);
 	sprintf_s(buffer,"%i",tempvol);
-	m_pPF->Print(buffer,CGame::GetInstance()->GetScreenWidth()/5 * 3 ,250,0.5f,D3DCOLOR_XRGB(255,255,255));
+	m_pPF->Print(buffer,CGame::GetInstance()->GetScreenWidth()/6 * 4 ,300,1.0f,D3DCOLOR_XRGB(255,255,255));
 
-	m_pPF->Print("INPUT DEVICE",CGame::GetInstance()->GetScreenWidth()/5 * 2,300,0.5f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->Print("INPUT DEVICE",CGame::GetInstance()->GetScreenWidth()/5 * 2,350,1.0f,D3DCOLOR_XRGB(200, 0, 0));
 	if(CGame::GetInstance()->ControllerInput())
 	{
-		m_pPF->Print("GAMEPAD",CGame::GetInstance()->GetScreenWidth()/5 * 3 ,300,0.5f,D3DCOLOR_XRGB(255,255,255));
+		m_pPF->Print("GAMEPAD",CGame::GetInstance()->GetScreenWidth()/6 * 4 ,350,1.0f,D3DCOLOR_XRGB(255,255,255));
 	}
 	else
 	{
-		m_pPF->Print("KEYBOARD",CGame::GetInstance()->GetScreenWidth()/5 * 3 ,300,0.5f,D3DCOLOR_XRGB(255,255,255));
+		m_pPF->Print("KEYBOARD",CGame::GetInstance()->GetScreenWidth()/6 * 4 ,350,1.0f,D3DCOLOR_XRGB(255,255,255));
 	}
 
-	m_pPF->Print("CAMERA SPLIT", CGame::GetInstance()->GetScreenWidth()/5 * 2, 350, 0.5f, D3DCOLOR_XRGB(200, 0, 0 ));
+	m_pPF->Print("CAMERA SPLIT", CGame::GetInstance()->GetScreenWidth()/5 * 2, 400, 1.0f, D3DCOLOR_XRGB(200, 0, 0 ));
 	if( m_bVertical )
 	{
-		m_pPF->Print("VERTICAL",CGame::GetInstance()->GetScreenWidth()/5 * 3 ,350,0.5f,D3DCOLOR_XRGB(255,255,255));
+		m_pPF->Print("VERTICAL",CGame::GetInstance()->GetScreenWidth()/6 * 4 ,400,1.0f,D3DCOLOR_XRGB(255,255,255));
 	}
 	else
 	{
-		m_pPF->Print("HORIZONTAL",CGame::GetInstance()->GetScreenWidth()/5 * 3 ,350,0.5f,D3DCOLOR_XRGB(255,255,255));
+		m_pPF->Print("HORIZONTAL",CGame::GetInstance()->GetScreenWidth()/6 * 4 ,400,1.0f,D3DCOLOR_XRGB(255,255,255));
 	}
-	m_pPF->Print("EDIT KEY BINDINGS",CGame::GetInstance()->GetScreenWidth()/5 * 2,400,0.5f,D3DCOLOR_XRGB(255,0,0));
-	m_pPF->Print("EXIT",CGame::GetInstance()->GetScreenWidth()/5 * 2,450,0.5f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->Print("EDIT KEY BINDINGS",CGame::GetInstance()->GetScreenWidth()/5 * 2,450,1.0f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("EXIT",CGame::GetInstance()->GetScreenWidth()/5 * 2,500,1.0f,D3DCOLOR_XRGB(200, 0, 0));
 
 	switch(m_nSelection)
 		{
 		case WS_EFFECTS:			
-			m_pPF->Print("SFX",CGame::GetInstance()->GetScreenWidth()/5 * 2,200,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print("SFX",CGame::GetInstance()->GetScreenWidth()/5 * 2,250,1.0f,D3DCOLOR_XRGB(0, 255, 0));
 			break;
 		case WS_MUSIC:
-			m_pPF->Print("MUSIC",CGame::GetInstance()->GetScreenWidth()/5 * 2,250,0.5f,D3DCOLOR_XRGB(0, 255, 0));	
+			m_pPF->Print("MUSIC",CGame::GetInstance()->GetScreenWidth()/5 * 2,300,1.0f,D3DCOLOR_XRGB(0, 255, 0));	
 			break;
 		case WS_INPUT:
-			m_pPF->Print("INPUT DEVICE",CGame::GetInstance()->GetScreenWidth()/5 * 2,300,0.5f,D3DCOLOR_XRGB(0, 255, 0));	
+			m_pPF->Print("INPUT DEVICE",CGame::GetInstance()->GetScreenWidth()/5 * 2,350,1.0f,D3DCOLOR_XRGB(0, 255, 0));	
 			break;
 		case WS_CAMERAVIEW:
-			m_pPF->Print("CAMERA SPLIT",CGame::GetInstance()->GetScreenWidth()/5 * 2,350,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print("CAMERA SPLIT",CGame::GetInstance()->GetScreenWidth()/5 * 2,400,1.0f,D3DCOLOR_XRGB(0, 255, 0));
 			break;
 		case WS_KEYBINDS:
-			m_pPF->Print("EDIT KEY BINDINGS",CGame::GetInstance()->GetScreenWidth()/5 * 2,400,0.5f,D3DCOLOR_XRGB(0,255,0));
+			m_pPF->Print("EDIT KEY BINDINGS",CGame::GetInstance()->GetScreenWidth()/5 * 2,450,1.0f,D3DCOLOR_XRGB(0,255,0));
 			break;
 		case WS_EXIT:
-			m_pPF->Print("EXIT",CGame::GetInstance()->GetScreenWidth()/5 * 2,450,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+			m_pPF->Print("EXIT",CGame::GetInstance()->GetScreenWidth()/5 * 2,500,1.0f,D3DCOLOR_XRGB(0, 255, 0));
 			break;
 		}
 }

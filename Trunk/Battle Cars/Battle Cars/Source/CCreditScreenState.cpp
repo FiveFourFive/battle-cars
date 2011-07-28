@@ -79,7 +79,7 @@ bool CCreditsScreenState::Input()
 			if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_B)
 			{
 				CGame::GetInstance()->ResetInputDelay();
-				CGame::GetInstance()->RemoveState(this);
+				CGame::GetInstance()->ChangeState(CMainMenuState::GetInstance());
 			}
 		}
 	}
