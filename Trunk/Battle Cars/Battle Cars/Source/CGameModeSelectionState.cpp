@@ -170,7 +170,7 @@ void CGameModeSelectionState::Render(void)
 	case WS_TT:
 		m_pPF->Print("Time Trial",80,300,1.0f,D3DCOLOR_XRGB(0,255,0));
 		m_pPF->Print(" --- Fight for your survival, Kill as many enemies until you die ", 340, 300, 0.5f, D3DCOLOR_XRGB(0,255,0));
-		m_pPF->Print("     or until time runs out. You win if you kill at least 20 enemies.", 340, 330, 0.5f, D3DCOLOR_XRGB(0,255,0));
+		m_pPF->Print("     or until time runs out. You win if you kill at least 10 enemies.", 340, 330, 0.5f, D3DCOLOR_XRGB(0,255,0));
 
 		break;
 	case WS_CC:

@@ -236,7 +236,7 @@ void CGamePlayState::Enter(void)
 	m_nCountDownEnd = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/Countdowntone.mp3");
 	
 	
-	time = 100;
+	time = 180;
 	m_fElapsedSecond = 0.0f;
 	score = 0;
 
