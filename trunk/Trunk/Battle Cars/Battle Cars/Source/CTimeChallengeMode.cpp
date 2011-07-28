@@ -32,7 +32,10 @@ void CTimeChallengeMode::CheckCarStatus(CCar* car)
 	if(car->GetHealth() <= 0)
 	{
 		if( car == (CCar*)CCharacterSelection::GetInstance()->GetPlayer1() || CGamePlayState::GetInstance()->GetTimeLeft() <= 0 || CCharacterSelection::GetInstance()->GetPlayer1()->GetKillCount() >= 10)
+		{
 			m_bGameOver = true;
+			return;
+		}
 
 		ParticleManager* pPM = ParticleManager::GetInstance();
 		static bool isSet = false;
@@ -132,7 +135,20 @@ void CTimeChallengeMode::CheckWinLoss()
 		scores = CGamePlayState::GetInstance()->GetList();
 		if(scores->front()->GetType() == OBJECT_PLAYER)
 		{
-			CPlayer* tempplayer = (CPlayer*)scores->front();
+			if (scores->front ()->GetKillCount () > 9)
+			{
+				CGamePlayState::GetInstance ()->GetPlayer1 ()->AddRef ();
+				CWinState::GetInstance()->SetWinner(CGamePlayState::GetInstance ()->GetPlayer1 ());
+				CGame::GetInstance()->ChangeState(CWinState::GetInstance());
+			}else
+			{
+				CWinState::GetInstance()->SetWinner(NULL);
+				CGamePlayState::GetInstance ()->GetPlayer1 ()->AddRef ();
+				CLossState::GetInstance()->SetLosser1 (CGamePlayState::GetInstance ()->GetPlayer1 ());
+				CLossState::GetInstance()->SetLosser2 (NULL);
+				CGame::GetInstance()->ChangeState(CLossState::GetInstance());
+			}
+			/*CPlayer* tempplayer = (CPlayer*)scores->front();
 			if( tempplayer->GetKillCount() >= 10)
 				CWinState::GetInstance()->SetWinner(tempplayer);
 			else
@@ -148,10 +164,17 @@ void CTimeChallengeMode::CheckWinLoss()
 			else
 			{
 				CGame::GetInstance()->ChangeState(CLossState::GetInstance());
-			}
+			}*/
 		}
 		else
+		{
+			CWinState::GetInstance()->SetWinner(NULL);
+			CGamePlayState::GetInstance ()->GetPlayer1 ()->AddRef ();
+			CLossState::GetInstance()->SetLosser1 (CGamePlayState::GetInstance ()->GetPlayer1 ());
+			CLossState::GetInstance()->SetLosser2 (NULL);
 			CGame::GetInstance()->ChangeState(CLossState::GetInstance());
+
+		}
 
 		m_bGameOver = false;
 	}

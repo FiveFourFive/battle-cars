@@ -56,7 +56,7 @@ SetEvent(m_vSyncObj[ObjectIndex].var);
 void CThreadSystem::BroadcastChangeWakeup(int ObjectIndex) 
 { 
 HANDLE tarvar = m_vSyncObj[ObjectIndex].var; 
-for(int i =0;i<m_vSyncObj.size();i++) 
+for(int i =0;i<(int)m_vSyncObj.size();i++) 
 if(m_vSyncObj[i].var == tarvar) 
 SetEvent(m_vSyncObj[i].var); 
 } 
@@ -113,7 +113,7 @@ return rtn_value;
 void CThreadSystem::CloseSyncSystem() 
 { 
 EnterCriticalSection(&SYNC_OBJ); 
-for(int i =0;i<m_vSyncObj.size();i++) 
+for(int i =0;i<(int)m_vSyncObj.size();i++) 
 { 
 DeleteCriticalSection(&m_vSyncObj[i].mutex); 
 } 

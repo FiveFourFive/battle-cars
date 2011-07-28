@@ -15,6 +15,7 @@
 #include "CCar.h"
 #include "CPlayer.h"
 #include <vector>
+#include "CCollectionMode.h"
 
 CLossState::CLossState(void)
 {
@@ -24,6 +25,8 @@ CLossState::CLossState(void)
 	m_pDI = NULL;
 	m_pController1 = NULL;
 	m_pController2 = NULL;
+	m_pLosser1 = NULL;
+	m_pLosser2 = NULL;
 }
 
 CLossState::~CLossState(void)
@@ -70,6 +73,10 @@ void CLossState::Exit(void)
 {
 
 	delete m_pPF;
+	if (m_pLosser1)
+	m_pLosser1->Release ();
+	if (m_pLosser2)
+	m_pLosser2->Release ();
 }
 
 bool CLossState::Input(void)
@@ -127,16 +134,55 @@ void CLossState::Update(float fElapsedTime)
 void CLossState::Render(void)
 {
 	m_pTM->Draw(m_nBGImageID, 0, 0, 1.5f, 1.0f);
-	m_pPF->Print("Game Over You Lose",220,50,1.0f,D3DCOLOR_XRGB(255,0,0));
-	m_pPF->Print("Final Score: ", 100,150,1.0f,D3DCOLOR_XRGB(0,0,255));
+	if (CNumPlayers::GetInstance ()->GetNumberOfPlayers () == 2)
+	{
+		m_pPF->Print("Game Over You Both Lose",220,50,1.0f,D3DCOLOR_XRGB(255,0,0));
+		m_pPF->Print("Player 1 Final Score: ", 100,150,1.0f,D3DCOLOR_XRGB(0,0,255));
+		m_pPF->Print("Player 2 Final Score: ", 100,250,1.0f,D3DCOLOR_XRGB(0,0,255));
 
-	char buffer[128];
-	int playerscore = CGame::GetInstance()->GetScore();
-	sprintf_s(buffer,"%i", playerscore);
+		char buffer[128];
+		int playerscore = 0;
+		int player2score = 0;
 
-	m_pPF->Print(buffer,500,150,1.0f,D3DCOLOR_XRGB(0,255,0));
-	m_pPF->Print("PRESS ENTER/BACK TO CONTINUE",60,430,1.0f,D3DCOLOR_XRGB(255,255,255));
+		if (CGamePlayState::GetInstance ()->GetMode () == CCollectionMode::GetInstance ())
+		{
+			playerscore = m_pLosser1->GetCollected ();
+			player2score = m_pLosser2->GetCollected ();
 
+		}else
+		{
+			playerscore = m_pLosser1->GetKillCount ();
+			player2score = m_pLosser2->GetKillCount ();
+		}
+
+		sprintf_s(buffer,"%i", playerscore *7);
+		m_pPF->Print(buffer,650,150,1.0f,D3DCOLOR_XRGB(0,255,0));
+
+		sprintf_s(buffer,"%i", player2score *7);
+		m_pPF->Print(buffer,650,250,1.0f,D3DCOLOR_XRGB(0,255,0));
+
+		if(CGame::GetInstance()->ControllerInput())
+			m_pPF->Print("B To Skip",60,430,1.0f,D3DCOLOR_XRGB(255,0,0));
+		else
+			m_pPF->Print("ESC To Skip",60,430,1.0f,D3DCOLOR_XRGB(255,0,0));
+
+	}else
+	{
+
+		m_pPF->Print("Game Over You Lose",220,50,1.0f,D3DCOLOR_XRGB(255,0,0));
+		m_pPF->Print("Final Score: ", 100,150,1.0f,D3DCOLOR_XRGB(0,0,255));
+
+		char buffer[128];
+		int playerscore = CGame::GetInstance()->GetScore();
+
+		sprintf_s(buffer,"%i", playerscore *7);
+		m_pPF->Print(buffer,500,150,1.0f,D3DCOLOR_XRGB(0,255,0));
+
+		if(CGame::GetInstance()->ControllerInput())
+			m_pPF->Print("B To Skip",60,430,1.0f,D3DCOLOR_XRGB(255,0,0));
+		else
+			m_pPF->Print("ESC To Skip",60,430,1.0f,D3DCOLOR_XRGB(255,0,0));
+	}
 }
 
 bool CLossState::HandleEnter(void)

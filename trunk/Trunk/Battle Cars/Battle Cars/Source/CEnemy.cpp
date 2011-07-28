@@ -20,6 +20,7 @@
 #include "CGamePlayState.h"
 #include "CLevel.h"
 #include "CXboxInput.h"
+#include "CCollectionMode.h"
 
 CEnemy::CEnemy(CXboxInput* pController) : CPlayer(pController)
 {
@@ -106,7 +107,7 @@ void CEnemy::ChangeState (IAIBaseState* state)
 		m_AICurrentState->Exit();
 	}
 
-	 m_AICurrentState = state;
+		m_AICurrentState = state;
 
 	if(m_AICurrentState)
 	{
@@ -140,8 +141,9 @@ void CEnemy::HandleEvent(CEvent* pEvent)
 			
 				if(GetIsAlive() == true)
 				{
-					CGamePlayState::GetInstance()->SortScores();
 					tempbullet->GetOwner()->SetKillCount(tempbullet->GetOwner()->GetKillCount() + 1);
+					CGamePlayState::GetInstance()->SortScores();
+					SetIsAlive (false);
 				}
 			}
 			}

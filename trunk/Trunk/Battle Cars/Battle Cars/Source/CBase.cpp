@@ -75,7 +75,8 @@ bool CBase::CheckCollision(IBaseInterface* pBase)
 
 void CBase::SetName(char* name)
 {
-	strcpy_s(m_nName,32,name);
+	//strcpy_s(m_nName,32,name);
+	m_nName = name;
 }
 char* CBase::GetName()
 {

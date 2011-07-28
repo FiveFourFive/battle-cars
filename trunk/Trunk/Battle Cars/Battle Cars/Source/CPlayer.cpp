@@ -676,6 +676,7 @@ void CPlayer::HandleEvent(CEvent* pEvent)
 				{
 					tempbullet->GetOwner()->SetKillCount(tempbullet->GetOwner()->GetKillCount() + 1);
 					CGamePlayState::GetInstance()->SortScores();
+					SetIsAlive (false);
 				}
 			}
 			}

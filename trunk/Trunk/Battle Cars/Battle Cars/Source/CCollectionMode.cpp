@@ -132,11 +132,15 @@ void CCollectionMode::CheckWinLoss(void)
 	bool tempFlag = false, gameOver = false;
 	if(CGamePlayState::GetInstance()->GetTimeLeft() <= 0 )
 	{
+		CWinState::GetInstance()->SetWinner(NULL);
+		CGamePlayState::GetInstance ()->GetPlayer1 ()->AddRef ();
+		CLossState::GetInstance()->SetLosser1 (CGamePlayState::GetInstance ()->GetPlayer1 ());
+		CLossState::GetInstance()->SetLosser2 (CGamePlayState::GetInstance ()->GetPlayer2 ());
 		CGame::GetInstance()->ChangeState(CLossState::GetInstance());
 		return;
 	}
 
-	for (int i = 0; i < CGamePlayState::GetInstance()->GetCollectables ().size (); i++)
+	for (int i = 0; i < (int)CGamePlayState::GetInstance()->GetCollectables ().size (); i++)
 	{
 		if (CGamePlayState::GetInstance()->GetCollectables ()[i]->IsActive () == true)
 		{
@@ -146,7 +150,7 @@ void CCollectionMode::CheckWinLoss(void)
 
 	vector<CCar*>* scores;
 		scores = CGamePlayState::GetInstance()->GetList();
-		if(scores->front()->GetType() == OBJECT_PLAYER)
+		/*if(scores->front()->GetType() == OBJECT_PLAYER)
 		{
 			CPlayer* tempplayer = (CPlayer*)scores->front();
 			CWinState::GetInstance()->SetWinner(tempplayer);
@@ -164,21 +168,38 @@ void CCollectionMode::CheckWinLoss(void)
 		{
 			CWinState::GetInstance()->SetWinner(NULL);
 			CGame::GetInstance()->ChangeState(CLossState::GetInstance());
+		}*/
+
+	if (scores->front ()->GetCollected () > 0)
+		{
+			if (scores->front () == CGamePlayState::GetInstance ()->GetPlayer1 ())
+			{
+				CGamePlayState::GetInstance ()->GetPlayer1 ()->AddRef ();
+				CWinState::GetInstance()->SetWinner(CGamePlayState::GetInstance ()->GetPlayer1 ());
+				CGame::GetInstance()->ChangeState(CWinState::GetInstance());
+			
+			}else if (scores->front () == CGamePlayState::GetInstance ()->GetPlayer2 ())
+			{
+				CGamePlayState::GetInstance ()->GetPlayer2 ()->AddRef ();
+				CWinState::GetInstance()->SetWinner(CGamePlayState::GetInstance ()->GetPlayer2 ());
+				CGame::GetInstance()->ChangeState(CWinState::GetInstance());
+
+			}else
+			{
+				CWinState::GetInstance()->SetWinner(NULL);
+				CGamePlayState::GetInstance ()->GetPlayer1 ()->AddRef ();
+				CGamePlayState::GetInstance ()->GetPlayer2 ()->AddRef ();
+				CLossState::GetInstance()->SetLosser1 (CGamePlayState::GetInstance ()->GetPlayer1 ());
+				CLossState::GetInstance()->SetLosser2 (CGamePlayState::GetInstance ()->GetPlayer2 ());
+				CGame::GetInstance()->ChangeState(CLossState::GetInstance());
+			}
+		}else
+		{
+			CWinState::GetInstance()->SetWinner(NULL);
+			CGamePlayState::GetInstance ()->GetPlayer1 ()->AddRef ();
+			CGamePlayState::GetInstance ()->GetPlayer2 ()->AddRef ();
+			CLossState::GetInstance()->SetLosser1 (CGamePlayState::GetInstance ()->GetPlayer1 ());
+			CLossState::GetInstance()->SetLosser2 (CGamePlayState::GetInstance ()->GetPlayer2 ());
+			CGame::GetInstance()->ChangeState(CLossState::GetInstance());
 		}
-
-	//if(CGamePlayState::GetInstance()->GetComputerCollectables() + CGamePlayState::GetInstance()->GetPlayerCollectables() == 50)
-	//{
-	//	if(CGamePlayState::GetInstance()->GetPlayerCollectables() > CGamePlayState::GetInstance()->GetComputerCollectables())
-	//	{
-	//		CWinState::GetInstance()->SetWinner(CGamePlayState::GetInstance()->GetPlayer1());
-	//		CGame::GetInstance()->ChangeState(CWinState::GetInstance());
-	//	}
-	//	else
-	//	{
-	//		
-	//		CGame::GetInstance()->ChangeState(CLossState::GetInstance());
-	//	}
-	//}
-	//
-
 }

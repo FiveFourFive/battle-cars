@@ -18,6 +18,7 @@
 #include "CPlayer.h"
 #include "CMessageSystem.h"
 #include "CGamePlayState.h"
+#include "CCollectionMode.h"
 
 CAttackState::CAttackState(const CAttackState&)
 {
@@ -39,7 +40,13 @@ void CAttackState::Update (float fElapsedTime)
 		m_Owner->SetSpeed (150.0f);
 	}
 	if(!StillThreat())
-		m_Owner->ChangeState(m_Owner->GetWanderState ());
+	{
+		if (CGamePlayState::GetInstance ()->GetMode () == CCollectionMode::GetInstance ())
+		{
+			m_Owner->ChangeState(m_Owner->GetCollectState ());
+		}else
+			m_Owner->ChangeState(m_Owner->GetWanderState ());
+	}
 	Chase(fElapsedTime);
 	//Fire Weapons
 	m_fFireTimer += fElapsedTime;

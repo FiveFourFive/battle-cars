@@ -19,6 +19,7 @@
 #include "CGamerProfile.h"
 #include "CCollectionMode.h"
 #include "Gamer_Profile.h"
+#include "CNumPlayers.h"
 
 CWinState::CWinState(void)
 {
@@ -119,6 +120,8 @@ void CWinState::Exit(void)
 		CGamerProfile::GetInstance()->GetActiveProfile()->cars[3] = 1;
 	CGamerProfile::GetInstance()->SaveWinnerCar(CGamerProfile::GetInstance()->GetActiveProfile()->index);
 	delete m_pPF;
+
+	m_pWinner->Release ();
 }
 
 bool CWinState::Input(void)
@@ -199,94 +202,136 @@ void CWinState::Update(float fElapsedTime)
 void CWinState::Render(void)
 {
 	m_pTM->Draw(m_nBGImageID, 0, 0, 1.5f, 1.0f);
-	m_pPF->Print("Game Over You Win",220,50,1.0f,D3DCOLOR_XRGB(255,0,0));
+
+	if (CNumPlayers::GetInstance ()->GetNumberOfPlayers () == 2)
+	{
+		string name = "Game Over ";
+		name += m_pWinner->GetName ();
+		name += " Wins";
+		
+		m_pPF->Print(name.c_str (),220,50,1.0f,D3DCOLOR_XRGB(255,0,0));
 	
-	int multiplayer = 0;
+		int multiplayer = 0;
 
-	if (CGamePlayState::GetInstance ()->GetMode () == CCollectionMode::GetInstance ())
-	{
-		multiplayer = 7;
-	}
-	else
-	{
-		multiplayer = 7;
-	}
+		if (CGamePlayState::GetInstance ()->GetMode () == CCollectionMode::GetInstance ())
+		{
+			multiplayer = 7;
+		}
+		else
+		{
+			multiplayer = 7;
+		}
 
-	m_pPF->Print("Final Score: ", 100,150,1.0f,D3DCOLOR_XRGB(0,0,255));
-	char buffer[128];
-	int playerscore = CGame::GetInstance()->GetScore();
-	sprintf_s(buffer,"%i", playerscore*multiplayer);
-	m_pPF->Print(buffer,500,150,1.0f,D3DCOLOR_XRGB(0,255,0));
-	m_pPF->Print("PRESS ENTER/B TO CONTINUE",60,430,1.0f,D3DCOLOR_XRGB(255,255,255));
+		m_pPF->Print("Final Score: ", 100,150,1.0f,D3DCOLOR_XRGB(0,0,255));
+		char buffer[128];
+		int playerscore = 0;
+		
+		if (CGamePlayState::GetInstance ()->GetMode () == CCollectionMode::GetInstance ())
+			playerscore = m_pWinner->GetCollected ();
+		else
+			playerscore = m_pWinner->GetKillCount ();
+
+		sprintf_s(buffer,"%i", playerscore*multiplayer);
+		m_pPF->Print(buffer,500,150,1.0f,D3DCOLOR_XRGB(0,255,0));
+
+		if(CGame::GetInstance()->ControllerInput())
+			m_pPF->Print("B To Skip",60,430,1.0f,D3DCOLOR_XRGB(255,0,0));
+		else
+			m_pPF->Print("ESC To Skip",60,430,1.0f,D3DCOLOR_XRGB(255,0,0));
+
+	}else
+	{
+		m_pPF->Print("Game Over You Win",220,50,1.0f,D3DCOLOR_XRGB(255,0,0));
 	
-	RECT cars;
-	cars.left = 600;
-	cars.top = 300;
-	cars.right = cars.left + 60;
-	cars.bottom = cars.top + 100;
-	int color = 0;
+		int multiplayer = 0;
+
+		if (CGamePlayState::GetInstance ()->GetMode () == CCollectionMode::GetInstance ())
+		{
+			multiplayer = 7;
+		}
+		else
+		{
+			multiplayer = 7;
+		}
+
+		m_pPF->Print("Final Score: ", 100,150,1.0f,D3DCOLOR_XRGB(0,0,255));
+		char buffer[128];
+		int playerscore = CGame::GetInstance()->GetScore();
+		sprintf_s(buffer,"%i", playerscore*multiplayer);
+		m_pPF->Print(buffer,500,150,1.0f,D3DCOLOR_XRGB(0,255,0));
+
+		if(CGame::GetInstance()->ControllerInput())
+			m_pPF->Print("B To Skip",60,430,1.0f,D3DCOLOR_XRGB(255,0,0));
+		else
+			m_pPF->Print("ESC To Skip",60,430,1.0f,D3DCOLOR_XRGB(255,0,0));
+		//m_pPF->Print("PRESS ENTER/B TO CONTINUE",60,430,1.0f,D3DCOLOR_XRGB(255,255,255));
 	
-	sprintf_s(buffer,"%f",m_fTotalTurns);
-	//m_pD3D->DrawText(buffer,400,280,255,255,255);
-	Gamer_Profile* tempprofile = CGamerProfile::GetInstance()->GetActiveProfile();
-	RECT todraw;
-	if(m_bRoll)
-	{
-	switch(m_nSlot)
-	{
-	case 0:
-		if(tempprofile->cars[0] == 0)
+		RECT cars;
+		cars.left = 600;
+		cars.top = 300;
+		cars.right = cars.left + 60;
+		cars.bottom = cars.top + 100;
+		int color = 0;
+	
+		sprintf_s(buffer,"%f",m_fTotalTurns);
+		//m_pD3D->DrawText(buffer,400,280,255,255,255);
+		Gamer_Profile* tempprofile = CGamerProfile::GetInstance()->GetActiveProfile();
+		RECT todraw;
+		if(m_bRoll)
 		{
-			todraw.left = 512;
-			todraw.top = 0;
-			todraw.right = todraw.left + 256;
-			todraw.bottom = todraw.top + 512;
-			id = miniID;
-		break;
+		switch(m_nSlot)
+		{
+		case 0:
+			if(tempprofile->cars[0] == 0)
+			{
+				todraw.left = 512;
+				todraw.top = 0;
+				todraw.right = todraw.left + 256;
+				todraw.bottom = todraw.top + 512;
+				id = miniID;
+			break;
+			}
+		case 1:
+			if(tempprofile->cars[1] == 0)
+			{
+				todraw.left = 256;
+				todraw.top = 0;
+				todraw.right = todraw.left + 256;
+				todraw.bottom = todraw.top + 512;
+			id = vetteID;
+			break;
+			}
+		case 2:
+			if(tempprofile->cars[2] == 0)
+			{
+				todraw.left = 0;
+				todraw.top = 0;
+				todraw.right = todraw.left + 256;
+				todraw.bottom = todraw.top + 512;
+			id = humveeID;
+			break;
+			}
+		case 3:
+			if(tempprofile->cars[3] == 0)
+			{
+				todraw.left = 768;
+				todraw.top = 0;
+				todraw.right = todraw.left + 256;
+				todraw.bottom = todraw.top + 512;
+			id = truckID;
+			break;
+			}
 		}
-	case 1:
-		if(tempprofile->cars[1] == 0)
+		if(id >= 0)
 		{
-			todraw.left = 256;
-			todraw.top = 0;
-			todraw.right = todraw.left + 256;
-			todraw.bottom = todraw.top + 512;
-		id = vetteID;
-		break;
+			m_pTM->Draw(carsID,800,250,1.0f,1.0f,&todraw);
 		}
-	case 2:
-		if(tempprofile->cars[2] == 0)
-		{
-			todraw.left = 0;
-			todraw.top = 0;
-			todraw.right = todraw.left + 256;
-			todraw.bottom = todraw.top + 512;
-		id = humveeID;
-		break;
 		}
-	case 3:
-		if(tempprofile->cars[3] == 0)
+		else
 		{
-			todraw.left = 768;
-			todraw.top = 0;
-			todraw.right = todraw.left + 256;
-			todraw.bottom = todraw.top + 512;
-		id = truckID;
-		break;
+			m_pPF->Print("All Cars Unlocked!",800,400,1.0f,D3DCOLOR_XRGB(255,0,0));
 		}
 	}
-	if(id >= 0)
-	{
-		m_pTM->Draw(carsID,800,250,1.0f,1.0f,&todraw);
-	}
-	}
-	else
-	{
-		m_pPF->Print("All Cars Unlocked!",800,400,1.0f,D3DCOLOR_XRGB(255,0,0));
-	}
-	//m_pD3D->DrawRect(cars,color,0,0);
-
-
 }
 
 bool CWinState::HandleEnter(void)
