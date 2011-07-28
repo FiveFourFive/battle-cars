@@ -240,6 +240,7 @@ void CGamePlayState::Enter(void)
 		collectionChallengeBoss->SetMaxHealth(150.0f);
 		collectionChallengeBoss->SetCarId(m_pTM->LoadTexture("Resource/Graphics/BattleCars_MiniBossPlaceHolder.png"));
 		collectionChallengeBoss->ChangeState(collectionChallengeBoss->GetCollectState ());
+		collectionChallengeBoss->GetCollectState ()->SetCollectables (collectables);
 		RECT health_rect;
 		health_rect.left = 5;
 		health_rect.top = 0;
@@ -262,6 +263,7 @@ void CGamePlayState::Enter(void)
 		{
 			((CEnemy*)cars[i])->SetSpeedRamps (ramps);
 			((CEnemy*)cars[i])->SetPowerUps (power_ups);
+			((CEnemy*)cars[i])->GetCollectState ()->SetCollectables (collectables);
 		}
 	}
 

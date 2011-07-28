@@ -89,7 +89,14 @@ void CHUD::Render(void)
 	pD3D->DrawRect(power,0,80,255);
 
 	char scorebuff[32];
-	sprintf_s(scorebuff, "SCORE:%i", m_pOwner->GetKillCount());
+	if (CGamePlayState::GetInstance ()->GetMode () == CCollectionMode::GetInstance ())
+	{
+		sprintf_s(scorebuff, "SCORE:%i", m_pOwner->GetCollected () * 7);
+	}
+	else
+	{
+		sprintf_s(scorebuff, "SCORE:%i", m_pOwner->GetKillCount() * 7);
+	}
 	m_pPF->Print(scorebuff, int(0 + (pCamera->GetWidth()*0.5f) - 70 + pCamera->GetRenderPosX()), int(pCamera->GetHeight() - 30 - (CGame::GetInstance()->GetScreenHeight()*0.05f) + pCamera->GetRenderPosY()), 0.75f, D3DCOLOR_XRGB(255,255,255));
 
 	vector<CCar*> scores = CGamePlayState::GetInstance()->GetScores();
