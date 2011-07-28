@@ -17,6 +17,7 @@
 #include <vector>
 #include "CHighScoreState.h"
 #include "CGamerProfile.h"
+#include "CCollectionMode.h"
 #include "Gamer_Profile.h"
 
 CWinState::CWinState(void)
@@ -199,12 +200,24 @@ void CWinState::Render(void)
 {
 	m_pTM->Draw(m_nBGImageID, 0, 0, 1.5f, 1.0f);
 	m_pPF->Print("Game Over You Win",220,50,1.0f,D3DCOLOR_XRGB(255,0,0));
+	
+	int multiplayer = 0;
+
+	if (CGamePlayState::GetInstance ()->GetMode () == CCollectionMode::GetInstance ())
+	{
+		multiplayer = 7;
+	}
+	else
+	{
+		multiplayer = 7;
+	}
+
 	m_pPF->Print("Final Score: ", 100,150,1.0f,D3DCOLOR_XRGB(0,0,255));
 	char buffer[128];
 	int playerscore = CGame::GetInstance()->GetScore();
-	sprintf_s(buffer,"%i", playerscore);
+	sprintf_s(buffer,"%i", playerscore*multiplayer);
 	m_pPF->Print(buffer,500,150,1.0f,D3DCOLOR_XRGB(0,255,0));
-	m_pPF->Print("PRESS ENTER/BACK TO CONTINUE",60,430,1.0f,D3DCOLOR_XRGB(255,255,255));
+	m_pPF->Print("PRESS ENTER/B TO CONTINUE",60,430,1.0f,D3DCOLOR_XRGB(255,255,255));
 	
 	RECT cars;
 	cars.left = 600;
