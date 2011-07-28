@@ -492,7 +492,7 @@ void CBoss::FireAtTarget(float fElapsedTime)
 		temp = temp * (350+ GetSpeed());
 		if( flame_thrower)
 		{
-			flame_thrower->SetAcceleration(temp.fX, temp.fY);
+ 			flame_thrower->SetAcceleration(temp.fX, temp.fY);
 			PM->AttachToBase(this, flame_thrower);
 		}
 
@@ -502,9 +502,6 @@ void CBoss::FireAtTarget(float fElapsedTime)
 		{
 			if (flame_thrower)
 			{
-				flame_thrower->SetTimeToDie(0.0f);
-				flame_thrower->SetBase(NULL);
-				SetFlameThrowerEmittorID(-1);
 				m_bFlameThrowerIsOn = false;
 			}
 		}
@@ -549,7 +546,7 @@ void CBoss::FireAtTarget(float fElapsedTime)
 				if( flame_thrower )
 				{
 					SetFlameThrowerEmittorID( flame_thrower->GetID());
-					flame_thrower->SetTimeToDie(2.0f);
+					flame_thrower->SetTimeToDie(1.0f);
 				}
 
 				CMessageSystem::GetInstance()->SendMsg(new CCreateBossVetteSpecial(this));
