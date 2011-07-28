@@ -12,7 +12,7 @@ class CXboxInput;
 
 class ParticleManager;
 
-#define PPLTOCREDIT 20
+#define PPLTOCREDIT 21
 
 class CCreditsScreenState : public IGameState
 {
