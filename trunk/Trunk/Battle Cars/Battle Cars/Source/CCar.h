@@ -67,6 +67,8 @@ private:
 
 public:
 	CCar(void);
+	~CCar(void);
+
 	void Update(float fElapsedTime);
 	void Render(CCamera* camera);
 

@@ -138,9 +138,6 @@
     <ClCompile Include="Source\CPauseMenuState.cpp">
       <Filter>Game States</Filter>
     </ClCompile>
-    <ClCompile Include="Source\CCamera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\CBullet.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
@@ -248,6 +245,9 @@
     </ClCompile>
     <ClCompile Include="Source\Emittor.cpp">
       <Filter>Particle Management</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CCamera.cpp">
+      <Filter>Game Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -410,9 +410,6 @@
     <ClInclude Include="Source\CGameModeSelectionState.h">
       <Filter>Game States</Filter>
     </ClInclude>
-    <ClInclude Include="Source\CCamera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\IGameModeInterface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -463,6 +460,9 @@
     </ClInclude>
     <ClInclude Include="Source\ParticleManager.h">
       <Filter>Particle Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CCamera.h">
+      <Filter>Game Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
