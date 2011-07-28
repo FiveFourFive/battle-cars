@@ -252,7 +252,7 @@ void CNumPlayers::Render()
 	m_pPF->PrintCentered("MAYHEM AND DESTRUCTION",CGame::GetInstance()->GetScreenWidth()/2,100,2.0f,D3DCOLOR_XRGB(200, 0, 0));
 
 	m_pPF->PrintCentered("1 Player",CGame::GetInstance()->GetScreenWidth()/2,250,1.0f,D3DCOLOR_XRGB(200, 0, 0));
-	if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance() || !CGame::GetInstance()->Controller2Connected())
+	if( CGamePlayState::GetInstance()->GetGameMode() == CTimeChallengeMode::GetInstance() || !CGame::GetInstance()->Controller2Connected() || CGamePlayState::GetInstance()->GetGameMode() == CCollectionMode::GetInstance())
 	{
 		m_pPF->PrintCentered("2 Player",CGame::GetInstance()->GetScreenWidth()/2,350,1.0f,D3DCOLOR_XRGB(128, 128, 128));	
 	}
