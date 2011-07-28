@@ -242,37 +242,37 @@ void CKeyBindsState::Update(float fElapsedTime)
 void CKeyBindsState::Render(void)
 {
 	m_pTM->Draw(m_nBGImageID, 0, 0, 1.5f, 1.8f);
-	m_pPF->Print("KEY BINDINGS",220,50,1.0f,D3DCOLOR_XRGB(200, 0, 0));
+	m_pPF->PrintCentered("KEY BINDINGS",CGame::GetInstance()->GetScreenWidth()/2,50,2.0f,D3DCOLOR_XRGB(200, 0, 0));
 	
 	 
-	m_pPF->Print("INPUT DEVICE",150,120,0.5f,D3DCOLOR_XRGB(200, 0, 0));	
+	m_pPF->Print("INPUT DEVICE",150,120,1.5f,D3DCOLOR_XRGB(200, 0, 0));	
 
 	if(CGame::GetInstance()->ControllerInput())
 	{
-		m_pPF->Print("SHOOT", 150,300,0.5f,D3DCOLOR_XRGB(255,0,0));
-		m_pPF->Print("CHANGE WEAPON", 150,350,0.5f,D3DCOLOR_XRGB(255,0,0));
-		m_pPF->Print("GAMEPAD",370,120,0.5f,D3DCOLOR_XRGB(255,255,255));
-		m_pPF->Print("EXIT",150,400,0.5f,D3DCOLOR_XRGB(255,0,0));
+		m_pPF->Print("SHOOT", 150,300,1.0f,D3DCOLOR_XRGB(255,0,0));
+		m_pPF->Print("CHANGE WEAPON", 150,350,1.0f,D3DCOLOR_XRGB(255,0,0));
+		m_pPF->Print("GAMEPAD",370,200,1.0f,D3DCOLOR_XRGB(255,255,255));
+		m_pPF->Print("EXIT",150,400,1.0f,D3DCOLOR_XRGB(255,0,0));
 		
 		switch(m_pKB->GetShoot())
 		{
 		case XINPUT_GAMEPAD_A:
-			m_pPF->Print("A",400,300,0.5f,D3DCOLOR_XRGB(255,255,255));
+			m_pPF->Print("A",600,300,1.0f,D3DCOLOR_XRGB(255,255,255));
 			break;
 		case XINPUT_GAMEPAD_X:
-			m_pPF->Print("X",400,300,0.5f,D3DCOLOR_XRGB(255,255,255));
+			m_pPF->Print("X",600,300,1.0f,D3DCOLOR_XRGB(255,255,255));
 			break;
 		case XINPUT_GAMEPAD_Y:
-			m_pPF->Print("Y",400,300,0.5f,D3DCOLOR_XRGB(255,255,255));
+			m_pPF->Print("Y",600,300,1.0f,D3DCOLOR_XRGB(255,255,255));
 			break;
 		case XINPUT_GAMEPAD_B:
-			m_pPF->Print("B",400,300,0.5f,D3DCOLOR_XRGB(255,255,255));
+			m_pPF->Print("B",600,300,1.0f,D3DCOLOR_XRGB(255,255,255));
 			break;
 		case XINPUT_GAMEPAD_LEFT_SHOULDER:
-			m_pPF->Print("LEFT BUMPER",400,300,0.5f,D3DCOLOR_XRGB(255,255,255));
+			m_pPF->Print("LEFT BUMPER",600,300,1.0f,D3DCOLOR_XRGB(255,255,255));
 			break;
 		case XINPUT_GAMEPAD_RIGHT_SHOULDER:
-			m_pPF->Print("RIGHT BUMPER",400,300,0.5f,D3DCOLOR_XRGB(255,255,255));
+			m_pPF->Print("RIGHT BUMPER",600,300,1.0f,D3DCOLOR_XRGB(255,255,255));
 			break;
 
 		default:
@@ -282,22 +282,22 @@ void CKeyBindsState::Render(void)
 		switch(m_pKB->GetChangeWeapon())
 		{
 		case XINPUT_GAMEPAD_A:
-			m_pPF->Print("A",400,350,0.5f,D3DCOLOR_XRGB(255,255,255));
+			m_pPF->Print("A",600,350,1.0f,D3DCOLOR_XRGB(255,255,255));
 			break;
 		case XINPUT_GAMEPAD_X:
-			m_pPF->Print("X",400,350,0.5f,D3DCOLOR_XRGB(255,255,255));
+			m_pPF->Print("X",600,350,1.0f,D3DCOLOR_XRGB(255,255,255));
 			break;
 		case XINPUT_GAMEPAD_Y:
-			m_pPF->Print("Y",400,350,0.5f,D3DCOLOR_XRGB(255,255,255));
+			m_pPF->Print("Y",600,350,1.0f,D3DCOLOR_XRGB(255,255,255));
 			break;
 		case XINPUT_GAMEPAD_B:
-			m_pPF->Print("B",400,350,0.5f,D3DCOLOR_XRGB(255,255,255));
+			m_pPF->Print("B",600,350,1.0f,D3DCOLOR_XRGB(255,255,255));
 			break;
 		case XINPUT_GAMEPAD_LEFT_SHOULDER:
-			m_pPF->Print("LEFT BUMPER",400,350,0.5f,D3DCOLOR_XRGB(255,255,255));
+			m_pPF->Print("LEFT BUMPER",600,350,1.0f,D3DCOLOR_XRGB(255,255,255));
 			break;
 		case XINPUT_GAMEPAD_RIGHT_SHOULDER:
-			m_pPF->Print("RIGHT BUMPER",400,350,0.5f,D3DCOLOR_XRGB(255,255,255));
+			m_pPF->Print("RIGHT BUMPER",600,350,1.0f,D3DCOLOR_XRGB(255,255,255));
 			break;
 		default:
 
@@ -307,64 +307,64 @@ void CKeyBindsState::Render(void)
 	switch(m_nSelection)
 	{
 	case WS_SHOOT:
-		m_pPF->Print("SHOOT", 150,300,0.5f,D3DCOLOR_XRGB(0,255,0));
+		m_pPF->Print("SHOOT", 150,300,1.0f,D3DCOLOR_XRGB(0,255,0));
 			
 		break;
 	case WS_CHANGE_WEAPON:
-		m_pPF->Print("CHANGE WEAPON", 150,350,0.5f,D3DCOLOR_XRGB(0,255,0));
+		m_pPF->Print("CHANGE WEAPON", 150,350,1.0f,D3DCOLOR_XRGB(0,255,0));
 		break;
 	case 2:
-		m_pPF->Print("EXIT", 150,400,0.5f,D3DCOLOR_XRGB(0,255,0));
+		m_pPF->Print("EXIT", 150,400,1.0f,D3DCOLOR_XRGB(0,255,0));
 		break;
 	}
 	}
 	else
 	{
-		m_pPF->Print("KEYBOARD",370,120,0.5f,D3DCOLOR_XRGB(255,255,255));
-	m_pPF->Print("SHOOT", 150,250,0.5f,D3DCOLOR_XRGB(255,0,0));
-	m_pPF->Print("CHANGE WEAPON", 150,300,0.5f,D3DCOLOR_XRGB(255,0,0));
-	m_pPF->Print("ACCELERATE",150,350,0.5f,D3DCOLOR_XRGB(255,0,0));
-	m_pPF->Print("BREAK",150,400,0.5f,D3DCOLOR_XRGB(255,0,0));
-	m_pPF->Print("TURN LEFT",150,450,0.5f,D3DCOLOR_XRGB(255,0,0));
-	m_pPF->Print("TURN RIGHT",150,500,0.5f,D3DCOLOR_XRGB(255,0,0));
+		m_pPF->Print("KEYBOARD",370,200,1.0f,D3DCOLOR_XRGB(255,255,255));
+	m_pPF->Print("SHOOT", 150,250,1.0f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("CHANGE WEAPON", 150,300,1.0f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("ACCELERATE",150,350,1.0f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("BREAK",150,400,1.0f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("TURN LEFT",150,450,1.0f,D3DCOLOR_XRGB(255,0,0));
+	m_pPF->Print("TURN RIGHT",150,500,1.0f,D3DCOLOR_XRGB(255,0,0));
 
-		m_pPF->Print("EXIT",150,550,0.5f,D3DCOLOR_XRGB(255,0,0));
+		m_pPF->Print("EXIT",150,550,1.0f,D3DCOLOR_XRGB(255,0,0));
 		char buffer[128];
 		strcpy_s(buffer,_countof(buffer),GetKeyBound(m_pKeyboardKB->GetShoot()));
-		m_pPF->Print(buffer,400,250,0.5f,D3DCOLOR_XRGB(255,255,255));
+		m_pPF->Print(buffer,550,250,1.0f,D3DCOLOR_XRGB(255,255,255));
 		strcpy_s(buffer,_countof(buffer),GetKeyBound(m_pKeyboardKB->GetChangeWeapon()));
-		m_pPF->Print(buffer,400,300,0.5f,D3DCOLOR_XRGB(255,255,255));
+		m_pPF->Print(buffer,550,300,1.0f,D3DCOLOR_XRGB(255,255,255));
 		strcpy_s(buffer,_countof(buffer),GetKeyBound(m_pKeyboardKB->Getforward()));
-		m_pPF->Print(buffer,400,350,0.5f,D3DCOLOR_XRGB(255,255,255));
+		m_pPF->Print(buffer,550,350,1.0f,D3DCOLOR_XRGB(255,255,255));
 		strcpy_s(buffer,_countof(buffer),GetKeyBound(m_pKeyboardKB->Getbackward()));
-		m_pPF->Print(buffer,400,400,0.5f,D3DCOLOR_XRGB(255,255,255));
+		m_pPF->Print(buffer,550,400,1.0f,D3DCOLOR_XRGB(255,255,255));
 		strcpy_s(buffer,_countof(buffer),GetKeyBound(m_pKeyboardKB->GetLeft()));
-		m_pPF->Print(buffer,400,450,0.5f,D3DCOLOR_XRGB(255,255,255));
+		m_pPF->Print(buffer,550,450,1.0f,D3DCOLOR_XRGB(255,255,255));
 		strcpy_s(buffer,_countof(buffer),GetKeyBound(m_pKeyboardKB->GetRight()));
-		m_pPF->Print(buffer,400,500,0.5f,D3DCOLOR_XRGB(255,255,255));
+		m_pPF->Print(buffer,550,500,1.0f,D3DCOLOR_XRGB(255,255,255));
 
 	switch(m_nSelection)
 	{
 	case WS_SHOOT:
-		m_pPF->Print("SHOOT", 150,250,0.5f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
+		m_pPF->Print("SHOOT", 150,250,1.0f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
 		break;
 	case WS_CHANGE_WEAPON:
-		m_pPF->Print("CHANGE WEAPON", 150,300,0.5f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
+		m_pPF->Print("CHANGE WEAPON", 150,300,1.0f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
 		break;
 	case WS_FORWARD:
-		m_pPF->Print("ACCELERATE", 150,350,0.5f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
+		m_pPF->Print("ACCELERATE", 150,350,1.0f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
 		break;
 	case WS_BACKWARD:
-		m_pPF->Print("BREAK", 150,400,0.5f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
+		m_pPF->Print("BREAK", 150,400,1.0f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
 		break;
 	case WS_LEFT:
-		m_pPF->Print("TURN LEFT", 150,450,0.5f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
+		m_pPF->Print("TURN LEFT", 150,450,1.0f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
 		break;
 	case WS_RIGHT:
-		m_pPF->Print("TURN RIGHT", 150,500,0.5f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
+		m_pPF->Print("TURN RIGHT", 150,500,1.0f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
 		break;
 	case WS_EXIT:
-		m_pPF->Print("EXIT", 150,550,0.5f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
+		m_pPF->Print("EXIT", 150,550,1.0f,D3DCOLOR_XRGB(0,255-m_nSelected,m_nSelected));
 		break;
 	}
 

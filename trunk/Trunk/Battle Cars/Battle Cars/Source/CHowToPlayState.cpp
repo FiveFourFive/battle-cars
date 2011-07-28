@@ -81,7 +81,7 @@ bool CHowToPlayState::Input(void)
 		if(CGame::GetInstance()->GetInputDelay() >= 0.15f)
 		{
 			
-			if(xState.Gamepad.wButtons & tempkeys->GetBack())
+			if(xState.Gamepad.wButtons & XINPUT_GAMEPAD_B)
 			{
 				CGame::GetInstance()->ResetInputDelay();
 				return HandleEnter();
@@ -120,14 +120,22 @@ void CHowToPlayState::Render(void)
 {
 	CSGD_Direct3D* pD3D = CSGD_Direct3D::GetInstance();
 	m_pTM->Draw(m_nBGImageID, 0, 0, 1.0f, 1.0f);
-	m_pPF->Print("HOW TO PLAY",220,50,1.0f,D3DCOLOR_XRGB(255, 0, 0));
-	m_pPF->Print("Arrow Keys - MOVEMENT",100,100,0.5f,D3DCOLOR_XRGB(0, 0, 255));
-	m_pPF->Print("Spacebar - SHOOT",100,150,0.5f,D3DCOLOR_XRGB(0, 0, 255));
-	m_pPF->Print("Left Control - CHANGE WEAPONS",100,200,0.5f,D3DCOLOR_XRGB(0, 0, 255));
-	m_pPF->Print("Escape - PAUSE",100,250,0.5f,D3DCOLOR_XRGB(0, 0, 255));
-	m_pPF->Print("Enter - CONTINUE",100,300,0.5f,D3DCOLOR_XRGB(0, 0, 255));
+	m_pPF->PrintCentered("HOW TO PLAY",CGame::GetInstance()->GetScreenWidth()/2,50,2.0f,D3DCOLOR_XRGB(255, 0, 0));
+	m_pPF->Print("Keyboard",250,130,1.5f,D3DCOLOR_XRGB(0,0,255));
+	m_pPF->Print("Arrow Keys - MOVEMENT",200,250,0.7f,D3DCOLOR_XRGB(0, 0, 255));
+	m_pPF->Print("Spacebar - SHOOT",200,300,0.7f,D3DCOLOR_XRGB(0, 0, 255));
+	m_pPF->Print("Left Control - CHANGE WEAPONS",200,350,0.7f,D3DCOLOR_XRGB(0, 0, 255));
+	m_pPF->Print("Escape - PAUSE",200,400,0.7f,D3DCOLOR_XRGB(0, 0, 255));
+	m_pPF->Print("Enter - CONTINUE",200,450,0.7f,D3DCOLOR_XRGB(0, 0, 255));
 
-	m_pPF->Print("PRESS ESC OR B (GAMEPAD) TO EXIT",150,500,0.5f,D3DCOLOR_XRGB(0, 255, 0));
+	m_pPF->Print("Keyboard",850,130,1.5f,D3DCOLOR_XRGB(0,0,255));
+	m_pPF->Print("Left Stick - Steering",800,250,0.7f,D3DCOLOR_XRGB(0, 0, 255));
+	m_pPF->Print("X - SHOOT",800,300,0.7f,D3DCOLOR_XRGB(0, 0, 255));
+	m_pPF->Print("Left Bumper - CHANGE WEAPONS",800,350,0.7f,D3DCOLOR_XRGB(0, 0, 255));
+	m_pPF->Print("Start - PAUSE",800,400,0.7f,D3DCOLOR_XRGB(0, 0, 255));
+	m_pPF->Print("Right Trigger - Accelerate",800,450,0.7f,D3DCOLOR_XRGB(0, 0, 255));
+	m_pPF->Print("Left Trigger - Break/Reverse",800,600,0.7f,D3DCOLOR_XRGB(0, 0, 255));
+	m_pPF->PrintCentered("PRESS ESC OR B (GAMEPAD) TO EXIT",CGame::GetInstance()->GetScreenWidth()/2,800,1.0f,D3DCOLOR_XRGB(0, 255, 0));
 
 }
 
