@@ -793,9 +793,9 @@ bool CCharacterSelection::LoadCharacters()
 		character->SetHealth(100);
 		character->SetMaxHealth(100);
 		character->SetPowerUpBar(0);
-		character->SetShieldBar(100);
+		character->SetShieldBar(armor);
 		character->SetMaxPowerUp(100);
-		character->SetMaxShield(100);
+		character->SetMaxShield(armor);
 		character->SetVelX(0);
 		character->SetVelY(0);
 		tVector2D temp = {0,0};

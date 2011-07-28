@@ -101,7 +101,7 @@ public:
 	float getSoundAVolume();
 	float getSoundBVolume();
 	float GetElapsedTime(){ return m_fElapsedTime;}
-
+	void Pause(void);
 	void SetSoundAVolume(float newvol);
 	void SetSoundBVolume(float newvol);
 

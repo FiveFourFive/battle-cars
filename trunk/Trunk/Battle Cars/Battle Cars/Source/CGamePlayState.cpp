@@ -51,7 +51,7 @@
 #include "CCollectState.h"
 #include "CHUD.h"
 #include "CMap.h"
-
+#include "CThread.h"
 void LoadCharacters();
 
 
@@ -87,13 +87,12 @@ CGamePlayState* CGamePlayState::GetInstance(void)
 	return &instance;
 }
 
+
 void CGamePlayState::Enter(void)
 {
 	//m_pMode = new CDeathmatchMode();
 
 	int offset = 0;
-
-	Level = CLevel::GetInstance ();
 
 	m_pD3D	=	CSGD_Direct3D::GetInstance();
 
@@ -107,12 +106,12 @@ void CGamePlayState::Enter(void)
 	m_pES	=	CEventSystem::GetInstance ();
 
 	m_pPM	=	ParticleManager::GetInstance();
-	m_pMS->InitMessageSystem (MessageProc);
+	//m_pMS->InitMessageSystem (MessageProc);
 	m_pPF = new CPrintFont(m_pTM->LoadTexture("resource/graphics/BC_Font.png",D3DCOLOR_XRGB(0, 0, 0)));
 
 	//CSGD_FModManager::GetInstance()->PlaySound(m_nBackgroundMusicID);
-	m_pMS->SendMsg (new CCreateLevelMessage());
-	m_pMS->ProcessMessages ();
+	/*m_pMS->SendMsg (new CCreateLevelMessage());
+	m_pMS->ProcessMessages ();*/
 
 	m_pController1 = CGame::GetInstance()->GetController1();
 	m_pController2 = CGame::GetInstance()->GetController2();
@@ -123,11 +122,6 @@ void CGamePlayState::Enter(void)
 	player->SetPlayerNum(1);
 	player->SetType(OBJECT_PLAYER);
 	player->Rotate(0);
-	
-	cars.push_back (player);
-
-	cars = Level->SetCarSpawn (cars);
-
 	CBoss* boss = new CBoss(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
 	CBoss* miniboss = new CBoss(CCharacterSelection::GetInstance()->GetPlayer1()->GetController());
 	miniboss->SetMiniBoss(true);
@@ -139,6 +133,36 @@ void CGamePlayState::Enter(void)
 	miniboss->SetPosX(float(rand()%1400+200));
 	miniboss->SetPosY(float(rand()%1400+200));
 	miniboss->SetCarId(CSGD_TextureManager::GetInstance()->LoadTexture("resource/graphics/BattleCars_MiniBossPlaceHolder.png"));
+	cars.push_back (player);
+if(!m_bCollectionChallenge)
+	{
+		
+
+		characters = CCharacterSelection::GetInstance()->GetList();
+
+		if(CNumPlayers::GetInstance()->GetNumberOfPlayers() > 1)
+		{
+			player2 = CCharacterSelection::GetInstance()->GetPlayer2();
+			//m_pOM->AddObject(player2);
+			player2->Rotate(0.0f);
+			player2->SetPosX(500);
+			player2->SetPosY(400);
+			player2->SetPlayerNum(2);
+			player2->SetController(m_pController2);
+			cars.push_back (player2);
+		}
+		else
+		{
+			int player2index = rand()%4;
+			while(player2index == CCharacterSelection::GetInstance()->GetPlayer1()->GetPlayerType())
+				player2index = rand()%4;
+			player2 = characters[player2index];
+		}
+		m_pOM->AddObject(miniboss);
+	}
+	cars = Level->SetCarSpawn (cars);
+
+	
 
 	RECT health_rect;
 	health_rect.left = 5;
@@ -166,6 +190,8 @@ void CGamePlayState::Enter(void)
 	m_fCountDown = 0.0f;
 	m_nCollectableTotalComputer = 0;
 	m_nCollectableTotalPlayer = 0;
+	m_nCrateID = m_pTM->LoadTexture("resource/graphics/crate.png");
+	m_nBarrelID = m_pTM->LoadTexture("resource/graphics/steeldrum.png");
 
 	if(!m_bCollectionChallenge)
 	{
@@ -194,6 +220,10 @@ void CGamePlayState::Enter(void)
 		cars.push_back (miniboss);
 		m_pOM->AddObject(miniboss);
 	}
+	m_nBgMusicID = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/Superbeast.mp3",SGD_FMOD_LOOPING);
+	m_nCountDown = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/Countdown.mp3");
+	m_nCountDownEnd = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/Countdowntone.mp3");
+	
 	
 	time = 300;
 	m_fElapsedSecond = 0.0f;
@@ -206,13 +236,13 @@ void CGamePlayState::Enter(void)
 
 
 	//// game obstacles //////
-	m_nCrateID = m_pTM->LoadTexture("resource/graphics/crate.png");
-	m_nBarrelID = m_pTM->LoadTexture("resource/graphics/steeldrum.png");
+	//m_nCrateID = m_pTM->LoadTexture("resource/graphics/crate.png");
+	//m_nBarrelID = m_pTM->LoadTexture("resource/graphics/steeldrum.png");
 
 	//// game obstacles /////
-	m_nBgMusicID = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/Superbeast.mp3",SGD_FMOD_LOOPING);
+	/*m_nBgMusicID = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/Superbeast.mp3",SGD_FMOD_LOOPING);
 	m_nCountDown = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/Countdown.mp3");
-	m_nCountDownEnd = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/Countdowntone.mp3");
+	m_nCountDownEnd = CSGD_FModManager::GetInstance()->LoadSound("resource/sounds/Countdowntone.mp3");*/
 	m_pFM->SetVolume(m_nCountDown,CGame::GetInstance()->getSoundAVolume());
 	m_pFM->SetVolume(m_nCountDownEnd,CGame::GetInstance()->getSoundBVolume());
 
